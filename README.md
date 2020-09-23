@@ -1,9 +1,9 @@
-# Analiza podatkov s programom R, 2019/20
+# Analiza podatkov s programom R, 2020/21
 
-Repozitorij z gradivi pri predmetu APPR v študijskem letu 2019/20
+Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
-* [![Shiny](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/jaanos/APPR-2019-20/master?urlpath=shiny/APPR-2019-20/projekt.Rmd) Shiny
-* [![RStudio](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/jaanos/APPR-2019-20/master?urlpath=rstudio) RStudio
+* [![Shiny](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/jaanos/APPR-2020-21/master?urlpath=shiny/APPR-2020-21/projekt.Rmd) Shiny
+* [![RStudio](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/jaanos/APPR-2020-21/master?urlpath=rstudio) RStudio
 
 ## Tematika
 
@@ -48,7 +48,7 @@ Za zagon tega vzorca je potrebno namestiti sledeče pakete za R:
 
 ## Binder
 
-Zgornje [povezave](#analiza-podatkov-s-programom-r-201819)
+Zgornje [povezave](#analiza-podatkov-s-programom-r-202021)
 omogočajo poganjanje projekta na spletu z orodjem [Binder](https://mybinder.org/).
 V ta namen je bila pripravljena slika za [Docker](https://www.docker.com/),
 ki vsebuje večino paketov, ki jih boste potrebovali za svoj projekt.
