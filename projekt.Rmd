@@ -1,6 +1,6 @@
 ---
-title: "Poročilo pri predmetu Analiza podatkov s programom R"
-author: "Študent FMF"
+title: "Bruto mesečna plača v Sloveniji"
+author: "Neža Kržan"
 output:
   html_document: default
   pdf_document:
