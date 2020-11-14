@@ -6,9 +6,28 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 * [![RStudio](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/ian-spiller/APPR-2020-21/master?urlpath=rstudio) RStudio
 
 ## Tematika
+Analiza podjetja Apple v primerjavi s SP500
 
-Izbrali si boste temo, s katero se bo vaš projekt ukvarjal.
-Tukaj boste napisali, kje ste dobili podatke, ter kakšen je vaš cilj.
+Za projektno nalogo bom analiziral podatke podjetja Apple in jih primerjal s borznim indeksom SP500.
+Pogledal bom rast:
+
+-prodaje
+-neto dobička
+-knjigovodske vrednosti
+-dividende
+
+od Sp500 in Apple v zadnjih 10tih letih, ter primerjal rasti med seboj.
+Nato bom primerjal še koeficenta P/E (cena/dobiček na delnico) in P/B (cena/knjigovodska vrednost na delnico)
+od Apple in SP500 za zadnjih 10let.
+
+Podatke od Appla bom dobil na naslednji povezavi:
+https://financials.morningstar.com/ratios/r.html?t=0P000000GY&culture=en&platform=sal
+Za cene Appla bom uporabil že vgrajeno knjižnico "quantmod" s pomočjo katere lahko dobimo
+cene delnice za zadnjih 10 let.
+Podatke za SP 500 pa bom dobil preko spleta v obliki HTML na strani:
+https://www.quandl.com/data/MULTPL-S-P-500-Ratios?page=2
+
+
 
 ## Program
 
