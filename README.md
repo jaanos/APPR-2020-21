@@ -9,16 +9,10 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 Analiza podjetja Apple v primerjavi s SP500
 
 Za projektno nalogo bom analiziral podatke podjetja Apple in jih primerjal s borznim indeksom SP500.
-Pogledal bom rast:
-
--prodaje
--neto dobička
--knjigovodske vrednosti
--dividende
-
-od Sp500 in Apple v zadnjih 10tih letih, ter primerjal rasti med seboj.
+Pogledal bom rast prodaje,neto dobička,knjigovodske vrednosti in dividend od SP500 in Appla v zadnjih 10tih letih,
+ter primerjal rasti med seboj.
 Nato bom primerjal še koeficenta P/E (cena/dobiček na delnico) in P/B (cena/knjigovodska vrednost na delnico)
-od Apple in SP500 za zadnjih 10let.
+od Appla in SP500 za zadnjih 10let.
 
 Podatke od Appla bom dobil na naslednji povezavi:
 https://financials.morningstar.com/ratios/r.html?t=0P000000GY&culture=en&platform=sal
