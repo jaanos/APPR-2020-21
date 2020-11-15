@@ -30,6 +30,7 @@ Na koncu bom višino povprečne bruto plače primerjala z povprečjem evropskih 
 ### Viri:
 * SiStat:
 https://pxweb.stat.si/SiStat/sl/Podrocja/Index/98/place-in-stroski-dela
+
 *Eurostat:
 http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=earn_nt_net&lang=en
 
