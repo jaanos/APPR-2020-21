@@ -2,13 +2,37 @@
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
-* [![Shiny](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/jaanos/APPR-2020-21/master?urlpath=shiny/APPR-2020-21/projekt.Rmd) Shiny
-* [![RStudio](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/jaanos/APPR-2020-21/master?urlpath=rstudio) RStudio
+* [![Shiny](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/nezakrzan/APPR-2020-21/master?urlpath=shiny/APPR-2020-21/projekt.Rmd) Shiny
+* [![RStudio](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/nezakrzan/APPR-2020-21/master?urlpath=rstudio) RStudio
 
-## Tematika
+# Analiza plač v Sloveniji
 
-Izbrali si boste temo, s katero se bo vaš projekt ukvarjal.
-Tukaj boste napisali, kje ste dobili podatke, ter kakšen je vaš cilj.
+Analizirala bom višino povprečne bruto mesečne plače v odvisnosti od gospodarske dejavnosti, izobrazbe ter spola. Zanimal me bo trend spreminjanja višine plače glede na starostno obdobje in višina povprečne plače po regijah po spolu. Podtake bom vizualizirala s pomočjo zemljevida.
+Primerjala bom tudi plače v javnem in zasebnem sektorju glede na izobrazbo in spol.
+Na koncu bom višino povprečne bruto plače primerjala z povprečjem evropskih držav in pridobljene podatke prikazala z grafikoni.
+
+
+### Tabele
+
+1. tabela: Povprečna bruto mesečna plača glede na gospodarsko dejavnost, izobrazbo in spol.
+* Stolpci: Gospodarska dejavnost, izobrazba, spol, leto, plača
+
+2. tabela: Povprečna bruto mesečna plača glede na regijo in spol.
+* Stolpci: Regija, starost, spol, leto, plača
+
+3. tabela: Povprečna bruto mesečna plača v javnem in zasebnem sektorju glede na izobrazbo in spol.
+* Stolpci: Javni sektor, zasebi sektor, izobrazba, spol, leto, plača
+
+4. tabela: Povprečna bruto mesečna plača v Evropi.
+* Stolpci: Država, leto, plača
+
+
+### Viri:
+* SiStat:
+https://pxweb.stat.si/SiStat/sl/Podrocja/Index/98/place-in-stroski-dela
+*Eurostat:
+http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=earn_nt_net&lang=en
+
 
 ## Program
 
