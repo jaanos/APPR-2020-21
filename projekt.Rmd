@@ -22,11 +22,9 @@ source("lib/libraries.r", encoding="UTF-8")
 source("lib/rstudio.r", encoding="UTF-8")
 ```
 
-# Izbira teme
+# Analiza mesečnih plač v Sloveniji in po Evropi
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
-
-![](slike/grb.png)
+![](slike/payday.jpg)
 
 ***
 
