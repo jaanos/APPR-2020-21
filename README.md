@@ -10,6 +10,11 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 Ogledali si bomo plače v ZDA glede na panožno strukturo in glede na lokalno strukturo.
 Ogledali si bomo podatke o BDP, BDP pc in BDP pc ppp ter pogledali, kako je struktura plač
 odvisna od teh dejavikov.
+Podatke o plačas so dostopni na U.S. BUREAU OF LABOR STATISTICS: https://www.bls.gov/oes/tables.htm.
+Podatke od BDP so dostopni na :
+Podatke od BDP pc so dostopni na :
+Podatke od BDP pc ppp so dostopni na :
+
 
 
 ## Program
