@@ -5,10 +5,22 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 * [![Shiny](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/UrbanRupnik/APPR-2020-21/master?urlpath=shiny/APPR-2020-21/projekt.Rmd) Shiny
 * [![RStudio](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/UrbanRupnik/APPR-2020-21/master?urlpath=rstudio) RStudio
 
-## Tematika
+## Analiza razpoložljivega dohodka gospodinjstev v Sloveniji
 
-Izbrali si boste temo, s katero se bo vaš projekt ukvarjal.
-Tukaj boste napisali, kje ste dobili podatke, ter kakšen je vaš cilj.
+V svoji projektni nalogi bom analiziral razpoložljivi dohodek gospodinjstev zadnjih let. Opazoval bom povprečni dohodek na člana gospodinjstva po opravljenih socialnih transferjih glede na spol, starost in izobrazbo ter dohodek po statističnih regijah Slovenije.
+
+## Podatki
+
+Svoje podatke bom črpal s strani [SiStat](https://pxweb.stat.si/SiStat/sl) v obliki CSV datotek (ločeno s podpičjem, z glavo). Shranjeni so v istoimenski mapi [podatki](https://github.com/UrbanRupnik/APPR-2020-21/tree/master/podatki).
+
+### Tabele
+
+* Razpoložljivi dohodek gospodinjstev po starosti in spolu (EUR) 
+* Razpoložljivi dohodek gospodinjstev glede na doseženo izobrazbo in spol (EUR)
+* Razpoložljivi dohodek gospodinjstev po statističnih regijah (EUR)
+
+## Plan dela
+Pri analizi bom razvrščal podatke in iskal povezave med spremenljivkami (npr. ali se dohodek razlikuje glede na spol, ali je razmerje razlik med spoloma podobno razmerju razlik med izobrazbo itd.), glede na obnašanje v zadnjih letih pripravil predikcijo za prihodnost in rezultate vizualiziral.
 
 ## Program
 
@@ -69,3 +81,6 @@ v datoteki `gitconfig` nastavite svoje ime in priimek ter e-poštni naslov
 ob naslednjem zagonu bo mogoče delati commite.
 Te podatke lahko nastavite tudi z `git config --global` v konzoli
 (vendar bodo veljale le v trenutni seji).
+
+## Avtor
+* Urban Rupnik
