@@ -93,9 +93,6 @@ Prvi graf prikazuje povprečno število dijakov po regijah v zadnjih desetih let
 graf1
 ```
 
-```{r graf2, echo=FALSE, fig.align='center'}
-graf2
-```
 
 Spodnji zemljevid pa nam prikazuje povprečno število diplomantov po regijah v zadnjih desetih letih. Glede na število dijakov in število diplomantov lahko razberemo, da je številka dijakov veliko večja kot številka diplomantov, kar pomeni da veliko ljudi ne nadaljuje svojega šolanja na faksu in se raje zaposlijo, ali pa pred diplomiranjem faks pustijo in se zaposlijo. Kot primer lahko vzamemo npr.Osrednje_slovenskoo regijo, kjer vidimo, da je v zadnjih 10 letih diplomirala le dobra četrtina vseh dijakov v zadnjih desetih letih.
 
@@ -105,15 +102,6 @@ Spodnji zemljevid pa nam prikazuje povprečno število diplomantov po regijah v 
 
 Spodnje dva grafa nam prikazujeta, v katere izobraževalne programe so se v zadnjih desetih letih vpisovali slovenski dijaki in dijakinje. Iz podatov v grafih lahko razberemo, da so se fantje bolj zanimali za tehniške in druge strokovne programe, medtem ko so se dekleta odločile za splošne in strokovne gimnazijske programe.
 
-```{r grafs, echo=FALSE, fig.align='center'}
-graf3
-```
-
-
-
-```{r graf4, echo=FALSE, fig.align='center'}
-graf4
-```
 
 ```{r graf5, echo=FALSE, fig.align='center'}
 graf5
