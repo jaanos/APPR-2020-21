@@ -18,8 +18,7 @@ Podatke od Appla bom dobil na naslednji povezavi:
 https://financials.morningstar.com/ratios/r.html?t=0P000000GY&culture=en&platform=sal
 Za cene Appla bom uporabil že vgrajeno knjižnico "quantmod" s pomočjo katere lahko dobimo
 cene delnice za zadnjih 10 let.
-Podatke za SP 500 pa bom dobil preko spleta v obliki HTML na strani:
-https://www.quandl.com/data/MULTPL-S-P-500-Ratios?page=2
+Podatke za SP 500 bom ravno tako dobil preko vgrajene funkcije Quandl.
 
 
 
