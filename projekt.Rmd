@@ -1,6 +1,6 @@
 ---
 title: "Poročilo pri predmetu Analiza podatkov s programom R"
-author: "Študent FMF"
+author: "Ana Marija Okorn"
 output:
   html_document: default
   pdf_document:
@@ -22,47 +22,50 @@ source("lib/libraries.r", encoding="UTF-8")
 source("lib/rstudio.r", encoding="UTF-8")
 ```
 
-# Izbira teme
+# Analiza sekundarnega in terciarnega združevanja
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
+Za projektno nalogo sem izbrala analizo sekundarnega in terciarnega izobraževanja. Vse podatke, ki sem jih uporabila sem dobila na Statističnem uradu republike Slovenije(SURS).
 
-![](slike/grb.png)
+![](slike/knjige.jpg)
 
 ***
 
 # Obdelava, uvoz in čiščenje podatkov
 
-```{r uvoz}
-source("uvoz/uvoz.r", encoding="UTF-8")
+```{r uvoz, echo=FALSE, message=FALSE}
+source("uvoz/mojuvoz.R", encoding="UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
+Uvozili smo podatke v obliki CSV s statističnega urada. Podatke imamo v štirih razpredelnicah v obliki *tidy data*.
 
-1. `druzine` - podatki o družinah za vsako občino
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `velikost.druzine` - spremenljivka: število otrok v družini (število: 1, 2, 3 ali 4, kjer zadnja vrednost pomeni 4 ali več),
-  - `stevilo.druzin` - meritev: število družin z ustreznim številom otrok v ustrezni občini (število).
+1. `regije` - podatki o številu dijakov in študentov za vsako regijo
+  - `regija` - spremenljivka: ime regije (neurejen faktor),
+  - `leto` - spremenljivka (število),
+  - `kategorija` - spremenljivka: število dijakov/število študentov (neurejen faktor),
+  - `število` meritev: število dijakov/študentov v pripadajoči regiji(število).
 
-2. `obcine` - podatki o občinah
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `povrsina` - meritev: površina občine v km$^2$ (število),
-  - `prebivalci` - meritev: prebivalstvo občine (število),
-  - `gostota` - meritev: število prebivalcev na km$^2$ (število),
-  - `naselja` - meritev: število naselij v občini (število),
-  - `ustanovitev` - meritev: leto ustanovitve občine (število),
-  - `pokrajina` - meritev: pokrajina, ki ji občina pripada (neurejen faktor),
-  - `regija` - meritev: regija, ki ji občina pripada (neurejen faktor),
-  - `odcepitev` - meritev: podatki o občinah, od katerih se je občina odcepila (besedilo).
+2. `izobraževanja` - podatki o številu dijakov glede na spol in vrsto izobraževanja
+  - `izobraževanje` - spremenljivka: vrsta izobraževanja (neurejen faktor),
+  - `leto` - spremenljivka (število),
+  - `spol` - spremenljivka: moški/ženski spol (neurejen faktor),
+  - `število` meritev: število dijakov glede na spol in vrsto izobraževanja(število).
+  
+3. `izobraževanja` - podatki o številu študentov glede na spol in vrsto izobraževanja
+  - `izobraževanje` - spremenljivka: vrsta izobraževanja (neurejen faktor),
+  - `leto` - spremenljivka (število),
+  - `spol` - spremenljivka: moški/ženski spol (neurejen faktor),
+  - `število` meritev: število studentov glede na spol in vrsto izobraževanja(število).
+  
+4. `izobraževanja` - podatki o številu študentov glede na način študija in vrsto izobraževanja
+  - `izobraževanje` - spremenljivka: vrsta izobraževanja (neurejen faktor),
+  - `leto` - spremenljivka (število),
+  - `študij` - spremenljivka: redni/izredni študij (neurejen faktor),
+  - `število` meritev: število studentov glede na način študija in vrsto izobraževanja(število).
 
-**Opomba**: da bi razpredelnica `obcine` res bila v obliki *tidy data*, bi morali odstraniti stolpec `gostota` (saj je izpeljan iz stolpcev `povrsina` in `prebivalci`), podatke o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s stolpcem `odcepitev`.
-
-Spodnji graf prikazuje porazdelitev števila naselij v občinah.
-
-```{r histogram, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-ggplot(obcine, aes(x=naselja)) + geom_histogram() +
-  ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
-```
+#```{r histogram, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
+#ggplot(obcine, aes(x=naselja)) + geom_histogram() +
+#  ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
+#```
 
 ***
 
@@ -72,12 +75,48 @@ ggplot(obcine, aes(x=naselja)) + geom_histogram() +
 source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 ```
 
-Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
+#Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
 
-```{r zemljevid, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
-  tm_polygons("povprecje", title="Povprečje") +
-  tm_layout(title="Povprečno število otrok v družini")
+#```{r zemljevid, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
+#tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
+#  tm_polygons("povprecje", title="Povprečje") +
+#  tm_layout(title="Povprečno število otrok v družini")
+#```
+
+Pred analizo teh podatkov sem si zastavila naslednja vprašanja:
+
+- Kje v Sloveniji je največ dijakov, ter kje je največ diplomantov?
+- Kam se v zadnjih desetih letih najbolj usmerjajo mladi(moški in ženske), ko se odločajo za srednjo šolo?
+
+Prvi graf prikazuje povprečno število dijakov po regijah v zadnjih desetih letih(2009-2018).
+```{r graf1, echo=FALSE, fig.align='center'}
+graf1
+```
+
+```{r graf2, echo=FALSE, fig.align='center'}
+graf2
+```
+
+Spodnji zemljevid pa nam prikazuje povprečno število diplomantov po regijah v zadnjih desetih letih. Glede na število dijakov in število diplomantov lahko razberemo, da je številka dijakov veliko večja kot številka diplomantov, kar pomeni da veliko ljudi ne nadaljuje svojega šolanja na faksu in se raje zaposlijo, ali pa pred diplomiranjem faks pustijo in se zaposlijo. Kot primer lahko vzamemo npr.Osrednje_slovenskoo regijo, kjer vidimo, da je v zadnjih 10 letih diplomirala le dobra četrtina vseh dijakov v zadnjih desetih letih.
+
+```{r zemljevid1, echo=FALSE, message=FALSE, warning=FALSE,fig.align='center', fig.cap='Povprečno število diplomantov po regijah v zadnjih desetih letih'}
+ zemljevid1
+```
+
+Spodnje dva grafa nam prikazujeta, v katere izobraževalne programe so se v zadnjih desetih letih vpisovali slovenski dijaki in dijakinje. Iz podatov v grafih lahko razberemo, da so se fantje bolj zanimali za tehniške in druge strokovne programe, medtem ko so se dekleta odločile za splošne in strokovne gimnazijske programe.
+
+```{r grafs, echo=FALSE, fig.align='center'}
+graf3
+```
+
+
+
+```{r graf4, echo=FALSE, fig.align='center'}
+graf4
+```
+
+```{r graf5, echo=FALSE, fig.align='center'}
+graf5
 ```
 
 ***
@@ -88,17 +127,17 @@ tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
 source("analiza/analiza.r", encoding="UTF-8")
 ```
 
-Spodnji graf prikazuje povezavo med številom naselij in površino občine.
+#Spodnji graf prikazuje povezavo med številom naselij in površino občine.
 
-```{r graf, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-ggplot(inner_join(obcine, data.frame(obcina=names(skupine),
-                                     skupina=factor(skupine)), by="obcina")
-, aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() +
-  ggtitle("Število naselij glede na površino občine") +
-  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-  guides(color=guide_legend(title="Skupina"),
-         size=guide_legend(title="Prebivalci (* 1000)"))
-```
+#```{r graf, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
+#ggplot(inner_join(obcine, data.frame(obcina=names(skupine),
+#                                     skupina=factor(skupine)), by="obcina")
+#, aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() +
+#  ggtitle("Število naselij glede na površino občine") +
+#  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
+#  guides(color=guide_legend(title="Skupina"),
+#         size=guide_legend(title="Prebivalci (* 1000)"))
+#```
 
 ***
 
