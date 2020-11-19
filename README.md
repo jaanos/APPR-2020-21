@@ -11,13 +11,14 @@ V svoji projektni nalogi bom analiziral razpoložljivi dohodek gospodinjstev zad
 
 ## Podatki
 
-Svoje podatke bom črpal s strani [SiStat](https://pxweb.stat.si/SiStat/sl) v obliki CSV datotek (ločeno s podpičjem, z glavo). Shranjeni so v istoimenski mapi [podatki](https://github.com/UrbanRupnik/APPR-2020-21/tree/master/podatki).
+Svoje podatke bom črpal s strani [SiStat](https://pxweb.stat.si/SiStat/sl) v obliki CSV datotek (ločeno s podpičjem, z glavo) ter v HTML obliki. Shranjeni so v istoimenski mapi [podatki](https://github.com/UrbanRupnik/APPR-2020-21/tree/master/podatki).
 
 ### Tabele
 
 * Razpoložljivi dohodek gospodinjstev po starosti in spolu (EUR) 
 * Razpoložljivi dohodek gospodinjstev glede na doseženo izobrazbo in spol (EUR)
 * Razpoložljivi dohodek gospodinjstev po statističnih regijah (EUR)
+* Povprečni razpoložljivi dohodek gospodinjstev po vrstah dohodka (EUR)
 
 ## Plan dela
 Pri analizi bom razvrščal podatke in iskal povezave med spremenljivkami (npr. ali se dohodek razlikuje glede na spol, ali je razmerje razlik med spoloma podobno razmerju razlik med izobrazbo itd.), glede na obnašanje v zadnjih letih pripravil predikcijo za prihodnost in rezultate vizualiziral.
