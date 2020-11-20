@@ -15,10 +15,10 @@ Svoje podatke bom črpal s strani [SiStat](https://pxweb.stat.si/SiStat/sl) v ob
 
 ### Tabele
 
-* Razpoložljivi dohodek gospodinjstev po starosti in spolu (EUR) 
-* Razpoložljivi dohodek gospodinjstev glede na doseženo izobrazbo in spol (EUR)
-* Razpoložljivi dohodek gospodinjstev po statističnih regijah (EUR)
-* Povprečni razpoložljivi dohodek gospodinjstev po vrstah dohodka (EUR)
+* [Razpoložljivi dohodek gospodinjstev po starosti in spolu (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1229)
+* [Razpoložljivi dohodek gospodinjstev glede na doseženo izobrazbo in spol (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1230)
+* [Razpoložljivi dohodek gospodinjstev po statističnih regijah (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1228)
+* [Povprečni razpoložljivi dohodek gospodinjstev po vrstah dohodka (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1214)
 
 ## Plan dela
 Pri analizi bom razvrščal podatke in iskal povezave med spremenljivkami (npr. ali se dohodek razlikuje glede na spol, ali je razmerje razlik med spoloma podobno razmerju razlik med izobrazbo itd.), glede na obnašanje v zadnjih letih pripravil predikcijo za prihodnost in rezultate vizualiziral.
