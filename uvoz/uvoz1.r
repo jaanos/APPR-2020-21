@@ -1,6 +1,7 @@
 library(readr)
 library(tidyr)
 library(dplyr)
+library(rvest)
 
 
 #Tabela za starost in spol
@@ -26,6 +27,21 @@ glava_regije <- c("Vrsta dohodka","Regija", "Leto",
 
 regije <- read.csv2("podatki/statistične_regije.csv", skip = 3, header = F,
                     col.names = glava_regije, encoding = "utf-8")
+
+#Vrste dohodka
+url <- "https://pxweb.stat.si:443/SiStatData/sq/1214"
+vrste_dohodka <- read_html(url) %>%
+  html_nodes(xpath = "//table") %>%
+  .[[1]] %>%
+  html_table(fill = TRUE, header = FALSE) %>%
+  rename(
+    Vrsta.dohodka=1,
+    Vir=2,
+    Leto=3,
+    Dohodek=4
+  ) %>%
+  slice(-1, -2)
+  
 
 
 
