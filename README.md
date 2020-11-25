@@ -11,9 +11,9 @@ Analiziral bom turizem v Sloveniji med leti 2010 in 2019. Osredotočil se bom na
 
 ### Viri:
 
-* https://pxweb.stat.si/SiStat/sl/Podrocja/Index/155/turizem
-* https://sl.wikipedia.org/wiki/Turizem_v_Sloveniji
-* https://sl.wikipedia.org/wiki/Turizem
+* https://pxweb.stat.si/SiStat/sl/Podrocja/Index/155/turizem (CSV)
+* https://sl.wikipedia.org/wiki/Turizem_v_Sloveniji (HTML)
+
 
 ## Program
 
