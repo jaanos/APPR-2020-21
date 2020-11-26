@@ -46,3 +46,11 @@ tabela3nova <- gather(tabela4, -izobrazevanje, -leto, key=spol, value=stevilo, n
 
 tabela4nova <- gather(tabela5, -izobrazevanje, -leto, key=studij, value=stevilo, na.rm = TRUE)
 
+#tabela5novanova so podatki o številu prebivalcev po regijah po letih
+
+url <- "prebivalciregije4.htm"
+stran <- read_html(url)
+tabela5nova <- stran %>% html_nodes(xpath="//table") %>% .[[1]] %>% html_table(fill = TRUE)
+colnames(tabela5nova) <- c("regija", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019")
+tabela5nova <- tabela5nova %>% select(c(-12)) %>% drop_na() %>% slice(2:12) 
+tabela5novanova <- gather(tabela5nova, -regija, key=leto, value = stevilo, na.rm = TRUE)
