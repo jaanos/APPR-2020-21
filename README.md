@@ -11,7 +11,7 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
 V svojem projektu bom analizirala vključenost otrok v srednje šole ter diplomantov v ustanove namenjene terciarnemu izobraževanju. Vse podatke, ki jih bom vključila v svojo projektno nalogo, sem dobila na SURS-u(statistični urad republike Slovenije) v obliki html in csv.Analizirala bom podatke od leta 2009-2018.
 
-V tabele bom vključila število dijakov v posameznih statističnih regijah. Prikazala bom tudi število dijakov po spolu po posameznih vrstah izobraževanja.Prikazala bom tudi število diplomantov na leto glede na vrsto izobraževanja in načinu študija in na spol, kasneje jih bom razdelila tudi po statističnih regijah. Eden izmed ciljev projektne naloge je ugotoviti delež dijakov in diplomantov posameznih regij glede na število vseh prebivalcev v regiji, rada bi analizirala tudi kako se je število tujih študentov v Sloveniji z letoma spreminjalo.
+V tabele bom vključila število dijakov v posameznih statističnih regijah. Prikazala bom tudi število dijakov po spolu po posameznih vrstah izobraževanja.Prikazala bom tudi število diplomantov na leto glede na vrsto izobraževanja in načinu študija in na spol, kasneje jih bom razdelila tudi po statističnih regijah. Eden izmed ciljev projektne naloge je ugotoviti delež dijakov in diplomantov posameznih regij glede na število vseh prebivalcev v regiji. Prav tako pa me zanima kakšen delež diplomantov diplomira na rednem in koliko na izrednem študiju. Rada pa bi analizirala tudi kako se je število tujih študentov v Sloveniji z leti spreminjalo.
 
 Moji podatki bodo v naslednjih tabelah:
 
