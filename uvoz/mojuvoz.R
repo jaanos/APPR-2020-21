@@ -21,10 +21,6 @@ tabela4 <- read_csv2("podatki/st_diplomantov_po_vrsti_izobraževanja_spolu.csv",
 tabela5 <- read_csv2("podatki/st_studentov_po_vrsti_izobrazevanja_nacinu_studija.csv", skip = 1,na = c("-"), col_names = c("izobrazevanje", "leto", "redni", "izredni"),
                      locale=locale(encoding="Windows-1250"))%>% drop_na(3) %>% mutate(leto=parse_number(leto))
 
-# v tabela6 so podatki o številu prebivalstva po regijah po letih
-
-# tabela6 <- read_xlsx("podatki/stevilo_prebivalcev_po_regijah.xlsx",col_names=c("regija", "leto", "prebivalci"), skip = 2)
-
 #v tabela1nova združimo tabela1 in tabela3(stevilo dijakov in diplomantov po regijah)
 
 tabela1nova <- tabela1 %>%
