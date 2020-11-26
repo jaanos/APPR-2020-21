@@ -5,7 +5,7 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 * [![Shiny](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/nezakrzan/APPR-2020-21/master?urlpath=shiny/APPR-2020-21/projekt.Rmd) Shiny
 * [![RStudio](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/nezakrzan/APPR-2020-21/master?urlpath=rstudio) RStudio
 
-# Analiza plač v Sloveniji
+# Analiza bruto mesečnih plač v Sloveniji
 
 Analizirala bom višino povprečne bruto mesečne plače v odvisnosti od gospodarske dejavnosti, izobrazbe ter spola. Zanimal me bo trend spreminjanja višine plače glede na starostno obdobje in višina povprečne plače po regijah po spolu. Podtake bom vizualizirala s pomočjo zemljevida.
 Primerjala bom tudi plače v javnem in zasebnem sektorju glede na izobrazbo in spol.
