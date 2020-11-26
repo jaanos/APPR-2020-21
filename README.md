@@ -23,7 +23,7 @@ Moji podatki bodo v naslednjih tabelah:
   
   -Leto,
   
-  -Kategorija (dijaki, študenti),
+  -Kategorija (dijaki, diplomanti),
   
   -Število
 

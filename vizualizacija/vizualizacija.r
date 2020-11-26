@@ -45,4 +45,4 @@ zemljevid1 <- tm_shape(merge(zemljevid, povprecje.diplomantov.po.regijah, by.x="
 #v graf5 združimo graf3 in graf4
 podatki5 <- tabela2nova %>% group_by(izobrazevanje, spol) %>% summarise(povprecje=sum(stevilo)/10)
 graf5 <- ggplot(podatki5, aes(x=izobrazevanje, y=povprecje, fill = spol)) + geom_col(position = 'dodge')  + 
-  coord_flip() + labs(x = "Vrsta izobraževanja", y = "Povprečno število", title = "Povprečno število moških v \nposameznih vrstah izobraževanj v \nzadnjih desetih letih") 
+  coord_flip() + labs(x = "Vrsta izobraževanja", y = "Povprečno število", title = "Povprečno število moških in žensk v \nposameznih vrstah izobraževanj v \nzadnjih desetih letih") 
