@@ -11,6 +11,13 @@ Analizirala bom višino povprečne bruto mesečne plače v odvisnosti od gospoda
 Primerjala bom tudi plače v javnem in zasebnem sektorju glede na izobrazbo in spol.
 Na koncu bom višino povprečne bruto plače primerjala z povprečjem evropskih držav in pridobljene podatke prikazala z grafikoni.
 
+### Potek dela
+1. Pridobitev in ureditev podatkov
+2. Primerjava višine plače glede na starostno obdobje
+3. Primerjava višine povprečne plače po regijah
+4. Vizualizacija primerjav
+5. Višina plače v javnem in zasebnem sekturju
+6. Primerjava povprečne bruto mesečne plače z evropskim povprečjem
 
 ### Tabele
 
