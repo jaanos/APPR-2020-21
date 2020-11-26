@@ -11,46 +11,66 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
 V svojem projektu bom analizirala vključenost otrok v srednje šole ter diplomantov v ustanove namenjene terciarnemu izobraževanju. Vse podatke, ki jih bom vključila v svojo projektno nalogo, sem dobila na SURS-u(statistični urad republike Slovenije) v obliki html in csv.Analizirala bom podatke od leta 2009-2018.
 
-V tabele bom vključila število dijakov v posameznih statističnih regijah. Prikazala bom tudi število dijakov po spolu po posameznih vrstah izobraževanja.Prikazala bom tudi število diplomantov na leto glede na vrsto izobraževanja in načinu študija in na spol, kasneje jih bom razdelila tudi po statističnih regijah.
+V tabele bom vključila število dijakov v posameznih statističnih regijah. Prikazala bom tudi število dijakov po spolu po posameznih vrstah izobraževanja.Prikazala bom tudi število diplomantov na leto glede na vrsto izobraževanja in načinu študija in na spol, kasneje jih bom razdelila tudi po statističnih regijah. Eden izmed ciljev projektne naloge je ugotoviti delež dijakov in diplomantov posameznih regij glede na število vseh prebivalcev v regiji, rada bi analizirala tudi kako se je število tujih študentov v Sloveniji z letoma spreminjalo.
 
+Moji podatki bodo v naslednjih tabelah:
 
  1.tabela Dijaki in diplomanti terciarnega izobraževanja po statistični regiji stalnega prebivališča, Slovenija, 
  
   Stolpci:
+  
   -Regija,
+  
   -Leto,
+  
   -Kategorija (dijaki, študenti),
+  
   -Število
 
  2.tabela Dijaki po spolu in vrsti izobraževanja, Slovenija, letno 
  
   Stolpci:
+  
   -Vrsta izobraževanja,
+  
   -Leto,
+  
   -Spol(moški, ženski),
+  
   -Število
 
  3.tabela Diplomanti terciarnega izobraževanja po vrsti izobraževanja in spolu, Slovenija, letno 
  
   Stolpci:
+  
   -Vrsta izobraževanja,
+  
   -Leto,
+  
   -Spol(moški, ženski),
+  
   -Število
 
  4.tabela Študenti terciarnega izobraževanja po vrsti izobraževanja in načinu študija, Slovenija, letno 
  
   Stolpci:
+  
   -Vrsta izobraževanja,
+  
   -Leto,
+  
   -Način študija,
+  
   -Število
   
  5.tabela Število prebivalcev po regijah, letno
  
   Stolpci:
+  
   -Regija
+  
   -Leto
+  
   -Število
   
 
