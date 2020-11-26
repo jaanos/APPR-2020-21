@@ -22,7 +22,7 @@ source("lib/libraries.r", encoding="UTF-8")
 source("lib/rstudio.r", encoding="UTF-8")
 ```
 
-# Analiza mesečnih plač v Sloveniji
+# Analiza bruto mesečnih plač v Sloveniji
 
 ![](slike/payday.jpg)
 
