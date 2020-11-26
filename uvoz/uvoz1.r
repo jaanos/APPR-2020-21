@@ -2,7 +2,7 @@ library(readr)
 library(tidyr)
 library(dplyr)
 library(rvest)
-library(tidyverse)
+library(tidyverse) # za str_sub
 
 sl <- locale("sl", decimal_mark=",", grouping_mark=".")
 
@@ -12,7 +12,9 @@ glava_starost_spol <- c("Meritev","Starost", "Spol", "Leto",
 
 starost_spol <- read.csv2("podatki/starost_spol.csv", skip = 3, header = F, 
   col.names = glava_starost_spol, encoding = "utf-8") %>%
-  mutate(Starost = gsub("Starost ", "", Starost))
+  mutate(Starost = gsub("Starost ", "", Starost)) %>%
+  mutate(Spol = gsub("Spol - SKUPAJ", "Skupaj", Spol)) %>%
+  mutate(Starost = gsub("Starostne skupine - SKUPAJ", "Skupaj", Starost))
 
 
 
@@ -21,7 +23,8 @@ glava_izobrazba_spol <- c("Meritev","Izobrazba", "Spol", "Leto",
                         "Socialni transferji", "Dohodek")
 
 izobrazba_spol <- read.csv2("podatki/izobrazba_spol.csv", skip = 3, header = F,
-  col.names = glava_izobrazba_spol, encoding = "utf-8")
+  col.names = glava_izobrazba_spol, encoding = "utf-8") %>%
+  mutate(Spol = gsub("Spol - SKUPAJ", "Skupaj", Spol))
 
 
 #Tabela za regije
