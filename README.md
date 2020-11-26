@@ -7,8 +7,14 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
 ## Tematika
 
-Izbrali si boste temo, s katero se bo vaš projekt ukvarjal.
-Tukaj boste napisali, kje ste dobili podatke, ter kakšen je vaš cilj.
+Analiza filmskih blagajniških prejemkov
+
+Pogledal si bom filmske zaslužke najbolj gledanih filmov zadnjih let v ZDA
+in Sloveniji. Cilj je analizirati trende v obeh državah, tj. kateri žanri so
+najbolj gledani v kateri državi, primerjava držav, kako je korona-kriza vplivala
+na dobičke itd.
+Podatki bodo pridobljeni z raznih spletnih strani. Glavna bo Box Office Mojo, ki
+hrane podrobne podatke o blagajniških prejemkih.
 
 ## Program
 
