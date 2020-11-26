@@ -7,7 +7,7 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
 ## Analiza razpoložljivega dohodka gospodinjstev v Sloveniji
 
-V svoji projektni nalogi bom analiziral razpoložljivi dohodek gospodinjstev zadnjih let. Opazoval bom povprečni dohodek na člana gospodinjstva po opravljenih socialnih transferjih glede na spol, starost in izobrazbo ter dohodek po statističnih regijah Slovenije.
+V svoji projektni nalogi bom analiziral razpoložljivi dohodek slovenskih gospodinjstev zadnjih let. Opazoval bom povprečni dohodek na člana gospodinjstva po opravljenih socialnih transferjih glede na **vrsto dohodka**, **spol**, **starost** in **izobrazbo** ter **dohodek po statističnih regijah Slovenije**.
 
 ## Podatki
 
@@ -21,7 +21,14 @@ Svoje podatke bom črpal s strani [SiStat](https://pxweb.stat.si/SiStat/sl) v ob
 * [Povprečni razpoložljivi dohodek gospodinjstev po vrstah dohodka (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1214)
 
 ## Plan dela
-Pri analizi bom razvrščal podatke in iskal povezave med spremenljivkami (npr. ali se dohodek razlikuje glede na spol, ali je razmerje razlik med spoloma podobno razmerju razlik med izobrazbo itd.), glede na obnašanje v zadnjih letih pripravil predikcijo za prihodnost in rezultate vizualiziral.
+
+### Uvoz
+
+Podatke sem uvozil iz CSV datotek in spleta ter jih prečistil v mapi [uvoz](https://github.com/UrbanRupnik/APPR-2020-21/tree/master/uvoz). Urejene tabele sem nato v CSV obliki izvozil nazaj v mapo [podatki](https://github.com/UrbanRupnik/APPR-2020-21/tree/master/podatki).
+
+### Analiza
+
+Pri analizi bom najprej grafično predstavil dohodek glede na vrsto dohodka in pripravil zemljevid po regijah. Nato pa bom iskal povezave med ostalimi spremenljivkami (npr. ali je razmerje med spoloma podobno razmerju med določeno izobrazbo itd.), glede na obnašanje v zadnjih letih pripravil predikcijo za prihodnost in tudi ostale rezultate vizualiziral.
 
 ## Program
 
