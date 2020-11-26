@@ -12,15 +12,15 @@ Za projektno nalogo bom analiziral podatke podjetja Apple in jih primerjal s bor
 Pogledal bom rast prodaje,neto dobička,knjigovodske vrednosti in dividend od SP500 in Appla v zadnjih 10tih letih,
 ter primerjal rasti med seboj.
 Nato bom primerjal še koeficenta P/E (cena/dobiček na delnico) in P/B (cena/knjigovodska vrednost na delnico)
-od Appla in SP500 za zadnjih 10let. Poleg tega bom pogledal koliko izdelkov Apple proda na kateri celini.
+od Appla in SP500 za zadnjih 10let. Poleg tega bom pogledal koliko iStorov se nahaja v kateri državi.
 
 Podatke od Appla bom dobil na naslednji povezavi:
 https://financials.morningstar.com/ratios/r.html?t=0P000000GY&culture=en&platform=sal
 Za cene Appla bom uporabil že vgrajeno knjižnico "quantmod" s pomočjo katere lahko dobimo
 cene delnice za zadnjih 10 let.
 Podatke za SP 500 bom ravno tako dobil preko vgrajene funkcije Quandl.
-Poadtke o Applovi prodaji po celinah bom dobil na povezavi:
-https://statstic.com/apple-revenue-by-geographical-segments-quarterly/ v HTML obliki.
+Poadtke o Applovih trgovinah bom dobil na spletni strai:
+https://en.wikipedia.org/wiki/Apple_Store v HTML obliki.
 
 
 
