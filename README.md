@@ -25,15 +25,15 @@ Moji podatki bodo v naslednjih tabelah:
 
  3. tabela Diplomanti terciarnega izobraževanja po vrsti izobraževanja in spolu, Slovenija, letno 
  
-  Stolpci: -Vrsta izobraževanja, -Leto, -Spol(moški, ženski), -Število
+    Stolpci: -Vrsta izobraževanja, -Leto, -Spol(moški, ženski), -Število
 
  4. tabela Diplomanti terciarnega izobraževanja po vrsti izobraževanja in načinu študija, Slovenija, letno 
  
-  Stolpci: -Vrsta izobraževanja, -Leto, -Način študija, -Število
+    Stolpci: -Vrsta izobraževanja, -Leto, -Način študija, -Število
   
  5. tabela Število prebivalcev po regijah, letno
  
-  Stolpci: -Regija, -Leto, -Število
+    Stolpci: -Regija, -Leto, -Število
   
 
 ## Program
