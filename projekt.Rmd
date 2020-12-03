@@ -22,9 +22,9 @@ source("lib/libraries.r", encoding="UTF-8")
 source("lib/rstudio.r", encoding="UTF-8")
 ```
 
-# Analiza sekundarnega in terciarnega združevanja
+# Analiza sekundarnega in terciarnega izobraževanja
 
-Za projektno nalogo sem izbrala analizo sekundarnega in terciarnega izobraževanja. Vse podatke, ki sem jih uporabila sem dobila na Statističnem uradu republike Slovenije(SURS).
+Za projektno nalogo sem izbrala analizo sekundarnega in terciarnega izobraževanja. Vse podatke, ki sem jih uporabila sem dobila na [Statističnem uradu republike Slovenije](https://www.stat.si/StatWeb/).
 
 ![](slike/knjige.jpg)
 
@@ -36,7 +36,7 @@ Za projektno nalogo sem izbrala analizo sekundarnega in terciarnega izobraževan
 source("uvoz/mojuvoz.R", encoding="UTF-8")
 ```
 
-Uvozili smo podatke v obliki CSV s statističnega urada. Podatke imamo v štirih razpredelnicah v obliki *tidy data*.
+Uvozila sem podatke v obliki CSV in html s statističnega urada. Podatke imam v štirih razpredelnicah v obliki *tidy data*.
 
 1. `regije` - podatki o številu dijakov in študentov za vsako regijo
   - `regija` - spremenljivka: ime regije (neurejen faktor),
@@ -80,38 +80,43 @@ Uvozili smo podatke v obliki CSV s statističnega urada. Podatke imamo v štirih
 source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 ```
 
-#Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
-
-#```{r zemljevid, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-#tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
-#  tm_polygons("povprecje", title="Povprečje") +
-#  tm_layout(title="Povprečno število otrok v družini")
-#```
-
 Pred analizo teh podatkov sem si zastavila naslednja vprašanja:
 
-- Kje v Sloveniji je največ dijakov, ter kje je največ diplomantov?
-- Kam se v zadnjih desetih letih najbolj usmerjajo mladi(moški in ženske), ko se odločajo za srednjo šolo?
+- Kje v Sloveniji glede na statistično regijo je največ dijakov, ter kje je največ diplomantov?
+- Kam se v zadnjih desetih letih najbolj usmerjajo mladi, ko se odločajo za srednjo šolo?
+- Kakšen je delež diplomantov, ki diplomira na rednem študiju v primerjavi z izrednim študiju?
+- Kako se je število tujih študentov v Sloveniji z leti spreminjalo?
 
 Prvi graf prikazuje povprečno število dijakov po regijah v zadnjih desetih letih(2009-2018).
+
 ```{r graf1, echo=FALSE, fig.align='center'}
 graf1
 ```
 
-
-Spodnji zemljevid pa nam prikazuje povprečno število diplomantov po regijah v zadnjih desetih letih. Glede na število dijakov in število diplomantov lahko razberemo, da je številka dijakov veliko večja kot številka diplomantov, kar pomeni da veliko ljudi ne nadaljuje svojega šolanja na faksu in se raje zaposlijo, ali pa pred diplomiranjem faks pustijo in se zaposlijo. Kot primer lahko vzamemo npr.Osrednje_slovenskoo regijo, kjer vidimo, da je v zadnjih 10 letih diplomirala le dobra četrtina vseh dijakov v zadnjih desetih letih.
+Spodnji zemljevid pa nam prikazuje povprečno število diplomantov po regijah v zadnjih desetih letih. Glede na število dijakov in število diplomantov lahko razberemo, da je številka dijakov veliko večja kot številka diplomantov, kar pomeni da veliko ljudi ne nadaljuje svojega šolanja na faksu in se raje zaposlijo, ali pa pred diplomiranjem faks pustijo in se zaposlijo. Kot primer lahko vzamemo npr.Osrednje-slovensko regijo, kjer vidimo, da je v zadnjih 10 letih diplomirala le dobra četrtina vseh dijakov v zadnjih desetih letih.
 
 ```{r zemljevid1, echo=FALSE, message=FALSE, warning=FALSE,fig.align='center', fig.cap='Povprečno število diplomantov po regijah v zadnjih desetih letih'}
  zemljevid1
 ```
 
-Spodnje dva grafa nam prikazujeta, v katere izobraževalne programe so se v zadnjih desetih letih vpisovali slovenski dijaki in dijakinje. Iz podatov v grafih lahko razberemo, da so se fantje bolj zanimali za tehniške in druge strokovne programe, medtem ko so se dekleta odločile za splošne in strokovne gimnazijske programe.
+Spodnji graf nam prikazuje, v katere izobraževalne programe so se v zadnjih desetih letih vpisovali slovenski dijaki in dijakinje. Iz podatov v grafih lahko razberemo, da so se fantje bolj zanimali za tehniške in druge strokovne programe, medtem ko so se dekleta odločile za splošne in strokovne gimnazijske programe.
 
 
 ```{r graf5, echo=FALSE, fig.align='center'}
 graf5
 ```
 
+Naslednji graf nam prikazuje, katere izobraževalne programe terciarnega izobraževanja so se v letih 2009-2018 vpisovali moški in žencke. Iz podatkov vidimo, da veliko več diplomira žensk ter da je upad števila diplomantov in 2. bolonjske stopnje glede na 3. veliko opaznejši kot iz 1. stopnje na drugo, kar bi lahko pomenilo, da se v zadnjih letih študentje šolajo do magisterija.
+
+```{r graf6, echo=FALSE, fig.align='center'}
+graf6
+```
+
+Spodnji graf pa nam prikazuje število tujcev in Slovencev z neznanim prebivališčem glede na preučevanih deset let. Opazimo, da je naraščanje števila tujcev med diplomanti s časom premo narašča, medtem ko pri dijakih opazimo občuten skok med leti 2013 in 2014.
+
+```{r graf7, echo=FALSE, fig.align='center'}
+graf7
+```
 ***
 
 # Napredna analiza podatkov
