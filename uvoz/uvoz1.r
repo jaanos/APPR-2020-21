@@ -4,7 +4,6 @@ library(dplyr)
 library(rvest)
 library(tidyverse) # za str_sub
 
-sl <- locale("sl", decimal_mark=",", grouping_mark=".")
 
 #Tabela za starost in spol
 glava_starost_spol <- c("Meritev","Starost", "Spol", "Leto", 
@@ -53,7 +52,8 @@ vrste_dohodka <- read_html(url, encoding = "utf-8") %>%
   mutate(Dohodek = gsub("\\.", "", Dohodek)) %>%
   mutate(Leto = as.integer(Leto), Dohodek = as.integer(Dohodek)) %>%
   mutate(Vrsta.dohodka = str_sub(Vrsta.dohodka, 3, -1)) %>%
-  mutate(Meritev = str_sub(Meritev, 1, -7))
+  mutate(Meritev = str_sub(Meritev, 1, -7)) %>%
+  subset(Meritev != "Povprečni dohodek na gospodinjstvo") #zanima me le povprečni na člana
 
 #Izvoz v CSV
 write.csv2(starost_spol, "podatki/starost_spol_tidy.csv", fileEncoding = "utf-8")
