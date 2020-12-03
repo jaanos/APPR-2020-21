@@ -312,3 +312,15 @@ st18 <- read.csv2("podatki/S_18.csv", fileEncoding = "UTF-8" , na=c("#","*","**"
   select(3,5,7,11,12,16,21) %>% View()
 
 # total employment
+
+
+
+
+
+
+
+
+
+
+
+
