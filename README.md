@@ -9,7 +9,7 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
 Analizirala bom višino povprečne bruto mesečne plače v odvisnosti od gospodarske dejavnosti, izobrazbe ter spola. Zanimal me bo trend spreminjanja višine plače glede na starostno obdobje in višina povprečne plače po regijah po spolu. Podtake bom vizualizirala s pomočjo zemljevida.
 Primerjala bom tudi plače v javnem in zasebnem sektorju glede na izobrazbo in spol.
-Na koncu bom višino povprečne bruto plače primerjala z povprečjem evropskih držav in pridobljene podatke prikazala z grafikoni.
+Na koncu bom primerjala tudi bruto mesečne plače v času krize leta 2008 s krizo Covid-19 leta 2020.
 
 ### Potek dela
 1. Pridobitev in ureditev podatkov
@@ -30,13 +30,15 @@ Na koncu bom višino povprečne bruto plače primerjala z povprečjem evropskih 
 3. tabela: Povprečna bruto mesečna plača v javnem in zasebnem sektorju glede na izobrazbo in spol.
 * Stolpci: Javni sektor, zasebi sektor, izobrazba, spol, leto, plača
 
-4. tabela: Povprečna bruto mesečna plača v Evropi.
-* Stolpci: Država, leto, plača
+4. tabela: Povprečna bruto mesečna plača v Sloveniji leta 2007, 2008 in 2009.
+* Stolpci: Leto, plača
+
+5. tabela: Povprečna bruto mesečna plača v Sloveniji leta 2019 in 2020.
+* Stolpci: Leto, plača
 
 
 ### Viri:
 * SiStat: https://pxweb.stat.si/SiStat/sl/Podrocja/Index/98/place-in-stroski-dela
-* Eurostat: http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=earn_nt_net&lang=en
 
 
 ## Program
