@@ -16,9 +16,13 @@ Svoje podatke bom črpal s strani [SiStat](https://pxweb.stat.si/SiStat/sl) v ob
 ### Tabele
 
 * [Razpoložljivi dohodek gospodinjstev po starosti in spolu (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1406)
+  + meritev, starost, spol, leto, socialni transferji, dohodek
 * [Razpoložljivi dohodek gospodinjstev glede na doseženo izobrazbo in spol (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1407)
+  + meritev, izobrazba, spol, leto, socialni transferji, dohodek
 * [Razpoložljivi dohodek gospodinjstev po statističnih regijah (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1228)
+  + meritev, regija, leto, socialni transferji, dohodek
 * [Povprečni razpoložljivi dohodek gospodinjstev po vrstah dohodka (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1214)
+  + meritev, vrsta dohodka, leto, dohodek
 
 ## Plan dela
 
