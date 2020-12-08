@@ -1,5 +1,5 @@
 ---
-title: "Bruto mesečna plača v Sloveniji"
+title: "Bruto plača v Sloveniji"
 author: "Neža Kržan"
 output:
   html_document: default
@@ -24,6 +24,8 @@ source("lib/rstudio.r", encoding="UTF-8")
 
 # Analiza bruto mesečnih plač v Sloveniji
 
+Analiza bruto slovenskih plač glede na regije, javni in zasebni sektor, gospodarsko dejavnost, stopnjo izobrazbe in spol. Primerjava bruto mesečnih plač pred krizo leta 2008, med krizo in leto po njej. Pregled plač v letu napovedi nove krize(2019) in v času krize Covid-19(leta 2020).
+
 ![](slike/payday.jpg)
 
 ***
@@ -34,69 +36,47 @@ source("lib/rstudio.r", encoding="UTF-8")
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
+Uvozila sem podatke o povprečnih bruto mesečnih plačah v obliki CSV s statističnega
+urada. Podatki so v petih rapredelnicah v obliki *tidy data*.
 
-1. `druzine` - podatki o družinah za vsako občino
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `velikost.druzine` - spremenljivka: število otrok v družini (število: 1, 2, 3 ali 4, kjer zadnja vrednost pomeni 4 ali več),
-  - `stevilo.druzin` - meritev: število družin z ustreznim številom otrok v ustrezni občini (število).
+1. `gospodarskadejavnost` - podatki o povprečni bruto letni plači glede na gospodarsko dejavnost,
+  - `gospodarska dejavnost` - spremenljivka: ime gospodarske dejavnosti(neurejen faktor),
+  - `izobrazba` - spremenljivka: stopnja izobrazbe(neurejen faktor),
+  - `spol` - spremenljivka: moški, ženski(neurejen faktor),
+  - `leto` - spremenljivka(število),
+  - `placa` - meritev: povprečna bruto letna plača(število)
 
-2. `obcine` - podatki o občinah
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `povrsina` - meritev: površina občine v km$^2$ (število),
-  - `prebivalci` - meritev: prebivalstvo občine (število),
-  - `gostota` - meritev: število prebivalcev na km$^2$ (število),
-  - `naselja` - meritev: število naselij v občini (število),
-  - `ustanovitev` - meritev: leto ustanovitve občine (število),
-  - `pokrajina` - meritev: pokrajina, ki ji občina pripada (neurejen faktor),
-  - `regija` - meritev: regija, ki ji občina pripada (neurejen faktor),
-  - `odcepitev` - meritev: podatki o občinah, od katerih se je občina odcepila (besedilo).
+2. `regijainspol` - višina bruto povprečne letne plače po regijah 
+  - `regija` -  spremenljivka: ime regije (neurejen faktor),
+  - `spol` - spremenljivka: moški, ženski(neurejen faktor),
+  - `leto` - spremenljivka(število),
+  - `placa` - meritev: povprečna bruto letna plača(število)
+  
+3. `javnisektor` - višina bruto letne povprečne plače glede na javni in zasebni sektor
+  - `sektor` - spremenljivka: javni in zasebni sektor
+  - `izobrazba` - spremenljivka: stopnja izobrazbe(neurejen faktor),
+  - `spol` - spremenljivka: moški, ženski(neurejen faktor),
+  - `leto` - spremenljivka(število),
+  - `placa` - meritev: povprečna bruto letna plača(število)
+  
+4. `kriza2008` - povprečne bruto mesečne plače od januarja 2007 do decembra 2009
+  - `leto` - spremenljivka(število),
+  - `placa` - meritev: povprečna bruto mesečna plača(število)
+  
+5. `kriza2020` - - povprečne bruto mesečne plače od januarja 2019 do september 2020
+  - `leto` - spremenljivka(število),
+  - `placa` - meritev: povprečna bruto mesečna plača(število)
+  
 
-**Opomba**: da bi razpredelnica `obcine` res bila v obliki *tidy data*, bi morali odstraniti stolpec `gostota` (saj je izpeljan iz stolpcev `povrsina` in `prebivalci`), podatke o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s stolpcem `odcepitev`.
-
-Spodnji graf prikazuje porazdelitev števila naselij v občinah.
-
-```{r histogram, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-ggplot(obcine, aes(x=naselja)) + geom_histogram() +
-  ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
-```
-
+  
 ***
 
 # Analiza in vizualizacija podatkov
 
-```{r vizualizacija, results='hide'}
-source("vizualizacija/vizualizacija.r", encoding="UTF-8")
-```
-
-Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
-
-```{r zemljevid, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
-  tm_polygons("povprecje", title="Povprečje") +
-  tm_layout(title="Povprečno število otrok v družini")
-```
 
 ***
 
 # Napredna analiza podatkov
-
-```{r analiza}
-source("analiza/analiza.r", encoding="UTF-8")
-```
-
-Spodnji graf prikazuje povezavo med številom naselij in površino občine.
-
-```{r graf, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-ggplot(inner_join(obcine, data.frame(obcina=names(skupine),
-                                     skupina=factor(skupine)), by="obcina")
-, aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() +
-  ggtitle("Število naselij glede na površino občine") +
-  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-  guides(color=guide_legend(title="Skupina"),
-         size=guide_legend(title="Prebivalci (* 1000)"))
-```
 
 ***
 
