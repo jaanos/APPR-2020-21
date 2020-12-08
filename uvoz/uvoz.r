@@ -31,12 +31,14 @@ javnisektor <- read_csv2("podatki/sektor.csv",
 kriza2008 <- read_csv2("podatki/kriza2008.csv",
                        col_names=c("leto","tip place", "placa"),
                        skip=3, na="-",
-                       locale=locale(encoding="Windows-1250")) %>% select(c(-2)) %>% mutate(LETO=parse_number(leto))
+                       locale=locale(encoding="Windows-1250")) %>% select(c(-2))
+
+View(kriza2008)
 
 kriza2020 <- read_xlsx("podatki/kriza2020.xlsx",
                        col_names=c("leto","tip place", "placa"),
-                       skip=2) %>% select(-"tip place")
-View(kriza2020)
+                       skip=2, n_max=21) %>% select(-"tip place")
+
 
 
   

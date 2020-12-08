@@ -67,11 +67,13 @@ urada. Podatki so v petih rapredelnicah v obliki *tidy data*.
   - `leto` - spremenljivka(število),
   - `placa` - meritev: povprečna bruto mesečna plača(število)
   
+Spodnji graf prikazuje spremembo plače od januarja 2007 do decembra 2009, v času največje krize v Sloveniji.
+  
 ```{r histogram, fig.align='center', fig.cap='Graf višine plače v času krize 2008'}
 require(ggplot2)
 require(dplyr)
 
-ggplot(kriza2008, aes(x=leto, y=placa)) + geom_point(colour="Red", size=5) +  
+ggplot(kriza2008, aes(x=leto, y=placa)) + geom_point(colour="Red", size=3) +  
   ggtitle("Sprememba plače od leta 2007 do 2009") + xlab("Leto in mesec") + ylab("Plača") 
 
 ```
