@@ -63,10 +63,18 @@ urada. Podatki so v petih rapredelnicah v obliki *tidy data*.
   - `leto` - spremenljivka(število),
   - `placa` - meritev: povprečna bruto mesečna plača(število)
   
-5. `kriza2020` - - povprečne bruto mesečne plače od januarja 2019 do september 2020
+5. `kriza2020` - povprečne bruto mesečne plače od januarja 2019 do september 2020
   - `leto` - spremenljivka(število),
   - `placa` - meritev: povprečna bruto mesečna plača(število)
   
+```{r histogram, fig.align='center', fig.cap='Graf višine plače v času krize 2008'}
+require(ggplot2)
+require(dplyr)
+
+ggplot(kriza2008, aes(x=leto, y=placa)) + geom_point(colour="Red", size=5) +  
+  ggtitle("Sprememba plače od leta 2007 do 2009") + xlab("Leto in mesec") + ylab("Plača") 
+
+```
 
   
 ***
