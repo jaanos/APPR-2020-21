@@ -17,20 +17,20 @@ Analiziral bom turizem v Sloveniji med leti 2010 in 2019. Osredotočil se bom na
 ### Tabele
 
 * Tabela 1 (Število prenočitev po tipih turističnih občin):
-  + Vrstice: Tipi turističnih občin
-  + Stolpci: Leta
+  + Vrstice: Tip turistične občine
+  + Stolpci: Tipi turističnih občin, Leto, Število
 * Tabela 2 (Demografska sestava tujih turistov):
   + Vrstice: Države
-  + Stolpci: Leta
+  + Stolpci: Država, Leto, Število
 * Tabela 3 (Število vseh prihodov):
-  + Vrstice: Leta
-  + Stolpci: Tuji, Domači, Skupaj
+  + Vrstice: Tip
+  + Stolpci: Tip gosta, Leto, Število
 * Tabela 4 (Število vseh prenočitev):
-  + Vrstice: Leta
-  + Stolpci : Tuji, Domači, Skupaj
+  + Vrstice: Tip
+  + Stolpci : Tip gost, Leto, Število
 * Tabela 5 (Kapacitete po tipih turističnih občin):
-  + Vrstice: Tipi turističnih občin
-  * Stolpci: Leta
+  + Vrstice: Tip turistične občine
+  * Stolpci: Tipi turističnih občin, Leto, Število
   
 
 ## Program
