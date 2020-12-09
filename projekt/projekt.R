@@ -44,7 +44,11 @@ podatkiZDA07 <- podatkiZDA07 %>% mutate(Leto = 2007) %>% drop_na(Mesto)
 podatkiSLO07 <- podatkiSLO07 %>% mutate(Leto = 2007) %>% drop_na(Mesto)
 
 require(rvest)
+require(xml2)
 url <- "https://www.the-numbers.com/market/2019/genre/Adventure"
 
-stran <- read.html(url)
-stran %>% html_nodes(xpath="//table") %>% html_table()
+stran <- read_html(url)
+stran <- stran %>% html_nodes(xpath="//table") %>% html_table()
+
+podatkiZDA <- left_join(podatkiZDA, podatkiZDA07, by='Mesto')
+podatkiSLO <- left_join(podatkiSLO, podatkiSLO07, by='Mesto')

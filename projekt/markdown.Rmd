@@ -1,0 +1,29 @@
+---
+title: "Analiza filmskih blagajniških prejemkov"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## David Rozman
+
+Za projekt pri predmetu Analiza podatkov s programom R sem se za projekt
+odločil analizirati filmske blagajniške prejemke v ZDA in Sloveniji v letih
+2007-2009 ter 2015-2020. Analiziral bom kateri žanri so najbolj popularni,
+kako se je obik kinematografov skozi leta spreminjal, primerjal državi glede na
+trende, si ogledal vpliv koronavirusa na prejemke v letu 2020 ...
+
+
+
+Podatke sem pridobil iz dveh spletnih strani:
+
+Prva je Box office Mojo. Ti podatki vključujejo prejemke filmov po državah po
+posameznih letih in tednih. Uvozil sem jih s pomočjo excella in html-ja. Podatki
+v teh tabelah so ime filma, leto izida ter zaslužek v dolarjih.
+
+Druga stran je The Numbers, kjer sem prek html-ja dobil podatke o najbolj
+priljubljenih filmih glede na žanr. Pričakujem, da bom podatke s teh tabel lahko
+združil s podatki s prve strani in s tem naredil še natančnejšo analizo. Podatki
+v teh tabelah vključujejo ime filma, žanr ter zaslužek v dolarjih.
