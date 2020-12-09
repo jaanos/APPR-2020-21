@@ -7,13 +7,31 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
 ## Tematika
 
-Analiziral bom turizem v Sloveniji med leti 2010 in 2019. Osredotočil se bom na posamezne občine, kjer bom analiziral gibanje števila prihodov, gostov in turističnih kapacitet. Analiziral bom tudi domačo ponudbo in notranjo turistično potrošnjo v Sloveniji ter narodnostno sestavo tujih gostov. Za konec bom analiziral še spreminjanje deleža turizma v BDP-ju Slovenije.
+Analiziral bom turizem v Sloveniji med leti 2010 in 2019. Osredotočil se bom na posamezne občine, kjer bom analiziral gibanje števila prihodov, gostov in turističnih kapacitet. Analiziral bom tudi domačo ponudbo in notranjo turistično potrošnjo v Sloveniji ter narodnostno sestavo tujih gostov. Za konec bom analiziral demografsko sestavo tujih turistov v Sloveniji.
 
 ### Viri:
 
 * https://pxweb.stat.si/SiStat/sl/Podrocja/Index/155/turizem (CSV)
 * https://sl.wikipedia.org/wiki/Turizem_v_Sloveniji (HTML)
 
+### Tabele
+
+* Tabela 1 (Število prenočitev po tipih turističnih občin):
+  + Vrstice: Tipi turističnih občin
+  + Stolpci: Leta
+* Tabela 2 (Demografska sestava tujih turistov):
+  + Vrstice: Države
+  + Stolpci: Leta
+* Tabela 3 (Število vseh prihodov):
+  + Vrstice: Leta
+  + Stolpci: Tuji, Domači, Skupaj
+* Tabela 4 (Število vseh prenočitev):
+  + Vrstice: Leta
+  + Stolpci : Tuji, Domači, Skupaj
+* Tabela 5 (Kapacitete po tipih turističnih občin)
+  + Vrstice: Tipi turističnih občin
+  * Stolpci: Leta
+  
 
 ## Program
 
