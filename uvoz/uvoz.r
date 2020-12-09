@@ -29,6 +29,7 @@ prenocitve.vrste.obcin <- function(){
   prenocitve[31:40, 1] <- tipi[4]
   prenocitve[41:50, 1] <- tipi[5]
   prenocitve[51:60, 1] <- tipi[6]
+  
   return(prenocitve)
 }
 
@@ -43,8 +44,17 @@ tuji.turisti <- function(){
   uvoz <- read_csv2("podatki/Tuji_turisti.csv", locale=locale(encoding="Windows-1250"),
                     col_names=c("Države", letnice)) 
   uvoz <- uvoz[-c(1,2),]
+  Stevilo1 <- c(uvoz[, 2], uvoz[, 3], uvoz[, 4], uvoz[, 5], uvoz[, 6], uvoz[, 7],
+               uvoz[, 8], uvoz[, 9], uvoz[, 10], uvoz[, 11])
+  Stevilo <- unlist(Stevilo1, use.names=FALSE)
+  Drzava1 <- rep(uvoz[, 1], 10)
+  Drzava <- unlist(Drzava1, use.names=FALSE)
+  Leto <- c(rep(2010, 53), rep(2011, 53), rep(2012, 53), rep(2013, 53),
+            rep(2014, 53), rep(2015, 53), rep(2016, 53), rep(2017, 53),
+            rep(2018, 53), rep(2019, 53))
+  tuji.turisti <- data.frame(Drzava, Leto, Stevilo)
 
-  return(uvoz)
+  return(tuji.turisti)
 }
 
 tuji.turisti <- tuji.turisti()
@@ -64,8 +74,12 @@ vsi.gosti <- function(){
   gosti[, 2] <- parse_number(gosti[, 2])
   gosti[, 3] <- parse_number(gosti[, 3])
   gosti[, 4] <- parse_number(gosti[, 4])
+  Stevilo <- c(gosti[,2], gosti[,3], gosti[,4])
+  Leto <- rep(gosti[,1], 3)
+  Tip <- c(rep("Tuji", 32), rep("Domaci", 32), rep("Skupaj", 32))
+  vsi.gosti <- data.frame(Tip, Leto, Stevilo)
   
-  return(gosti)
+  return(vsi.gosti)
 }
 
 vsi.gosti <-vsi.gosti()
@@ -83,8 +97,12 @@ vse.prenocitve <- function(){
   prenocitve[, 2] <- parse_number(prenocitve[, 2])
   prenocitve[, 3] <- parse_number(prenocitve[, 3])
   prenocitve[, 4] <- parse_number(prenocitve[, 4])
+  Stevilo <- c(prenocitve[,2], prenocitve[,3], prenocitve[,4])
+  Leto <- rep(prenocitve[,1], 3)
+  Tip <- c(rep("Tuji", 32), rep("Domaci", 32), rep("Skupaj", 32))
+  vse.prenocitve <- data.frame(Tip, Leto, Stevilo)
   
-  return(prenocitve)
+  return(vse.prenocitve)
 }  
 
 vse.prenocitve <- vse.prenocitve()
@@ -109,6 +127,7 @@ kapacitete.vrste.obcin <- function(){
   kapacitete[31:40, 1] <- tipi[4]
   kapacitete[41:50, 1] <- tipi[5]
   kapacitete[51:60, 1] <- tipi[6]
+  
   return(kapacitete)
 }
 
