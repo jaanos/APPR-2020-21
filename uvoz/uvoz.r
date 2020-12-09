@@ -18,7 +18,6 @@ uvozi <- function(ime_datoteke){
   return(tabela)
 }
 
-
 nat6 <- uvozi("N_06")
 
 nat8 <- uvozi("N_08")
@@ -40,6 +39,7 @@ employment1 <- function(tabela,leto){
     select(occ_title,tot_emp) %>% 
     rename(emp=tot_emp) %>% 
     mutate(leto=c(leto)) %>% 
+    drop_na(emp) %>%
     .[c(1,3,2)] 
   return(total_employment)
 }
@@ -49,6 +49,7 @@ employment2 <- function(tabela,leto){
     select(OCC_TITLE,TOT_EMP) %>% 
     rename(occ_title=OCC_TITLE, emp=TOT_EMP) %>% 
     mutate(leto=c(leto)) %>% 
+    drop_na(emp) %>%
     .[c(1,3,2)] 
   return(total_employment)
 }
@@ -67,6 +68,7 @@ total_employment6 <- employment2(nat16,2016)
 
 total_employment7 <- employment2(nat18,2018)
 
+t_e <- rbind(total_employment1, total_employment2, total_employment3, total_employment4, total_employment5, total_employment6, total_employment7)
 
 # H_MEAN
 
@@ -105,7 +107,8 @@ h_mean6 <- hmean2(nat16,2016)
 
 h_mean7 <- hmean2(nat18,2018)
 
-
+h_mea <- rbind(h_mean1,h_mean2,h_mean3,h_mean4,h_mean5,h_mean6,h_mean7)
+  
 # A_MEAN
 
 amean1 <- function(tabela,leto){
@@ -141,6 +144,8 @@ a_mean5 <- amean2(nat14,2014)
 a_mean6 <- amean2(nat16,2016)
 
 a_mean7 <- amean2(nat18,2018)
+
+a_mea <- rbind(a_mean1,a_mean2,a_mean3,a_mean4,a_mean5,a_mean6,a_mean7)
 
 # H_MEDIAN
 
@@ -181,6 +186,7 @@ h_median6 <- hmedian2(nat16,2016)
 
 h_median7 <- hmedian2(nat18,2018)
 
+h_med <- rbind(h_median1, h_median2, h_median3, h_median4, h_median5, h_median6, h_median7)
 
 # A_MEDIAN
 
@@ -218,6 +224,8 @@ a_median5 <- amedian2(nat14,2014)
 a_median6 <- amedian2(nat16,2016)
 
 a_median7 <- amedian2(nat18,2018)
+
+a_med <- rbind(a_median1, a_median2, a_median3, a_median4, a_median5, a_median6, a_median7)
 
 # STATE DATA  
 
@@ -276,6 +284,7 @@ total_employment_state_6 <- employment3(st16,2016)
 
 total_employment_state_7 <- employment3(st18,2018)
 
+t_e_s <- rbind(total_employment_state_1,total_employment_state_2,total_employment_state_3,total_employment_state_4,total_employment_state_5,total_employment_state_6,total_employment_state_7)
 
 # h. mean by state
 
@@ -303,6 +312,8 @@ h_mean_state_6 <- hmean3(st16,2016)
 
 h_mean_state_7 <- hmean3(st18,2018)
 
+h_mea_s <- rbind(h_mean_state_1, h_mean_state_2,h_mean_state_3,h_mean_state_4,h_mean_state_5,h_mean_state_6,h_mean_state_7)
+
 # a. mean. by state
 
 amean3 <- function(tabela,leto){
@@ -329,7 +340,7 @@ a_mean_state_6 <- amean3(st16,2016)
 
 a_mean_state_7 <- amean3(st18,2018)
 
-
+a_mea_s <- rbind(a_mean_state_1, a_mean_state_2, a_mean_state_3, a_mean_state_4, a_mean_state_5, a_mean_state_6, a_mean_state_7)
 
 # H_MEDIAN
 
@@ -361,6 +372,8 @@ h_median_state_6 <- hmedian3(st16,2016)
 h_median_state_7 <- hmedian3(st18,2018)
 
 
+h_med_s <- rbind(h_median_state_1, h_median_state_2, h_median_state_3, h_median_state_4, h_median_state_5, h_median_state_6, h_median_state_7)
+
 # A_MEDIAN
 
 
@@ -388,13 +401,15 @@ a_median_state_6 <- amedian3(st16,2016)
 
 a_median_state_7 <- amedian3(st18,2018)
 
+a_med_s <- rbind(a_median_state_1, a_median_state_2, a_median_state_3, a_median_state_4, a_median_state_5, a_median_state_6, a_median_state_7)
+
 # bdp per capita data
 
 bdp_pc <- read.csv2("podatki/GDP_PC_USA.csv") %>% drop_na(USA) %>% rename(Year=1)
 
 # bdp per capita per purchising power 
 
-bdp_pc_ppp <- read.csv2("podatki/GDP_PC_PPP_USA.csv")  %>% drop_na(USA) 
+bdp_pc_ppp <- read.csv2("podatki/GDP_PC_PPP_USA.csv", fileEncoding = "UTF-8")  %>% drop_na(USA) 
 
 
 
