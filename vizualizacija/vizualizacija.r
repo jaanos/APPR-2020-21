@@ -44,6 +44,14 @@ tortnidiagram <- ggplot(f) + aes(x="", y = vsota,fill=studij) + geom_col(width=1
 tujci <- tabela1nova %>% filter(regija == "Stalno bivališče neznano ali v tujini")
 graf7 <- tujci %>% ggplot(aes(x=leto, y=stevilo, col=kategorija)) + geom_line()
 
+# GRAF POVPREČNEGA DELEŽA DIPLOMANTOV V ODSTOTKIH GLEDE NA ŠTEVILO PREBIVALCEV V POSAMEZNI REGIJI V DESETIH LETIH
+
+povprecjedipl <- skupnatabela2 %>% group_by(regija) %>% summarise(povprecje=sum(delez)/10)
+graf8 <- povprecjedipl %>% ggplot(aes(x=povprecje, y=regija, fill = regija)) + geom_col()
+
+zemljevida <- uvozi.zemljevid("https://biogeo.ucdavis.edu/data/gadm3.6/shp/gadm36_SVN_shp.zip", "gadm36_SVN_1")
+zemljevid2 <- tm_shape(merge(zemljevida, povprecjedipl, by.x="NAME_1", by.y="regija" )) + 
+  tm_polygons("povprecje",title="Delež") + tm_layout(title="Povprečni delež diplomantov po regijah v zadnjih desetih letih glede na število prebivalcev v posamezni regiji")
 
 #graf2 <- ggplot(povprecje.diplomantov.po.regijah, aes(regija, povprecje, group = 1)) + geom_col() + coord_flip() +
 #  labs(x = "Regija", y = "Povprecje", 
