@@ -17,23 +17,37 @@ Moji podatki bodo v naslednjih tabelah:
 
  1. tabela Dijaki in diplomanti terciarnega izobraževanja po statistični regiji stalnega prebivališča, Slovenija, 
  
-    Stolpci: - Regija, - Leto, - Kategorija (dijaki, diplomanti), - Število
-
+    - Regija,
+    - Leto,
+    - Kategorija (dijaki, diplomanti),
+    - Število
+    
  2. tabela Dijaki po spolu in vrsti izobraževanja, Slovenija, letno 
  
-    Stolpci: - Vrsta izobraževanja, - Leto, - Spol(moški, ženski), - Število
+    - Vrsta izobraževanja,
+    - Leto,
+    - Spol(moški, ženski),
+    - Število
 
  3. tabela Diplomanti terciarnega izobraževanja po vrsti izobraževanja in spolu, Slovenija, letno 
  
-    Stolpci: - Vrsta izobraževanja, - Leto, - Spol(moški, ženski), - Število
+    - Vrsta izobraževanja,
+    - Leto,
+    - Spol(moški, ženski),
+    - Število
 
  4. tabela Diplomanti terciarnega izobraževanja po vrsti izobraževanja in načinu študija, Slovenija, letno 
  
-    Stolpci: - Vrsta izobraževanja, - Leto, - Način študija, - Število
+    - Vrsta izobraževanja,
+    - Leto,
+    - Način študija,
+    - Število
   
  5. tabela Število prebivalcev po regijah, letno
  
-    Stolpci: - Regija, - Leto, - Število
+    - Regija,
+    - Leto,
+    - Število
   
 
 ## Program
