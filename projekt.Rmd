@@ -62,7 +62,7 @@ Uvozila sem podatke v obliki CSV in html s statističnega urada. Podatke imam v 
   - `študij` - spremenljivka: redni/izredni študij (neurejen faktor),
   - `število` meritev: število studentov glede na način študija in vrsto izobraževanja(število).
   
-1. `regije` - podatki o številu prebivalcev za vsako regijo
+5. `regije` - podatki o številu prebivalcev za vsako regijo
   - `regija` - spremenljivka: ime regije (neurejen faktor),
   - `leto` - spremenljivka (število),
   - `število` meritev: število prebivalcev v pripadajoči regiji(število).
