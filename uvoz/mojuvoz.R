@@ -56,4 +56,20 @@ tabelaprebivalci[tabelaprebivalci == "Primorsko-notranjska"] <- "Notranjsko-kraÅ
 
 # zdruÅ¾im tabela1nova in tabelaprebivalci
 
-a <- left_join(tabela1nova, tabelaprebivalci, by = NULL)
+tabela1novadijaki <- tabela1nova[1:120,] %>% mutate_all(as.character)
+tabela1novadijaki <- subset (tabela1novadijaki, select = -kategorija)
+skupnatabela <- left_join(tabela1novadijaki, tabelaprebivalci, by = c("regija", "leto"))
+skupnatabela$stevilo.x <- as.numeric(skupnatabela$stevilo.x)
+skupnatabela$stevilo.y <- as.numeric(skupnatabela$stevilo.y)
+skupnatabela <- transform(skupnatabela, delez = (stevilo.x / stevilo.y)/10)# delez v procentih glede na stevilo dijakov glede na stevilo prebivalcev v posamezni regiji
+skupnatabela <- subset(skupnatabela, select = - stevilo.x)
+skupnatabela <- subset(skupnatabela, select = - stevilo.y)
+
+tabela1novadiplomanti <- tabela1nova[131:250,] %>% mutate_all(as.character)
+tabela1novadiplomanti <- subset (tabela1novadiplomanti, select = -kategorija)
+skupnatabela2 <- left_join(tabela1novadiplomanti, tabelaprebivalci, by = c("regija", "leto"))
+skupnatabela2$stevilo.x <- as.numeric(skupnatabela2$stevilo.x)
+skupnatabela2$stevilo.y <- as.numeric(skupnatabela2$stevilo.y)
+skupnatabela2 <- transform(skupnatabela2, delez = (stevilo.x / stevilo.y)/10)
+skupnatabela2 <- subset(skupnatabela2, select = - stevilo.x)
+skupnatabela2 <- subset(skupnatabela2, select = - stevilo.y)
