@@ -1,6 +1,10 @@
 library(ggplot2)
 library(dplyr)
 library(tidyverse)
+library(tmap)
+library(rgdal)
+library(rgeos)
+library(maptools)
 
 
 # 1. graf: histogram vrste dohodka 2008 in 2019
@@ -32,4 +36,23 @@ print(graf_spol)
 
 # 3. graf: razlika po spolu 2
 razlika_spol <- spol %>%
-  arrange(desc(Leto)) # zelim razliko med dohodkoma in narediti histogram
+  arrange(desc(Leto)) %>%
+  pivot_wider(names_from = Spol, values_from = Dohodek) %>%
+  mutate(Razlika = Moški - Ženske)
+
+graf_razlika_spol <- ggplot(razlika_spol, aes(x=factor(Leto), y=Razlika, group=1)) +
+  geom_line() +
+  geom_point() +
+  labs(title="Razlika med spoloma 2", x="Leto", y = "Razlika dohodka")
+print(graf_spol)
+print(graf_razlika_spol)
+
+# Zemljevid statističnih regij
+source("https://raw.githubusercontent.com/jaanos/APPR-2020-21/master/lib/uvozi.zemljevid.r")
+
+zemljevid_regije <- uvozi.zemljevid("https://biogeo.ucdavis.edu/data/gadm3.6/shp/gadm36_SVN_shp.zip",
+                                    "gadm36_SVN_1", encoding = "Utf-8")
+
+print(tm_shape(zemljevid_regije) + tm_polygons("NAME_1"))
+
+
