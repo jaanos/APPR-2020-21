@@ -53,6 +53,14 @@ source("https://raw.githubusercontent.com/jaanos/APPR-2020-21/master/lib/uvozi.z
 zemljevid_regije <- uvozi.zemljevid("https://biogeo.ucdavis.edu/data/gadm3.6/shp/gadm36_SVN_shp.zip",
                                     "gadm36_SVN_1", encoding = "Utf-8")
 
+zemljevid_regije$NAME_1 <- as.factor(iconv(as.character(zemljevid_regije$NAME_1),
+                                           "Utf-8"))
 print(tm_shape(zemljevid_regije) + tm_polygons("NAME_1"))
 
+#Spodnjeposavska = posavska
+#Notranjsko-kraška = primorsko-notranjska
+
+levels(as.factor(zemljevid_regije$NAME_1)) %>%
+  mutate(NAME_1 = gsub("Spodnjeposavska", "Posavska", NAME_1)) %>%
+  mutate(NAME_1 = gsub("Notranjsko-kraška", "Primorsko-notranjska", NAME_1))
 
