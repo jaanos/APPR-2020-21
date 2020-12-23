@@ -5,20 +5,16 @@ library(tmap)
 library(rgdal)
 library(rgeos)
 library(maptools)
+library(stringr)
 
 
 # 1. graf: histogram vrste dohodka 2008 in 2019
-vrste_dohodka_08_19 <- vrste_dohodka %>%
-  filter(Leto == 2008 | Leto == 2019) %>%
-  arrange(desc(Leto)) %>%
-  select(Vrsta.dohodka, Leto, Dohodek)
 
-graf_vrste_dohodka_08_19 <- ggplot(vrste_dohodka_08_19, aes(x=Vrsta.dohodka, 
-                                                            y=Dohodek, fill=factor(Leto))) + 
-  geom_histogram(stat = "identity", binwidth=1, position="identity", color="black") +
-  labs(title="Dohodek glede na vrsto", x="Vrsta dohodka", y = "Dohodek", fill="Leto") +
-  scale_x_discrete(guide=guide_axis(n.dodge=2))
-print(graf_vrste_dohodka_08_19)
+graf_vrste_dohodka <- ggplot(vrste_dohodka, aes(x=factor(Leto), y=Dohodek,group=Vrsta.dohodka, colour=Vrsta.dohodka)) + 
+  geom_line(aes(colour=Vrsta.dohodka)) +
+  geom_point(aes(colour=Vrsta.dohodka)) +
+  labs(title="Dohodek glede na vrsto", x="Leto", y = "Dohodek")
+print(graf_vrste_dohodka)
 
 
 # 2. graf: razlika po spolu
@@ -55,12 +51,20 @@ zemljevid_regije <- uvozi.zemljevid("https://biogeo.ucdavis.edu/data/gadm3.6/shp
 
 zemljevid_regije$NAME_1 <- as.factor(iconv(as.character(zemljevid_regije$NAME_1),
                                            "Utf-8"))
-print(tm_shape(zemljevid_regije) + tm_polygons("NAME_1"))
 
 #Spodnjeposavska = posavska
 #Notranjsko-kraška = primorsko-notranjska
 
-levels(as.factor(zemljevid_regije$NAME_1)) %>%
-  mutate(NAME_1 = gsub("Spodnjeposavska", "Posavska", NAME_1)) %>%
-  mutate(NAME_1 = gsub("Notranjsko-kraška", "Primorsko-notranjska", NAME_1))
+levels(zemljevid_regije$NAME_1)[levels(zemljevid_regije$NAME_1)=="Spodnjeposavska"] <- "Posavska"
+levels(zemljevid_regije$NAME_1)[levels(zemljevid_regije$NAME_1)=="Notranjsko-kraška"] <- "Primorsko-notranjska"
+
+regije_19 <- regije %>%
+  select(Regija, Leto, Dohodek) %>%
+  filter(Leto == 2019)
+
+print(tm_shape(merge(zemljevid_regije, regije_19, by.x="NAME_1", by.y="Regija")) +
+  tm_polygons("Dohodek", style="jenks"))
+#naredi facet še glede rasti dohodka od 2008 do 2019
+
+
 
