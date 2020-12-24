@@ -6,6 +6,7 @@ library(rgdal)
 library(rgeos)
 library(maptools)
 library(stringr)
+library(RColorBrewer)
 
 
 # 1. graf: histogram vrste dohodka 2008 in 2019
@@ -58,13 +59,20 @@ zemljevid_regije$NAME_1 <- as.factor(iconv(as.character(zemljevid_regije$NAME_1)
 levels(zemljevid_regije$NAME_1)[levels(zemljevid_regije$NAME_1)=="Spodnjeposavska"] <- "Posavska"
 levels(zemljevid_regije$NAME_1)[levels(zemljevid_regije$NAME_1)=="Notranjsko-kraška"] <- "Primorsko-notranjska"
 
-regije_19 <- regije %>%
+regije_8_19 <- regije %>%
   select(Regija, Leto, Dohodek) %>%
-  filter(Leto == 2019)
+  filter(Leto == 2019 | Leto == 2008) %>%
+  pivot_wider(names_from = Leto, values_from = Dohodek) %>%
+  mutate(Rast = (((regije_19$"2019" - regije_19$"2008")/regije_19$"2008")*100))
 
-print(tm_shape(merge(zemljevid_regije, regije_19, by.x="NAME_1", by.y="Regija")) +
-  tm_polygons("Dohodek", style="jenks"))
-#naredi facet še glede rasti dohodka od 2008 do 2019
+
+narisi_zemljevid <- tm_shape(merge(zemljevid_regije, regije_8_19, by.x="NAME_1", by.y="Regija")) +
+  tm_polygons(c("2019", "Rast") , style="jenks", palette = "YlGn") +
+  tm_facets(sync = TRUE, ncol = 2)
+
+print(narisi_zemljevid)
+
+
 
 
 
