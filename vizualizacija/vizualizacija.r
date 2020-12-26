@@ -6,11 +6,13 @@
 source("lib/uvozi.zemljevid.r",encoding="UTF-8")
 library(ggplot2)
 library(readr)
+library(tidyr)
 library(scales)
 library(rgdal)
 library(mosaic) 
 library(maps)
 library(tmap)
+library(rworldmap)
 
 # ZAPOSLENOST PO LETIH, BOMO UPORABILI PRI KASNEJSI ANALIZI
 
@@ -159,5 +161,49 @@ graf5 <- t_e_l_b %>%
 
 # MAPE ZVEZNIH DRZAV (D.F.)
 
-states <- map_data("state")
+states <- map_data("state") 
+
+# Izriše ZDA 
+
+# mapa_zda <- states %>% 
+#   ggplot(aes(x=long, y=lat, group=group, color=region)) +
+#   geom_polygon() +
+#   labs(title="ZDA") +
+#   theme(legend.position = "none") 
+
+# mapa_zda2 <- getMap(resolution="low") %>% 
+#   fortify() %>%
+#   View()
+        
+
+# POVPREČNE PLAČE (URNE) V ZDA 
+
+zemljevid <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/states_21basic.zip", "states",
+                              encoding="UTF-8") 
+#names(zemljevid)
+zem1 <-  tm_shape(merge(zemljevid, h_med_s, by.x="STATE_NAME", by.y="STATE")) +
+ tm_polygons("povprecje") +
+ tm_style("cobalt") 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

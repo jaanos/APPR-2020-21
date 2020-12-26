@@ -289,7 +289,7 @@ employment3 <- function(tabela,leto){
     rename(emp=TOT_EMP) %>% 
     mutate(leto=c(leto)) %>% 
     .[c(1,3,2,4)] %>%
-    drop_na(emp)
+    drop_na(emp) 
   return(total_employment_state)
 }
 
@@ -313,8 +313,8 @@ t_e_s <- rbind(total_employment_state_1,total_employment_state_2,
         mutate(emp2=parse_number(emp, locale=locale(decimal_mark = ",",grouping_mark = ".") )) %>% 
         arrange(emp2) %>% 
         select(1,3,4,5) %>%
-        rename(emp=emp2)
-      
+        rename(emp=emp2) 
+
 # h. mean by state
 
 hmean3 <- function(tabela,leto){
@@ -379,10 +379,10 @@ a_mea_s <- rbind(a_mean_state_1, a_mean_state_2, a_mean_state_3, a_mean_state_4,
             mutate(AM2=parse_number(AM, locale=locale(decimal_mark = ",",grouping_mark = ".") )) %>% 
             arrange(AM2) %>% 
             select(1,2,3,5) %>%
-            rename(AM=AM2)
+            rename(AM=AM2) %>%
+            rename(State=STATE)
 
 # H_MEDIAN
-
 
 hmedian3 <- function(tabela,leto){
   h_median_state <- tabela %>% 
@@ -411,12 +411,16 @@ h_median_state_6 <- hmedian3(st16,2016)
 h_median_state_7 <- hmedian3(st18,2018)
 
 
+###### TU JE NEKAJ NAROBE PRI SUMMERISE JE TREBA ŠE POPRAVITI
+
 h_med_s <- rbind(h_median_state_1, h_median_state_2, h_median_state_3, 
           h_median_state_4, h_median_state_5, h_median_state_6, h_median_state_7) %>%
           mutate(HME2=parse_number(HME, locale=locale(decimal_mark = ",",grouping_mark = ".") )) %>% 
           arrange(HME2) %>% 
           select(1,2,3,5) %>%
-          rename(HME=HME2)
+          rename(HME=HME2) %>%
+          group_by(STATE) %>% 
+          summarise(povprecje= sum(HME))
 
 # A_MEDIAN
 

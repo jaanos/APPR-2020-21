@@ -92,5 +92,14 @@ Graf prikazuje deleže poklicev t.j. boljše in slabše plačenih.
 graf5
 ```
 
+Zemljevidi: 
+
+
+Povprečna plača po zveznih državah. komentraji: ...
+```{r zem1, echo=FALSE, fig.align='center'}
+zem1
+```
+
+
 
 
