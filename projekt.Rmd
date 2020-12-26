@@ -41,12 +41,9 @@ povezano z njihovim BDP.
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Podatke smo uvozili z Ameriškega statističnega urada ()
-
+Podatke smo uvozili z Ameriškega statističnega urada (U.S. BUREAU OF LABOR STATISTICS)
 Uvozil sem podatke z [ZDA URADA STATISTIKE DELA](http://www.bls.gov/bls/proghome.htm) v CSV formatu.
 Tabele smo prečistili tako, da je smo jih pritvorili v tabele v obliki *tidy data*.
-
-
 
 ***
 
@@ -56,22 +53,44 @@ Tabele smo prečistili tako, da je smo jih pritvorili v tabele v obliki *tidy da
 source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 ```
 
-Prvi graf prikazuje zaposlenost po letih v ZDA.
+Prvi graf prikazuje zaposlenost po letih v ZDA. Vidimo, da zaposlenost v ZDA v 
+letnih narašča, kar nam, daje dober signal za gospodarstvo ... 
+(diskusija še pride)
 
 ```{r graf1, echo=FALSE, fig.align='center'}
 graf1
 ```
 
 
-Graf prikazuje porazdelitec plač v ZDA za najboljše poklice.
+Graf prikazuje porazdelitec plač v ZDA za najboljše plačane tri poklice (po 
+urni postavki). (diskusija še pride ...)
+
 ```{r graf2, echo=FALSE, fig.align='center'}
 graf2
 ```
 
 
-Graf prikazuje urne postavke plač najboljše plačenih poklicev v ZDA. 
+Graf prikazuje urne postavke plač najboljše plačenih poklicev v ZDA in kako se 
+spreminjajo čez leta. (diskus. ...)
+
 ```{r graf3, echo=FALSE, fig.align='center'}
 graf3
 ```
+
+Graf prikazuje plače od dveh najslabše plačevnih poklicev.
+... komentarji še pridejo
+
+
+```{r graf4, echo=FALSE, fig.align='center'}
+graf4
+```
+
+Graf prikazuje deleže poklicev t.j. boljše in slabše plačenih. 
+... komentarji še pridejo
+
+```{r graf5, echo=FALSE, fig.align='center'}
+graf5
+```
+
 
 

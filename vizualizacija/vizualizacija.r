@@ -11,14 +11,13 @@ library(rgdal)
 library(mosaic) 
 library(maps)
 library(tmap)
-library(tidyverse)
 
 # ZAPOSLENOST PO LETIH, BOMO UPORABILI PRI KASNEJSI ANALIZI
 
 
 # a <- t_e %>% mutate(emp2=parse_number(emp, locale=locale(decimal_mark = ",",grouping_mark = ".") )) %>% arrange(emp2)
 
-# TOP 5 ZAPOSLENOSTI PO POKLICIH PO LETIH
+# TOP 5 ZAPOSLENOSTI PO POKLICIH PO LETIH (NE VEM ČE BOMO UPORABILI)
 
 te_08 <- t_e %>% filter(leto=="2008") %>%  tail(n = 6) %>% head(n = 5)
 te_10 <- t_e %>% filter(leto=="2010") %>%  tail(n = 6) %>% head(n = 5)
@@ -42,10 +41,12 @@ h_mean_14_T <- h_mean %>% filter(leto=="2014") %>%  tail(n = 5)
 h_mean_16_T <- h_mean %>% filter(leto=="2016") %>%  tail(n = 5) 
 h_mean_18_T <- h_mean %>% filter(leto=="2018") %>%  tail(n = 5) 
 
-# IZ TABEL VIDIMO, DA SO Anesthesiologists in surgeons VEDNO NA VRHU
+# TOP PO HOURLY WAGE
 surgeons_h <- h_mean %>% filter(occ_title == "Surgeons") 
 anesthesiologists_h <- h_mean %>% filter(occ_title == "Anesthesiologists")
-top <- rbind(surgeons_h, anesthesiologists_h) 
+orthodontists_h <- h_mean %>% filter(occ_title == "Orthodontists")
+top <- rbind(surgeons_h, anesthesiologists_h, orthodontists_h) %>% 
+    rename(poklic=occ_title)
 
 ## GLEDE URNE POSTAVKE BOTTOM 
 
@@ -74,8 +75,19 @@ a_mean_14_B <- a_mean %>% filter(leto=="2014") %>%  slice(1:5)
 a_mean_16_B <- a_mean %>% filter(leto=="2016") %>%  slice(1:5)
 a_mean_18_B <- a_mean %>% filter(leto=="2018") %>%  slice(1:5)
 
+a_b_1 <- a_mean %>% filter(occ_title == "Shampooers") 
+a_b_2 <- a_mean %>% filter(occ_title == "Dishwashers") 
+a_b <- rbind(a_b_1,a_b_2) %>%  rename(poklic=occ_title)
 
 
+# Zaposlenost top 3 poklicev in bot. 2 poklicev
+
+t_el1 <- t_e %>% filter(occ_title == "Shampooers") 
+t_el2 <- t_e %>% filter(occ_title == "Dishwashers") 
+t_eh1 <- t_e %>% filter(occ_title == "Surgeons") 
+t_eh2 <- t_e %>% filter(occ_title == "Anesthesiologists")
+t_eh3 <- t_e %>% filter(occ_title == "Orthodontists")
+t_e_l_b <- rbind(t_el1, t_el2, t_eh1,t_eh2, t_eh3) %>% rename(poklic=occ_title)
 
 # GRAF, KI ANALIZIRA ZAPOSLITEV
 
@@ -96,42 +108,56 @@ graf1 <- t_e %>% filter(occ_title == "All Occupations") %>%
         axis.text.y = element_text(face="bold", color="red", 
                                    size=10, angle=7))
 
-
-# PORAZDELITEV TOP PLAC PO LETIH
+# PORAZDELITEV TOP3 PLAC PO LETIH
 
 graf2 <- top %>%
-  ggplot(aes(x=occ_title, y=HM)) +
+  ggplot(aes(x=poklic, y=HM)) +
   geom_boxplot(fill="red", colour="red" , alpha=I(0.2)) +
   geom_jitter(alpha=I(0.2)) +
   geom_point() 
 
-# S. IN A.  
+# TOP 3 GRAFICNO PO DREVESIH
 
-graf3 <- top %>%
- ggplot(aes(x=leto,y=HM)) +
- geom_line(color="blue") + 
- geom_point() + 
- facet_grid(~occ_title)
+# graf4* <- top %>%
+#  ggplot(aes(x=leto,y=HM)) +
+#  geom_line(color="blue") + 
+#  geom_point() + 
+#  facet_grid(~poklic)
 
-# graf3 <- top %>%
+# graf4* <- top %>%
 #   ggplot(aes(x=leto,y=HM)) +
 #   geom_line(color="blue") + 
 #   geom_point() +
 #   facet_grid(occ_title~.)
 
-graf4 <- top %>%
-  ggplot(aes(x=leto,y=HM, col=occ_title)) +
+# TOP 3 GLEDE NA URNE POSTAVEK 
+
+graf3 <- top %>%
+  ggplot(aes(x=leto,y=HM, col=poklic)) +
   xlab("Leto") +
   ylab("Povprečna plača na uro") +
-  labs(title="Povprečna plača") +
+  labs(title="Povprečna urna plača treh najboljše plačanih poklicev.") +
   geom_line(size=1) +
   geom_point(size=2) 
   
+# BOTTOM 3 GLEDE NA AVRAGE WAGE 
 
+graf4 <- a_b %>%
+    ggplot(aes(x=leto,y=AM)) +
+    geom_line(color="blue") +
+    geom_point() +
+    xlab("Leto") +
+    ylab("Povprečna plača") +
+    labs(title="Povprečna plača dveh najslabše plačanih poklicev.") +
+    facet_grid(~poklic) 
+    
 
+  
+graf5 <- t_e_l_b %>%
+    ggplot(aes(x=leto, color=poklic, fill=poklic)) +
+    geom_bar(alpha=I(0.8),position = "fill")
 
-
-# MAPE ZVEZNIH DRZAV
+# MAPE ZVEZNIH DRZAV (D.F.)
 
 states <- map_data("state")
 
