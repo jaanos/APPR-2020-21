@@ -40,7 +40,7 @@ print(graf_spol)
 print(graf_razlika_spol)
 
 # Zemljevid statističnih regij
-source("lib/uvozi.zemljevid.r", encoding="UTF-8")
+
 zemljevid_regije <- uvozi.zemljevid("https://biogeo.ucdavis.edu/data/gadm3.6/shp/gadm36_SVN_shp.zip",
                                     "gadm36_SVN_1", encoding = "UTF-8")
 
@@ -61,7 +61,7 @@ regije_8_19 <- regije %>%
 
 
 narisi_zemljevid <- tm_shape(merge(zemljevid_regije, regije_8_19, by.x="NAME_1", by.y="Regija")) +
-  tm_polygons(c("2019", "Rast") , style="jenks", palette = "YlGn") +
+  tm_polygons(c("2008", "2019", "Rast") , style="jenks", palette = "YlGn") +
   tm_facets(sync = TRUE, ncol = 2)
 
 print(narisi_zemljevid)
