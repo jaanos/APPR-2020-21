@@ -1,12 +1,4 @@
-library(ggplot2)
-library(dplyr)
-library(tidyverse)
-library(tmap)
-library(rgdal)
-library(rgeos)
-library(maptools)
-library(stringr)
-library(RColorBrewer)
+
 
 
 # 1. graf: vrste dohodka 2019
@@ -65,6 +57,8 @@ narisi_zemljevid <- tm_shape(merge(zemljevid_regije, regije_8_19, by.x="NAME_1",
   tm_facets(sync = TRUE, ncol = 2)
 
 print(narisi_zemljevid)
+
+
 
 
 

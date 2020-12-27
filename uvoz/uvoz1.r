@@ -1,8 +1,3 @@
-library(readr)
-library(tidyr)
-library(dplyr)
-library(rvest)
-library(tidyverse) # za str_sub
 
 
 #Tabela za starost in spol
