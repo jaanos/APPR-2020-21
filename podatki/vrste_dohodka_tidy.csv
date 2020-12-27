@@ -1,49 +1,49 @@
-"";"Meritev";"Vrsta.dohodka";"Leto";"Dohodek"
-"49";"Povprečni dohodek na člana gospodinjstva";"DOHODEK IZ DELA";2008;5121
-"50";"Povprečni dohodek na člana gospodinjstva";"DOHODEK IZ DELA";2009;5577
-"51";"Povprečni dohodek na člana gospodinjstva";"DOHODEK IZ DELA";2010;5519
-"52";"Povprečni dohodek na člana gospodinjstva";"DOHODEK IZ DELA";2011;5575
-"53";"Povprečni dohodek na člana gospodinjstva";"DOHODEK IZ DELA";2012;5542
-"54";"Povprečni dohodek na člana gospodinjstva";"DOHODEK IZ DELA";2013;5440
-"55";"Povprečni dohodek na člana gospodinjstva";"DOHODEK IZ DELA";2014;5437
-"56";"Povprečni dohodek na člana gospodinjstva";"DOHODEK IZ DELA";2015;5637
-"57";"Povprečni dohodek na člana gospodinjstva";"DOHODEK IZ DELA";2016;5602
-"58";"Povprečni dohodek na člana gospodinjstva";"DOHODEK IZ DELA";2017;5840
-"59";"Povprečni dohodek na člana gospodinjstva";"DOHODEK IZ DELA";2018;6128
-"60";"Povprečni dohodek na člana gospodinjstva";"DOHODEK IZ DELA";2019;6788
-"61";"Povprečni dohodek na člana gospodinjstva";"POKOJNINE Z DODATKI";2008;1503
-"62";"Povprečni dohodek na člana gospodinjstva";"POKOJNINE Z DODATKI";2009;1623
-"63";"Povprečni dohodek na člana gospodinjstva";"POKOJNINE Z DODATKI";2010;1705
-"64";"Povprečni dohodek na člana gospodinjstva";"POKOJNINE Z DODATKI";2011;1769
-"65";"Povprečni dohodek na člana gospodinjstva";"POKOJNINE Z DODATKI";2012;1862
-"66";"Povprečni dohodek na člana gospodinjstva";"POKOJNINE Z DODATKI";2013;1869
-"67";"Povprečni dohodek na člana gospodinjstva";"POKOJNINE Z DODATKI";2014;1929
-"68";"Povprečni dohodek na člana gospodinjstva";"POKOJNINE Z DODATKI";2015;1987
-"69";"Povprečni dohodek na člana gospodinjstva";"POKOJNINE Z DODATKI";2016;1974
-"70";"Povprečni dohodek na člana gospodinjstva";"POKOJNINE Z DODATKI";2017;2027
-"71";"Povprečni dohodek na člana gospodinjstva";"POKOJNINE Z DODATKI";2018;2075
-"72";"Povprečni dohodek na člana gospodinjstva";"POKOJNINE Z DODATKI";2019;2143
-"73";"Povprečni dohodek na člana gospodinjstva";"DRUŽINSKI IN SOCIALNI PREJEMKI";2008;803
-"74";"Povprečni dohodek na člana gospodinjstva";"DRUŽINSKI IN SOCIALNI PREJEMKI";2009;841
-"75";"Povprečni dohodek na člana gospodinjstva";"DRUŽINSKI IN SOCIALNI PREJEMKI";2010;947
-"76";"Povprečni dohodek na člana gospodinjstva";"DRUŽINSKI IN SOCIALNI PREJEMKI";2011;979
-"77";"Povprečni dohodek na člana gospodinjstva";"DRUŽINSKI IN SOCIALNI PREJEMKI";2012;993
-"78";"Povprečni dohodek na člana gospodinjstva";"DRUŽINSKI IN SOCIALNI PREJEMKI";2013;920
-"79";"Povprečni dohodek na člana gospodinjstva";"DRUŽINSKI IN SOCIALNI PREJEMKI";2014;903
-"80";"Povprečni dohodek na člana gospodinjstva";"DRUŽINSKI IN SOCIALNI PREJEMKI";2015;889
-"81";"Povprečni dohodek na člana gospodinjstva";"DRUŽINSKI IN SOCIALNI PREJEMKI";2016;892
-"82";"Povprečni dohodek na člana gospodinjstva";"DRUŽINSKI IN SOCIALNI PREJEMKI";2017;924
-"83";"Povprečni dohodek na člana gospodinjstva";"DRUŽINSKI IN SOCIALNI PREJEMKI";2018;924
-"84";"Povprečni dohodek na člana gospodinjstva";"DRUŽINSKI IN SOCIALNI PREJEMKI";2019;941
-"85";"Povprečni dohodek na člana gospodinjstva";"DRUGI DOHODKI";2008;105
-"86";"Povprečni dohodek na člana gospodinjstva";"DRUGI DOHODKI";2009;158
-"87";"Povprečni dohodek na člana gospodinjstva";"DRUGI DOHODKI";2010;147
-"88";"Povprečni dohodek na člana gospodinjstva";"DRUGI DOHODKI";2011;159
-"89";"Povprečni dohodek na člana gospodinjstva";"DRUGI DOHODKI";2012;170
-"90";"Povprečni dohodek na člana gospodinjstva";"DRUGI DOHODKI";2013;184
-"91";"Povprečni dohodek na člana gospodinjstva";"DRUGI DOHODKI";2014;250
-"92";"Povprečni dohodek na člana gospodinjstva";"DRUGI DOHODKI";2015;232
-"93";"Povprečni dohodek na člana gospodinjstva";"DRUGI DOHODKI";2016;265
-"94";"Povprečni dohodek na člana gospodinjstva";"DRUGI DOHODKI";2017;200
-"95";"Povprečni dohodek na člana gospodinjstva";"DRUGI DOHODKI";2018;206
-"96";"Povprečni dohodek na člana gospodinjstva";"DRUGI DOHODKI";2019;221
+"";"Vrsta.dohodka";"Leto";"Dohodek"
+"49";"DOHODEK IZ DELA";2008;5121
+"50";"DOHODEK IZ DELA";2009;5577
+"51";"DOHODEK IZ DELA";2010;5519
+"52";"DOHODEK IZ DELA";2011;5575
+"53";"DOHODEK IZ DELA";2012;5542
+"54";"DOHODEK IZ DELA";2013;5440
+"55";"DOHODEK IZ DELA";2014;5437
+"56";"DOHODEK IZ DELA";2015;5637
+"57";"DOHODEK IZ DELA";2016;5602
+"58";"DOHODEK IZ DELA";2017;5840
+"59";"DOHODEK IZ DELA";2018;6128
+"60";"DOHODEK IZ DELA";2019;6788
+"61";"POKOJNINE Z DODATKI";2008;1503
+"62";"POKOJNINE Z DODATKI";2009;1623
+"63";"POKOJNINE Z DODATKI";2010;1705
+"64";"POKOJNINE Z DODATKI";2011;1769
+"65";"POKOJNINE Z DODATKI";2012;1862
+"66";"POKOJNINE Z DODATKI";2013;1869
+"67";"POKOJNINE Z DODATKI";2014;1929
+"68";"POKOJNINE Z DODATKI";2015;1987
+"69";"POKOJNINE Z DODATKI";2016;1974
+"70";"POKOJNINE Z DODATKI";2017;2027
+"71";"POKOJNINE Z DODATKI";2018;2075
+"72";"POKOJNINE Z DODATKI";2019;2143
+"73";"DRUŽINSKI IN SOCIALNI PREJEMKI";2008;803
+"74";"DRUŽINSKI IN SOCIALNI PREJEMKI";2009;841
+"75";"DRUŽINSKI IN SOCIALNI PREJEMKI";2010;947
+"76";"DRUŽINSKI IN SOCIALNI PREJEMKI";2011;979
+"77";"DRUŽINSKI IN SOCIALNI PREJEMKI";2012;993
+"78";"DRUŽINSKI IN SOCIALNI PREJEMKI";2013;920
+"79";"DRUŽINSKI IN SOCIALNI PREJEMKI";2014;903
+"80";"DRUŽINSKI IN SOCIALNI PREJEMKI";2015;889
+"81";"DRUŽINSKI IN SOCIALNI PREJEMKI";2016;892
+"82";"DRUŽINSKI IN SOCIALNI PREJEMKI";2017;924
+"83";"DRUŽINSKI IN SOCIALNI PREJEMKI";2018;924
+"84";"DRUŽINSKI IN SOCIALNI PREJEMKI";2019;941
+"85";"DRUGI DOHODKI";2008;105
+"86";"DRUGI DOHODKI";2009;158
+"87";"DRUGI DOHODKI";2010;147
+"88";"DRUGI DOHODKI";2011;159
+"89";"DRUGI DOHODKI";2012;170
+"90";"DRUGI DOHODKI";2013;184
+"91";"DRUGI DOHODKI";2014;250
+"92";"DRUGI DOHODKI";2015;232
+"93";"DRUGI DOHODKI";2016;265
+"94";"DRUGI DOHODKI";2017;200
+"95";"DRUGI DOHODKI";2018;206
+"96";"DRUGI DOHODKI";2019;221

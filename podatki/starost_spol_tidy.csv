@@ -1,217 +1,121 @@
-"";"Meritev";"Starost";"Spol";"Leto";"Socialni.transferji";"Dohodek"
-"1";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Skupaj";2008;"Dohodek po socialnih transferjih";7532
-"2";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Skupaj";2009;"Dohodek po socialnih transferjih";8199
-"3";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Skupaj";2010;"Dohodek po socialnih transferjih";8317
-"4";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Skupaj";2011;"Dohodek po socialnih transferjih";8482
-"5";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Skupaj";2012;"Dohodek po socialnih transferjih";8567
-"6";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Skupaj";2013;"Dohodek po socialnih transferjih";8413
-"7";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Skupaj";2014;"Dohodek po socialnih transferjih";8519
-"8";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Skupaj";2015;"Dohodek po socialnih transferjih";8746
-"9";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Skupaj";2016;"Dohodek po socialnih transferjih";8732
-"10";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Skupaj";2017;"Dohodek po socialnih transferjih";8990
-"11";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Skupaj";2018;"Dohodek po socialnih transferjih";9333
-"12";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Skupaj";2019;"Dohodek po socialnih transferjih";10093
-"13";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Moški";2008;"Dohodek po socialnih transferjih";7585
-"14";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Moški";2009;"Dohodek po socialnih transferjih";8268
-"15";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Moški";2010;"Dohodek po socialnih transferjih";8371
-"16";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Moški";2011;"Dohodek po socialnih transferjih";8538
-"17";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Moški";2012;"Dohodek po socialnih transferjih";8605
-"18";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Moški";2013;"Dohodek po socialnih transferjih";8485
-"19";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Moški";2014;"Dohodek po socialnih transferjih";8615
-"20";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Moški";2015;"Dohodek po socialnih transferjih";8898
-"21";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Moški";2016;"Dohodek po socialnih transferjih";8877
-"22";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Moški";2017;"Dohodek po socialnih transferjih";9131
-"23";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Moški";2018;"Dohodek po socialnih transferjih";9438
-"24";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Moški";2019;"Dohodek po socialnih transferjih";10225
-"25";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Ženske";2008;"Dohodek po socialnih transferjih";7482
-"26";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Ženske";2009;"Dohodek po socialnih transferjih";8131
-"27";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Ženske";2010;"Dohodek po socialnih transferjih";8264
-"28";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Ženske";2011;"Dohodek po socialnih transferjih";8426
-"29";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Ženske";2012;"Dohodek po socialnih transferjih";8529
-"30";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Ženske";2013;"Dohodek po socialnih transferjih";8342
-"31";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Ženske";2014;"Dohodek po socialnih transferjih";8424
-"32";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Ženske";2015;"Dohodek po socialnih transferjih";8595
-"33";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Ženske";2016;"Dohodek po socialnih transferjih";8591
-"34";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Ženske";2017;"Dohodek po socialnih transferjih";8851
-"35";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Ženske";2018;"Dohodek po socialnih transferjih";9228
-"36";"Povprečni dohodek na člana gospodinjstva";"Skupaj";"Ženske";2019;"Dohodek po socialnih transferjih";9961
-"37";"Povprečni dohodek na člana gospodinjstva";"0-17";"Skupaj";2008;"Dohodek po socialnih transferjih";6326
-"38";"Povprečni dohodek na člana gospodinjstva";"0-17";"Skupaj";2009;"Dohodek po socialnih transferjih";6743
-"39";"Povprečni dohodek na člana gospodinjstva";"0-17";"Skupaj";2010;"Dohodek po socialnih transferjih";6760
-"40";"Povprečni dohodek na člana gospodinjstva";"0-17";"Skupaj";2011;"Dohodek po socialnih transferjih";6846
-"41";"Povprečni dohodek na člana gospodinjstva";"0-17";"Skupaj";2012;"Dohodek po socialnih transferjih";6989
-"42";"Povprečni dohodek na člana gospodinjstva";"0-17";"Skupaj";2013;"Dohodek po socialnih transferjih";6938
-"43";"Povprečni dohodek na člana gospodinjstva";"0-17";"Skupaj";2014;"Dohodek po socialnih transferjih";6964
-"44";"Povprečni dohodek na člana gospodinjstva";"0-17";"Skupaj";2015;"Dohodek po socialnih transferjih";7213
-"45";"Povprečni dohodek na člana gospodinjstva";"0-17";"Skupaj";2016;"Dohodek po socialnih transferjih";7296
-"46";"Povprečni dohodek na člana gospodinjstva";"0-17";"Skupaj";2017;"Dohodek po socialnih transferjih";7404
-"47";"Povprečni dohodek na člana gospodinjstva";"0-17";"Skupaj";2018;"Dohodek po socialnih transferjih";7724
-"48";"Povprečni dohodek na člana gospodinjstva";"0-17";"Skupaj";2019;"Dohodek po socialnih transferjih";8332
-"49";"Povprečni dohodek na člana gospodinjstva";"0-17";"Moški";2008;"Dohodek po socialnih transferjih";6432
-"50";"Povprečni dohodek na člana gospodinjstva";"0-17";"Moški";2009;"Dohodek po socialnih transferjih";6795
-"51";"Povprečni dohodek na člana gospodinjstva";"0-17";"Moški";2010;"Dohodek po socialnih transferjih";6743
-"52";"Povprečni dohodek na člana gospodinjstva";"0-17";"Moški";2011;"Dohodek po socialnih transferjih";6835
-"53";"Povprečni dohodek na člana gospodinjstva";"0-17";"Moški";2012;"Dohodek po socialnih transferjih";6971
-"54";"Povprečni dohodek na člana gospodinjstva";"0-17";"Moški";2013;"Dohodek po socialnih transferjih";6912
-"55";"Povprečni dohodek na člana gospodinjstva";"0-17";"Moški";2014;"Dohodek po socialnih transferjih";6870
-"56";"Povprečni dohodek na člana gospodinjstva";"0-17";"Moški";2015;"Dohodek po socialnih transferjih";7202
-"57";"Povprečni dohodek na člana gospodinjstva";"0-17";"Moški";2016;"Dohodek po socialnih transferjih";7348
-"58";"Povprečni dohodek na člana gospodinjstva";"0-17";"Moški";2017;"Dohodek po socialnih transferjih";7487
-"59";"Povprečni dohodek na člana gospodinjstva";"0-17";"Moški";2018;"Dohodek po socialnih transferjih";7770
-"60";"Povprečni dohodek na člana gospodinjstva";"0-17";"Moški";2019;"Dohodek po socialnih transferjih";8414
-"61";"Povprečni dohodek na člana gospodinjstva";"0-17";"Ženske";2008;"Dohodek po socialnih transferjih";6214
-"62";"Povprečni dohodek na člana gospodinjstva";"0-17";"Ženske";2009;"Dohodek po socialnih transferjih";6689
-"63";"Povprečni dohodek na člana gospodinjstva";"0-17";"Ženske";2010;"Dohodek po socialnih transferjih";6779
-"64";"Povprečni dohodek na člana gospodinjstva";"0-17";"Ženske";2011;"Dohodek po socialnih transferjih";6858
-"65";"Povprečni dohodek na člana gospodinjstva";"0-17";"Ženske";2012;"Dohodek po socialnih transferjih";7007
-"66";"Povprečni dohodek na člana gospodinjstva";"0-17";"Ženske";2013;"Dohodek po socialnih transferjih";6965
-"67";"Povprečni dohodek na člana gospodinjstva";"0-17";"Ženske";2014;"Dohodek po socialnih transferjih";7064
-"68";"Povprečni dohodek na člana gospodinjstva";"0-17";"Ženske";2015;"Dohodek po socialnih transferjih";7225
-"69";"Povprečni dohodek na člana gospodinjstva";"0-17";"Ženske";2016;"Dohodek po socialnih transferjih";7241
-"70";"Povprečni dohodek na člana gospodinjstva";"0-17";"Ženske";2017;"Dohodek po socialnih transferjih";7315
-"71";"Povprečni dohodek na člana gospodinjstva";"0-17";"Ženske";2018;"Dohodek po socialnih transferjih";7675
-"72";"Povprečni dohodek na člana gospodinjstva";"0-17";"Ženske";2019;"Dohodek po socialnih transferjih";8245
-"73";"Povprečni dohodek na člana gospodinjstva";"65+";"Skupaj";2008;"Dohodek po socialnih transferjih";7827
-"74";"Povprečni dohodek na člana gospodinjstva";"65+";"Skupaj";2009;"Dohodek po socialnih transferjih";8572
-"75";"Povprečni dohodek na člana gospodinjstva";"65+";"Skupaj";2010;"Dohodek po socialnih transferjih";8984
-"76";"Povprečni dohodek na člana gospodinjstva";"65+";"Skupaj";2011;"Dohodek po socialnih transferjih";9208
-"77";"Povprečni dohodek na člana gospodinjstva";"65+";"Skupaj";2012;"Dohodek po socialnih transferjih";9484
-"78";"Povprečni dohodek na člana gospodinjstva";"65+";"Skupaj";2013;"Dohodek po socialnih transferjih";9201
-"79";"Povprečni dohodek na člana gospodinjstva";"65+";"Skupaj";2014;"Dohodek po socialnih transferjih";9619
-"80";"Povprečni dohodek na člana gospodinjstva";"65+";"Skupaj";2015;"Dohodek po socialnih transferjih";9917
-"81";"Povprečni dohodek na člana gospodinjstva";"65+";"Skupaj";2016;"Dohodek po socialnih transferjih";9770
-"82";"Povprečni dohodek na člana gospodinjstva";"65+";"Skupaj";2017;"Dohodek po socialnih transferjih";9968
-"83";"Povprečni dohodek na člana gospodinjstva";"65+";"Skupaj";2018;"Dohodek po socialnih transferjih";10158
-"84";"Povprečni dohodek na člana gospodinjstva";"65+";"Skupaj";2019;"Dohodek po socialnih transferjih";10545
-"85";"Povprečni dohodek na člana gospodinjstva";"65+";"Moški";2008;"Dohodek po socialnih transferjih";8277
-"86";"Povprečni dohodek na člana gospodinjstva";"65+";"Moški";2009;"Dohodek po socialnih transferjih";9025
-"87";"Povprečni dohodek na člana gospodinjstva";"65+";"Moški";2010;"Dohodek po socialnih transferjih";9590
-"88";"Povprečni dohodek na člana gospodinjstva";"65+";"Moški";2011;"Dohodek po socialnih transferjih";9811
-"89";"Povprečni dohodek na člana gospodinjstva";"65+";"Moški";2012;"Dohodek po socialnih transferjih";9921
-"90";"Povprečni dohodek na člana gospodinjstva";"65+";"Moški";2013;"Dohodek po socialnih transferjih";9669
-"91";"Povprečni dohodek na člana gospodinjstva";"65+";"Moški";2014;"Dohodek po socialnih transferjih";10092
-"92";"Povprečni dohodek na člana gospodinjstva";"65+";"Moški";2015;"Dohodek po socialnih transferjih";10552
-"93";"Povprečni dohodek na člana gospodinjstva";"65+";"Moški";2016;"Dohodek po socialnih transferjih";10317
-"94";"Povprečni dohodek na člana gospodinjstva";"65+";"Moški";2017;"Dohodek po socialnih transferjih";10311
-"95";"Povprečni dohodek na člana gospodinjstva";"65+";"Moški";2018;"Dohodek po socialnih transferjih";10561
-"96";"Povprečni dohodek na člana gospodinjstva";"65+";"Moški";2019;"Dohodek po socialnih transferjih";10907
-"97";"Povprečni dohodek na člana gospodinjstva";"65+";"Ženske";2008;"Dohodek po socialnih transferjih";7537
-"98";"Povprečni dohodek na člana gospodinjstva";"65+";"Ženske";2009;"Dohodek po socialnih transferjih";8280
-"99";"Povprečni dohodek na člana gospodinjstva";"65+";"Ženske";2010;"Dohodek po socialnih transferjih";8588
-"100";"Povprečni dohodek na člana gospodinjstva";"65+";"Ženske";2011;"Dohodek po socialnih transferjih";8808
-"101";"Povprečni dohodek na člana gospodinjstva";"65+";"Ženske";2012;"Dohodek po socialnih transferjih";9183
-"102";"Povprečni dohodek na člana gospodinjstva";"65+";"Ženske";2013;"Dohodek po socialnih transferjih";8880
-"103";"Povprečni dohodek na člana gospodinjstva";"65+";"Ženske";2014;"Dohodek po socialnih transferjih";9281
-"104";"Povprečni dohodek na člana gospodinjstva";"65+";"Ženske";2015;"Dohodek po socialnih transferjih";9463
-"105";"Povprečni dohodek na člana gospodinjstva";"65+";"Ženske";2016;"Dohodek po socialnih transferjih";9376
-"106";"Povprečni dohodek na člana gospodinjstva";"65+";"Ženske";2017;"Dohodek po socialnih transferjih";9710
-"107";"Povprečni dohodek na člana gospodinjstva";"65+";"Ženske";2018;"Dohodek po socialnih transferjih";9857
-"108";"Povprečni dohodek na člana gospodinjstva";"65+";"Ženske";2019;"Dohodek po socialnih transferjih";10267
-"109";"Povprečni dohodek na člana gospodinjstva";"18-24";"Skupaj";2008;"Dohodek po socialnih transferjih";7300
-"110";"Povprečni dohodek na člana gospodinjstva";"18-24";"Skupaj";2009;"Dohodek po socialnih transferjih";8099
-"111";"Povprečni dohodek na člana gospodinjstva";"18-24";"Skupaj";2010;"Dohodek po socialnih transferjih";7951
-"112";"Povprečni dohodek na člana gospodinjstva";"18-24";"Skupaj";2011;"Dohodek po socialnih transferjih";8065
-"113";"Povprečni dohodek na člana gospodinjstva";"18-24";"Skupaj";2012;"Dohodek po socialnih transferjih";8056
-"114";"Povprečni dohodek na člana gospodinjstva";"18-24";"Skupaj";2013;"Dohodek po socialnih transferjih";7682
-"115";"Povprečni dohodek na člana gospodinjstva";"18-24";"Skupaj";2014;"Dohodek po socialnih transferjih";7679
-"116";"Povprečni dohodek na člana gospodinjstva";"18-24";"Skupaj";2015;"Dohodek po socialnih transferjih";8151
-"117";"Povprečni dohodek na člana gospodinjstva";"18-24";"Skupaj";2016;"Dohodek po socialnih transferjih";8132
-"118";"Povprečni dohodek na člana gospodinjstva";"18-24";"Skupaj";2017;"Dohodek po socialnih transferjih";8501
-"119";"Povprečni dohodek na člana gospodinjstva";"18-24";"Skupaj";2018;"Dohodek po socialnih transferjih";8830
-"120";"Povprečni dohodek na člana gospodinjstva";"18-24";"Skupaj";2019;"Dohodek po socialnih transferjih";9915
-"121";"Povprečni dohodek na člana gospodinjstva";"18-24";"Moški";2008;"Dohodek po socialnih transferjih";7471
-"122";"Povprečni dohodek na člana gospodinjstva";"18-24";"Moški";2009;"Dohodek po socialnih transferjih";8230
-"123";"Povprečni dohodek na člana gospodinjstva";"18-24";"Moški";2010;"Dohodek po socialnih transferjih";8003
-"124";"Povprečni dohodek na člana gospodinjstva";"18-24";"Moški";2011;"Dohodek po socialnih transferjih";8141
-"125";"Povprečni dohodek na člana gospodinjstva";"18-24";"Moški";2012;"Dohodek po socialnih transferjih";8144
-"126";"Povprečni dohodek na člana gospodinjstva";"18-24";"Moški";2013;"Dohodek po socialnih transferjih";7875
-"127";"Povprečni dohodek na člana gospodinjstva";"18-24";"Moški";2014;"Dohodek po socialnih transferjih";7913
-"128";"Povprečni dohodek na člana gospodinjstva";"18-24";"Moški";2015;"Dohodek po socialnih transferjih";8543
-"129";"Povprečni dohodek na člana gospodinjstva";"18-24";"Moški";2016;"Dohodek po socialnih transferjih";8504
-"130";"Povprečni dohodek na člana gospodinjstva";"18-24";"Moški";2017;"Dohodek po socialnih transferjih";8867
-"131";"Povprečni dohodek na člana gospodinjstva";"18-24";"Moški";2018;"Dohodek po socialnih transferjih";9026
-"132";"Povprečni dohodek na člana gospodinjstva";"18-24";"Moški";2019;"Dohodek po socialnih transferjih";10194
-"133";"Povprečni dohodek na člana gospodinjstva";"18-24";"Ženske";2008;"Dohodek po socialnih transferjih";7121
-"134";"Povprečni dohodek na člana gospodinjstva";"18-24";"Ženske";2009;"Dohodek po socialnih transferjih";7954
-"135";"Povprečni dohodek na člana gospodinjstva";"18-24";"Ženske";2010;"Dohodek po socialnih transferjih";7891
-"136";"Povprečni dohodek na člana gospodinjstva";"18-24";"Ženske";2011;"Dohodek po socialnih transferjih";7979
-"137";"Povprečni dohodek na člana gospodinjstva";"18-24";"Ženske";2012;"Dohodek po socialnih transferjih";7958
-"138";"Povprečni dohodek na člana gospodinjstva";"18-24";"Ženske";2013;"Dohodek po socialnih transferjih";7471
-"139";"Povprečni dohodek na člana gospodinjstva";"18-24";"Ženske";2014;"Dohodek po socialnih transferjih";7426
-"140";"Povprečni dohodek na člana gospodinjstva";"18-24";"Ženske";2015;"Dohodek po socialnih transferjih";7720
-"141";"Povprečni dohodek na člana gospodinjstva";"18-24";"Ženske";2016;"Dohodek po socialnih transferjih";7733
-"142";"Povprečni dohodek na člana gospodinjstva";"18-24";"Ženske";2017;"Dohodek po socialnih transferjih";8104
-"143";"Povprečni dohodek na člana gospodinjstva";"18-24";"Ženske";2018;"Dohodek po socialnih transferjih";8617
-"144";"Povprečni dohodek na člana gospodinjstva";"18-24";"Ženske";2019;"Dohodek po socialnih transferjih";9601
-"145";"Povprečni dohodek na člana gospodinjstva";"25-49";"Skupaj";2008;"Dohodek po socialnih transferjih";7602
-"146";"Povprečni dohodek na člana gospodinjstva";"25-49";"Skupaj";2009;"Dohodek po socialnih transferjih";8230
-"147";"Povprečni dohodek na člana gospodinjstva";"25-49";"Skupaj";2010;"Dohodek po socialnih transferjih";8341
-"148";"Povprečni dohodek na člana gospodinjstva";"25-49";"Skupaj";2011;"Dohodek po socialnih transferjih";8496
-"149";"Povprečni dohodek na člana gospodinjstva";"25-49";"Skupaj";2012;"Dohodek po socialnih transferjih";8497
-"150";"Povprečni dohodek na člana gospodinjstva";"25-49";"Skupaj";2013;"Dohodek po socialnih transferjih";8391
-"151";"Povprečni dohodek na člana gospodinjstva";"25-49";"Skupaj";2014;"Dohodek po socialnih transferjih";8426
-"152";"Povprečni dohodek na člana gospodinjstva";"25-49";"Skupaj";2015;"Dohodek po socialnih transferjih";8590
-"153";"Povprečni dohodek na člana gospodinjstva";"25-49";"Skupaj";2016;"Dohodek po socialnih transferjih";8579
-"154";"Povprečni dohodek na člana gospodinjstva";"25-49";"Skupaj";2017;"Dohodek po socialnih transferjih";8842
-"155";"Povprečni dohodek na člana gospodinjstva";"25-49";"Skupaj";2018;"Dohodek po socialnih transferjih";9246
-"156";"Povprečni dohodek na člana gospodinjstva";"25-49";"Skupaj";2019;"Dohodek po socialnih transferjih";10099
-"157";"Povprečni dohodek na člana gospodinjstva";"25-49";"Moški";2008;"Dohodek po socialnih transferjih";7633
-"158";"Povprečni dohodek na člana gospodinjstva";"25-49";"Moški";2009;"Dohodek po socialnih transferjih";8305
-"159";"Povprečni dohodek na člana gospodinjstva";"25-49";"Moški";2010;"Dohodek po socialnih transferjih";8392
-"160";"Povprečni dohodek na člana gospodinjstva";"25-49";"Moški";2011;"Dohodek po socialnih transferjih";8560
-"161";"Povprečni dohodek na člana gospodinjstva";"25-49";"Moški";2012;"Dohodek po socialnih transferjih";8546
-"162";"Povprečni dohodek na člana gospodinjstva";"25-49";"Moški";2013;"Dohodek po socialnih transferjih";8516
-"163";"Povprečni dohodek na člana gospodinjstva";"25-49";"Moški";2014;"Dohodek po socialnih transferjih";8590
-"164";"Povprečni dohodek na člana gospodinjstva";"25-49";"Moški";2015;"Dohodek po socialnih transferjih";8839
-"165";"Povprečni dohodek na člana gospodinjstva";"25-49";"Moški";2016;"Dohodek po socialnih transferjih";8775
-"166";"Povprečni dohodek na člana gospodinjstva";"25-49";"Moški";2017;"Dohodek po socialnih transferjih";9093
-"167";"Povprečni dohodek na člana gospodinjstva";"25-49";"Moški";2018;"Dohodek po socialnih transferjih";9398
-"168";"Povprečni dohodek na člana gospodinjstva";"25-49";"Moški";2019;"Dohodek po socialnih transferjih";10258
-"169";"Povprečni dohodek na člana gospodinjstva";"25-49";"Ženske";2008;"Dohodek po socialnih transferjih";7569
-"170";"Povprečni dohodek na člana gospodinjstva";"25-49";"Ženske";2009;"Dohodek po socialnih transferjih";8150
-"171";"Povprečni dohodek na člana gospodinjstva";"25-49";"Ženske";2010;"Dohodek po socialnih transferjih";8288
-"172";"Povprečni dohodek na člana gospodinjstva";"25-49";"Ženske";2011;"Dohodek po socialnih transferjih";8429
-"173";"Povprečni dohodek na člana gospodinjstva";"25-49";"Ženske";2012;"Dohodek po socialnih transferjih";8445
-"174";"Povprečni dohodek na člana gospodinjstva";"25-49";"Ženske";2013;"Dohodek po socialnih transferjih";8258
-"175";"Povprečni dohodek na člana gospodinjstva";"25-49";"Ženske";2014;"Dohodek po socialnih transferjih";8252
-"176";"Povprečni dohodek na člana gospodinjstva";"25-49";"Ženske";2015;"Dohodek po socialnih transferjih";8325
-"177";"Povprečni dohodek na člana gospodinjstva";"25-49";"Ženske";2016;"Dohodek po socialnih transferjih";8366
-"178";"Povprečni dohodek na člana gospodinjstva";"25-49";"Ženske";2017;"Dohodek po socialnih transferjih";8577
-"179";"Povprečni dohodek na člana gospodinjstva";"25-49";"Ženske";2018;"Dohodek po socialnih transferjih";9084
-"180";"Povprečni dohodek na člana gospodinjstva";"25-49";"Ženske";2019;"Dohodek po socialnih transferjih";9928
-"181";"Povprečni dohodek na člana gospodinjstva";"50-64";"Skupaj";2008;"Dohodek po socialnih transferjih";8428
-"182";"Povprečni dohodek na člana gospodinjstva";"50-64";"Skupaj";2009;"Dohodek po socialnih transferjih";9244
-"183";"Povprečni dohodek na člana gospodinjstva";"50-64";"Skupaj";2010;"Dohodek po socialnih transferjih";9379
-"184";"Povprečni dohodek na člana gospodinjstva";"50-64";"Skupaj";2011;"Dohodek po socialnih transferjih";9585
-"185";"Povprečni dohodek na člana gospodinjstva";"50-64";"Skupaj";2012;"Dohodek po socialnih transferjih";9643
-"186";"Povprečni dohodek na člana gospodinjstva";"50-64";"Skupaj";2013;"Dohodek po socialnih transferjih";9470
-"187";"Povprečni dohodek na člana gospodinjstva";"50-64";"Skupaj";2014;"Dohodek po socialnih transferjih";9549
-"188";"Povprečni dohodek na člana gospodinjstva";"50-64";"Skupaj";2015;"Dohodek po socialnih transferjih";9684
-"189";"Povprečni dohodek na člana gospodinjstva";"50-64";"Skupaj";2016;"Dohodek po socialnih transferjih";9665
-"190";"Povprečni dohodek na člana gospodinjstva";"50-64";"Skupaj";2017;"Dohodek po socialnih transferjih";10007
-"191";"Povprečni dohodek na člana gospodinjstva";"50-64";"Skupaj";2018;"Dohodek po socialnih transferjih";10386
-"192";"Povprečni dohodek na člana gospodinjstva";"50-64";"Skupaj";2019;"Dohodek po socialnih transferjih";11320
-"193";"Povprečni dohodek na člana gospodinjstva";"50-64";"Moški";2008;"Dohodek po socialnih transferjih";8255
-"194";"Povprečni dohodek na člana gospodinjstva";"50-64";"Moški";2009;"Dohodek po socialnih transferjih";9154
-"195";"Povprečni dohodek na člana gospodinjstva";"50-64";"Moški";2010;"Dohodek po socialnih transferjih";9320
-"196";"Povprečni dohodek na člana gospodinjstva";"50-64";"Moški";2011;"Dohodek po socialnih transferjih";9523
-"197";"Povprečni dohodek na člana gospodinjstva";"50-64";"Moški";2012;"Dohodek po socialnih transferjih";9650
-"198";"Povprečni dohodek na člana gospodinjstva";"50-64";"Moški";2013;"Dohodek po socialnih transferjih";9402
-"199";"Povprečni dohodek na člana gospodinjstva";"50-64";"Moški";2014;"Dohodek po socialnih transferjih";9607
-"200";"Povprečni dohodek na člana gospodinjstva";"50-64";"Moški";2015;"Dohodek po socialnih transferjih";9616
-"201";"Povprečni dohodek na člana gospodinjstva";"50-64";"Moški";2016;"Dohodek po socialnih transferjih";9650
-"202";"Povprečni dohodek na člana gospodinjstva";"50-64";"Moški";2017;"Dohodek po socialnih transferjih";9956
-"203";"Povprečni dohodek na člana gospodinjstva";"50-64";"Moški";2018;"Dohodek po socialnih transferjih";10377
-"204";"Povprečni dohodek na člana gospodinjstva";"50-64";"Moški";2019;"Dohodek po socialnih transferjih";11342
-"205";"Povprečni dohodek na člana gospodinjstva";"50-64";"Ženske";2008;"Dohodek po socialnih transferjih";8595
-"206";"Povprečni dohodek na člana gospodinjstva";"50-64";"Ženske";2009;"Dohodek po socialnih transferjih";9334
-"207";"Povprečni dohodek na člana gospodinjstva";"50-64";"Ženske";2010;"Dohodek po socialnih transferjih";9439
-"208";"Povprečni dohodek na člana gospodinjstva";"50-64";"Ženske";2011;"Dohodek po socialnih transferjih";9647
-"209";"Povprečni dohodek na člana gospodinjstva";"50-64";"Ženske";2012;"Dohodek po socialnih transferjih";9637
-"210";"Povprečni dohodek na člana gospodinjstva";"50-64";"Ženske";2013;"Dohodek po socialnih transferjih";9537
-"211";"Povprečni dohodek na člana gospodinjstva";"50-64";"Ženske";2014;"Dohodek po socialnih transferjih";9491
-"212";"Povprečni dohodek na člana gospodinjstva";"50-64";"Ženske";2015;"Dohodek po socialnih transferjih";9752
-"213";"Povprečni dohodek na člana gospodinjstva";"50-64";"Ženske";2016;"Dohodek po socialnih transferjih";9679
-"214";"Povprečni dohodek na člana gospodinjstva";"50-64";"Ženske";2017;"Dohodek po socialnih transferjih";10058
-"215";"Povprečni dohodek na člana gospodinjstva";"50-64";"Ženske";2018;"Dohodek po socialnih transferjih";10394
-"216";"Povprečni dohodek na člana gospodinjstva";"50-64";"Ženske";2019;"Dohodek po socialnih transferjih";11300
+"";"Starost";"Spol";"Leto";"Dohodek"
+"1";"0-17";"Moški";2008;6432
+"2";"0-17";"Moški";2009;6795
+"3";"0-17";"Moški";2010;6743
+"4";"0-17";"Moški";2011;6835
+"5";"0-17";"Moški";2012;6971
+"6";"0-17";"Moški";2013;6912
+"7";"0-17";"Moški";2014;6870
+"8";"0-17";"Moški";2015;7202
+"9";"0-17";"Moški";2016;7348
+"10";"0-17";"Moški";2017;7487
+"11";"0-17";"Moški";2018;7770
+"12";"0-17";"Moški";2019;8414
+"13";"0-17";"Ženske";2008;6214
+"14";"0-17";"Ženske";2009;6689
+"15";"0-17";"Ženske";2010;6779
+"16";"0-17";"Ženske";2011;6858
+"17";"0-17";"Ženske";2012;7007
+"18";"0-17";"Ženske";2013;6965
+"19";"0-17";"Ženske";2014;7064
+"20";"0-17";"Ženske";2015;7225
+"21";"0-17";"Ženske";2016;7241
+"22";"0-17";"Ženske";2017;7315
+"23";"0-17";"Ženske";2018;7675
+"24";"0-17";"Ženske";2019;8245
+"25";"65+";"Moški";2008;8277
+"26";"65+";"Moški";2009;9025
+"27";"65+";"Moški";2010;9590
+"28";"65+";"Moški";2011;9811
+"29";"65+";"Moški";2012;9921
+"30";"65+";"Moški";2013;9669
+"31";"65+";"Moški";2014;10092
+"32";"65+";"Moški";2015;10552
+"33";"65+";"Moški";2016;10317
+"34";"65+";"Moški";2017;10311
+"35";"65+";"Moški";2018;10561
+"36";"65+";"Moški";2019;10907
+"37";"65+";"Ženske";2008;7537
+"38";"65+";"Ženske";2009;8280
+"39";"65+";"Ženske";2010;8588
+"40";"65+";"Ženske";2011;8808
+"41";"65+";"Ženske";2012;9183
+"42";"65+";"Ženske";2013;8880
+"43";"65+";"Ženske";2014;9281
+"44";"65+";"Ženske";2015;9463
+"45";"65+";"Ženske";2016;9376
+"46";"65+";"Ženske";2017;9710
+"47";"65+";"Ženske";2018;9857
+"48";"65+";"Ženske";2019;10267
+"49";"18-24";"Moški";2008;7471
+"50";"18-24";"Moški";2009;8230
+"51";"18-24";"Moški";2010;8003
+"52";"18-24";"Moški";2011;8141
+"53";"18-24";"Moški";2012;8144
+"54";"18-24";"Moški";2013;7875
+"55";"18-24";"Moški";2014;7913
+"56";"18-24";"Moški";2015;8543
+"57";"18-24";"Moški";2016;8504
+"58";"18-24";"Moški";2017;8867
+"59";"18-24";"Moški";2018;9026
+"60";"18-24";"Moški";2019;10194
+"61";"18-24";"Ženske";2008;7121
+"62";"18-24";"Ženske";2009;7954
+"63";"18-24";"Ženske";2010;7891
+"64";"18-24";"Ženske";2011;7979
+"65";"18-24";"Ženske";2012;7958
+"66";"18-24";"Ženske";2013;7471
+"67";"18-24";"Ženske";2014;7426
+"68";"18-24";"Ženske";2015;7720
+"69";"18-24";"Ženske";2016;7733
+"70";"18-24";"Ženske";2017;8104
+"71";"18-24";"Ženske";2018;8617
+"72";"18-24";"Ženske";2019;9601
+"73";"25-49";"Moški";2008;7633
+"74";"25-49";"Moški";2009;8305
+"75";"25-49";"Moški";2010;8392
+"76";"25-49";"Moški";2011;8560
+"77";"25-49";"Moški";2012;8546
+"78";"25-49";"Moški";2013;8516
+"79";"25-49";"Moški";2014;8590
+"80";"25-49";"Moški";2015;8839
+"81";"25-49";"Moški";2016;8775
+"82";"25-49";"Moški";2017;9093
+"83";"25-49";"Moški";2018;9398
+"84";"25-49";"Moški";2019;10258
+"85";"25-49";"Ženske";2008;7569
+"86";"25-49";"Ženske";2009;8150
+"87";"25-49";"Ženske";2010;8288
+"88";"25-49";"Ženske";2011;8429
+"89";"25-49";"Ženske";2012;8445
+"90";"25-49";"Ženske";2013;8258
+"91";"25-49";"Ženske";2014;8252
+"92";"25-49";"Ženske";2015;8325
+"93";"25-49";"Ženske";2016;8366
+"94";"25-49";"Ženske";2017;8577
+"95";"25-49";"Ženske";2018;9084
+"96";"25-49";"Ženske";2019;9928
+"97";"50-64";"Moški";2008;8255
+"98";"50-64";"Moški";2009;9154
+"99";"50-64";"Moški";2010;9320
+"100";"50-64";"Moški";2011;9523
+"101";"50-64";"Moški";2012;9650
+"102";"50-64";"Moški";2013;9402
+"103";"50-64";"Moški";2014;9607
+"104";"50-64";"Moški";2015;9616
+"105";"50-64";"Moški";2016;9650
+"106";"50-64";"Moški";2017;9956
+"107";"50-64";"Moški";2018;10377
+"108";"50-64";"Moški";2019;11342
+"109";"50-64";"Ženske";2008;8595
+"110";"50-64";"Ženske";2009;9334
+"111";"50-64";"Ženske";2010;9439
+"112";"50-64";"Ženske";2011;9647
+"113";"50-64";"Ženske";2012;9637
+"114";"50-64";"Ženske";2013;9537
+"115";"50-64";"Ženske";2014;9491
+"116";"50-64";"Ženske";2015;9752
+"117";"50-64";"Ženske";2016;9679
+"118";"50-64";"Ženske";2017;10058
+"119";"50-64";"Ženske";2018;10394
+"120";"50-64";"Ženske";2019;11300

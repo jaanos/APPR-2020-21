@@ -1,145 +1,145 @@
-"";"Meritev";"Regija";"Leto";"Socialni.transferji";"Dohodek"
-"1";"Povprečni dohodek na člana gospodinjstva";"Pomurska";2008;"Dohodek po socialnih transferjih";6366
-"2";"Povprečni dohodek na člana gospodinjstva";"Pomurska";2009;"Dohodek po socialnih transferjih";6836
-"3";"Povprečni dohodek na člana gospodinjstva";"Pomurska";2010;"Dohodek po socialnih transferjih";7099
-"4";"Povprečni dohodek na člana gospodinjstva";"Pomurska";2011;"Dohodek po socialnih transferjih";7071
-"5";"Povprečni dohodek na člana gospodinjstva";"Pomurska";2012;"Dohodek po socialnih transferjih";7251
-"6";"Povprečni dohodek na člana gospodinjstva";"Pomurska";2013;"Dohodek po socialnih transferjih";7447
-"7";"Povprečni dohodek na člana gospodinjstva";"Pomurska";2014;"Dohodek po socialnih transferjih";7693
-"8";"Povprečni dohodek na člana gospodinjstva";"Pomurska";2015;"Dohodek po socialnih transferjih";8050
-"9";"Povprečni dohodek na člana gospodinjstva";"Pomurska";2016;"Dohodek po socialnih transferjih";8235
-"10";"Povprečni dohodek na člana gospodinjstva";"Pomurska";2017;"Dohodek po socialnih transferjih";8440
-"11";"Povprečni dohodek na člana gospodinjstva";"Pomurska";2018;"Dohodek po socialnih transferjih";8571
-"12";"Povprečni dohodek na člana gospodinjstva";"Pomurska";2019;"Dohodek po socialnih transferjih";9541
-"13";"Povprečni dohodek na člana gospodinjstva";"Podravska";2008;"Dohodek po socialnih transferjih";6897
-"14";"Povprečni dohodek na člana gospodinjstva";"Podravska";2009;"Dohodek po socialnih transferjih";7799
-"15";"Povprečni dohodek na člana gospodinjstva";"Podravska";2010;"Dohodek po socialnih transferjih";7852
-"16";"Povprečni dohodek na člana gospodinjstva";"Podravska";2011;"Dohodek po socialnih transferjih";8043
-"17";"Povprečni dohodek na člana gospodinjstva";"Podravska";2012;"Dohodek po socialnih transferjih";8140
-"18";"Povprečni dohodek na člana gospodinjstva";"Podravska";2013;"Dohodek po socialnih transferjih";8094
-"19";"Povprečni dohodek na člana gospodinjstva";"Podravska";2014;"Dohodek po socialnih transferjih";8196
-"20";"Povprečni dohodek na člana gospodinjstva";"Podravska";2015;"Dohodek po socialnih transferjih";8422
-"21";"Povprečni dohodek na člana gospodinjstva";"Podravska";2016;"Dohodek po socialnih transferjih";8291
-"22";"Povprečni dohodek na člana gospodinjstva";"Podravska";2017;"Dohodek po socialnih transferjih";8459
-"23";"Povprečni dohodek na člana gospodinjstva";"Podravska";2018;"Dohodek po socialnih transferjih";8882
-"24";"Povprečni dohodek na člana gospodinjstva";"Podravska";2019;"Dohodek po socialnih transferjih";9734
-"25";"Povprečni dohodek na člana gospodinjstva";"Koroška";2008;"Dohodek po socialnih transferjih";6900
-"26";"Povprečni dohodek na člana gospodinjstva";"Koroška";2009;"Dohodek po socialnih transferjih";7343
-"27";"Povprečni dohodek na člana gospodinjstva";"Koroška";2010;"Dohodek po socialnih transferjih";7194
-"28";"Povprečni dohodek na člana gospodinjstva";"Koroška";2011;"Dohodek po socialnih transferjih";7727
-"29";"Povprečni dohodek na člana gospodinjstva";"Koroška";2012;"Dohodek po socialnih transferjih";8192
-"30";"Povprečni dohodek na člana gospodinjstva";"Koroška";2013;"Dohodek po socialnih transferjih";7968
-"31";"Povprečni dohodek na člana gospodinjstva";"Koroška";2014;"Dohodek po socialnih transferjih";7995
-"32";"Povprečni dohodek na člana gospodinjstva";"Koroška";2015;"Dohodek po socialnih transferjih";8217
-"33";"Povprečni dohodek na člana gospodinjstva";"Koroška";2016;"Dohodek po socialnih transferjih";8463
-"34";"Povprečni dohodek na člana gospodinjstva";"Koroška";2017;"Dohodek po socialnih transferjih";8585
-"35";"Povprečni dohodek na člana gospodinjstva";"Koroška";2018;"Dohodek po socialnih transferjih";8756
-"36";"Povprečni dohodek na člana gospodinjstva";"Koroška";2019;"Dohodek po socialnih transferjih";9558
-"37";"Povprečni dohodek na člana gospodinjstva";"Savinjska";2008;"Dohodek po socialnih transferjih";7163
-"38";"Povprečni dohodek na člana gospodinjstva";"Savinjska";2009;"Dohodek po socialnih transferjih";7902
-"39";"Povprečni dohodek na člana gospodinjstva";"Savinjska";2010;"Dohodek po socialnih transferjih";7936
-"40";"Povprečni dohodek na člana gospodinjstva";"Savinjska";2011;"Dohodek po socialnih transferjih";8092
-"41";"Povprečni dohodek na člana gospodinjstva";"Savinjska";2012;"Dohodek po socialnih transferjih";8235
-"42";"Povprečni dohodek na člana gospodinjstva";"Savinjska";2013;"Dohodek po socialnih transferjih";8059
-"43";"Povprečni dohodek na člana gospodinjstva";"Savinjska";2014;"Dohodek po socialnih transferjih";8175
-"44";"Povprečni dohodek na člana gospodinjstva";"Savinjska";2015;"Dohodek po socialnih transferjih";8425
-"45";"Povprečni dohodek na člana gospodinjstva";"Savinjska";2016;"Dohodek po socialnih transferjih";8220
-"46";"Povprečni dohodek na člana gospodinjstva";"Savinjska";2017;"Dohodek po socialnih transferjih";8486
-"47";"Povprečni dohodek na člana gospodinjstva";"Savinjska";2018;"Dohodek po socialnih transferjih";8790
-"48";"Povprečni dohodek na člana gospodinjstva";"Savinjska";2019;"Dohodek po socialnih transferjih";9526
-"49";"Povprečni dohodek na člana gospodinjstva";"Zasavska";2008;"Dohodek po socialnih transferjih";7734
-"50";"Povprečni dohodek na člana gospodinjstva";"Zasavska";2009;"Dohodek po socialnih transferjih";8035
-"51";"Povprečni dohodek na člana gospodinjstva";"Zasavska";2010;"Dohodek po socialnih transferjih";8468
-"52";"Povprečni dohodek na člana gospodinjstva";"Zasavska";2011;"Dohodek po socialnih transferjih";8273
-"53";"Povprečni dohodek na člana gospodinjstva";"Zasavska";2012;"Dohodek po socialnih transferjih";8492
-"54";"Povprečni dohodek na člana gospodinjstva";"Zasavska";2013;"Dohodek po socialnih transferjih";8227
-"55";"Povprečni dohodek na člana gospodinjstva";"Zasavska";2014;"Dohodek po socialnih transferjih";8215
-"56";"Povprečni dohodek na člana gospodinjstva";"Zasavska";2015;"Dohodek po socialnih transferjih";8405
-"57";"Povprečni dohodek na člana gospodinjstva";"Zasavska";2016;"Dohodek po socialnih transferjih";8394
-"58";"Povprečni dohodek na člana gospodinjstva";"Zasavska";2017;"Dohodek po socialnih transferjih";8635
-"59";"Povprečni dohodek na člana gospodinjstva";"Zasavska";2018;"Dohodek po socialnih transferjih";9170
-"60";"Povprečni dohodek na člana gospodinjstva";"Zasavska";2019;"Dohodek po socialnih transferjih";9834
-"61";"Povprečni dohodek na člana gospodinjstva";"Posavska";2008;"Dohodek po socialnih transferjih";6567
-"62";"Povprečni dohodek na člana gospodinjstva";"Posavska";2009;"Dohodek po socialnih transferjih";7258
-"63";"Povprečni dohodek na člana gospodinjstva";"Posavska";2010;"Dohodek po socialnih transferjih";7537
-"64";"Povprečni dohodek na člana gospodinjstva";"Posavska";2011;"Dohodek po socialnih transferjih";8002
-"65";"Povprečni dohodek na člana gospodinjstva";"Posavska";2012;"Dohodek po socialnih transferjih";8020
-"66";"Povprečni dohodek na člana gospodinjstva";"Posavska";2013;"Dohodek po socialnih transferjih";7323
-"67";"Povprečni dohodek na člana gospodinjstva";"Posavska";2014;"Dohodek po socialnih transferjih";7916
-"68";"Povprečni dohodek na člana gospodinjstva";"Posavska";2015;"Dohodek po socialnih transferjih";7787
-"69";"Povprečni dohodek na člana gospodinjstva";"Posavska";2016;"Dohodek po socialnih transferjih";7910
-"70";"Povprečni dohodek na člana gospodinjstva";"Posavska";2017;"Dohodek po socialnih transferjih";8360
-"71";"Povprečni dohodek na člana gospodinjstva";"Posavska";2018;"Dohodek po socialnih transferjih";8934
-"72";"Povprečni dohodek na člana gospodinjstva";"Posavska";2019;"Dohodek po socialnih transferjih";9530
-"73";"Povprečni dohodek na člana gospodinjstva";"Jugovzhodna Slovenija";2008;"Dohodek po socialnih transferjih";6933
-"74";"Povprečni dohodek na člana gospodinjstva";"Jugovzhodna Slovenija";2009;"Dohodek po socialnih transferjih";7630
-"75";"Povprečni dohodek na člana gospodinjstva";"Jugovzhodna Slovenija";2010;"Dohodek po socialnih transferjih";7883
-"76";"Povprečni dohodek na člana gospodinjstva";"Jugovzhodna Slovenija";2011;"Dohodek po socialnih transferjih";7933
-"77";"Povprečni dohodek na člana gospodinjstva";"Jugovzhodna Slovenija";2012;"Dohodek po socialnih transferjih";8124
-"78";"Povprečni dohodek na člana gospodinjstva";"Jugovzhodna Slovenija";2013;"Dohodek po socialnih transferjih";7793
-"79";"Povprečni dohodek na člana gospodinjstva";"Jugovzhodna Slovenija";2014;"Dohodek po socialnih transferjih";8091
-"80";"Povprečni dohodek na člana gospodinjstva";"Jugovzhodna Slovenija";2015;"Dohodek po socialnih transferjih";8601
-"81";"Povprečni dohodek na člana gospodinjstva";"Jugovzhodna Slovenija";2016;"Dohodek po socialnih transferjih";8606
-"82";"Povprečni dohodek na člana gospodinjstva";"Jugovzhodna Slovenija";2017;"Dohodek po socialnih transferjih";8880
-"83";"Povprečni dohodek na člana gospodinjstva";"Jugovzhodna Slovenija";2018;"Dohodek po socialnih transferjih";9417
-"84";"Povprečni dohodek na člana gospodinjstva";"Jugovzhodna Slovenija";2019;"Dohodek po socialnih transferjih";9968
-"85";"Povprečni dohodek na člana gospodinjstva";"Osrednjeslovenska";2008;"Dohodek po socialnih transferjih";8452
-"86";"Povprečni dohodek na člana gospodinjstva";"Osrednjeslovenska";2009;"Dohodek po socialnih transferjih";9108
-"87";"Povprečni dohodek na člana gospodinjstva";"Osrednjeslovenska";2010;"Dohodek po socialnih transferjih";9351
-"88";"Povprečni dohodek na člana gospodinjstva";"Osrednjeslovenska";2011;"Dohodek po socialnih transferjih";9544
-"89";"Povprečni dohodek na člana gospodinjstva";"Osrednjeslovenska";2012;"Dohodek po socialnih transferjih";9440
-"90";"Povprečni dohodek na člana gospodinjstva";"Osrednjeslovenska";2013;"Dohodek po socialnih transferjih";9347
-"91";"Povprečni dohodek na člana gospodinjstva";"Osrednjeslovenska";2014;"Dohodek po socialnih transferjih";9377
-"92";"Povprečni dohodek na člana gospodinjstva";"Osrednjeslovenska";2015;"Dohodek po socialnih transferjih";9627
-"93";"Povprečni dohodek na člana gospodinjstva";"Osrednjeslovenska";2016;"Dohodek po socialnih transferjih";9719
-"94";"Povprečni dohodek na člana gospodinjstva";"Osrednjeslovenska";2017;"Dohodek po socialnih transferjih";9859
-"95";"Povprečni dohodek na člana gospodinjstva";"Osrednjeslovenska";2018;"Dohodek po socialnih transferjih";10222
-"96";"Povprečni dohodek na člana gospodinjstva";"Osrednjeslovenska";2019;"Dohodek po socialnih transferjih";10952
-"97";"Povprečni dohodek na člana gospodinjstva";"Gorenjska";2008;"Dohodek po socialnih transferjih";7771
-"98";"Povprečni dohodek na člana gospodinjstva";"Gorenjska";2009;"Dohodek po socialnih transferjih";8561
-"99";"Povprečni dohodek na člana gospodinjstva";"Gorenjska";2010;"Dohodek po socialnih transferjih";8418
-"100";"Povprečni dohodek na člana gospodinjstva";"Gorenjska";2011;"Dohodek po socialnih transferjih";8495
-"101";"Povprečni dohodek na člana gospodinjstva";"Gorenjska";2012;"Dohodek po socialnih transferjih";8652
-"102";"Povprečni dohodek na člana gospodinjstva";"Gorenjska";2013;"Dohodek po socialnih transferjih";8271
-"103";"Povprečni dohodek na člana gospodinjstva";"Gorenjska";2014;"Dohodek po socialnih transferjih";8479
-"104";"Povprečni dohodek na člana gospodinjstva";"Gorenjska";2015;"Dohodek po socialnih transferjih";8491
-"105";"Povprečni dohodek na člana gospodinjstva";"Gorenjska";2016;"Dohodek po socialnih transferjih";8532
-"106";"Povprečni dohodek na člana gospodinjstva";"Gorenjska";2017;"Dohodek po socialnih transferjih";8940
-"107";"Povprečni dohodek na člana gospodinjstva";"Gorenjska";2018;"Dohodek po socialnih transferjih";9509
-"108";"Povprečni dohodek na člana gospodinjstva";"Gorenjska";2019;"Dohodek po socialnih transferjih";10202
-"109";"Povprečni dohodek na člana gospodinjstva";"Primorsko-notranjska";2008;"Dohodek po socialnih transferjih";7616
-"110";"Povprečni dohodek na člana gospodinjstva";"Primorsko-notranjska";2009;"Dohodek po socialnih transferjih";8194
-"111";"Povprečni dohodek na člana gospodinjstva";"Primorsko-notranjska";2010;"Dohodek po socialnih transferjih";8387
-"112";"Povprečni dohodek na člana gospodinjstva";"Primorsko-notranjska";2011;"Dohodek po socialnih transferjih";8262
-"113";"Povprečni dohodek na člana gospodinjstva";"Primorsko-notranjska";2012;"Dohodek po socialnih transferjih";8743
-"114";"Povprečni dohodek na člana gospodinjstva";"Primorsko-notranjska";2013;"Dohodek po socialnih transferjih";8717
-"115";"Povprečni dohodek na člana gospodinjstva";"Primorsko-notranjska";2014;"Dohodek po socialnih transferjih";8453
-"116";"Povprečni dohodek na člana gospodinjstva";"Primorsko-notranjska";2015;"Dohodek po socialnih transferjih";8722
-"117";"Povprečni dohodek na člana gospodinjstva";"Primorsko-notranjska";2016;"Dohodek po socialnih transferjih";8738
-"118";"Povprečni dohodek na člana gospodinjstva";"Primorsko-notranjska";2017;"Dohodek po socialnih transferjih";8996
-"119";"Povprečni dohodek na člana gospodinjstva";"Primorsko-notranjska";2018;"Dohodek po socialnih transferjih";8703
-"120";"Povprečni dohodek na člana gospodinjstva";"Primorsko-notranjska";2019;"Dohodek po socialnih transferjih";9725
-"121";"Povprečni dohodek na člana gospodinjstva";"Goriška";2008;"Dohodek po socialnih transferjih";8039
-"122";"Povprečni dohodek na člana gospodinjstva";"Goriška";2009;"Dohodek po socialnih transferjih";8374
-"123";"Povprečni dohodek na člana gospodinjstva";"Goriška";2010;"Dohodek po socialnih transferjih";8304
-"124";"Povprečni dohodek na člana gospodinjstva";"Goriška";2011;"Dohodek po socialnih transferjih";8505
-"125";"Povprečni dohodek na člana gospodinjstva";"Goriška";2012;"Dohodek po socialnih transferjih";8468
-"126";"Povprečni dohodek na člana gospodinjstva";"Goriška";2013;"Dohodek po socialnih transferjih";8336
-"127";"Povprečni dohodek na člana gospodinjstva";"Goriška";2014;"Dohodek po socialnih transferjih";8338
-"128";"Povprečni dohodek na člana gospodinjstva";"Goriška";2015;"Dohodek po socialnih transferjih";8384
-"129";"Povprečni dohodek na člana gospodinjstva";"Goriška";2016;"Dohodek po socialnih transferjih";8227
-"130";"Povprečni dohodek na člana gospodinjstva";"Goriška";2017;"Dohodek po socialnih transferjih";8871
-"131";"Povprečni dohodek na člana gospodinjstva";"Goriška";2018;"Dohodek po socialnih transferjih";8907
-"132";"Povprečni dohodek na člana gospodinjstva";"Goriška";2019;"Dohodek po socialnih transferjih";9799
-"133";"Povprečni dohodek na člana gospodinjstva";"Obalno-kraška";2008;"Dohodek po socialnih transferjih";7868
-"134";"Povprečni dohodek na člana gospodinjstva";"Obalno-kraška";2009;"Dohodek po socialnih transferjih";8289
-"135";"Povprečni dohodek na člana gospodinjstva";"Obalno-kraška";2010;"Dohodek po socialnih transferjih";8350
-"136";"Povprečni dohodek na člana gospodinjstva";"Obalno-kraška";2011;"Dohodek po socialnih transferjih";8483
-"137";"Povprečni dohodek na člana gospodinjstva";"Obalno-kraška";2012;"Dohodek po socialnih transferjih";8655
-"138";"Povprečni dohodek na člana gospodinjstva";"Obalno-kraška";2013;"Dohodek po socialnih transferjih";8687
-"139";"Povprečni dohodek na člana gospodinjstva";"Obalno-kraška";2014;"Dohodek po socialnih transferjih";8853
-"140";"Povprečni dohodek na člana gospodinjstva";"Obalno-kraška";2015;"Dohodek po socialnih transferjih";9769
-"141";"Povprečni dohodek na člana gospodinjstva";"Obalno-kraška";2016;"Dohodek po socialnih transferjih";9419
-"142";"Povprečni dohodek na člana gospodinjstva";"Obalno-kraška";2017;"Dohodek po socialnih transferjih";9847
-"143";"Povprečni dohodek na člana gospodinjstva";"Obalno-kraška";2018;"Dohodek po socialnih transferjih";9818
-"144";"Povprečni dohodek na člana gospodinjstva";"Obalno-kraška";2019;"Dohodek po socialnih transferjih";10194
+"";"Regija";"Leto";"Dohodek"
+"1";"Pomurska";2008;6366
+"2";"Pomurska";2009;6836
+"3";"Pomurska";2010;7099
+"4";"Pomurska";2011;7071
+"5";"Pomurska";2012;7251
+"6";"Pomurska";2013;7447
+"7";"Pomurska";2014;7693
+"8";"Pomurska";2015;8050
+"9";"Pomurska";2016;8235
+"10";"Pomurska";2017;8440
+"11";"Pomurska";2018;8571
+"12";"Pomurska";2019;9541
+"13";"Podravska";2008;6897
+"14";"Podravska";2009;7799
+"15";"Podravska";2010;7852
+"16";"Podravska";2011;8043
+"17";"Podravska";2012;8140
+"18";"Podravska";2013;8094
+"19";"Podravska";2014;8196
+"20";"Podravska";2015;8422
+"21";"Podravska";2016;8291
+"22";"Podravska";2017;8459
+"23";"Podravska";2018;8882
+"24";"Podravska";2019;9734
+"25";"Koroška";2008;6900
+"26";"Koroška";2009;7343
+"27";"Koroška";2010;7194
+"28";"Koroška";2011;7727
+"29";"Koroška";2012;8192
+"30";"Koroška";2013;7968
+"31";"Koroška";2014;7995
+"32";"Koroška";2015;8217
+"33";"Koroška";2016;8463
+"34";"Koroška";2017;8585
+"35";"Koroška";2018;8756
+"36";"Koroška";2019;9558
+"37";"Savinjska";2008;7163
+"38";"Savinjska";2009;7902
+"39";"Savinjska";2010;7936
+"40";"Savinjska";2011;8092
+"41";"Savinjska";2012;8235
+"42";"Savinjska";2013;8059
+"43";"Savinjska";2014;8175
+"44";"Savinjska";2015;8425
+"45";"Savinjska";2016;8220
+"46";"Savinjska";2017;8486
+"47";"Savinjska";2018;8790
+"48";"Savinjska";2019;9526
+"49";"Zasavska";2008;7734
+"50";"Zasavska";2009;8035
+"51";"Zasavska";2010;8468
+"52";"Zasavska";2011;8273
+"53";"Zasavska";2012;8492
+"54";"Zasavska";2013;8227
+"55";"Zasavska";2014;8215
+"56";"Zasavska";2015;8405
+"57";"Zasavska";2016;8394
+"58";"Zasavska";2017;8635
+"59";"Zasavska";2018;9170
+"60";"Zasavska";2019;9834
+"61";"Posavska";2008;6567
+"62";"Posavska";2009;7258
+"63";"Posavska";2010;7537
+"64";"Posavska";2011;8002
+"65";"Posavska";2012;8020
+"66";"Posavska";2013;7323
+"67";"Posavska";2014;7916
+"68";"Posavska";2015;7787
+"69";"Posavska";2016;7910
+"70";"Posavska";2017;8360
+"71";"Posavska";2018;8934
+"72";"Posavska";2019;9530
+"73";"Jugovzhodna Slovenija";2008;6933
+"74";"Jugovzhodna Slovenija";2009;7630
+"75";"Jugovzhodna Slovenija";2010;7883
+"76";"Jugovzhodna Slovenija";2011;7933
+"77";"Jugovzhodna Slovenija";2012;8124
+"78";"Jugovzhodna Slovenija";2013;7793
+"79";"Jugovzhodna Slovenija";2014;8091
+"80";"Jugovzhodna Slovenija";2015;8601
+"81";"Jugovzhodna Slovenija";2016;8606
+"82";"Jugovzhodna Slovenija";2017;8880
+"83";"Jugovzhodna Slovenija";2018;9417
+"84";"Jugovzhodna Slovenija";2019;9968
+"85";"Osrednjeslovenska";2008;8452
+"86";"Osrednjeslovenska";2009;9108
+"87";"Osrednjeslovenska";2010;9351
+"88";"Osrednjeslovenska";2011;9544
+"89";"Osrednjeslovenska";2012;9440
+"90";"Osrednjeslovenska";2013;9347
+"91";"Osrednjeslovenska";2014;9377
+"92";"Osrednjeslovenska";2015;9627
+"93";"Osrednjeslovenska";2016;9719
+"94";"Osrednjeslovenska";2017;9859
+"95";"Osrednjeslovenska";2018;10222
+"96";"Osrednjeslovenska";2019;10952
+"97";"Gorenjska";2008;7771
+"98";"Gorenjska";2009;8561
+"99";"Gorenjska";2010;8418
+"100";"Gorenjska";2011;8495
+"101";"Gorenjska";2012;8652
+"102";"Gorenjska";2013;8271
+"103";"Gorenjska";2014;8479
+"104";"Gorenjska";2015;8491
+"105";"Gorenjska";2016;8532
+"106";"Gorenjska";2017;8940
+"107";"Gorenjska";2018;9509
+"108";"Gorenjska";2019;10202
+"109";"Primorsko-notranjska";2008;7616
+"110";"Primorsko-notranjska";2009;8194
+"111";"Primorsko-notranjska";2010;8387
+"112";"Primorsko-notranjska";2011;8262
+"113";"Primorsko-notranjska";2012;8743
+"114";"Primorsko-notranjska";2013;8717
+"115";"Primorsko-notranjska";2014;8453
+"116";"Primorsko-notranjska";2015;8722
+"117";"Primorsko-notranjska";2016;8738
+"118";"Primorsko-notranjska";2017;8996
+"119";"Primorsko-notranjska";2018;8703
+"120";"Primorsko-notranjska";2019;9725
+"121";"Goriška";2008;8039
+"122";"Goriška";2009;8374
+"123";"Goriška";2010;8304
+"124";"Goriška";2011;8505
+"125";"Goriška";2012;8468
+"126";"Goriška";2013;8336
+"127";"Goriška";2014;8338
+"128";"Goriška";2015;8384
+"129";"Goriška";2016;8227
+"130";"Goriška";2017;8871
+"131";"Goriška";2018;8907
+"132";"Goriška";2019;9799
+"133";"Obalno-kraška";2008;7868
+"134";"Obalno-kraška";2009;8289
+"135";"Obalno-kraška";2010;8350
+"136";"Obalno-kraška";2011;8483
+"137";"Obalno-kraška";2012;8655
+"138";"Obalno-kraška";2013;8687
+"139";"Obalno-kraška";2014;8853
+"140";"Obalno-kraška";2015;9769
+"141";"Obalno-kraška";2016;9419
+"142";"Obalno-kraška";2017;9847
+"143";"Obalno-kraška";2018;9818
+"144";"Obalno-kraška";2019;10194

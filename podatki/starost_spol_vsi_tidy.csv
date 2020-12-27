@@ -1,0 +1,145 @@
+"";"Starost";"Spol";"Leto";"Dohodek"
+"1";"Starostne skupine - SKUPAJ";"Moški";2008;7585
+"2";"Starostne skupine - SKUPAJ";"Moški";2009;8268
+"3";"Starostne skupine - SKUPAJ";"Moški";2010;8371
+"4";"Starostne skupine - SKUPAJ";"Moški";2011;8538
+"5";"Starostne skupine - SKUPAJ";"Moški";2012;8605
+"6";"Starostne skupine - SKUPAJ";"Moški";2013;8485
+"7";"Starostne skupine - SKUPAJ";"Moški";2014;8615
+"8";"Starostne skupine - SKUPAJ";"Moški";2015;8898
+"9";"Starostne skupine - SKUPAJ";"Moški";2016;8877
+"10";"Starostne skupine - SKUPAJ";"Moški";2017;9131
+"11";"Starostne skupine - SKUPAJ";"Moški";2018;9438
+"12";"Starostne skupine - SKUPAJ";"Moški";2019;10225
+"13";"Starostne skupine - SKUPAJ";"Ženske";2008;7482
+"14";"Starostne skupine - SKUPAJ";"Ženske";2009;8131
+"15";"Starostne skupine - SKUPAJ";"Ženske";2010;8264
+"16";"Starostne skupine - SKUPAJ";"Ženske";2011;8426
+"17";"Starostne skupine - SKUPAJ";"Ženske";2012;8529
+"18";"Starostne skupine - SKUPAJ";"Ženske";2013;8342
+"19";"Starostne skupine - SKUPAJ";"Ženske";2014;8424
+"20";"Starostne skupine - SKUPAJ";"Ženske";2015;8595
+"21";"Starostne skupine - SKUPAJ";"Ženske";2016;8591
+"22";"Starostne skupine - SKUPAJ";"Ženske";2017;8851
+"23";"Starostne skupine - SKUPAJ";"Ženske";2018;9228
+"24";"Starostne skupine - SKUPAJ";"Ženske";2019;9961
+"25";"Starost 0-17";"Moški";2008;6432
+"26";"Starost 0-17";"Moški";2009;6795
+"27";"Starost 0-17";"Moški";2010;6743
+"28";"Starost 0-17";"Moški";2011;6835
+"29";"Starost 0-17";"Moški";2012;6971
+"30";"Starost 0-17";"Moški";2013;6912
+"31";"Starost 0-17";"Moški";2014;6870
+"32";"Starost 0-17";"Moški";2015;7202
+"33";"Starost 0-17";"Moški";2016;7348
+"34";"Starost 0-17";"Moški";2017;7487
+"35";"Starost 0-17";"Moški";2018;7770
+"36";"Starost 0-17";"Moški";2019;8414
+"37";"Starost 0-17";"Ženske";2008;6214
+"38";"Starost 0-17";"Ženske";2009;6689
+"39";"Starost 0-17";"Ženske";2010;6779
+"40";"Starost 0-17";"Ženske";2011;6858
+"41";"Starost 0-17";"Ženske";2012;7007
+"42";"Starost 0-17";"Ženske";2013;6965
+"43";"Starost 0-17";"Ženske";2014;7064
+"44";"Starost 0-17";"Ženske";2015;7225
+"45";"Starost 0-17";"Ženske";2016;7241
+"46";"Starost 0-17";"Ženske";2017;7315
+"47";"Starost 0-17";"Ženske";2018;7675
+"48";"Starost 0-17";"Ženske";2019;8245
+"49";"Starost 65+";"Moški";2008;8277
+"50";"Starost 65+";"Moški";2009;9025
+"51";"Starost 65+";"Moški";2010;9590
+"52";"Starost 65+";"Moški";2011;9811
+"53";"Starost 65+";"Moški";2012;9921
+"54";"Starost 65+";"Moški";2013;9669
+"55";"Starost 65+";"Moški";2014;10092
+"56";"Starost 65+";"Moški";2015;10552
+"57";"Starost 65+";"Moški";2016;10317
+"58";"Starost 65+";"Moški";2017;10311
+"59";"Starost 65+";"Moški";2018;10561
+"60";"Starost 65+";"Moški";2019;10907
+"61";"Starost 65+";"Ženske";2008;7537
+"62";"Starost 65+";"Ženske";2009;8280
+"63";"Starost 65+";"Ženske";2010;8588
+"64";"Starost 65+";"Ženske";2011;8808
+"65";"Starost 65+";"Ženske";2012;9183
+"66";"Starost 65+";"Ženske";2013;8880
+"67";"Starost 65+";"Ženske";2014;9281
+"68";"Starost 65+";"Ženske";2015;9463
+"69";"Starost 65+";"Ženske";2016;9376
+"70";"Starost 65+";"Ženske";2017;9710
+"71";"Starost 65+";"Ženske";2018;9857
+"72";"Starost 65+";"Ženske";2019;10267
+"73";"Starost 18-24";"Moški";2008;7471
+"74";"Starost 18-24";"Moški";2009;8230
+"75";"Starost 18-24";"Moški";2010;8003
+"76";"Starost 18-24";"Moški";2011;8141
+"77";"Starost 18-24";"Moški";2012;8144
+"78";"Starost 18-24";"Moški";2013;7875
+"79";"Starost 18-24";"Moški";2014;7913
+"80";"Starost 18-24";"Moški";2015;8543
+"81";"Starost 18-24";"Moški";2016;8504
+"82";"Starost 18-24";"Moški";2017;8867
+"83";"Starost 18-24";"Moški";2018;9026
+"84";"Starost 18-24";"Moški";2019;10194
+"85";"Starost 18-24";"Ženske";2008;7121
+"86";"Starost 18-24";"Ženske";2009;7954
+"87";"Starost 18-24";"Ženske";2010;7891
+"88";"Starost 18-24";"Ženske";2011;7979
+"89";"Starost 18-24";"Ženske";2012;7958
+"90";"Starost 18-24";"Ženske";2013;7471
+"91";"Starost 18-24";"Ženske";2014;7426
+"92";"Starost 18-24";"Ženske";2015;7720
+"93";"Starost 18-24";"Ženske";2016;7733
+"94";"Starost 18-24";"Ženske";2017;8104
+"95";"Starost 18-24";"Ženske";2018;8617
+"96";"Starost 18-24";"Ženske";2019;9601
+"97";"Starost 25-49";"Moški";2008;7633
+"98";"Starost 25-49";"Moški";2009;8305
+"99";"Starost 25-49";"Moški";2010;8392
+"100";"Starost 25-49";"Moški";2011;8560
+"101";"Starost 25-49";"Moški";2012;8546
+"102";"Starost 25-49";"Moški";2013;8516
+"103";"Starost 25-49";"Moški";2014;8590
+"104";"Starost 25-49";"Moški";2015;8839
+"105";"Starost 25-49";"Moški";2016;8775
+"106";"Starost 25-49";"Moški";2017;9093
+"107";"Starost 25-49";"Moški";2018;9398
+"108";"Starost 25-49";"Moški";2019;10258
+"109";"Starost 25-49";"Ženske";2008;7569
+"110";"Starost 25-49";"Ženske";2009;8150
+"111";"Starost 25-49";"Ženske";2010;8288
+"112";"Starost 25-49";"Ženske";2011;8429
+"113";"Starost 25-49";"Ženske";2012;8445
+"114";"Starost 25-49";"Ženske";2013;8258
+"115";"Starost 25-49";"Ženske";2014;8252
+"116";"Starost 25-49";"Ženske";2015;8325
+"117";"Starost 25-49";"Ženske";2016;8366
+"118";"Starost 25-49";"Ženske";2017;8577
+"119";"Starost 25-49";"Ženske";2018;9084
+"120";"Starost 25-49";"Ženske";2019;9928
+"121";"Starost 50-64";"Moški";2008;8255
+"122";"Starost 50-64";"Moški";2009;9154
+"123";"Starost 50-64";"Moški";2010;9320
+"124";"Starost 50-64";"Moški";2011;9523
+"125";"Starost 50-64";"Moški";2012;9650
+"126";"Starost 50-64";"Moški";2013;9402
+"127";"Starost 50-64";"Moški";2014;9607
+"128";"Starost 50-64";"Moški";2015;9616
+"129";"Starost 50-64";"Moški";2016;9650
+"130";"Starost 50-64";"Moški";2017;9956
+"131";"Starost 50-64";"Moški";2018;10377
+"132";"Starost 50-64";"Moški";2019;11342
+"133";"Starost 50-64";"Ženske";2008;8595
+"134";"Starost 50-64";"Ženske";2009;9334
+"135";"Starost 50-64";"Ženske";2010;9439
+"136";"Starost 50-64";"Ženske";2011;9647
+"137";"Starost 50-64";"Ženske";2012;9637
+"138";"Starost 50-64";"Ženske";2013;9537
+"139";"Starost 50-64";"Ženske";2014;9491
+"140";"Starost 50-64";"Ženske";2015;9752
+"141";"Starost 50-64";"Ženske";2016;9679
+"142";"Starost 50-64";"Ženske";2017;10058
+"143";"Starost 50-64";"Ženske";2018;10394
+"144";"Starost 50-64";"Ženske";2019;11300
