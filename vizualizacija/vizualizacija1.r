@@ -9,7 +9,7 @@ library(stringr)
 library(RColorBrewer)
 
 
-# 1. graf: histogram vrste dohodka 2008 in 2019
+# 1. graf: vrste dohodka 2019
 
 graf_vrste_dohodka <- ggplot(vrste_dohodka, aes(x=factor(Leto), y=Dohodek,group=Vrsta.dohodka, colour=Vrsta.dohodka)) + 
   geom_line(aes(colour=Vrsta.dohodka)) +
@@ -18,12 +18,7 @@ graf_vrste_dohodka <- ggplot(vrste_dohodka, aes(x=factor(Leto), y=Dohodek,group=
 print(graf_vrste_dohodka)
 
 
-# 2. graf: razlika po spolu
-spol <- starost_spol %>%
-  filter(Starost == "Skupaj") %>%
-  filter(Spol == "Moški" | Spol == "Ženske") %>%
-  select(Starost, Spol, Leto, Dohodek)
-
+# 2. graf: razlika po spolu, (starost = skupaj)
 
 graf_spol <- ggplot(spol, aes(x=factor(Leto), y=Dohodek, group=Spol)) +
   geom_line(aes(color=Spol)) +
@@ -45,25 +40,24 @@ print(graf_spol)
 print(graf_razlika_spol)
 
 # Zemljevid statističnih regij
-source("https://raw.githubusercontent.com/jaanos/APPR-2020-21/master/lib/uvozi.zemljevid.r")
-
+source("lib/uvozi.zemljevid.r", encoding="UTF-8")
 zemljevid_regije <- uvozi.zemljevid("https://biogeo.ucdavis.edu/data/gadm3.6/shp/gadm36_SVN_shp.zip",
-                                    "gadm36_SVN_1", encoding = "Utf-8")
+                                    "gadm36_SVN_1", encoding = "UTF-8")
 
 zemljevid_regije$NAME_1 <- as.factor(iconv(as.character(zemljevid_regije$NAME_1),
-                                           "Utf-8"))
+                                           "UTF-8"))
 
-#Spodnjeposavska = posavska
-#Notranjsko-kraška = primorsko-notranjska
+#Spodnjeposavska = Posavska
+#Notranjsko-kraška = Primorsko-notranjska
 
 levels(zemljevid_regije$NAME_1)[levels(zemljevid_regije$NAME_1)=="Spodnjeposavska"] <- "Posavska"
 levels(zemljevid_regije$NAME_1)[levels(zemljevid_regije$NAME_1)=="Notranjsko-kraška"] <- "Primorsko-notranjska"
 
 regije_8_19 <- regije %>%
   select(Regija, Leto, Dohodek) %>%
-  filter(Leto == 2019 | Leto == 2008) %>%
+  filter(Leto %in% c(2008, 2019)) %>%
   pivot_wider(names_from = Leto, values_from = Dohodek) %>%
-  mutate(Rast = (((regije_19$"2019" - regije_19$"2008")/regije_19$"2008")*100))
+  mutate(Rast = (((`2019` - `2008`) / `2008`) * 100))
 
 
 narisi_zemljevid <- tm_shape(merge(zemljevid_regije, regije_8_19, by.x="NAME_1", by.y="Regija")) +
