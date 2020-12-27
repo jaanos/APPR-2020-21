@@ -22,17 +22,30 @@ uvozi <- function(ime_datoteke){
 
 nat6 <- uvozi("N_06")
 
+nat7 <- uvozi("N_07")
+
 nat8 <- uvozi("N_08")
+
+nat9 <- uvozi("N_09")
 
 nat10 <- uvozi("N_10")
 
+nat11 <- uvozi("N_11")
+
 nat12 <- uvozi("N_12")
+
+nat13 <- uvozi("N_13")
 
 nat14 <- uvozi("N_14")
 
+nat15 <- uvozi("N_15")
+
 nat16 <- uvozi("N_16")
 
+nat17 <- uvozi("N_17")
+
 nat18 <- uvozi("N_18")
+
 
 # total employment
 
@@ -58,20 +71,35 @@ employment2 <- function(tabela,leto){
 
 total_employment1 <- employment1(nat6,2006)
 
+total_employment11 <- employment1(nat7,2007)
+
 total_employment2 <- employment1(nat8,2008)
+
+total_employment22 <- employment1(nat9,2009)
 
 total_employment3 <- employment2(nat10,2010)
 
+total_employment33 <- employment2(nat11,2011)
+
 total_employment4 <- employment2(nat12,2012)
+
+total_employment44 <- employment2(nat13,2013)
 
 total_employment5 <- employment2(nat14,2014)
 
+total_employment55 <- employment2(nat15,2015)
+
 total_employment6 <- employment2(nat16,2016)
+
+total_employment66 <- employment2(nat17,2017)
 
 total_employment7 <- employment2(nat18,2018)
 
+
 t_e <- rbind(total_employment1, total_employment2, total_employment3, total_employment4, 
-        total_employment5, total_employment6, total_employment7) %>%
+        total_employment5, total_employment6, total_employment7, total_employment11,
+        total_employment22, total_employment33, total_employment44, total_employment55,
+        total_employment66) %>%
         mutate(emp2=parse_number(emp, locale=locale(decimal_mark = ",",grouping_mark = ".") )) %>% 
         arrange(emp2) %>% 
         select(1,2,4) %>%
@@ -102,23 +130,36 @@ hmean2 <- function(tabela,leto){
 
 h_mean1 <- hmean1(nat6, 2006)
 
+h_mean11 <- hmean1(nat7, 2007)
+
 h_mean2 <- hmean1(nat8, 2008)
+
+h_mean22 <- hmean1(nat9, 2009)
 
 h_mean3 <- hmean2(nat10,2010)
 
+h_mean33 <- hmean2(nat11,2011)
+
 h_mean4 <- hmean2(nat12,2012)
+
+h_mean44 <- hmean2(nat13,2013)
 
 h_mean5 <- hmean2(nat14,2014)
 
+h_mean55 <- hmean2(nat15,2015)
+
 h_mean6 <- hmean2(nat16,2016)
+
+h_mean66 <- hmean2(nat17,2017)
 
 h_mean7 <- hmean2(nat18,2018)
 
-h_mean <- rbind(h_mean1,h_mean2,h_mean3,h_mean4,h_mean5,h_mean6,h_mean7) %>%
-        mutate(HM2=parse_number(HM, locale=locale(decimal_mark = ",",grouping_mark = ";") )) %>% 
-        arrange(HM2) %>% 
+h_mean <- rbind(h_mean1,h_mean2,h_mean3,h_mean4,h_mean6,h_mean7,
+                h_mean11, h_mean22, h_mean33, h_mean44, h_mean55, h_mean66) %>%
+        mutate(HM2=parse_number(HM, locale=locale(decimal_mark = ".",grouping_mark = ",") )) %>% 
+        arrange(HM2) %>%
         select(1,2,4) %>%
-        rename(HM=HM2)
+        rename(HM=HM2) 
   
 # A_MEAN
 
@@ -418,9 +459,7 @@ h_med_s <- rbind(h_median_state_1, h_median_state_2, h_median_state_3,
           mutate(HME2=parse_number(HME, locale=locale(decimal_mark = ",",grouping_mark = ".") )) %>% 
           arrange(HME2) %>% 
           select(1,2,3,5) %>%
-          rename(HME=HME2) %>%
-          group_by(STATE) %>% 
-          summarise(povprecje= sum(HME))
+          rename(HME=HME2)
 
 # A_MEDIAN
 

@@ -48,7 +48,7 @@ surgeons_h <- h_mean %>% filter(occ_title == "Surgeons")
 anesthesiologists_h <- h_mean %>% filter(occ_title == "Anesthesiologists")
 orthodontists_h <- h_mean %>% filter(occ_title == "Orthodontists")
 top <- rbind(surgeons_h, anesthesiologists_h, orthodontists_h) %>% 
-    rename(poklic=occ_title)
+  rename(poklic=occ_title)
 
 ## GLEDE URNE POSTAVKE BOTTOM 
 
@@ -116,7 +116,7 @@ graf2 <- top %>%
   ggplot(aes(x=poklic, y=HM)) +
   geom_boxplot(fill="red", colour="red" , alpha=I(0.2)) +
   geom_jitter(alpha=I(0.2)) +
-  geom_point() 
+  geom_point()
 
 # TOP 3 GRAFICNO PO DREVESIH
 
@@ -140,24 +140,25 @@ graf3 <- top %>%
   ylab("Povprečna plača na uro") +
   labs(title="Povprečna urna plača treh najboljše plačanih poklicev.") +
   geom_line(size=1) +
-  geom_point(size=2) 
-  
+  geom_point(size=2)+
+  geom_smooth()
+
 # BOTTOM 3 GLEDE NA AVRAGE WAGE 
 
 graf4 <- a_b %>%
-    ggplot(aes(x=leto,y=AM)) +
-    geom_line(color="blue") +
-    geom_point() +
-    xlab("Leto") +
-    ylab("Povprečna plača") +
-    labs(title="Povprečna plača dveh najslabše plačanih poklicev.") +
-    facet_grid(~poklic) 
-    
+  ggplot(aes(x=leto,y=AM)) +
+  geom_line(color="blue") +
+  geom_point() +
+  xlab("Leto") +
+  ylab("Povprečna plača") +
+  labs(title="Povprečna plača dveh najslabše plačanih poklicev.") +
+  facet_grid(~poklic) 
 
-  
+
+
 graf5 <- t_e_l_b %>%
-    ggplot(aes(x=leto, color=poklic, fill=poklic)) +
-    geom_bar(alpha=I(0.8),position = "fill")
+  ggplot(aes(x=leto, color=poklic)) +
+  geom_bar(alpha=I(0.8),position = "fill")
 
 # MAPE ZVEZNIH DRZAV (D.F.)
 
@@ -174,32 +175,23 @@ states <- map_data("state")
 # mapa_zda2 <- getMap(resolution="low") %>% 
 #   fortify() %>%
 #   View()
-        
+
 
 # POVPREČNE PLAČE (URNE) V ZDA 
 
+
 zemljevid <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/states_21basic.zip", "states",
-                              encoding="UTF-8") 
+                                                     encoding="UTF-8") 
+
+
+map1_db <- h_med_s  %>%
+  group_by(STATE) %>% 
+  summarise(povprecje= mean(HME))
+
 #names(zemljevid)
-zem1 <-  tm_shape(merge(zemljevid, h_med_s, by.x="STATE_NAME", by.y="STATE")) +
- tm_polygons("povprecje") +
- tm_style("cobalt") 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+zem1 <-  tm_shape(merge(zemljevid, map1_db, by.x="STATE_NAME", by.y="STATE")) +
+  tm_polygons("povprecje") +
+  tm_style("cobalt") 
 
 
 
