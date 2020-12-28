@@ -14,11 +14,9 @@ shinyUI(fluidPage(theme = shinytheme("slate"),
                                   value = 10,
                                   )
                     ), #side panel
-                    # Main panel for displaying outputs ----
                     mainPanel(
-                      # Output: Histogram ----
                       plotOutput(outputId = "distPlot")
-                    ) #main panel
+                    ) # main panel
                   )),
           tabPanel("Nekaj drugega"), # 2. tab 
           tabPanel("Nekaj tretjega") # 3. tab
