@@ -366,3 +366,61 @@ ggplot(gospodarskadejavnostS_osmanj_moski, aes(x= leto,y= placa)) +
   ylab("Višina plače(€)") +
   xlab("Leto")
 
+
+#Analiza plač glede na javni in zasebni sektor
+javnisektor_osmanj_moski <- javnisektor[c(1:9), ]
+javnisektor_osmanj_zenske <- javnisektor[c(10:18), ]
+javnisektor_sr_moski <- javnisektor[c(19:27), ]
+javnisektor_sr_zenske <- javnisektor[c(28:36), ]
+javnisektor_vs_moski <- javnisektor[c(37:45), ]
+javnisektor_vs_zenske <- javnisektor[c(46:54), ]
+zasebnisektor_osmanj_moski <- javnisektor[c(55:62), ]
+zasebnisektor_osmanj_zenske <- javnisektor[c(63:71), ]
+zasebnisektor_sr_moski <- javnisektor[c(72:80), ]
+zasebnisektor_sr_zenske <- javnisektor[c(81:89), ]
+zasebnisektor_vs_moski <- javnisektor[c(90:98), ]
+zasebnisektor_vs_zenske <- javnisektor[c(99:108), ]
+
+  #Graf-javni sektor
+ggplot(javnisektor_osmanj_moski, aes(x=leto, y=placa)) +
+  geom_point(color="blue", size=2) +
+  geom_point(data=javnisektor_osmanj_zenske, aes(x=leto, y=placa),color="light blue", size=2) +
+  geom_point(data=javnisektor_sr_moski, aes(x=leto, y=placa),color="red", size=2) +
+  geom_point(data=javnisektor_sr_zenske, aes(x=leto, y=placa),color="pink", size=2) +
+  geom_point(data=javnisektor_vs_moski, aes(x=leto, y=placa),color="green", size=2) +
+  geom_point(data=javnisektor_vs_zenske, aes(x=leto, y=placa),color="dark green", size=2) +
+  labs(title="Primerjava plače v javnem sektorju glede na izobrazbo in spol") +
+  ylab("Višina plače(€)") +
+  xlab("Leto")
+
+  #Graf-zasebni sektor
+ggplot(zasebnisektor_osmanj_moski, aes(x=leto, y=placa)) +
+  geom_point(color="blue", size=2) +
+  geom_point(data=zasebnisektor_osmanj_zenske, aes(x=leto, y=placa),color="light blue", size=2) +
+  geom_point(data=zasebnisektor_sr_moski, aes(x=leto, y=placa),color="red", size=2) +
+  geom_point(data=zasebnisektor_sr_zenske, aes(x=leto, y=placa),color="pink", size=2) +
+  geom_point(data=zasebnisektor_vs_moski, aes(x=leto, y=placa),color="green", size=2) +
+  geom_point(data=zasebnisektor_vs_zenske, aes(x=leto, y=placa),color="dark green", size=2) +
+  labs(title="Primerjava plače v zasebnem sektorju glede na izobrazbo in spol") +
+  ylab("Višina plače(€)") +
+  xlab("Leto")
+
+  #Graf-analiza povprečne plače po letih v javnem in zasebnem sektorju
+javnisektor_osmanj <- javnisektor_spolskupaj[c(1:9), ]
+zasebnisektor_osmanj <- javnisektor_spolskupaj[c(28:36), ]
+javnisektor_sr <- javnisektor_spolskupaj[c(10:18), ]
+zasebnisektor_sr <- javnisektor_spolskupaj[c(37:45), ]
+javnisektor_vs <- javnisektor_spolskupaj[c(19:27), ]
+zasebnisektor_vs <- javnisektor_spolskupaj[c(46:54), ]
+
+ggplot(javnisektor_osmanj, aes(x=leto, y=placa)) + 
+  geom_point(color="dark blue", size=2) +
+  geom_point(data=zasebnisektor_osmanj, aes(x=leto, y=placa),color="light blue", size=2) +
+  geom_point(data=javnisektor_sr, aes(x=leto, y=placa),color="red", size=2) +
+  geom_point(data=zasebnisektor_sr, aes(x=leto, y=placa),color="light pink", size=2) +
+  geom_point(data=javnisektor_vs, aes(x=leto, y=placa),color="dark green", size=2) +
+  geom_point(data=zasebnisektor_vs, aes(x=leto, y=placa),color="green", size=2) +
+  labs(title="Primerjava plače v zasebnem sektorju glede na izobrazbo") +
+  ylab("Višina plače(€)") +
+  xlab("Leto")
+
