@@ -38,11 +38,16 @@ graf6 <- ggplot(podatki6, aes(x=izobrazevanje, y=povprecje, fill = spol)) + geom
 
 f <- tabela4nova %>% group_by(studij) %>% summarise(vsota=sum(stevilo))
 tortnidiagram <- ggplot(f) + aes(x="", y = vsota,fill=studij) + geom_col(width=1) + coord_polar(theta="y") + xlab("") + ylab("")
+tortni <-  ggplot(tabela4nova %>% group_by(studij) %>% summarise(delez=100 * n() / nrow(tabela4nova))) +
+  aes(x="", y=delez, fill=studij) + geom_col(width=1) +
+  coord_polar(theta="y") + xlab("") + ylab("") +
+  scale_y_continuous(breaks=seq(0, 100, 10),
+                     labels=paste(seq(0, 100, 10), "%"))
 
 # GRAF SPREMINJANJA STEVILA TUJCEV IN LJUDI, KI IMAJO NEZNANO BIVALISCE, MED DIJAKI IN DIPLOMANTI PO LETIH
 
-tujci <- tabela1nova %>% filter(regija == "Stalno bivališče neznano ali v tujini")
-graf7 <- tujci %>% ggplot(aes(x=leto, y=stevilo, col=kategorija)) + geom_line()
+#tujci <- tabela1nova %>% filter(regija == "Stalno bivališče neznano ali v tujini")
+#graf7 <- tujci %>% ggplot(aes(x=leto, y=stevilo, col=kategorija)) + geom_line()
 
 # GRAF POVPREČNEGA DELEŽA DIPLOMANTOV V ODSTOTKIH GLEDE NA ŠTEVILO PREBIVALCEV V POSAMEZNI REGIJI V DESETIH LETIH
 
