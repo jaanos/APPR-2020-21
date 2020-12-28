@@ -503,7 +503,6 @@ bdp_pc <- read.csv2("podatki/GDP_PC_USA.csv") %>% drop_na(USA) %>% rename(Year=1
 bdp_pc_ppp <- read.csv2("podatki/GDP_PC_PPP_USA.csv", fileEncoding = "UTF-8")  %>% drop_na(USA) 
 
 
-
 # uvozili bomo tudi podatke iz wikipedije: https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_GDP_per_capita
 # vsaj to je v planu zaenkrat 
 
