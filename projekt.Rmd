@@ -36,7 +36,7 @@ Za projektno nalogo sem izbrala analizo sekundarnega in terciarnega izobraževan
 source("uvoz/mojuvoz.R", encoding="UTF-8")
 ```
 
-Uvozila sem podatke v obliki CSV in html s statističnega urada. Podatke imam v štirih razpredelnicah v obliki *tidy data*.
+Uvozila sem podatke v obliki CSV in html s statističnega urada. Podatke imam v petih razpredelnicah v obliki *tidy data*.
 
 1. `regije` - podatki o številu dijakov in študentov za vsako regijo
   - `regija` - spremenljivka: ime regije (neurejen faktor),
@@ -66,11 +66,6 @@ Uvozila sem podatke v obliki CSV in html s statističnega urada. Podatke imam v 
   - `regija` - spremenljivka: ime regije (neurejen faktor),
   - `leto` - spremenljivka (število),
   - `število` meritev: število prebivalcev v pripadajoči regiji(število).
-
-#```{r histogram, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-#ggplot(obcine, aes(x=naselja)) + geom_histogram() +
-#  ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
-#```
 
 ***
 
@@ -106,17 +101,25 @@ Spodnji graf nam prikazuje, v katere izobraževalne programe so se v zadnjih des
 graf5
 ```
 
-Naslednji graf nam prikazuje, katere izobraževalne programe terciarnega izobraževanja so se v letih 2009-2018 vpisovali moški in žencke. Iz podatkov vidimo, da veliko več diplomira žensk ter da je upad števila diplomantov in 2. bolonjske stopnje glede na 3. veliko opaznejši kot iz 1. stopnje na drugo, kar bi lahko pomenilo, da se v zadnjih letih študentje šolajo do magisterija.
+Naslednji graf nam prikazuje, katere izobraževalne programe terciarnega izobraževanja so se v letih 2009-2018 vpisovali moški in ženske. Iz podatkov vidimo, da veliko več diplomira žensk ter da je upad števila diplomantov in 2. bolonjske stopnje glede na 3. veliko opaznejši kot iz 1. stopnje na drugo, kar bi lahko pomenilo, da se v zadnjih letih študentje večinoma šolajo do magisterija.
 
 ```{r graf6, echo=FALSE, fig.align='center'}
 graf6
 ```
 
-Spodnji graf pa nam prikazuje število tujcev in Slovencev z neznanim prebivališčem glede na preučevanih deset let. Opazimo, da je naraščanje števila tujcev med diplomanti s časom premo narašča, medtem ko pri dijakih opazimo občuten skok med leti 2013 in 2014.
+#Spodnji graf pa nam prikazuje število tujcev in Slovencev z neznanim prebivališčem glede na preučevanih deset let. Opazimo, da je naraščanje števila #tujcev med diplomanti s časom premo narašča, medtem ko pri dijakih opazimo občuten skok med leti 2013 in 2014.
 
-```{r graf7, echo=FALSE, fig.align='center'}
-graf7
+#```{r graf7, echo=FALSE, fig.align='center'}
+#graf7
+#```
+
+Spodnji tortni diagram prikazuje kakšen je delež diplomantov, ki diplomira na rednem študiju v primerjavi z izrednim študiju.
+
+```{r tortnidiagram, echo=FALSE, fig.align='center'}
+tortnidiagram
 ```
+
+
 ***
 
 # Napredna analiza podatkov
@@ -125,17 +128,6 @@ graf7
 source("analiza/analiza.r", encoding="UTF-8")
 ```
 
-#Spodnji graf prikazuje povezavo med številom naselij in površino občine.
-
-#```{r graf, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-#ggplot(inner_join(obcine, data.frame(obcina=names(skupine),
-#                                     skupina=factor(skupine)), by="obcina")
-#, aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() +
-#  ggtitle("Število naselij glede na površino občine") +
-#  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-#  guides(color=guide_legend(title="Skupina"),
-#         size=guide_legend(title="Prebivalci (* 1000)"))
-#```
 
 ***
 
