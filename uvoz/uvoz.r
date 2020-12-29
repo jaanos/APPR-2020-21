@@ -507,5 +507,3 @@ bdp_pc_ppp <- read.csv2("podatki/GDP_PC_PPP_USA.csv", fileEncoding = "UTF-8")  %
 # vsaj to je v planu zaenkrat 
 
 
-alaska <- total_employment_state %>% filter(STATE=="Alaska")
-

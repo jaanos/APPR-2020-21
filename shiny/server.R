@@ -17,8 +17,9 @@ shinyServer(function(input, output) {
       y <- h_med_s %>% filter(STATE==input$drzava) %>% filter(leto==input$leto) 
       print( ggplot(y) +
                aes(x = leto, y = HME) +
-               geom_boxplot(fill="yellow", colour="yellow" , alpha=I(0.2)) +
-               geom_point(size=0.2, colour="green") +
+               geom_boxplot(fill="green", colour="green" , alpha=I(0.7)) +
+               geom_point(size=0.2, colour="yellow") +
+               geom_jitter(alpha=I(0.1)) +
                xlab("Leto") +
                ylab("Urna mediana plača glede na poklic") +
                labs(tite=input$drzava)
