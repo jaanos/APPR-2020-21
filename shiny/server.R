@@ -1,5 +1,7 @@
 library(shiny)
 library(shinythemes)
+library(ggplot2)
+library(dplyr)
 
 shinyServer(function(input, output) {
   output$distPlot <- renderPlot({
@@ -10,5 +12,16 @@ shinyServer(function(input, output) {
          ylab = "Frekvenca",
          main = "Histogram povprečnih plač")
     })
-  })
-  
+    
+    output$distPlot2 <- renderPlot({
+      y <- h_med_s %>% filter(STATE==input$drzava) %>% filter(leto==input$leto) 
+      print( ggplot(y) +
+               aes(x = leto, y = HME) +
+               geom_boxplot(fill="yellow", colour="yellow" , alpha=I(0.2)) +
+               geom_point(size=0.2, colour="green") +
+               xlab("Leto") +
+               ylab("Urna mediana plača glede na poklic") +
+               labs(tite=input$drzava)
+       )
+    })
+})

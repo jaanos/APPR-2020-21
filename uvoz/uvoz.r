@@ -456,7 +456,7 @@ h_median_state_7 <- hmedian3(st18,2018)
 
 h_med_s <- rbind(h_median_state_1, h_median_state_2, h_median_state_3, 
           h_median_state_4, h_median_state_5, h_median_state_6, h_median_state_7) %>%
-          mutate(HME2=parse_number(HME, locale=locale(decimal_mark = ",",grouping_mark = ".") )) %>% 
+          mutate(HME2=parse_number(HME, locale=locale(decimal_mark = ".",grouping_mark = ",") )) %>% 
           arrange(HME2) %>% 
           select(1,2,3,5) %>%
           rename(HME=HME2)
@@ -507,6 +507,5 @@ bdp_pc_ppp <- read.csv2("podatki/GDP_PC_PPP_USA.csv", fileEncoding = "UTF-8")  %
 # vsaj to je v planu zaenkrat 
 
 
-
-
+alaska <- total_employment_state %>% filter(STATE=="Alaska")
 
