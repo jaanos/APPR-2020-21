@@ -3,6 +3,10 @@
 library(dplyr)
 library(tidyr)
 library(readr)
+library(rvest)
+library(gsubfn)
+
+
 
 # read.csv("podatki/N_06.csv",sep=";", na=c("#","*")) %>% filter(h_mean=="18.84")  
 # read.csv("podatki/N_06.csv",sep=";", na=c("#","*"))  %>% filter(h_mean > 18.84) 
@@ -160,6 +164,11 @@ h_mean <- rbind(h_mean1,h_mean2,h_mean3,h_mean4,h_mean6,h_mean7,
         arrange(HM2) %>%
         select(1,2,4) %>%
         rename(HM=HM2) 
+
+h_mean_c <- h_mean %>%
+        mutate(STATE="United States") %>%
+        rename(OCC_TITLE=occ_title) %>%
+        .[c(4,1,2,3)]
   
 # A_MEAN
 
@@ -494,16 +503,45 @@ a_med_s <- rbind(a_median_state_1, a_median_state_2, a_median_state_3,
           select(1,2,3,5) %>%
           rename(AME=AME2)
 
-# bdp per capita data
 
-bdp_pc <- read.csv2("podatki/GDP_PC_USA.csv") %>% drop_na(USA) %>% rename(Year=1)
+# Tabela iz wikipedije: https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_GDP_per_capita
 
-# bdp per capita per purchising power 
+link <- "https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_GDP_per_capita"
+stran <- html_session(link) %>% read_html()
+tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
+  .[[1]] %>% html_table(dec=",") 
+tabela[[1]] <- parse_number(tabela[[1]], na="—") 
+tabela2 <- tabela  %>% drop_na(Rank)
+tabela[[1]] <- NULL
+tabela <- tabela %>% pivot_longer(2:9, names_to = "leto") %>% rename(GDP=value)
+tabela[[2]] <- parse_number(tabela[[2]])
+GDP_by_state <- tabela
 
-bdp_pc_ppp <- read.csv2("podatki/GDP_PC_PPP_USA.csv", fileEncoding = "UTF-8")  %>% drop_na(USA) 
 
 
-# uvozili bomo tudi podatke iz wikipedije: https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_GDP_per_capita
-# vsaj to je v planu zaenkrat 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

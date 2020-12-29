@@ -35,12 +35,23 @@ shinyUI(fluidPage(theme = shinytheme("slate"),
                    ),
                         mainPanel(
                                 plotOutput(outputId = "distPlot2")
-                        )
+                                )
                    )), # 2. tab 
-          tabPanel("Nekaj tretjega") # 3. tab
+          tabPanel("Analiza BDP per capita",
+          sidebarLayout(
+          sidebarPanel(        
+                                selectInput(inputId = "drzava2",
+                                            label = "Država:",
+                                            choices = c(sort(unique(tabela2$State)))
+                        )),
+                        mainPanel(
+                                plotOutput(outputId = "distPlot3"),
+                                plotOutput(outputId = "distPlot4")
+                        ) 
+                   ))  # tab panel 3
           ) # NAV
         )) #shiny in fluid         
                   
                   
-                
+        
      

@@ -16,7 +16,6 @@ library(rworldmap)
 
 # ZAPOSLENOST PO LETIH, BOMO UPORABILI PRI KASNEJSI ANALIZI
 
-
 # a <- t_e %>% mutate(emp2=parse_number(emp, locale=locale(decimal_mark = ",",grouping_mark = ".") )) %>% arrange(emp2)
 
 # TOP 5 ZAPOSLENOSTI PO POKLICIH PO LETIH (NE VEM ČE BOMO UPORABILI)
@@ -100,7 +99,7 @@ graf1 <- t_e %>% filter(occ_title == "All Occupations") %>%
   xlab("Leto") +
   ylab("Število zaposlednih") +
   scale_y_continuous(labels = comma_format(big.mark = ".", decimal.mark = ",")) +
-  # scale_x_continuous(limits=c(2006, 2018)) +
+  scale_x_continuous(name = "Year", breaks = seq(2006,2018,1)) + 
   labs(title="Zaposlenost po letih") +
   stat_smooth(method = "lm") +
   theme(axis.line = element_line(colour = "darkblue", 
@@ -179,11 +178,8 @@ states <- map_data("state")
 
 # POVPREČNE PLAČE (URNE) V ZDA 
 
-
 zemljevid <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/states_21basic.zip", "states",
                                                      encoding="UTF-8") 
-
-
 map1_db <- h_med_s  %>%
   group_by(STATE) %>% 
   summarise(povprecje= mean(HME))
@@ -193,6 +189,10 @@ zem1 <-  tm_shape(merge(zemljevid, map1_db, by.x="STATE_NAME", by.y="STATE")) +
   tm_polygons("povprecje") +
   tm_style("cobalt") 
 
+graf8 <- GDP_by_state %>% filter(State=="Alaska") %>%
+        ggplot(aes(x=leto, y=GDP)) + 
+        geom_point() +
+        geom_line()
 
 
 
