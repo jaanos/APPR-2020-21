@@ -4,15 +4,7 @@ library(dplyr)
 library(tidyr)
 library(readr)
 library(rvest)
-library(gsubfn)
-
-
-
-# read.csv("podatki/N_06.csv",sep=";", na=c("#","*")) %>% filter(h_mean=="18.84")  
-# read.csv("podatki/N_06.csv",sep=";", na=c("#","*"))  %>% filter(h_mean > 18.84) 
-# col.names = c("OCC koda","OCC naziv","grupa","celotna zaposlenost","5","6","7","8","9","10","11","12",
-# 13","14","15","16","17","18","19"))
-
+# library(gsubfn)
 
 # NATIONAL DATA
 

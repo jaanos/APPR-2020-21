@@ -48,7 +48,7 @@ shinyServer(function(input, output) {
 
         print( ggplot(w3) +
                  aes(x = leto, y=HM, col=STATE) + 
-                 geom_point(size=2) +
+                # geom_point(size=2) +
                  xlab("Leto") +
                  ylab("Povprečna urna postavka") +
                  labs(title="Primerjava urnih postavk.") +
