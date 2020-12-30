@@ -34,10 +34,7 @@ h_mean_16_T <- h_mean %>% filter(leto=="2016") %>%  tail(n = 5)
 h_mean_18_T <- h_mean %>% filter(leto=="2018") %>%  tail(n = 5) 
 
 # TOP PO HOURLY WAGE
-surgeons_h <- h_mean %>% filter(occ_title == "Surgeons") 
-anesthesiologists_h <- h_mean %>% filter(occ_title == "Anesthesiologists")
-orthodontists_h <- h_mean %>% filter(occ_title == "Orthodontists")
-top <- rbind(surgeons_h, anesthesiologists_h, orthodontists_h) %>% 
+top <- h_mean[h_mean$occ_title %in% c("Surgeons","Anesthesiologists","Orthodontists"), ] %>% 
   rename(poklic=occ_title)
 
 ## GLEDE URNE POSTAVKE BOTTOM 
@@ -67,19 +64,15 @@ a_mean_14_B <- a_mean %>% filter(leto=="2014") %>%  slice(1:5)
 a_mean_16_B <- a_mean %>% filter(leto=="2016") %>%  slice(1:5)
 a_mean_18_B <- a_mean %>% filter(leto=="2018") %>%  slice(1:5)
 
-a_b_1 <- a_mean %>% filter(occ_title == "Shampooers") 
-a_b_2 <- a_mean %>% filter(occ_title == "Dishwashers") 
-a_b <- rbind(a_b_1,a_b_2) %>%  rename(poklic=occ_title)
+a_b <- a_mean[a_mean$occ_title %in%  c("Shampooers","Dishwashers"), ] %>% 
+  rename(poklic=occ_title)
 
 
 # Zaposlenost top 3 poklicev in bot. 2 poklicev
 
-t_el1 <- t_e %>% filter(occ_title == "Shampooers") 
-t_el2 <- t_e %>% filter(occ_title == "Dishwashers") 
-t_eh1 <- t_e %>% filter(occ_title == "Surgeons") 
-t_eh2 <- t_e %>% filter(occ_title == "Anesthesiologists")
-t_eh3 <- t_e %>% filter(occ_title == "Orthodontists")
-t_e_l_b <- rbind(t_el1, t_el2, t_eh1,t_eh2, t_eh3) %>% rename(poklic=occ_title)
+t_e_l_b <- t_e[t_e$occ_title %in%  c("Dishwashers","Surgeons",
+         "Anesthesiologists","Orthodontists"), ] %>% 
+          rename(poklic=occ_title)
 
 # GRAF, KI ANALIZIRA ZAPOSLITEV
 
@@ -144,11 +137,13 @@ graf4 <- a_b %>%
   labs(title="Povprečna plača dveh najslabše plačanih poklicev.") +
   facet_grid(~poklic) 
 
-
-
-graf5 <- t_e_l_b %>%
-  ggplot(aes(x=leto, color=poklic)) +
-  geom_bar(alpha=I(0.8),position = "fill")
+graf5 <- t_e_l_b %>% filter(leto=="2018") %>%
+  ggplot() +
+  aes(x="", y=emp, fill=poklic) +
+  geom_col(width=1) +
+  coord_polar(theta="y") + xlab("") + ylab("") +
+  labs(title="Deleži poklicev (najboljše plačanih v primeravi z najmanj) v letu 2018")+
+  guides(fill=guide_legend("Poklic"))
 
 # MAPE ZVEZNIH DRZAV (D.F.)
 

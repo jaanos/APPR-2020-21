@@ -8,7 +8,10 @@ library(maps)
 library(rworldmap)
 library(shiny)
 library(shinythemes)
-
+library(GGally)
+library(mgcv)
+library(janitor)
+library(tidyverse)
 
 
 

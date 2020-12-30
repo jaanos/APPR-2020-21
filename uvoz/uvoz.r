@@ -520,7 +520,3 @@ GDP_by_state <- tabela
 
 
 
-
-
-
-
