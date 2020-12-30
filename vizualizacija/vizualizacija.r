@@ -4,15 +4,6 @@
 # tail, head isto 
 
 source("lib/uvozi.zemljevid.r",encoding="UTF-8")
-library(ggplot2)
-library(readr)
-library(tidyr)
-library(scales)
-library(rgdal)
-library(mosaic) 
-library(maps)
-library(tmap)
-library(rworldmap)
 
 # ZAPOSLENOST PO LETIH, BOMO UPORABILI PRI KASNEJSI ANALIZI
 

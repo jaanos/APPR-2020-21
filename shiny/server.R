@@ -1,8 +1,3 @@
-library(shiny)
-library(shinythemes)
-library(ggplot2)
-library(dplyr)
-
 shinyServer(function(input, output) {
   output$distPlot <- renderPlot({
     x    <- h_mean$HM

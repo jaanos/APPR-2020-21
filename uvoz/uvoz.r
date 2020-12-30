@@ -1,13 +1,7 @@
 # 2. faza obdelave podatkov: Uvoz
 
-library(dplyr)
-library(tidyr)
-library(readr)
-library(rvest)
-# library(gsubfn)
 
 # NATIONAL DATA
-
 
 uvozi <- function(ime_datoteke){
   ime <- paste0("podatki/", ime_datoteke, ".csv")
@@ -110,6 +104,7 @@ hmean1 <- function(tabela,leto){
     mutate(leto=c(leto)) %>% 
     .[c(1,3,2)] %>%
     drop_na(HM)
+  h_mean$HM <- as.numeric(as.character(h_mean$HM))
   return(h_mean)
 }
 
@@ -150,17 +145,15 @@ h_mean66 <- hmean2(nat17,2017)
 
 h_mean7 <- hmean2(nat18,2018)
 
+
 h_mean <- rbind(h_mean1,h_mean2,h_mean3,h_mean4,h_mean6,h_mean7,
                 h_mean11, h_mean22, h_mean33, h_mean44, h_mean55, h_mean66) %>%
-        mutate(HM2=parse_number(HM, locale=locale(decimal_mark = ".",grouping_mark = ",") )) %>% 
-        arrange(HM2) %>%
-        select(1,2,4) %>%
-        rename(HM=HM2) 
+              arrange(HM) 
 
 h_mean_c <- h_mean %>%
-        mutate(STATE="United States") %>%
-        rename(OCC_TITLE=occ_title) %>%
-        .[c(4,1,2,3)]
+  mutate(STATE="United States") %>%
+  rename(OCC_TITLE=occ_title) %>%
+  .[c(4,1,2,3)]
   
 # A_MEAN
 
@@ -224,6 +217,7 @@ hmedian2 <- function(tabela,leto){
     mutate(leto=c(leto)) %>% 
     drop_na(HME) %>%
     .[c(1,3,2)] 
+  h_med$HME <- as.numeric(as.character(h_med$HME))
   return(h_med)
 }
 
@@ -243,11 +237,8 @@ h_median6 <- hmedian2(nat16,2016)
 
 h_median7 <- hmedian2(nat18,2018)
 
-h_med <- rbind(h_median1, h_median2, h_median3, h_median4, h_median5, h_median6, h_median7)  %>%
-        mutate(HME2=parse_number(HME, locale=locale(decimal_mark = ",",grouping_mark = ".") )) %>% 
-        arrange(HME2) %>% 
-        select(1,2,4) %>%
-        rename(HME=HME2)
+h_med <- h_med <- rbind(h_median1, h_median2, h_median3, h_median4, h_median5, h_median6, h_median7)    %>%
+        arrange(HME)  
 
 # A_MEDIAN
 
@@ -366,6 +357,7 @@ hmean3 <- function(tabela,leto){
     mutate(leto=c(leto)) %>% 
     .[c(1,2,4,3)] %>%
     drop_na(HM)
+  hmean_state$HM <- as.numeric(as.character(hmean_state$HM))
   return(hmean_state)
 }
 
@@ -384,11 +376,8 @@ h_mean_state_6 <- hmean3(st16,2016)
 h_mean_state_7 <- hmean3(st18,2018)
 
 h_mean_s <- rbind(h_mean_state_1, h_mean_state_2,h_mean_state_3,h_mean_state_4,
-         h_mean_state_5,h_mean_state_6,h_mean_state_7) %>% 
-         mutate(HM2=parse_number(HM, locale=locale(decimal_mark = ",",grouping_mark = ".") )) %>% 
-         arrange(HM2) %>% 
-         select(1,2,3,5) %>%
-         rename(HM=HM2)
+                   h_mean_state_5,h_mean_state_6,h_mean_state_7) %>% arrange(HM) 
+
   
 # a. mean. by state
 
@@ -434,6 +423,7 @@ hmedian3 <- function(tabela,leto){
     drop_na(HME) %>%
     .[c(1,2,4,3)] %>%
     drop_na(HME)
+  h_median_state$HME <- as.numeric(as.character(h_median_state$HME))
   return(h_median_state)
 }
 
@@ -456,11 +446,8 @@ h_median_state_7 <- hmedian3(st18,2018)
 ###### TU JE NEKAJ NAROBE PRI SUMMERISE JE TREBA ŠE POPRAVITI
 
 h_med_s <- rbind(h_median_state_1, h_median_state_2, h_median_state_3, 
-          h_median_state_4, h_median_state_5, h_median_state_6, h_median_state_7) %>%
-          mutate(HME2=parse_number(HME, locale=locale(decimal_mark = ".",grouping_mark = ",") )) %>% 
-          arrange(HME2) %>% 
-          select(1,2,3,5) %>%
-          rename(HME=HME2)
+                 h_median_state_4, h_median_state_5, h_median_state_6, h_median_state_7) %>%
+  arrange(HME)
 
 # A_MEDIAN
 

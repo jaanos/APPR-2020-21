@@ -1,5 +1,3 @@
-library(shiny)
-library(shinythemes)
 
 shinyUI(fluidPage(theme = shinytheme("slate"),
        navbarPage("Analiza plač", 
@@ -30,7 +28,7 @@ shinyUI(fluidPage(theme = shinytheme("slate"),
                                             step=2),
                                 selectInput(inputId = "drzava",
                                             label = "Država:",
-                                            choices = c(sort(unique(t_e_s$STATE)))
+                                            choices = c(sort(unique(tabela2$State)))
                                 )
                    ),
                         mainPanel(
