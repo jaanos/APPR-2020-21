@@ -43,20 +43,4 @@ g5 <- g4 +xlim(20,30) + ylim(0,10000)
 
 c1 <-cor(podatki$emp,podatki$AM)
 
-# modelček
-
-model <- lm(AM ~ emp, data=podatki)
-summary(model)
-
-# primer predikcije
-novi.emp <- data.frame(emp=seq(1000,25000,1000))
-predict(model, novi.emp)
-napoved <- novi.emp %>% mutate(AM=predict(model, .))
-
-
-# slika 
-slika <- ggplot(podatki, aes(x = AM, y = emp)) + 
-  geom_point(shape=1) + 
-  geom_smooth(method=lm) +
-  geom_point(data=napoved, aes(x = AM, y = emp), color='red', size=3)
 
