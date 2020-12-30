@@ -180,12 +180,6 @@ graf8 <- GDP_by_state %>% filter(State=="Alaska") %>%
 
 
 
-mapdb1 <- t_e_s %>%
-  filter(OCC_TITLE=="All Occupations") %>%
-  group_by(STATE) %>%
-  summarise(povprecje= mean(emp))  %>%
-  View()
-
 
 
 

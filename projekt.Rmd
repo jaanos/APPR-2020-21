@@ -103,11 +103,11 @@ zem1
 ***
 
 
-#Napredna analiza
+# Napredna analiza
 
-````{r analiza, echo=FALSE, message=FALSE, warning=FALSE}
-source("analiza/analiza.r", encoding = "UTF-8")
-```
+#````{r analiza, echo=FALSE, message=FALSE, warning=FALSE}
+#source("analiza/analiza.r", encoding = "UTF-8")
+#```
 
 ***
 

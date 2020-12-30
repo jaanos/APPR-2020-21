@@ -52,7 +52,7 @@ shinyUI(fluidPage(theme = shinytheme("slate"),
         sidebarPanel(
                 selectInput(inputId = "tabela",
                             label = "Atribut:",
-                            choices = c(imena)
+                            choices = c("HM", "AME", "AM", "emp","HME")
                                 )
                 ),
                  mainPanel(
