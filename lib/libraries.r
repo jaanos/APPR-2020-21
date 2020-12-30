@@ -2,9 +2,15 @@ library(knitr)
 library(rvest)
 library(gsubfn)
 library(tidyr)
-library(tmap)
-library(shiny)
 library(scales)
+library(tmap)
+library(maps)
+library(rworldmap)
+library(shiny)
+library(shinythemes)
+
+
+
 
 options(gsubfn.engine="R")
 
