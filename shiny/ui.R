@@ -46,7 +46,19 @@ shinyUI(fluidPage(theme = shinytheme("slate"),
                                 plotOutput(outputId = "distPlot3"),
                                 plotOutput(outputId = "distPlot4")
                         ) 
-                   ))  # tab panel 3
+                   )),# tab panel 3
+        tabPanel("Analiza4",
+        sidebarLayout(
+        sidebarPanel(
+                selectInput(inputId = "tabela",
+                            label = "Atribut:",
+                            choices = c(imena)
+                                )
+                ),
+                 mainPanel(
+                         plotOutput(outputId = "distPlot5")
+                        )
+              ))
           ) # NAV
         )) #shiny in fluid         
                   

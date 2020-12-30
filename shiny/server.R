@@ -48,10 +48,32 @@ shinyServer(function(input, output) {
                  ylab("Povprečna urna postavka") +
                  labs(title="Primerjava urnih postavk.") +
                  stat_smooth(method = "lm") 
-                 
-        
         )
-        
       })
     
+      output$distPlot5 <- renderPlot({
+        if ( input$tabela=="HM") { mapdb <- h_mean_s
+        } else if ( input$tabela=="HME") { mapdb <- h_med_s
+        } else if ( input$tabela=="emp") { mapdb <- t_e_s
+        } else if (input$tabela=="AM") { mapdb <- a_mea_s
+        }  else {  mapdb <-  a_med_s
+        }
+      if (input$tabela!="emp")
+      {mapdb1 <- mapdb %>%
+          group_by(STATE) %>% 
+          summarise(povprecje= mean(get(input$tabela)))
+      }
+      else { mapdb1 <- mapdb %>%
+            filter(OCC_TITLE=="All Occupations") %>%
+            group_by(STATE) %>%
+          summarise(povprecje= mean(get(input$tabela)))
+      }  
+      print (
+            tm_shape(merge(zemljevid, mapdb1, by.x="STATE_NAME", by.y="STATE")) +
+          tm_polygons("povprecje") +
+            tmap_style("bw") 
+                      
+          )
+      })  
+      
 })
