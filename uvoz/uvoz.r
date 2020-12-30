@@ -410,8 +410,7 @@ a_mea_s <- rbind(a_mean_state_1, a_mean_state_2, a_mean_state_3, a_mean_state_4,
             mutate(AM2=parse_number(AM, locale=locale(decimal_mark = ",",grouping_mark = ".") )) %>% 
             arrange(AM2) %>% 
             select(1,2,3,5) %>%
-            rename(AM=AM2) %>%
-            rename(State=STATE)
+            rename(AM=AM2)
 
 # H_MEDIAN
 

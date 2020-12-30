@@ -3,8 +3,6 @@
 # a2 <- a1 %>% slice(1:4)
 # tail, head isto 
 
-source("lib/uvozi.zemljevid.r",encoding="UTF-8")
-
 # ZAPOSLENOST PO LETIH, BOMO UPORABILI PRI KASNEJSI ANALIZI
 
 # a <- t_e %>% mutate(emp2=parse_number(emp, locale=locale(decimal_mark = ",",grouping_mark = ".") )) %>% arrange(emp2)
@@ -176,9 +174,17 @@ zem1 <-  tm_shape(merge(zemljevid, map1_db, by.x="STATE_NAME", by.y="STATE")) +
   tm_style("cobalt") 
 
 graf8 <- GDP_by_state %>% filter(State=="Alaska") %>%
-        ggplot(aes(x=leto, y=GDP)) + 
-        geom_point() +
-        geom_line()
+  ggplot(aes(x=leto, y=GDP)) + 
+  geom_point() +
+  geom_line()
+
+
+
+mapdb1 <- t_e_s %>%
+  filter(OCC_TITLE=="All Occupations") %>%
+  group_by(STATE) %>%
+  summarise(povprecje= mean(emp))  %>%
+  View()
 
 
 
