@@ -6,12 +6,24 @@ require(dplyr)
 #Analiza plač glede na gospodarsko dejavnost, izobrazbo in spol
 View(gospodarskadejavnost)
 #Kmetijstvo in lov, gozdrastvo, ribištvo
-gospodarskadejavnostA_osmanj_moski <- gospodarskadejavnost[c(1:9), ] 
-gospodarskadejavnostA_osmanj_zenske <- gospodarskadejavnost[c(10:18), ]
-gospodarskadejavnostA_sr_moski <- gospodarskadejavnost[c(19:27), ]
-gospodarskadejavnostA_sr_zenske <- gospodarskadejavnost[c(28:36), ]
-gospodarskadejavnostA_vs_moski <- gospodarskadejavnost[c(37:45), ]
-gospodarskadejavnostA_vs_zenske <- gospodarskadejavnost[c(46:54), ]
+gospodarskadejavnostA_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "A KMETIJSTVO IN LOV, GOZDARSTVO, RIBIŠTVO")
+gospodarskadejavnostA_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "A KMETIJSTVO IN LOV, GOZDARSTVO, RIBIŠTVO")
+gospodarskadejavnostA_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "A KMETIJSTVO IN LOV, GOZDARSTVO, RIBIŠTVO")
+gospodarskadejavnostA_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "A KMETIJSTVO IN LOV, GOZDARSTVO, RIBIŠTVO")
+gospodarskadejavnostA_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "A KMETIJSTVO IN LOV, GOZDARSTVO, RIBIŠTVO")
+gospodarskadejavnostA_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "A KMETIJSTVO IN LOV, GOZDARSTVO, RIBIŠTVO") 
 
 ggplot(gospodarskadejavnostA_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -25,12 +37,24 @@ ggplot(gospodarskadejavnostA_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Rudarstvo
-gospodarskadejavnostB_osmanj_moski <- gospodarskadejavnost[c(55:63), ] 
-gospodarskadejavnostB_osmanj_zenske <- gospodarskadejavnost[c(64:72), ]
-gospodarskadejavnostB_sr_moski <- gospodarskadejavnost[c(73:81), ]
-gospodarskadejavnostB_sr_zenske <- gospodarskadejavnost[c(82:90), ]
-gospodarskadejavnostB_vs_moski <- gospodarskadejavnost[c(91:99), ]
-gospodarskadejavnostB_vs_zenske <- gospodarskadejavnost[c(100:108), ]
+gospodarskadejavnostB_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "B RUDARSTVO")
+gospodarskadejavnostB_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "B RUDARSTVO")
+gospodarskadejavnostB_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "B RUDARSTVO")
+gospodarskadejavnostB_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "B RUDARSTVO")
+gospodarskadejavnostB_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "B RUDARSTVO")
+gospodarskadejavnostB_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "B RUDARSTVO")
 
 ggplot(gospodarskadejavnostB_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -44,12 +68,24 @@ ggplot(gospodarskadejavnostB_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Predelovalne dejavnosti
-gospodarskadejavnostC_osmanj_moski <- gospodarskadejavnost[c(109:117), ] 
-gospodarskadejavnostC_osmanj_zenske <- gospodarskadejavnost[c(118:126), ]
-gospodarskadejavnostC_sr_moski <- gospodarskadejavnost[c(127:135), ]
-gospodarskadejavnostC_sr_zenske <- gospodarskadejavnost[c(136:144), ]
-gospodarskadejavnostC_vs_moski <- gospodarskadejavnost[c(145:153), ]
-gospodarskadejavnostC_vs_zenske <- gospodarskadejavnost[c(154:162), ]
+gospodarskadejavnostC_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "C PREDELOVALNE DEJAVNOSTI")
+gospodarskadejavnostC_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "C PREDELOVALNE DEJAVNOSTI")
+gospodarskadejavnostC_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "C PREDELOVALNE DEJAVNOSTI")
+gospodarskadejavnostC_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "C PREDELOVALNE DEJAVNOSTI")
+gospodarskadejavnostC_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "C PREDELOVALNE DEJAVNOSTI")
+gospodarskadejavnostC_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "C PREDELOVALNE DEJAVNOSTI")
 
 ggplot(gospodarskadejavnostC_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -63,12 +99,24 @@ ggplot(gospodarskadejavnostC_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Oskrba z električno energijo, plinom in paro
-gospodarskadejavnostD_osmanj_moski <- gospodarskadejavnost[c(163:171), ] 
-gospodarskadejavnostD_osmanj_zenske <- gospodarskadejavnost[c(172:180), ]
-gospodarskadejavnostD_sr_moski <- gospodarskadejavnost[c(181:189), ]
-gospodarskadejavnostD_sr_zenske <- gospodarskadejavnost[c(190:198), ]
-gospodarskadejavnostD_vs_moski <- gospodarskadejavnost[c(199:207), ]
-gospodarskadejavnostD_vs_zenske <- gospodarskadejavnost[c(208:216), ]
+gospodarskadejavnostD_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "D OSKRBA Z ELEKTRIČNO ENERGIJO, PLINOM IN PARO")
+gospodarskadejavnostD_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "D OSKRBA Z ELEKTRIČNO ENERGIJO, PLINOM IN PARO")
+gospodarskadejavnostD_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "D OSKRBA Z ELEKTRIČNO ENERGIJO, PLINOM IN PARO")
+gospodarskadejavnostD_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "D OSKRBA Z ELEKTRIČNO ENERGIJO, PLINOM IN PARO")
+gospodarskadejavnostD_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "D OSKRBA Z ELEKTRIČNO ENERGIJO, PLINOM IN PARO")
+gospodarskadejavnostD_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "D OSKRBA Z ELEKTRIČNO ENERGIJO, PLINOM IN PARO")
 
 ggplot(gospodarskadejavnostD_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -82,12 +130,24 @@ ggplot(gospodarskadejavnostD_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Oskrba z vodo, ravnanje z odplakami in odpadki, saniranje okolja
-gospodarskadejavnostE_osmanj_moski <- gospodarskadejavnost[c(217:225), ] 
-gospodarskadejavnostE_osmanj_zenske <- gospodarskadejavnost[c(226:234), ]
-gospodarskadejavnostE_sr_moski <- gospodarskadejavnost[c(235:243), ]
-gospodarskadejavnostE_sr_zenske <- gospodarskadejavnost[c(244:252), ]
-gospodarskadejavnostE_vs_moski <- gospodarskadejavnost[c(253:261), ]
-gospodarskadejavnostE_vs_zenske <- gospodarskadejavnost[c(262:270), ]
+gospodarskadejavnostE_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "E OSKRBA Z VODO, RAVNANJE Z ODPLAKAMI IN ODPADKI, SANIRANJE OKOLJE")
+gospodarskadejavnostE_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "E OSKRBA Z VODO, RAVNANJE Z ODPLAKAMI IN ODPADKI, SANIRANJE OKOLJE")
+gospodarskadejavnostE_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "E OSKRBA Z VODO, RAVNANJE Z ODPLAKAMI IN ODPADKI, SANIRANJE OKOLJE")
+gospodarskadejavnostE_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "E OSKRBA Z VODO, RAVNANJE Z ODPLAKAMI IN ODPADKI, SANIRANJE OKOLJE")
+gospodarskadejavnostE_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "E OSKRBA Z VODO, RAVNANJE Z ODPLAKAMI IN ODPADKI, SANIRANJE OKOLJE")
+gospodarskadejavnostE_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "E OSKRBA Z VODO, RAVNANJE Z ODPLAKAMI IN ODPADKI, SANIRANJE OKOLJE")
 
 ggplot(gospodarskadejavnostE_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -101,12 +161,24 @@ ggplot(gospodarskadejavnostE_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Gradbeništvo
-gospodarskadejavnostF_osmanj_moski <- gospodarskadejavnost[c(271:279), ] 
-gospodarskadejavnostF_osmanj_zenske <- gospodarskadejavnost[c(280:288), ]
-gospodarskadejavnostF_sr_moski <- gospodarskadejavnost[c(289:297), ]
-gospodarskadejavnostF_sr_zenske <- gospodarskadejavnost[c(298:306), ]
-gospodarskadejavnostF_vs_moski <- gospodarskadejavnost[c(307:315), ]
-gospodarskadejavnostF_vs_zenske <- gospodarskadejavnost[c(316:324), ]
+gospodarskadejavnostF_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == " F GRADBENIŠTVO")
+gospodarskadejavnostF_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == " F GRADBENIŠTVO")
+gospodarskadejavnostF_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == " F GRADBENIŠTVO")
+gospodarskadejavnostF_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == " F GRADBENIŠTVO")
+gospodarskadejavnostF_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == " F GRADBENIŠTVO")
+gospodarskadejavnostF_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == " F GRADBENIŠTVO")
 
 ggplot(gospodarskadejavnostF_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -120,12 +192,24 @@ ggplot(gospodarskadejavnostF_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Trgovina, vzdrževanje in popravilo motronih vozil
-gospodarskadejavnostG_osmanj_moski <- gospodarskadejavnost[c(325:333), ] 
-gospodarskadejavnostG_osmanj_zenske <- gospodarskadejavnost[c(334:342), ]
-gospodarskadejavnostG_sr_moski <- gospodarskadejavnost[c(343:351), ]
-gospodarskadejavnostG_sr_zenske <- gospodarskadejavnost[c(352:360), ]
-gospodarskadejavnostG_vs_moski <- gospodarskadejavnost[c(361:369), ]
-gospodarskadejavnostG_vs_zenske <- gospodarskadejavnost[c(370:378), ]
+gospodarskadejavnostG_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "G TRGOVINA, VZDRŽEVANJE IN POPRAVILA MOTORNIH VOZIL")
+gospodarskadejavnostG_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "G TRGOVINA, VZDRŽEVANJE IN POPRAVILA MOTORNIH VOZIL")
+gospodarskadejavnostG_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "G TRGOVINA, VZDRŽEVANJE IN POPRAVILA MOTORNIH VOZIL")
+gospodarskadejavnostG_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "G TRGOVINA, VZDRŽEVANJE IN POPRAVILA MOTORNIH VOZIL")
+gospodarskadejavnostG_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "G TRGOVINA, VZDRŽEVANJE IN POPRAVILA MOTORNIH VOZIL")
+gospodarskadejavnostG_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "G TRGOVINA, VZDRŽEVANJE IN POPRAVILA MOTORNIH VOZIL")
 
 ggplot(gospodarskadejavnostG_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -139,12 +223,24 @@ ggplot(gospodarskadejavnostG_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Promet in skladiščenje
-gospodarskadejavnostH_osmanj_moski <- gospodarskadejavnost[c(379:387), ] 
-gospodarskadejavnostH_osmanj_zenske <- gospodarskadejavnost[c(388:396), ]
-gospodarskadejavnostH_sr_moski <- gospodarskadejavnost[c(397:405), ]
-gospodarskadejavnostH_sr_zenske <- gospodarskadejavnost[c(406:414), ]
-gospodarskadejavnostH_vs_moski <- gospodarskadejavnost[c(415:423), ]
-gospodarskadejavnostH_vs_zenske <- gospodarskadejavnost[c(424:432), ]
+gospodarskadejavnostH_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "H PROMET IN SKLADIŠČENJE")
+gospodarskadejavnostH_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "H PROMET IN SKLADIŠČENJE")
+gospodarskadejavnostH_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "H PROMET IN SKLADIŠČENJE")
+gospodarskadejavnostH_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "H PROMET IN SKLADIŠČENJE")
+gospodarskadejavnostH_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "H PROMET IN SKLADIŠČENJE")
+gospodarskadejavnostH_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "H PROMET IN SKLADIŠČENJE")
 
 ggplot(gospodarskadejavnostH_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -158,12 +254,24 @@ ggplot(gospodarskadejavnostH_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Gostinstvo
-gospodarskadejavnostI_osmanj_moski <- gospodarskadejavnost[c(433:441), ] 
-gospodarskadejavnostI_osmanj_zenske <- gospodarskadejavnost[c(442:450), ]
-gospodarskadejavnostI_sr_moski <- gospodarskadejavnost[c(451:459), ]
-gospodarskadejavnostI_sr_zenske <- gospodarskadejavnost[c(460:468), ]
-gospodarskadejavnostI_vs_moski <- gospodarskadejavnost[c(469:477), ]
-gospodarskadejavnostI_vs_zenske <- gospodarskadejavnost[c(478:486), ]
+gospodarskadejavnostI_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "I GOSTINSTVO")
+gospodarskadejavnostI_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "I GOSTINSTVO")
+gospodarskadejavnostI_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "I GOSTINSTVO")
+gospodarskadejavnostI_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "I GOSTINSTVO")
+gospodarskadejavnostI_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "I GOSTINSTVO")
+gospodarskadejavnostI_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "I GOSTINSTVO")
 
 ggplot(gospodarskadejavnostI_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -177,12 +285,24 @@ ggplot(gospodarskadejavnostI_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Informacijske in komunikacijske dejavnosti
-gospodarskadejavnostJ_osmanj_moski <- gospodarskadejavnost[c(487:495), ] 
-gospodarskadejavnostJ_osmanj_zenske <- gospodarskadejavnost[c(496:504), ]
-gospodarskadejavnostJ_sr_moski <- gospodarskadejavnost[c(505:513), ]
-gospodarskadejavnostJ_sr_zenske <- gospodarskadejavnost[c(514:522), ]
-gospodarskadejavnostJ_vs_moski <- gospodarskadejavnost[c(523:531), ]
-gospodarskadejavnostJ_vs_zenske <- gospodarskadejavnost[c(532:540), ]
+gospodarskadejavnostJ_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "J INFORMACIJSKE IN KOMUNIKACIJSKE DEJAVNOSTI")
+gospodarskadejavnostJ_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "J INFORMACIJSKE IN KOMUNIKACIJSKE DEJAVNOSTI")
+gospodarskadejavnostJ_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "J INFORMACIJSKE IN KOMUNIKACIJSKE DEJAVNOSTI")
+gospodarskadejavnostJ_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "J INFORMACIJSKE IN KOMUNIKACIJSKE DEJAVNOSTI")
+gospodarskadejavnostJ_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "J INFORMACIJSKE IN KOMUNIKACIJSKE DEJAVNOSTI")
+gospodarskadejavnostJ_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "J INFORMACIJSKE IN KOMUNIKACIJSKE DEJAVNOSTI")
 
 ggplot(gospodarskadejavnostJ_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -196,12 +316,24 @@ ggplot(gospodarskadejavnostJ_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Finančne in zavarovalniške dejavnosti
-gospodarskadejavnostK_osmanj_moski <- gospodarskadejavnost[c(541:549), ] 
-gospodarskadejavnostK_osmanj_zenske <- gospodarskadejavnost[c(550:558), ]
-gospodarskadejavnostK_sr_moski <- gospodarskadejavnost[c(559:567), ]
-gospodarskadejavnostK_sr_zenske <- gospodarskadejavnost[c(568:576), ]
-gospodarskadejavnostK_vs_moski <- gospodarskadejavnost[c(577:585), ]
-gospodarskadejavnostK_vs_zenske <- gospodarskadejavnost[c(586:594), ]
+gospodarskadejavnostK_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "K FINANČNE IN ZAVAROVALNIŠKE DEJAVNOSTI")
+gospodarskadejavnostK_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "K FINANČNE IN ZAVAROVALNIŠKE DEJAVNOSTI")
+gospodarskadejavnostK_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "K FINANČNE IN ZAVAROVALNIŠKE DEJAVNOSTI")
+gospodarskadejavnostK_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "K FINANČNE IN ZAVAROVALNIŠKE DEJAVNOSTI")
+gospodarskadejavnostK_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "K FINANČNE IN ZAVAROVALNIŠKE DEJAVNOSTI")
+gospodarskadejavnostK_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "K FINANČNE IN ZAVAROVALNIŠKE DEJAVNOSTI")
 
 ggplot(gospodarskadejavnostK_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -215,12 +347,24 @@ ggplot(gospodarskadejavnostK_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Poslovanje z nepremičninami
-gospodarskadejavnostL_osmanj_moski <- gospodarskadejavnost[c(595:603), ] 
-gospodarskadejavnostL_osmanj_zenske <- gospodarskadejavnost[c(604:612), ]
-gospodarskadejavnostL_sr_moski <- gospodarskadejavnost[c(613:621), ]
-gospodarskadejavnostL_sr_zenske <- gospodarskadejavnost[c(622:630), ]
-gospodarskadejavnostL_vs_moski <- gospodarskadejavnost[c(631:639), ]
-gospodarskadejavnostL_vs_zenske <- gospodarskadejavnost[c(640:648), ]
+gospodarskadejavnostL_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "L POSLOVANJE Z NEPREMIČNINAMI")
+gospodarskadejavnostL_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "L POSLOVANJE Z NEPREMIČNINAMI")
+gospodarskadejavnostL_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "L POSLOVANJE Z NEPREMIČNINAMI")
+gospodarskadejavnostL_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "L POSLOVANJE Z NEPREMIČNINAMI")
+gospodarskadejavnostL_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "L POSLOVANJE Z NEPREMIČNINAMI")
+gospodarskadejavnostL_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "L POSLOVANJE Z NEPREMIČNINAMI")
 
 ggplot(gospodarskadejavnostL_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -234,12 +378,24 @@ ggplot(gospodarskadejavnostL_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Strokovne, znanstvene in tehnične dejavnosti
-gospodarskadejavnostM_osmanj_moski <- gospodarskadejavnost[c(649:657), ] 
-gospodarskadejavnostM_osmanj_zenske <- gospodarskadejavnost[c(658:666), ]
-gospodarskadejavnostM_sr_moski <- gospodarskadejavnost[c(667:675), ]
-gospodarskadejavnostM_sr_zenske <- gospodarskadejavnost[c(676:684), ]
-gospodarskadejavnostM_vs_moski <- gospodarskadejavnost[c(685:693), ]
-gospodarskadejavnostM_vs_zenske <- gospodarskadejavnost[c(694:702), ]
+gospodarskadejavnostM_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "M STROKOVNE, ZNANSTVENE IN TEHNIČNE DEJAVNOSTI")
+gospodarskadejavnostM_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "M STROKOVNE, ZNANSTVENE IN TEHNIČNE DEJAVNOSTI")
+gospodarskadejavnostM_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "M STROKOVNE, ZNANSTVENE IN TEHNIČNE DEJAVNOSTI")
+gospodarskadejavnostM_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "M STROKOVNE, ZNANSTVENE IN TEHNIČNE DEJAVNOSTI")
+gospodarskadejavnostM_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "M STROKOVNE, ZNANSTVENE IN TEHNIČNE DEJAVNOSTI")
+gospodarskadejavnostM_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "M STROKOVNE, ZNANSTVENE IN TEHNIČNE DEJAVNOSTI")
 
 ggplot(gospodarskadejavnostM_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -253,12 +409,24 @@ ggplot(gospodarskadejavnostM_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Druge raznovrstne poslovne dejavnosti
-gospodarskadejavnostN_osmanj_moski <- gospodarskadejavnost[c(703:711), ] 
-gospodarskadejavnostN_osmanj_zenske <- gospodarskadejavnost[c(712:720), ]
-gospodarskadejavnostN_sr_moski <- gospodarskadejavnost[c(721:729), ]
-gospodarskadejavnostN_sr_zenske <- gospodarskadejavnost[c(730:738), ]
-gospodarskadejavnostN_vs_moski <- gospodarskadejavnost[c(739:747), ]
-gospodarskadejavnostN_vs_zenske <- gospodarskadejavnost[c(748:756), ]
+gospodarskadejavnostN_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "N DRUGE RAZNOVRSTNE POSLOVNE DEJAVNOSTI")
+gospodarskadejavnostN_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "N DRUGE RAZNOVRSTNE POSLOVNE DEJAVNOSTI")
+gospodarskadejavnostN_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "N DRUGE RAZNOVRSTNE POSLOVNE DEJAVNOSTI")
+gospodarskadejavnostN_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "N DRUGE RAZNOVRSTNE POSLOVNE DEJAVNOSTI")
+gospodarskadejavnostN_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "N DRUGE RAZNOVRSTNE POSLOVNE DEJAVNOSTI")
+gospodarskadejavnostN_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "N DRUGE RAZNOVRSTNE POSLOVNE DEJAVNOSTI")
 
 ggplot(gospodarskadejavnostN_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -272,12 +440,24 @@ ggplot(gospodarskadejavnostN_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Dejavnosti javne uprave in obrambe, dejavnosti obvezne socialne varnosti
-gospodarskadejavnostO_osmanj_moski <- gospodarskadejavnost[c(757:765), ] 
-gospodarskadejavnostO_osmanj_zenske <- gospodarskadejavnost[c(766:774), ]
-gospodarskadejavnostO_sr_moski <- gospodarskadejavnost[c(775:783), ]
-gospodarskadejavnostO_sr_zenske <- gospodarskadejavnost[c(784:792), ]
-gospodarskadejavnostO_vs_moski <- gospodarskadejavnost[c(793:801), ]
-gospodarskadejavnostO_vs_zenske <- gospodarskadejavnost[c(802:810), ]
+gospodarskadejavnostO_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "O DEJAVNOST JAVNE UPRAVE IN OBRAMBE, DEJAVNOST OBVEZNE SOCIALNE VARNOSTI")
+gospodarskadejavnostO_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "O DEJAVNOST JAVNE UPRAVE IN OBRAMBE, DEJAVNOST OBVEZNE SOCIALNE VARNOSTI")
+gospodarskadejavnostO_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "O DEJAVNOST JAVNE UPRAVE IN OBRAMBE, DEJAVNOST OBVEZNE SOCIALNE VARNOSTI")
+gospodarskadejavnostO_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "O DEJAVNOST JAVNE UPRAVE IN OBRAMBE, DEJAVNOST OBVEZNE SOCIALNE VARNOSTI")
+gospodarskadejavnostO_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "O DEJAVNOST JAVNE UPRAVE IN OBRAMBE, DEJAVNOST OBVEZNE SOCIALNE VARNOSTI")
+gospodarskadejavnostO_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "O DEJAVNOST JAVNE UPRAVE IN OBRAMBE, DEJAVNOST OBVEZNE SOCIALNE VARNOSTI")
 
 ggplot(gospodarskadejavnostO_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -291,12 +471,25 @@ ggplot(gospodarskadejavnostO_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Izobraževanje
-gospodarskadejavnostP_osmanj_moski <- gospodarskadejavnost[c(811:819), ] 
-gospodarskadejavnostP_osmanj_zenske <- gospodarskadejavnost[c(820:828), ]
-gospodarskadejavnostP_sr_moski <- gospodarskadejavnost[c(829:837), ]
-gospodarskadejavnostP_sr_zenske <- gospodarskadejavnost[c(838:846), ]
-gospodarskadejavnostP_vs_moski <- gospodarskadejavnost[c(847:855), ]
-gospodarskadejavnostP_vs_zenske <- gospodarskadejavnost[c(856:864), ]
+gospodarskadejavnostP_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "P IZOBRAŽEVANJE")
+gospodarskadejavnostP_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "P IZOBRAŽEVANJE")
+gospodarskadejavnostP_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "P IZOBRAŽEVANJE")
+gospodarskadejavnostP_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "P IZOBRAŽEVANJE")
+gospodarskadejavnostP_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "P IZOBRAŽEVANJE")
+gospodarskadejavnostP_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "P IZOBRAŽEVANJE")
+
 
 ggplot(gospodarskadejavnostP_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -310,12 +503,24 @@ ggplot(gospodarskadejavnostP_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Zdravstvo in socialno varstvo
-gospodarskadejavnostQ_osmanj_moski <- gospodarskadejavnost[c(865:873), ] 
-gospodarskadejavnostQ_osmanj_zenske <- gospodarskadejavnost[c(874:882), ]
-gospodarskadejavnostQ_sr_moski <- gospodarskadejavnost[c(883:891), ]
-gospodarskadejavnostQ_sr_zenske <- gospodarskadejavnost[c(892:900), ]
-gospodarskadejavnostQ_vs_moski <- gospodarskadejavnost[c(901:909), ]
-gospodarskadejavnostQ_vs_zenske <- gospodarskadejavnost[c(910:918), ]
+gospodarskadejavnostQ_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "Q ZDRAVSTVO IN SOCIALNO VARSTVO")
+gospodarskadejavnostQ_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "Q ZDRAVSTVO IN SOCIALNO VARSTVO")
+gospodarskadejavnostQ_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "Q ZDRAVSTVO IN SOCIALNO VARSTVO")
+gospodarskadejavnostQ_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "Q ZDRAVSTVO IN SOCIALNO VARSTVO")
+gospodarskadejavnostQ_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "Q ZDRAVSTVO IN SOCIALNO VARSTVO")
+gospodarskadejavnostQ_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "Q ZDRAVSTVO IN SOCIALNO VARSTVO")
 
 ggplot(gospodarskadejavnostQ_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -329,12 +534,24 @@ ggplot(gospodarskadejavnostQ_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Kulturne, razvedrilne in rekreacijske dejavnosti
-gospodarskadejavnostR_osmanj_moski <- gospodarskadejavnost[c(919:927), ] 
-gospodarskadejavnostR_osmanj_zenske <- gospodarskadejavnost[c(928:936), ]
-gospodarskadejavnostR_sr_moski <- gospodarskadejavnost[c(937:945), ]
-gospodarskadejavnostR_sr_zenske <- gospodarskadejavnost[c(946:954), ]
-gospodarskadejavnostR_vs_moski <- gospodarskadejavnost[c(955:963), ]
-gospodarskadejavnostR_vs_zenske <- gospodarskadejavnost[c(964:972), ]
+gospodarskadejavnostR_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "R KULTURNE, RAZVEDRILNE IN REKREACIJSKE DEJAVNOSTI")
+gospodarskadejavnostR_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "R KULTURNE, RAZVEDRILNE IN REKREACIJSKE DEJAVNOSTI")
+gospodarskadejavnostR_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "R KULTURNE, RAZVEDRILNE IN REKREACIJSKE DEJAVNOSTI")
+gospodarskadejavnostR_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "R KULTURNE, RAZVEDRILNE IN REKREACIJSKE DEJAVNOSTI")
+gospodarskadejavnostR_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "R KULTURNE, RAZVEDRILNE IN REKREACIJSKE DEJAVNOSTI")
+gospodarskadejavnostR_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "R KULTURNE, RAZVEDRILNE IN REKREACIJSKE DEJAVNOSTI")
 
 ggplot(gospodarskadejavnostR_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +
@@ -348,12 +565,24 @@ ggplot(gospodarskadejavnostR_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
 #Druge dejavnosti
-gospodarskadejavnostS_osmanj_moski <- gospodarskadejavnost[c(973:981), ] 
-gospodarskadejavnostS_osmanj_zenske <- gospodarskadejavnost[c(982:990), ]
-gospodarskadejavnostS_sr_moski <- gospodarskadejavnost[c(991:999), ]
-gospodarskadejavnostS_sr_zenske <- gospodarskadejavnost[c(1000:1008), ]
-gospodarskadejavnostS_vs_moski <- gospodarskadejavnost[c(1009:1017), ]
-gospodarskadejavnostS_vs_zenske <- gospodarskadejavnost[c(1018:1026), ]
+gospodarskadejavnostS_osmanj_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
+         gospodarska.dejavnost == "S DRUGE DEJAVNOSTI")
+gospodarskadejavnostS_osmanj_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Osnovnošolska ali manj", spol == "Ženske", 
+         gospodarska.dejavnost == "S DRUGE DEJAVNOSTI")
+gospodarskadejavnostS_sr_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Moški", 
+         gospodarska.dejavnost == "S DRUGE DEJAVNOSTI")
+gospodarskadejavnostS_sr_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Srednješolska", spol == "Ženski", 
+         gospodarska.dejavnost == "S DRUGE DEJAVNOSTI")
+gospodarskadejavnostS_vs_moski <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Moški", 
+         gospodarska.dejavnost == "S DRUGE DEJAVNOSTI")
+gospodarskadejavnostS_vs_zenske <- gospodarskadejavnost %>% 
+  filter(izobrazba == "Višješolska, visokošolska", spol == "Ženske", 
+         gospodarska.dejavnost == "S DRUGE DEJAVNOSTI")
 
 ggplot(gospodarskadejavnostS_osmanj_moski, aes(x= leto,y= placa)) + 
   geom_point(color="blue", size=2) +

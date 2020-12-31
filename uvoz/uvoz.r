@@ -17,7 +17,6 @@ regijainspol <- read_csv2("podatki/placa_regija.csv",
                           col_names=c("regija","spol","leto","placa"),
                           skip=3, na="-",
                           locale=locale(encoding="Windows-1250"))
-View(regijainspol)
 
 
 #Povprečna bruto mesečna plača v javnem in zasebnem sektorju glede na izobrazbo in spol
