@@ -596,13 +596,13 @@ ggplot(gospodarskadejavnostS_osmanj_moski, aes(x= leto,y= placa)) +
   xlab("Leto")
 
  #Najvišja in najnižja plača v vsaki panogi glede na izobrazbo in spol
-maksimum <- gospodarskadejavnost %>% 
+maksimum <- data.frame(gospodarskadejavnost %>% 
   group_by(gospodarska.dejavnost, izobrazba, spol) %>%
-  summarise(maksimum = max(placa))
-minimum <- gospodarskadejavnost %>% 
+  summarise(maksimum = max(placa)))
+minimum <- data.frame(gospodarskadejavnost %>% 
   group_by(gospodarska.dejavnost, izobrazba, spol) %>%
-  summarise(minimum = min(placa))
-
+  summarise(minimum = min(placa)))
+max_min <- merge(maksimum,minimum,by=c("spol", "izobrazba", "gospodarska.dejavnost"))
 
 #Analiza plač glede na javni in zasebni sektor
 javnisektor_osmanj_moski <- javnisektor %>%
@@ -691,32 +691,35 @@ ggplot(javnisektor_osmanj, aes(x=leto, y=placa)) +
   ylab("Višina plače(€)") +
   xlab("Leto")
 
-izobrazba <- c("OSNOVNOŠOLSKA ALI MANJ", "SREDNJEŠOLSKA", "VIŠJEŠOLSKA/VISOKOŠOSLKA",
-               "OSNOVNOŠOLSKA ALI MANJ", "SREDNJEŠOLSKA", "VIŠJEŠOLSKA/VISOKOŠOSLKA")
-vrsta_place <- c("MAX PLAČA", "MAX PLAČA", "MAX PLAČA",
-                 "MIN PLAČA", "MIN PLAČA", "MIN PLAČA")
-placa <- c(max(javnisektor_osmanj_moski$placa), max(javnisektor_sr_moski$placa), max(javnisektor_vs_moski$placa), 
-           min(javnisektor_osmanj_moski$placa),min(javnisektor_sr_moski$placa), min(javnisektor_vs_moski$placa))
-placa_javnisektor_moski <- data.frame(izobrazba, vrsta_place, placa)
+  #Minimalna in maksimalna placa glede na izobrazbo
+maksimum <- data.frame(javnisektor %>%
+                       group_by(sektor, izobrazba, spol) %>%
+                       summarise(maksimum = max(placa)))
+minimum <- data.frame(javnisektor %>% 
+                      group_by(sektor, izobrazba, spol) %>%
+                      summarise(minimum = min(placa)))
+max_min <- merge(maksimum,minimum,by=c("spol", "izobrazba", "sektor"))
 
-placa <- c(max(zasebnisektor_osmanj_moski$placa),max(zasebnisektor_sr_moski$placa), max(zasebnisektor_vs_moski$placa),
-               min(zasebnisektor_osmanj_moski$placa),min(zasebnisektor_sr_moski$placa), min(zasebnisektor_vs_moski$placa))
-placa_zasebnisektor_moski <- data.frame(izobrazba, vrsta_place, placa)
+placa_javnisektor_mosk <- max_min %>%
+  filter(sektor=="11 Javni sektor - SKUPAJ", spol== "Moški")
+placa_zasebnisektor_moski <- max_min %>%
+  filter(sektor=="12 Zasebni sektor - SKUPAJ", spol== "Moški") 
+placa_javnisektor_zenske <- max_min %>%
+  filter(sektor=="11 Javni sektor - SKUPAJ", spol== "Ženske")
+placa_zasebnisektor_zenske <- max_min %>%
+  filter(sektor=="12 Zasebni sektor - SKUPAJ", spol== "Ženske")
 
-placa <- c(max(zasebnisektor_osmanj_zenske$placa),max(zasebnisektor_sr_zenske$placa), max(zasebnisektor_vs_zenske$placa),
-               min(zasebnisektor_osmanj_zenske$placa),min(zasebnisektor_sr_zenske$placa), min(zasebnisektor_vs_zenske$placa))
-placa_javnisektor_zenske <- data.frame(izobrazba, vrsta_place, placa)
-
-placa <- c(max(zasebnisektor_osmanj_zenske$placa),max(zasebnisektor_sr_zenske$placa), max(zasebnisektor_vs_zenske$placa),
-               min(zasebnisektor_osmanj_zenske$placa),min(zasebnisektor_sr_zenske$placa), min(zasebnisektor_vs_zenske$placa))
-placa_zasebnisektor_zenske <- data.frame(izobrazba, vrsta_place, placa)
 
   #Graf primerjave minimalne in maksimalne place glede na izobrazbo
-ggplot(placa_javnisektor_moski, aes(x=izobrazba, y=placa)) +
+ggplot(placa_javnisektor_moski, aes(x=izobrazba, y=maksimum)) +
   geom_point(color="dark blue", size=2) +
-  geom_point(placa_zasebnisektor_moski, mapping=aes(x=izobrazba, y=placa), color="dark green", size=2) +
-  geom_point(placa_javnisektor_zenske, mapping=aes(x=izobrazba, y=placa), color="red", size=2) +
-  geom_point(placa_zasebnisektor_zenske, mapping=aes(x=izobrazba, y=placa), color="pink", size=2) +
+  geom_point(placa_zasebnisektor_moski, mapping=aes(x=izobrazba, y=maksimum), color="dark green", size=2) +
+  geom_point(placa_javnisektor_zenske, mapping=aes(x=izobrazba, y=maksimum), color="red", size=2) +
+  geom_point(placa_zasebnisektor_zenske, mapping=aes(x=izobrazba, y=maksimum), color="pink", size=2) +
+  geom_point(placa_zasebnisektor_moski, mapping=aes(x=izobrazba, y=minimum), color="black", size=2) +
+  geom_point(placa_javnisektor_zenske, mapping=aes(x=izobrazba, y=minimum), color="grey", size=2) +
+  geom_point(placa_zasebnisektor_zenske, mapping=aes(x=izobrazba, y=minimum), color="yellow", size=2) +
+  geom_point(placa_javnisektor_moski, mapping=aes(x=izobrazba, y=minimum), color="green", size=2)
   labs(title="Primerjava minimalne in maksimalne plače v zasebnem in javnem sektorju") +
   ylab("Višina plače(€)") +
   xlab("Izobrazba")
@@ -725,10 +728,16 @@ ggplot(placa_javnisektor_moski, aes(x=izobrazba, y=placa)) +
 meseci <- c("12", "11","10","09","08","07","06","05","04","03","02","01",
             "12", "11","10","09","08","07","06","05","04","03","02","01",
             "12", "11","10","09","08","07","06","05","04","03","02","01")
-kriza2008_meseci <- data.frame(meseci, kriza2008$placa)
-kriza_leto2009 <- kriza2008_meseci[c(1:12), ]
-kriza_leto2008 <- kriza2008_meseci[c(13:24), ]
-kriza_leto2007 <- kriza2008_meseci[c(25:36), ]
+leto <- c("2009","2009","2009","2009","2009","2009","2009","2009","2009","2009","2009","2009",
+          "2008","2008","2008","2008","2008","2008","2008","2008","2008","2008","2008","2008",
+          "2007","2007","2007","2007","2007","2007","2007","2007","2007","2007","2007","2007")
+kriza2008_meseci <- data.frame(leto, meseci, kriza2008$placa)
+kriza_leto2009 <- kriza2008_meseci %>%
+  filter(leto == "2009")
+kriza_leto2008 <- kriza2008_meseci %>%
+  filter(leto == "2008")
+kriza_leto2007 <- kriza2007_meseci %>%
+  filter(leto == "2008")
 
  #Kriza leta 2008
 ggplot(kriza_leto2007, mapping=aes(x=meseci, y=kriza2008.placa)) +
@@ -742,8 +751,11 @@ ggplot(kriza_leto2007, mapping=aes(x=meseci, y=kriza2008.placa)) +
   #Primerjava leta 2007 z letom 2019
 meseci <- c("09","08","07","06","05","04","03","02","01",
             "12", "11","10","09","08","07","06","05","04","03","02","01")
-kriza2020_meseci <- data.frame(meseci, kriza2020$placa)
-kriza_leto2019 <- kriza2020_meseci[c(10:21), ]
+leto <- c("2020","2020","2020","2020","2020","2020","2020","2020","2020",
+          "2019","2019","2019","2019","2019","2019","2019","2019","2019","2019","2019","2019")
+kriza2020_meseci <- data.frame(leto, meseci, kriza2020$placa)
+kriza_leto2019 <- kriza2020_meseci %>%
+  filter(leto == "2019")
 
 ggplot(kriza_leto2007, mapping=aes(x=meseci, y=kriza2008.placa)) +
   geom_point(color="red", size=2) +
@@ -753,7 +765,8 @@ ggplot(kriza_leto2007, mapping=aes(x=meseci, y=kriza2008.placa)) +
   xlab("Meseci")
 
   #Primerjava leta 2008 in 2020(do meseca 09)
-kriza_leto2020 <- kriza2020_meseci[c(1:9), ]
+kriza_leto2020 <- kriza2020_meseci %>%
+  filter(leto == "2020")
 
 ggplot(kriza_leto2008, mapping=aes(x=meseci, y=kriza2008.placa)) +
   geom_point(color="red", size=2) +
