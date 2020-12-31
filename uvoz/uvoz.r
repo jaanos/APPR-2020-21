@@ -7,7 +7,7 @@ sl <- locale("sl", decimal_mark=",", grouping_mark=".")
 
 #Povprečna bruto mesečna plača glede na gospodarsko dejavnost, izobrazbo in spol
 gospodarskadejavnost <- read_csv2("podatki/placa_dejavnost.csv",
-                                  col_names=c("gospodarska dejavnost","izobrazba","spol","leto","placa"),
+                                  col_names=c("gospodarska.dejavnost","izobrazba","spol","leto","placa"),
                                   skip=3, na="-",
                                   locale=locale(encoding="Windows-1250"))
 
