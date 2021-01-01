@@ -28,8 +28,28 @@ graf_razlika_spol <- ggplot(razlika_spol, aes(x=factor(Leto), y=Razlika, group=1
   geom_line() +
   geom_point() +
   labs(title="Razlika med spoloma 2", x="Leto", y = "Razlika dohodka")
-print(graf_spol)
+
 print(graf_razlika_spol)
+
+
+
+# 4. graf: izobrazba
+izobrazba_spol <- izobrazba_spol %>%
+  mutate(Izobrazba2=Izobrazba, Spol2=Spol)
+
+
+graf_izobrazba_spol <- ggplot(izobrazba_spol, aes(x=factor(Leto), y=Dohodek)) +
+  geom_line(data=izobrazba_spol %>% dplyr::select(-Izobrazba, -Spol),
+            aes(group=interaction(Spol2, Izobrazba2)), color="grey", size=0.5) +
+  geom_line(aes(group=interaction(Spol, Izobrazba), color=Spol), size=1.2)+
+  scale_color_manual(breaks=c("Moški", "Ženske"), values=c("#00BFC4", "#F8766D"))+
+  theme_bw() +
+  theme(plot.title = element_text(), panel.grid = element_blank()) +
+  labs(title="Izobrazba in spol", x="Leto", y = "Dohodek")+
+  facet_wrap(~Izobrazba)
+
+print(graf_izobrazba_spol)
+
 
 # Zemljevid statističnih regij
 
@@ -57,6 +77,7 @@ narisi_zemljevid <- tm_shape(merge(zemljevid_regije, regije_8_19, by.x="NAME_1",
   tm_facets(sync = TRUE, ncol = 2)
 
 print(narisi_zemljevid)
+
 
 
 

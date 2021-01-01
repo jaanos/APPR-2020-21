@@ -13,6 +13,8 @@ library(rgeos)
 library(maptools)
 library(stringr)
 library(RColorBrewer)
+library(viridis)
+library(hrbrthemes)
 
 
 options(gsubfn.engine="R")
