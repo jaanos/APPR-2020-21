@@ -24,9 +24,10 @@ source("lib/rstudio.r", encoding="UTF-8")
 
 # Izbira teme
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
+V svoji projektni nalogi bom analiziral razpoložljivi dohodek slovenskih gospodinjstev zadnjih let. Opazoval bom povprečni dohodek na člana gospodinjstva po opravljenih socialnih transferjih glede na vrsto dohodka, spol, starost in izobrazbo ter dohodek po statističnih regijah Slovenije.
 
-![](slike/grb.png)
+<center>
+![](slike/gradb-naslovna.jpg)
 
 ***
 
@@ -36,33 +37,44 @@ Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
+Svoje podatke sem črpal s strani [SiStat](https://pxweb.stat.si/SiStat/sl) v obliki CSV datotek (ločeno s podpičjem, z glavo) ter v HTML obliki. Shranjeni so v istoimenski mapi [podatki](https://github.com/UrbanRupnik/APPR-2020-21/tree/master/podatki) in sicer kot štiri glavne razpredelnice v obliki *tidy data*, ki sem jih prečistil še v dve pod-razpredelnici za sledeče analize.
 
-1. `druzine` - podatki o družinah za vsako občino
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `velikost.druzine` - spremenljivka: število otrok v družini (število: 1, 2, 3 ali 4, kjer zadnja vrednost pomeni 4 ali več),
-  - `stevilo.druzin` - meritev: število družin z ustreznim številom otrok v ustrezni občini (število).
+1. [Razpoložljivi dohodek gospodinjstev po starosti in spolu (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1406)
+  `starost_spol_vsi` 
+  - `Starost` - spremenljivka: Starostne skupine (character),
+  - `Spol` - spremenljivka: Spol osebe (character),
+  - `Leto` - spremenljivka: Leto meritve dohodka (numeric),
+  - `Dohodek` - meritev: Povprečni dohodek na člana gospodinjstva po opravljenih socialnih transferjih (numeric).
+  
+1.1.  `starost_spol` - razpredelnica brez skupne starostne skupine
+  - `Starost` - spremenljivka: Starostne skupine (urejen faktor),
+  - `Spol` - spremenljivka: Spol osebe (character),
+  - `Leto` - spremenljivka: Leto meritve dohodka (numeric),
+  - `Dohodek` - meritev: Povprečni dohodek na člana gospodinjstva po opravljenih socialnih transferjih (numeric).
+  
+1.2.   `spol` 
+  - `Spol` - spremenljivka: Spol osebe (character),
+  - `Leto` - spremenljivka: Leto meritve dohodka (numeric),
+  - `Dohodek` - meritev: Povprečni dohodek na člana gospodinjstva po opravljenih socialnih transferjih (numeric).
 
-2. `obcine` - podatki o občinah
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `povrsina` - meritev: površina občine v km$^2$ (število),
-  - `prebivalci` - meritev: prebivalstvo občine (število),
-  - `gostota` - meritev: število prebivalcev na km$^2$ (število),
-  - `naselja` - meritev: število naselij v občini (število),
-  - `ustanovitev` - meritev: leto ustanovitve občine (število),
-  - `pokrajina` - meritev: pokrajina, ki ji občina pripada (neurejen faktor),
-  - `regija` - meritev: regija, ki ji občina pripada (neurejen faktor),
-  - `odcepitev` - meritev: podatki o občinah, od katerih se je občina odcepila (besedilo).
-
-**Opomba**: da bi razpredelnica `obcine` res bila v obliki *tidy data*, bi morali odstraniti stolpec `gostota` (saj je izpeljan iz stolpcev `povrsina` in `prebivalci`), podatke o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s stolpcem `odcepitev`.
-
-Spodnji graf prikazuje porazdelitev števila naselij v občinah.
-
-```{r histogram, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-ggplot(obcine, aes(x=naselja)) + geom_histogram() +
-  ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
-```
+2. [Razpoložljivi dohodek gospodinjstev glede na doseženo izobrazbo in spol (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1407) 
+  `izobrazba_spol`
+  - `Izobrazba` - spremenljivka: Vrsta dosežene izobrazbe (urejen faktor),
+  - `Spol` - spremenljivka: Spol osebe (character),
+  - `Leto` - spremenljivka: Leto meritve dohodka (numeric),
+  - `Dohodek` - meritev: Povprečni dohodek na člana gospodinjstva po opravljenih socialnih transferjih (numeric).
+  
+3. [Razpoložljivi dohodek gospodinjstev po statističnih regijah (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1228)
+  `regije`
+  - `Regija` - spremenljivka: Ime statistične regije (character),
+  - `Leto` - spremenljivka: Leto meritve dohodka (numeric),
+  - `Dohodek` - meritev: Povprečni dohodek na člana gospodinjstva po opravljenih socialnih transferjih (numeric).
+  
+4. [Povprečni razpoložljivi dohodek gospodinjstev po vrstah dohodka (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1214)
+  `vrste_dohodka`
+  - `Vrsta.dohodka` - spremenljivka: Vrsta dohodka (character),
+  - `Leto` - spremenljivka: Leto meritve dohodka (integer),
+  - `Dohodek` - meritev: Povprečni dohodek na člana gospodinjstva po opravljenih socialnih transferjih (integer).
 
 ***
 
