@@ -1,6 +1,6 @@
 shinyServer(function(input, output) {
   output$distPlot <- renderPlot({
-    x    <- nat.ha %>% drop_na(h) %>% filter(leto=="2019",sredina=="mean")
+    x    <- nat.ha %>% drop_na(h) %>% filter(leto=="2019",sredina=="mean") %>% filter(h > 100)
     x.2 <- nat.ha$h
     bini <- seq(min(x.2), max(x.2), length.out = input$bini + 1)
     hist(x.2, breaks = bini, col = "yellow", border = "black",
@@ -57,7 +57,7 @@ shinyServer(function(input, output) {
         { mapdb <- st.ha %>% filter(sredina=="mean") 
         } else if ( input$tabela=="h_median" | input$tabela=="a_meadian") 
         { mapdb <- st.ha %>% filter(sredina=="median") 
-        }  else {  mapdb <-  mapdb <- t_e_s
+        } else {  mapdb <-  mapdb <- t_e_s
         }
         if (input$tabela=="h_mean" | input$tabela=="h_median")
         {mapdb1 <- mapdb %>%
