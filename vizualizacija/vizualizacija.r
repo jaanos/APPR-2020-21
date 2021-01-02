@@ -74,10 +74,11 @@ graf1 <- t_e %>% filter(occ_code == "00-0000") %>%
                                    size=10, angle=7))
 
 # PORAZDELITEV TOP3 PLAC PO LETIH
-
-pr <- nat.ha %>% filter(sredina=="mean") 
+joined <- inner_join(nat.ha, kode, by="occ_code") 
+pr <- joined %>% filter(sredina=="mean") 
 top <- pr[pr$occ_code %in% c("29-1067","29-1061","29-1023"), ]  %>% 
-  rename(poklic=occ_code)
+  rename(poklic=occ_title)
+
 
 graf2 <- top %>%
   ggplot(aes(x=poklic, y=h)) +
@@ -102,7 +103,7 @@ graf2 <- top %>%
 # TOP 3 GLEDE NA URNE POSTAVEK 
 
 graf3 <- top %>%
-  ggplot(aes(x=leto,y=h, col=poklic)) +
+  ggplot(aes(x=leto, y=h, col=poklic)) +
   xlab("Leto") +
   ylab("Povprečna plača na uro") +
   labs(title="Povprečna urna plača treh najboljše plačanih poklicev.") +
@@ -110,10 +111,8 @@ graf3 <- top %>%
   geom_point(size=2)
 
 # BOTTOM 3 GLEDE NA AVRAGE WAGE 
-
-pr2 <- nat.ha %>% filter(sredina=="mean")
-a_b <- pr2[pr2$occ_code %in%  c("39-5093","35-9021"), ] %>% 
-  rename(poklic=occ_code)
+a_b <- pr[pr$occ_code %in%  c("39-5093","35-9021"), ] %>% 
+  rename(poklic=occ_title)
 
 graf4 <- a_b %>%
   ggplot(aes(x=leto,y=a)) +
@@ -125,10 +124,10 @@ graf4 <- a_b %>%
   facet_grid(~poklic) 
 
 # Zaposlenost top 3 poklicev in bot. 2 poklicev
-
-t_e_l_b <- t_e[t_e$occ_code %in%  c("39-5093","35-9021",
+joined_t_e <- inner_join(t_e, kode, by="occ_code") 
+t_e_l_b <- joined_t_e[joined_t_e$occ_code %in%  c("39-5093","35-9021",
                "29-1067","29-1061","29-1023"), ] %>% 
-          rename(poklic=occ_code)
+          rename(poklic=occ_title)
 
 graf5 <- t_e_l_b %>% filter(leto=="2018") %>%
   ggplot() +

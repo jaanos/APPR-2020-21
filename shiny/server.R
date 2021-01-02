@@ -1,14 +1,11 @@
 shinyServer(function(input, output) {
   output$distPlot <- renderPlot({
-    x    <- nat.ha %>% drop_na(h) %>% filter(leto=="2019",sredina=="mean") %>% filter(h > 100)
-    x.2 <- nat.ha$h
-    bini <- seq(min(x.2), max(x.2), length.out = input$bini + 1)
-    hist(x.2, breaks = bini, col = "yellow", border = "black",
-         xlab = "Pojavljenost plače",
-         ylab = "Frekvenca",
-         main = "Histogram povprečnih plač")
-    })
-    
+    ggplot(nat.ha %>% filter(sredina == "mean"), aes(x=h)) +
+      geom_histogram(bins=input$bini, fill="yellow", color="black") +
+      xlab("Urna postavka") + ylab("Absolutna frekvenca") +
+      ggtitle("Histogram pojavljenosti povprečnih plač")
+  })
+  
     output$distPlot2 <- renderPlot({
       y <- st.ha %>% filter(state==input$drzava, leto==input$leto) %>% 
                     filter(sredina=="mean")
