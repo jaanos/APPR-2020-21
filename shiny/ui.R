@@ -25,7 +25,7 @@ shinyUI(fluidPage(theme = shinytheme("slate"),
                                             min=2006,
                                             max=2018,
                                             value=2010,
-                                            step=2),
+                                            step=1),
                                 selectInput(inputId = "drzava",
                                             label = "Država:",
                                             choices = c(sort(unique(tabela2$State)))
@@ -35,7 +35,7 @@ shinyUI(fluidPage(theme = shinytheme("slate"),
                                 plotOutput(outputId = "distPlot2")
                                 )
                    )), # 2. tab 
-          tabPanel("Analiza BDP per capita",
+          tabPanel("Makroekonomski kazalci",
           sidebarLayout(
           sidebarPanel(        
                                 selectInput(inputId = "drzava2",
@@ -47,12 +47,13 @@ shinyUI(fluidPage(theme = shinytheme("slate"),
                                 plotOutput(outputId = "distPlot4")
                         ) 
                    )),# tab panel 3
-        tabPanel("Analiza4",
+        tabPanel("ZDA kategorije",
         sidebarLayout(
         sidebarPanel(
                 selectInput(inputId = "tabela",
                             label = "Atribut:",
-                            choices = c("HM", "AME", "AM", "emp","HME")
+                            choices = c("h_mean", "a_mean", "h_median", 
+                                        "a_meadian","employment")
                                 )
                 ),
                  mainPanel(

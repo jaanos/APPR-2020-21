@@ -28,10 +28,16 @@ source("lib/rstudio.r", encoding="UTF-8")
 
 # Izbira teme
 
-Analizirali bomo plače v ZDA, analizirali bomo kateri poklici so najbolje in kateri najslabše plačani ter
-ugotavljali katere zvezne države imajo najboljše pogoje za delavce in katere najslabše ter katko je to 
+Analizirali bomo plače v ZDA skozi leta, analizirali bomo kateri poklici so najbolje in kateri najslabše plačani ter
+ugotavljali katere zvezne države imajo najboljše pogoje za delavce in katere najslabše ter kako je to 
 povezano z njihovim BDP. 
+Na koncu bomo poskusili naraditi večjo makroekonomsko analizo vseh pridobljenih podatkov, 
+da bi ugotovili dejansko stanje ZDA. 
 
+Podatki so bili zbrani:
+* iz Ameriškega statističnega urada ([U.S. BUREAU OF LABOR STATISTICS](http://www.bls.gov/bls/proghome.htm)) v CSV formatu. 
+*Tabela o informacijah o BDP per capita zveznih držav pa je bila uvožena iz wikipedije:
+ https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_GDP_per_capita
 
 ***
 
@@ -41,9 +47,17 @@ povezano z njihovim BDP.
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Podatke smo uvozili z Ameriškega statističnega urada (U.S. BUREAU OF LABOR STATISTICS)
-Uvozil sem podatke z [ZDA URADA STATISTIKE DELA](http://www.bls.gov/bls/proghome.htm) v CSV formatu.
-Tabele smo prečistili tako, da je smo jih pritvorili v tabele v obliki *tidy data*.
+
+V drugi fazi smo tabele prečistili tako, da so v formatu *tidy data*.
+
+Podatke imamo v mnogo tabelah:
+
+...
+
+* 
+  +
+
+
 
 ***
 
@@ -102,14 +116,10 @@ zem1
 
 ***
 
-
-# Napredna analiza
-
-#````{r analiza, echo=FALSE, message=FALSE, warning=FALSE}
-#source("analiza/analiza.r", encoding = "UTF-8")
-#```
-
-***
+# Analiza 
+<!-- ````{r analiza, echo=FALSE, message=FALSE, warning=FALSE}
+source("analiza/analiza.r", encoding = "UTF-8")
+``` -->
 
 # Shiny 
 

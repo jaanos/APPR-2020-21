@@ -1,20 +1,13 @@
 # 3. faza: Vizualizacija podatkov
-# vzamemo prvi 4 vrstice
-# a2 <- a1 %>% slice(1:4)
-# tail, head isto 
-
-# ZAPOSLENOST PO LETIH, BOMO UPORABILI PRI KASNEJSI ANALIZI
-
-# a <- t_e %>% mutate(emp2=parse_number(emp, locale=locale(decimal_mark = ",",grouping_mark = ".") )) %>% arrange(emp2)
 
 # TOP 5 ZAPOSLENOSTI PO POKLICIH PO LETIH (NE VEM ČE BOMO UPORABILI)
 
-te_08 <- t_e %>% filter(leto=="2008") %>%  tail(n = 6) %>% head(n = 5)
-te_10 <- t_e %>% filter(leto=="2010") %>%  tail(n = 6) %>% head(n = 5)
-te_12 <- t_e %>% filter(leto=="2012") %>%  tail(n = 6) %>% head(n = 5)
-te_14 <- t_e %>% filter(leto=="2014") %>%  tail(n = 6) %>% head(n = 5)
-te_16 <- t_e %>% filter(leto=="2016") %>%  tail(n = 6) %>% head(n = 5)
-te_18 <- t_e %>% filter(leto=="2018") %>%  tail(n = 6) %>% head(n = 5)
+#                                              te_08 <- t_e %>% filter(leto=="2008") %>%  tail(n = 6) %>% head(n = 5)
+#                                              te_10 <- t_e %>% filter(leto=="2010") %>%  tail(n = 6) %>% head(n = 5)
+#                                              te_12 <- t_e %>% filter(leto=="2012") %>%  tail(n = 6) %>% head(n = 5)
+#                                              te_14 <- t_e %>% filter(leto=="2014") %>%  tail(n = 6) %>% head(n = 5)
+#                                              te_16 <- t_e %>% filter(leto=="2016") %>%  tail(n = 6) %>% head(n = 5)
+#                                              te_18 <- t_e %>% filter(leto=="2018") %>%  tail(n = 6) %>% head(n = 5)
 
 # PRIPRAVA ZA ANALIZO 
 
@@ -24,57 +17,46 @@ te_18 <- t_e %>% filter(leto=="2018") %>%  tail(n = 6) %>% head(n = 5)
 
 ## GLEDE URNE POSTAVKE TOP
 
-h_mean_08_T <- h_mean %>% filter(leto=="2008") %>%  tail(n = 5) 
-h_mean_10_T <- h_mean %>% filter(leto=="2010") %>%  tail(n = 5)
-h_mean_12_T <- h_mean %>% filter(leto=="2012") %>%  tail(n = 5) 
-h_mean_14_T <- h_mean %>% filter(leto=="2014") %>%  tail(n = 5) 
-h_mean_16_T <- h_mean %>% filter(leto=="2016") %>%  tail(n = 5) 
-h_mean_18_T <- h_mean %>% filter(leto=="2018") %>%  tail(n = 5) 
+#          h_mean_08_T <- h_mean %>% filter(leto=="2008") %>%  tail(n = 5) 
+#          h_mean_10_T <- h_mean %>% filter(leto=="2010") %>%  tail(n = 5)
+#          h_mean_12_T <- h_mean %>% filter(leto=="2012") %>%  tail(n = 5) 
+#          h_mean_14_T <- h_mean %>% filter(leto=="2014") %>%  tail(n = 5) 
+#          h_mean_16_T <- h_mean %>% filter(leto=="2016") %>%  tail(n = 5) 
+#          h_mean_18_T <- h_mean %>% filter(leto=="2018") %>%  tail(n = 5) 
 
-# TOP PO HOURLY WAGE
-top <- h_mean[h_mean$occ_title %in% c("Surgeons","Anesthesiologists","Orthodontists"), ] %>% 
-  rename(poklic=occ_title)
 
 ## GLEDE URNE POSTAVKE BOTTOM 
 
-h_mean_08_B <- h_mean %>% filter(leto=="2008") %>%  slice(1:5)
-h_mean_10_B <- h_mean %>% filter(leto=="2010") %>%  slice(1:5)
-h_mean_12_B <- h_mean %>% filter(leto=="2012") %>%  slice(1:5)
-h_mean_14_B <- h_mean %>% filter(leto=="2014") %>%  slice(1:5)
-h_mean_16_B <- h_mean %>% filter(leto=="2016") %>%  slice(1:5)
-h_mean_18_B <- h_mean %>% filter(leto=="2018") %>%  slice(1:5)
-
-## GLEDE AVRAGE TOP
-
-a_mean_08_T <- a_mean %>% filter(leto=="2008") %>%  tail(n = 5) 
-a_mean_10_T <- a_mean %>% filter(leto=="2010") %>%  tail(n = 5)
-a_mean_12_T <- a_mean %>% filter(leto=="2012") %>%  tail(n = 5) 
-a_mean_14_T <- a_mean %>% filter(leto=="2014") %>%  tail(n = 5) 
-a_mean_16_T <- a_mean %>% filter(leto=="2016") %>%  tail(n = 5) 
-a_mean_18_T <- a_mean %>% filter(leto=="2018") %>%  tail(n = 5) 
+#            h_mean_08_B <- h_mean %>% filter(leto=="2008") %>%  slice(1:5)
+#            h_mean_10_B <- h_mean %>% filter(leto=="2010") %>%  slice(1:5)
+#            h_mean_12_B <- h_mean %>% filter(leto=="2012") %>%  slice(1:5)
+#            h_mean_14_B <- h_mean %>% filter(leto=="2014") %>%  slice(1:5)
+#            h_mean_16_B <- h_mean %>% filter(leto=="2016") %>%  slice(1:5)
+#            h_mean_18_B <- h_mean %>% filter(leto=="2018") %>%  slice(1:5)
+#            
+#            ## GLEDE AVRAGE TOP
+#            
+#            a_mean_08_T <- a_mean %>% filter(leto=="2008") %>%  tail(n = 5) 
+#            a_mean_10_T <- a_mean %>% filter(leto=="2010") %>%  tail(n = 5)
+#            a_mean_12_T <- a_mean %>% filter(leto=="2012") %>%  tail(n = 5) 
+#            a_mean_14_T <- a_mean %>% filter(leto=="2014") %>%  tail(n = 5) 
+#            a_mean_16_T <- a_mean %>% filter(leto=="2016") %>%  tail(n = 5) 
+#            a_mean_18_T <- a_mean %>% filter(leto=="2018") %>%  tail(n = 5) 
 
 ## GLEDE AVRAGE BOTTOM
 
-a_mean_08_B <- a_mean %>% filter(leto=="2008") %>%  slice(1:5)
-a_mean_10_B <- a_mean %>% filter(leto=="2010") %>%  slice(1:5)
-a_mean_12_B <- a_mean %>% filter(leto=="2012") %>%  slice(1:5)
-a_mean_14_B <- a_mean %>% filter(leto=="2014") %>%  slice(1:5)
-a_mean_16_B <- a_mean %>% filter(leto=="2016") %>%  slice(1:5)
-a_mean_18_B <- a_mean %>% filter(leto=="2018") %>%  slice(1:5)
+#    a_mean_08_B <- a_mean %>% filter(leto=="2008") %>%  slice(1:5)
+#    a_mean_10_B <- a_mean %>% filter(leto=="2010") %>%  slice(1:5)
+#    a_mean_12_B <- a_mean %>% filter(leto=="2012") %>%  slice(1:5)
+#    a_mean_14_B <- a_mean %>% filter(leto=="2014") %>%  slice(1:5)
+#    a_mean_16_B <- a_mean %>% filter(leto=="2016") %>%  slice(1:5)
+#    a_mean_18_B <- a_mean %>% filter(leto=="2018") %>%  slice(1:5)
+#   
 
-a_b <- a_mean[a_mean$occ_title %in%  c("Shampooers","Dishwashers"), ] %>% 
-  rename(poklic=occ_title)
-
-
-# Zaposlenost top 3 poklicev in bot. 2 poklicev
-
-t_e_l_b <- t_e[t_e$occ_title %in%  c("Dishwashers","Surgeons",
-         "Anesthesiologists","Orthodontists"), ] %>% 
-          rename(poklic=occ_title)
 
 # GRAF, KI ANALIZIRA ZAPOSLITEV
 
-graf1 <- t_e %>% filter(occ_title == "All Occupations") %>%
+graf1 <- t_e %>% filter(occ_code == "00-0000") %>%
   ggplot(aes(x=leto, y=emp)) + 
   geom_line(size=2, colour="green") + 
   geom_point(size=4, colour="blue") +
@@ -93,8 +75,12 @@ graf1 <- t_e %>% filter(occ_title == "All Occupations") %>%
 
 # PORAZDELITEV TOP3 PLAC PO LETIH
 
+pr <- nat.ha %>% filter(sredina=="mean") 
+top <- pr[pr$occ_code %in% c("29-1067","29-1061","29-1023"), ]  %>% 
+  rename(poklic=occ_code)
+
 graf2 <- top %>%
-  ggplot(aes(x=poklic, y=HM)) +
+  ggplot(aes(x=poklic, y=h)) +
   geom_boxplot(fill="red", colour="red" , alpha=I(0.2)) +
   geom_jitter(alpha=I(0.2)) +
   geom_point()
@@ -116,18 +102,21 @@ graf2 <- top %>%
 # TOP 3 GLEDE NA URNE POSTAVEK 
 
 graf3 <- top %>%
-  ggplot(aes(x=leto,y=HM, col=poklic)) +
+  ggplot(aes(x=leto,y=h, col=poklic)) +
   xlab("Leto") +
   ylab("Povprečna plača na uro") +
   labs(title="Povprečna urna plača treh najboljše plačanih poklicev.") +
   geom_line(size=1) +
-  geom_point(size=2)+
-  geom_smooth()
+  geom_point(size=2)
 
 # BOTTOM 3 GLEDE NA AVRAGE WAGE 
 
+pr2 <- nat.ha %>% filter(sredina=="mean")
+a_b <- pr2[pr2$occ_code %in%  c("39-5093","35-9021"), ] %>% 
+  rename(poklic=occ_code)
+
 graf4 <- a_b %>%
-  ggplot(aes(x=leto,y=AM)) +
+  ggplot(aes(x=leto,y=a)) +
   geom_line(color="blue") +
   geom_point() +
   xlab("Leto") +
@@ -135,9 +124,16 @@ graf4 <- a_b %>%
   labs(title="Povprečna plača dveh najslabše plačanih poklicev.") +
   facet_grid(~poklic) 
 
+# Zaposlenost top 3 poklicev in bot. 2 poklicev
+
+t_e_l_b <- t_e[t_e$occ_code %in%  c("39-5093","35-9021",
+               "29-1067","29-1061","29-1023"), ] %>% 
+          rename(poklic=occ_code)
+
 graf5 <- t_e_l_b %>% filter(leto=="2018") %>%
   ggplot() +
-  aes(x="", y=emp, fill=poklic) +
+  aes(x="", y=emp, fill=poklic) + 
+  scale_y_continuous(labels = comma_format(big.mark = ".", decimal.mark = ",")) +
   geom_col(width=1) +
   coord_polar(theta="y") + xlab("") + ylab("") +
   labs(title="Deleži poklicev (najboljše plačanih v primeravi z najmanj) v letu 2018")+
@@ -146,6 +142,8 @@ graf5 <- t_e_l_b %>% filter(leto=="2018") %>%
 # MAPE ZVEZNIH DRZAV (D.F.)
 
 states <- map_data("state") 
+
+
 
 # Izriše ZDA 
 
@@ -164,12 +162,15 @@ states <- map_data("state")
 
 zemljevid <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/states_21basic.zip", "states",
                                                      encoding="UTF-8") 
-map1_db <- h_med_s  %>%
-  group_by(STATE) %>% 
-  summarise(povprecje= mean(HME))
+
+map1_db <- st.ha  %>%
+  filter(sredina=="median") %>%
+  drop_na(h) %>%
+  group_by(state) %>% 
+  summarise(povprecje= mean(h))
 
 #names(zemljevid)
-zem1 <-  tm_shape(merge(zemljevid, map1_db, by.x="STATE_NAME", by.y="STATE")) +
+zem1 <-  tm_shape(merge(zemljevid, map1_db, by.x="STATE_NAME", by.y="state")) +
   tm_polygons("povprecje") +
   tm_style("cobalt") 
 
@@ -177,8 +178,6 @@ graf8 <- GDP_by_state %>% filter(State=="Alaska") %>%
   ggplot(aes(x=leto, y=GDP)) + 
   geom_point() +
   geom_line()
-
-
 
 
 

@@ -1,17 +1,19 @@
 shinyServer(function(input, output) {
   output$distPlot <- renderPlot({
-    x    <- h_mean$HM
-    bini <- seq(min(x), max(x), length.out = input$bini + 1)
-    hist(x, breaks = bini, col = "yellow", border = "black",
+    x    <- nat.ha %>% drop_na(h) %>% filter(leto=="2019",sredina=="mean")
+    x.2 <- nat.ha$h
+    bini <- seq(min(x.2), max(x.2), length.out = input$bini + 1)
+    hist(x.2, breaks = bini, col = "yellow", border = "black",
          xlab = "Pojavljenost plače",
          ylab = "Frekvenca",
          main = "Histogram povprečnih plač")
     })
     
     output$distPlot2 <- renderPlot({
-      y <- h_med_s %>% filter(STATE==input$drzava, leto==input$leto) 
+      y <- st.ha %>% filter(state==input$drzava, leto==input$leto) %>% 
+                    filter(sredina=="mean")
       print( ggplot(y) +
-               aes(x = leto, y = HME) +
+               aes(x = leto, y = h) +
                geom_boxplot(fill="green", colour="green" , alpha=I(0.7)) +
                geom_point(size=0.2, colour="blue") +
                scale_x_continuous(name = "leto", breaks = seq(input$leto,input$leto,1)) + 
@@ -36,13 +38,12 @@ shinyServer(function(input, output) {
       })
       
       output$distPlot4 <- renderPlot ({
-        w1 <- h_med_s %>% filter(STATE==input$drzava2)
+        w1 <- st.ha %>% filter(state==input$drzava2, sredina=="median") 
         w2 <- h_mean_c
         names(w1) <- names(w2) 
         w3 <- rbind(w1, w2)
-
         print( ggplot(w3) +
-                 aes(x = leto, y=HM, col=STATE) + 
+                 aes(x = leto, y=h, col=state) + 
                 # geom_point(size=2) +
                  xlab("Leto") +
                  ylab("Povprečna urna postavka") +
@@ -52,28 +53,35 @@ shinyServer(function(input, output) {
       })
     
       output$distPlot5 <- renderPlot({
-        if ( input$tabela=="HM") { mapdb <- h_mean_s
-        } else if ( input$tabela=="HME") { mapdb <- h_med_s
-        } else if ( input$tabela=="emp") { mapdb <- t_e_s
-        } else if (input$tabela=="AM") { mapdb <- a_mea_s
-        }  else {  mapdb <-  a_med_s
+        if ( input$tabela=="h_mean" | input$tabela=="a_mean") 
+        { mapdb <- st.ha %>% filter(sredina=="mean") 
+        } else if ( input$tabela=="h_median" | input$tabela=="a_meadian") 
+        { mapdb <- st.ha %>% filter(sredina=="median") 
+        }  else {  mapdb <-  mapdb <- t_e_s
         }
-      if (input$tabela!="emp")
-      {mapdb1 <- mapdb %>%
-          group_by(STATE) %>% 
-          summarise(povprecje= mean(get(input$tabela)))
-      }
-      else { mapdb1 <- mapdb %>%
-            filter(OCC_TITLE=="All Occupations") %>%
-            group_by(STATE) %>%
-          summarise(povprecje= mean(get(input$tabela)))
-      }  
-      print (
-            tm_shape(merge(zemljevid, mapdb1, by.x="STATE_NAME", by.y="STATE")) +
+        if (input$tabela=="h_mean" | input$tabela=="h_median")
+        {mapdb1 <- mapdb %>%
+          drop_na(h) %>%
+          group_by(state) %>% 
+          summarise(povprecje= mean(h))
+        a <- tmap_style("col_blind") 
+        } else if (input$tabela=="a_mean" | input$tabela=="a_meadian")
+        {mapdb1 <- mapdb %>%
+          drop_na(a) %>%
+          group_by(state) %>% 
+          summarise(povprecje= mean(a))
+        a <- tmap_style("natural") 
+        } else { mapdb1 <- mapdb %>%
+          drop_na(emp) %>%
+          filter(occ_code=="00-0000") %>%
+          group_by(state) %>%
+          summarise(povprecje= mean(emp)) 
+        a <- tmap_style("gray") 
+        }  
+        print (
+          tm_shape(merge(zemljevid, mapdb1, by.x="STATE_NAME", by.y="state")) +
           tm_polygons("povprecje") +
-            tmap_style("bw") 
-                      
-          )
+          a
+              )
       })  
-      
 })
