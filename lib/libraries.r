@@ -15,6 +15,9 @@ library(stringr)
 library(RColorBrewer)
 library(viridis)
 library(hrbrthemes)
+library(scales)
+library(waffle)
+library(ggthemes)
 
 
 options(gsubfn.engine="R")

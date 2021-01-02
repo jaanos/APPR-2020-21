@@ -1,7 +1,7 @@
 
 
 
-# 1. graf: vrste dohodka 2019
+# 1. graf: vrste dohodka
 
 graf_vrste_dohodka <- ggplot(vrste_dohodka, aes(x=factor(Leto), y=Dohodek,group=Vrsta.dohodka, colour=Vrsta.dohodka)) + 
   geom_line(aes(colour=Vrsta.dohodka)) +
@@ -10,7 +10,27 @@ graf_vrste_dohodka <- ggplot(vrste_dohodka, aes(x=factor(Leto), y=Dohodek,group=
 print(graf_vrste_dohodka)
 
 
-# 2. graf: razlika po spolu, (starost = skupaj)
+# 2. graf: delež vrste dohodka 2019
+
+vrste_dohodka_19 <- vrste_dohodka %>%
+  filter(Leto == 2019) %>%
+  select(Vrsta.dohodka, Dohodek) %>%
+  mutate(Delez19 = round((Dohodek/sum(Dohodek))*100, 0))
+
+dohodek_19 <- vrste_dohodka_19 %>%
+  select(Delez19) %>%
+  unlist()
+
+vrste_imena <- sprintf("%s (%s)", vrste_dohodka_19$Vrsta.dohodka, 
+                       percent(round(vrste_dohodka_19$Dohodek/sum(vrste_dohodka_19$Dohodek), 2)))
+
+names(dohodek_19) <- vrste_imena
+
+graf_delez_vrste <- waffle(dohodek_19, rows = 6, title = "Delež dohodka glede na vrsto 2019")
+
+print(graf_delez_vrste)
+
+# 3. graf: razlika po spolu, (starost = skupaj)
 
 graf_spol <- ggplot(spol, aes(x=factor(Leto), y=Dohodek, group=Spol)) +
   geom_line(aes(color=Spol)) +
@@ -18,7 +38,8 @@ graf_spol <- ggplot(spol, aes(x=factor(Leto), y=Dohodek, group=Spol)) +
   labs(title="Razlika med spoloma", x="Leto", y = "Dohodek", fill="Leto")
 print(graf_spol)
 
-# 3. graf: razlika po spolu 2
+# 4. graf: razlika po spolu 2
+
 razlika_spol <- spol %>%
   arrange(desc(Leto)) %>%
   pivot_wider(names_from = Spol, values_from = Dohodek) %>%
@@ -32,8 +53,8 @@ graf_razlika_spol <- ggplot(razlika_spol, aes(x=factor(Leto), y=Razlika, group=1
 print(graf_razlika_spol)
 
 
+# 5. graf: izobrazba
 
-# 4. graf: izobrazba
 izobrazba_spol <- izobrazba_spol %>%
   mutate(Izobrazba2=Izobrazba, Spol2=Spol)
 
@@ -77,7 +98,6 @@ narisi_zemljevid <- tm_shape(merge(zemljevid_regije, regije_8_19, by.x="NAME_1",
   tm_facets(sync = TRUE, ncol = 2)
 
 print(narisi_zemljevid)
-
 
 
 
