@@ -26,8 +26,6 @@ source("lib/rstudio.r", encoding="UTF-8")
 
 V svoji projektni nalogi bom analiziral razpoložljivi dohodek slovenskih gospodinjstev zadnjih let. Opazoval bom povprečni dohodek na člana gospodinjstva po opravljenih socialnih transferjih glede na vrsto dohodka, spol, starost in izobrazbo ter dohodek po statističnih regijah Slovenije.
 
-<center>
-![](slike/gradb-naslovna.jpg)
 
 ***
 
