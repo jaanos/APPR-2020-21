@@ -7,13 +7,13 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
 # Analiza bruto mesečnih plač v Sloveniji
 
-Analizirala bom višino povprečne bruto mesečne plače v odvisnosti od gospodarske dejavnosti, izobrazbe ter spola. Zanimal me bo trend spreminjanja višine plače glede na starostno obdobje in višina povprečne plače po regijah po spolu. Podtake bom vizualizirala s pomočjo zemljevida.
+Analizirala bom višino povprečne bruto mesečne plače v odvisnosti od gospodarske dejavnosti, izobrazbe ter spola. Zanimal me bo trend spreminjanja višine plače glede na gospodarsko dejavnost in višina povprečne plače po regijah po spolu. Podtake bom vizualizirala s pomočjo zemljevida in grafov.
 Primerjala bom tudi plače v javnem in zasebnem sektorju glede na izobrazbo in spol.
 Na koncu bom primerjala tudi bruto mesečne plače v času krize leta 2008 s krizo Covid-19 leta 2020.
 
 ### Potek dela
 1. Pridobitev in ureditev podatkov
-2. Primerjava višine plače glede na starostno obdobje
+2. Primerjava višine plače glede na gospodarsko dejavnost
 3. Primerjava višine povprečne plače po regijah
 4. Vizualizacija primerjav
 5. Višina plače v javnem in zasebnem sekturju
@@ -25,7 +25,7 @@ Na koncu bom primerjala tudi bruto mesečne plače v času krize leta 2008 s kri
 * Stolpci: Gospodarska dejavnost, izobrazba, spol, leto, plača
 
 2. tabela: Povprečna bruto mesečna plača glede na regijo in spol.
-* Stolpci: Regija, starost, spol, leto, plača
+* Stolpci: Regija, spol, leto, plača
 
 3. tabela: Povprečna bruto mesečna plača v javnem in zasebnem sektorju glede na izobrazbo in spol.
 * Stolpci: Javni sektor, zasebi sektor, izobrazba, spol, leto, plača

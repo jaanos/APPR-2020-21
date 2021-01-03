@@ -6,6 +6,7 @@ library(readr)
 library(ggplot2)
 library(digest)
 library(mosaic)
+library(maptools)
 
 # Funkcija uvozi.zemljevid(url, ime.zemljevida, pot.zemljevida="",
 #                          mapa="../zemljevidi", encoding=NULL, force=FALSE)
@@ -66,6 +67,8 @@ uvozi.zemljevid <- function(url, ime.zemljevida, pot.zemljevida="",
   return(zemljevid)
 }
 
-# Primer uvoza zemljevida (slovenske občine)
-# obcine <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/OB.zip", "OB",
-#                           pot.zemljevida="OB", encoding="Windows-1250")
+
+#Uvoz zemljevida(regije po Sloveniji)
+zemljevid_slovenije <- uvozi.zemljevid("http://biogeo.ucdavis.edu/data/gadm2.8/shp/SVN_adm_shp.zip",
+                                       "SVN_adm1", mapa = "zemljevid_Slovenije", encoding = "Windows-1250") %>% 
+  fortify()

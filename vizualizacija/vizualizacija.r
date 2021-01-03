@@ -34,7 +34,15 @@ ggplot(gospodarskadejavnostA_osmanj_moski, aes(x= leto,y= placa)) +
   geom_point(data=gospodarskadejavnostA_vs_zenske, aes(x= leto,y= placa), color="red", size=2) +
   labs(title="Primerjava plače v panogi kmetijstvo in lov, gozdrastvo, ribištvo") +
   ylab("Višina plače(€)") +
-  xlab("Leto")
+  xlab("Leto") +
+  legend(x=2010, y=2700, 
+         legend=c("Moški-osnovnošolska izobrazba ali manj",
+                  "Moški-Srednješolska izobrazba", 
+                  "Moški-Višješolska, visokošolka izobrazba",
+                  "Ženske-osnovnošolska izobrazba ali manj",
+                  "Ženske-Srednješolska izobrazba", 
+                  "Ženske-Višješolska, visokošolka izobrazba"),
+         col=c("blue", "green", "black", "purple", "yellow", "red"))
 
 #Rudarstvo
 gospodarskadejavnostB_osmanj_moski <- gospodarskadejavnost %>% 
@@ -774,3 +782,8 @@ ggplot(kriza_leto2008, mapping=aes(x=meseci, y=kriza2008.placa)) +
   labs(title="Primerjava plače v letih 2008,2020") +
   ylab("Višina plače(€)") +
   xlab("Meseci")
+
+#Plača glede na regijo in spol
+ #Zemljevid Slovenije po regijah
+ggplot() + geom_polygon(data=zemljevid_slovenije, aes(x=long, y=lat, group=group, fill=id)) +
+  guides(fill=FALSE)
