@@ -35,8 +35,10 @@ Na koncu bomo poskusili naraditi večjo makroekonomsko analizo vseh pridobljenih
 da bi ugotovili dejansko stanje ZDA. 
 
 Podatki so bili zbrani:
-- iz Ameriškega statističnega urada ([U.S. BUREAU OF LABOR STATISTICS](http://www.bls.gov/bls/proghome.htm)) v CSV formatu. 
-- Tabela o informacijah o BDP per capita zveznih držav pa je bila uvožena iz wikipedije:
+
+1. iz Ameriškega statističnega urada ([U.S. BUREAU OF LABOR STATISTICS](http://www.bls.gov/bls/proghome.htm)) v CSV formatu. 
+
+2. Tabela o informacijah o BDP per capita zveznih držav - pa je bila uvožena iz wikipedije:
  https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_GDP_per_capita
 
 <center>
@@ -59,16 +61,16 @@ Podatke imamo v tabelah:
 
 Pri sklop podatkov se nanašajo na national data:
 
-1. `kode` je razpredelnica z eno dimenzijo 
+1. `kode` je razpredelnica z eno dimenzijo: 
   - `occ_code` - spremenljivka: predstavlja kodo poklica (vsak poklic ima enolično določeno kodo poklica)
   - `occ_title`- meritev: naziv poklica, ki je odvisen od kode 
 
-2. `t_e` je razpredelnica z dvema dimenzijama
+2. `t_e` je razpredelnica z dvema dimenzijama:
   - `leto` - spremenljivka: leto meritve (od 2006 do 2019)
   - `occ_code` - spremenljivka: predstavlja kodo poklica 
   - `emp` - meritev: število zaposlenih delavcev
   
-3. `nat.ha` je razpredelnica s tremi dimenzijami
+3. `nat.ha` je razpredelnica s tremi dimenzijami:
   - `leto` - spremenljivka: leto meritve (od 2006 do 2019)
   - `occ_code` - spremenljivka: predstavlja kodo poklica 
   - `sredina` - spremenljivka: tip sredine (povprečje - mean, mediana - median)
@@ -185,9 +187,29 @@ Iz zemlejevida se vidi katere države imajo najboljšo povprečno plačo. Tu npr
 ***
 
 # Analiza 
-<!-- ````{r analiza, echo=FALSE, message=FALSE, warning=FALSE}
+
+```{r analiza, echo=FALSE, message=FALSE, warning=FALSE}
 source("analiza/analiza.r", encoding = "UTF-8")
-``` -->
+```
+
+V razdelku analize si bomo pogledali zelo enostaven primer predikcije, kako bo 
+z BDP per capita v zvezni državi Alaski v naslednjih letih. 
+
+
+```{r regression, echo=FALSE, fig.align='center'}
+regression
+```
+
+Najprej smo izračunali kako naj bi bilo z BDP per capita v naslednjih letih s 
+pomočjo kvadratične odvisnosti spremenljivk v prejšnjih letih. Ugotovili smo, da 
+naj bi iz teh podatkov se v naslednjih letih BDP per capita znižal, kar je tudi
+v skladu, kar se je dejansko zgodilo, a se je tu znižal več kot pa se bi dejansko 
+moral. Problem je seveda v tem, da smo upošteval, da naj bi bil BDP per capita odvisen
+le od leta, kar pa seveda ni res. Useeno pa za leto 2019 napoved ni tako slaba.
+
+
+
+
 ***
 
 # Shiny 
