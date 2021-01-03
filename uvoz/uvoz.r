@@ -1,55 +1,84 @@
-# 2. faza: Uvoz podatkov
 
-sl <- locale("sl", decimal_mark=",", grouping_mark=".")
 
-# Funkcija, ki uvozi občine iz Wikipedije
-uvozi.obcine <- function() {
-  link <- "http://sl.wikipedia.org/wiki/Seznam_ob%C4%8Din_v_Sloveniji"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-    .[[1]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  colnames(tabela) <- c("obcina", "povrsina", "prebivalci", "gostota", "naselja",
-                        "ustanovitev", "pokrajina", "regija", "odcepitev")
-  tabela$obcina <- gsub("Slovenskih", "Slov.", tabela$obcina)
-  tabela$obcina[tabela$obcina == "Kanal ob Soči"] <- "Kanal"
-  tabela$obcina[tabela$obcina == "Loški potok"] <- "Loški Potok"
-  for (col in c("povrsina", "prebivalci", "gostota", "naselja", "ustanovitev")) {
-    if (is.character(tabela[[col]])) {
-      tabela[[col]] <- parse_number(tabela[[col]], na="-", locale=sl)
-    }
-  }
-  for (col in c("obcina", "pokrajina", "regija")) {
-    tabela[[col]] <- factor(tabela[[col]])
-  }
-  return(tabela)
-}
+#Tabela za starost in spol
+glava_starost_spol <- c("Meritev","Starost", "Spol", "Leto", 
+                        "SocialniTransferji", "Dohodek")
 
-# Funkcija, ki uvozi podatke iz datoteke druzine.csv
-uvozi.druzine <- function(obcine) {
-  data <- read_csv2("podatki/druzine.csv", col_names=c("obcina", 1:4),
-                    locale=locale(encoding="Windows-1250"))
-  data$obcina <- data$obcina %>% strapplyc("^([^/]*)") %>% unlist() %>%
-    strapplyc("([^ ]+)") %>% sapply(paste, collapse=" ") %>% unlist()
-  data$obcina[data$obcina == "Sveti Jurij"] <- iconv("Sveti Jurij ob Ščavnici", to="UTF-8")
-  data <- data %>% pivot_longer(`1`:`4`, names_to="velikost.druzine", values_to="stevilo.druzin")
-  data$velikost.druzine <- parse_number(data$velikost.druzine)
-  data$obcina <- parse_factor(data$obcina, levels=obcine)
-  return(data)
-}
+starosti <- c("0-17", "18-24", "25-49", "50-64", "65+")
 
-# Zapišimo podatke v razpredelnico obcine
-obcine <- uvozi.obcine()
+starost_spol_vsi <- read_csv2("podatki/starost_spol.csv", skip = 3, 
+  col_names = glava_starost_spol, locale=locale(encoding="Windows-1250")) %>%
+  filter(Spol != "Spol - SKUPAJ") %>%
+  select(-Meritev, -SocialniTransferji)
 
-# Zapišimo podatke v razpredelnico druzine.
-druzine <- uvozi.druzine(levels(obcine$obcina))
+starost_spol <- starost_spol_vsi %>%
+  filter(Starost != "Starostne skupine - SKUPAJ") %>%
+  mutate(Starost = gsub("Starost ", "", Starost) %>%
+  parse_factor(levels=starosti, ordered=TRUE))
 
-# Če bi imeli več funkcij za uvoz in nekaterih npr. še ne bi
-# potrebovali v 3. fazi, bi bilo smiselno funkcije dati v svojo
-# datoteko, tukaj pa bi klicali tiste, ki jih potrebujemo v
-# 2. fazi. Seveda bi morali ustrezno datoteko uvoziti v prihodnjih
-# fazah.
+spol <- starost_spol_vsi %>%
+  filter(Starost == "Starostne skupine - SKUPAJ") %>%
+  select(-Starost)
+ # mutate(Spol = gsub("Spol - SKUPAJ", "Skupaj", Spol)) %>%
+ # mutate(Starost = gsub("Starostne skupine - SKUPAJ", "Skupaj", Starost))
+
+
+
+#Tabela za izobrazbo in spol
+glava_izobrazba_spol <- c("Meritev","Izobrazba", "Spol", "Leto", 
+                        "SocialniTransferji", "Dohodek")
+
+izobrazbe <- c("Osnovnošolska ali manj", "Srednješolska poklicna", 
+               "Srednješolska strokovna, splošna", "Višješolska, visokošolska")
+
+izobrazba_spol <- read_csv2("podatki/izobrazba_spol.csv", skip = 3,
+  col_names = glava_izobrazba_spol, locale=locale(encoding="Windows-1250")) %>%
+  filter(Spol != "Spol - SKUPAJ") %>%
+  select(-Meritev, -SocialniTransferji) %>%
+  mutate(Izobrazba=Izobrazba %>% parse_factor(levels = izobrazbe, ordered = TRUE))
+
+
+#Tabela za regije
+glava_regije <- c("Meritev","Regija", "Leto", 
+                        "SocialniTransferji", "Dohodek")
+
+regije <- read_csv2("podatki/statistične_regije.csv", skip = 3,
+  col_names = glava_regije, locale = locale(encoding = "Windows-1250")) %>%
+  select(-Meritev, -SocialniTransferji)
+
+
+#Vrste dohodka
+url <- "https://pxweb.stat.si:443/SiStatData/sq/1214"
+vrste_dohodka <- read_html(url, encoding = "UTF-8") %>%
+  html_nodes(xpath = "//table") %>%
+  .[[1]] %>%
+  html_table(fill = TRUE, header = FALSE) %>%
+  rename(
+    Meritev=1,
+    Vrsta.dohodka=2,
+    Leto=3,
+    Dohodek=4
+  ) %>%
+  slice(-1, -2) %>%
+  mutate(Vrsta.dohodka = na_if(Vrsta.dohodka, "Povprečni dohodek na gospodinjstvo (EUR)")) %>%
+  mutate(Vrsta.dohodka = na_if(Vrsta.dohodka, "Povprečni dohodek na člana gospodinjstva (EUR)")) %>%
+  fill(Vrsta.dohodka) %>%
+  mutate(Dohodek = gsub("\\.", "", Dohodek),
+          Leto = as.integer(Leto), Dohodek = as.integer(Dohodek),
+          Vrsta.dohodka = str_sub(Vrsta.dohodka, 3, -1),
+          Meritev = str_sub(Meritev, 1, -7)) %>%
+  subset(Meritev != "Povprečni dohodek na gospodinjstvo") %>% #zanima me le povprečni na člana
+  select(-Meritev)
+
+#Izvoz v CSV
+write.csv2(starost_spol_vsi, "podatki/starost_spol_vsi_tidy.csv", fileEncoding = "UTF-8")
+write.csv2(starost_spol, "podatki/starost_spol_tidy.csv", fileEncoding = "UTF-8")
+write.csv2(spol, "podatki/spol_tidy.csv", fileEncoding = "UTF-8")
+write.csv2(izobrazba_spol, "podatki/izobrazba_spol_tidy.csv", fileEncoding = "UTF-8")
+write.csv2(regije, "podatki/tidy_regije.csv", fileEncoding = "UTF-8")
+write.csv2(vrste_dohodka, "podatki/vrste_dohodka_tidy.csv", fileEncoding = "UTF-8")
+  
+
+
+
+
