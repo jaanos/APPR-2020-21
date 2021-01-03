@@ -7,9 +7,9 @@ shinyUI(fluidPage(theme = shinytheme("slate"),
         sidebarPanel(
                       sliderInput(inputId = "bini",
                                   label = "Število binov:",
-                                  min = 0,
-                                  max = 80,
-                                  value = 10
+                                  min = 1,
+                                  max = 100,
+                                  value = 10,
                                   )
                     ), #side panel
                     mainPanel(
@@ -25,6 +25,7 @@ shinyUI(fluidPage(theme = shinytheme("slate"),
                                             min=2006,
                                             max=2018,
                                             value=2010,
+                                            sep = "",
                                             step=1),
                                 selectInput(inputId = "drzava",
                                             label = "Država:",

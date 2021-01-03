@@ -36,7 +36,7 @@ da bi ugotovili dejansko stanje ZDA.
 
 Podatki so bili zbrani:
 * iz Ameriškega statističnega urada ([U.S. BUREAU OF LABOR STATISTICS](http://www.bls.gov/bls/proghome.htm)) v CSV formatu. 
-*Tabela o informacijah o BDP per capita zveznih držav pa je bila uvožena iz wikipedije:
+* Tabela o informacijah o BDP per capita zveznih držav pa je bila uvožena iz wikipedije:
  https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_GDP_per_capita
 
 ***
@@ -50,14 +50,48 @@ source("uvoz/uvoz.r", encoding="UTF-8")
 
 V drugi fazi smo tabele prečistili tako, da so v formatu *tidy data*.
 
-Podatke imamo v mnogo tabelah:
+Podatke imamo v tabelah:
 
-...
+Pri sklop podatkov se nanašajo na national data:
 
-* 
-  +
+1. `kode` je razpredelnica z eno dimenzijo 
+  - `occ_code` - spremenljivka: predstavlja kodo poklica (vsak poklic ima enolično določeno kodo poklica)
+  - `occ_title`- meritev: naziv poklica, ki je odvisen od kode 
 
+2. `t_e` je razpredelnica z dvema dimenzijama
+  - `leto` - spremenljivka: leto meritve (od 2006 do 2019)
+  - `occ_code` - spremenljivka: predstavlja kodo poklica 
+  - `emp` - meritev: število zaposlenih delavcev
+  
+3. `nat.ha` je razpredelnica s tremi dimenzijami
+  - `leto` - spremenljivka: leto meritve (od 2006 do 2019)
+  - `occ_code` - spremenljivka: predstavlja kodo poklica 
+  - `sredina` - spremenljivka: tip sredine (povprečje - mean, mediana - median)
+  - `h` - meritev: urna postavka plač
+  - `a` - meritev: letna meritev plač
 
+Drugi sklop podatkov se nanašajo na state data:
+
+1. `t_e_s` je razpredelnica s tremi dimenzijami
+  - `leto` - spremenljivka: leto meritve (od 2006 do 2019)
+  - `state` - spremenljivka: zvezne države ZDA
+  - `occ_code` - spremenljivka: predstavlja kodo poklica 
+  - `emp` - meritev: število zaposlenih delavcev
+
+2. `st.ha` je razpredelnica s štirimi dimenzijami
+  - `occ_code` - spremenljivka: predstavlja kodo poklica 
+  - `leto` - spremenljivka: leto meritve (od 2006 do 2019)
+  - `state` - spremenljivka: zvezne države ZDA
+  - `sredina` - spremenljivka: tip sredine (povprečje - mean, mediana - median)
+  - `h` - meritev: urna postavka plač
+  - `a` - meritev: letna meritev plač  
+  
+Tretji podatki so pobrani iz Wikipedije:
+
+1. `GDP_by_state` je razpredelnica z dvema dimenzijama
+  - `State` - spremenljivka: zvezne države ZDA  
+  - `leto` - spremenljivka: leto meritve (od 2006 do 2019)
+  - `GDP` - meritev: BDP per capita 
 
 ***
 

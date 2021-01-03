@@ -1,3 +1,4 @@
+
 shinyServer(function(input, output) {
   output$distPlot <- renderPlot({
     ggplot(nat.ha %>% filter(sredina == "mean"), aes(x=h)) +

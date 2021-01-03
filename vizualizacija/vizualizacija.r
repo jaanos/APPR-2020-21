@@ -60,10 +60,9 @@ graf1 <- t_e %>% filter(occ_code == "00-0000") %>%
   ggplot(aes(x=leto, y=emp)) + 
   geom_line(size=2, colour="green") + 
   geom_point(size=4, colour="blue") +
-  xlab("Leto") +
   ylab("Število zaposlednih") +
   scale_y_continuous(labels = comma_format(big.mark = ".", decimal.mark = ",")) +
-  scale_x_continuous(name = "Year", breaks = seq(2006,2018,1)) + 
+  scale_x_continuous(name = "Leto", breaks = seq(2006,2018,1)) + 
   labs(title="Zaposlenost po letih") +
   stat_smooth(method = "lm") +
   theme(axis.line = element_line(colour = "darkblue", 
@@ -82,9 +81,12 @@ top <- pr[pr$occ_code %in% c("29-1067","29-1061","29-1023"), ]  %>%
 
 graf2 <- top %>%
   ggplot(aes(x=poklic, y=h)) +
+  xlab("Poklic") + 
+  ylab("Urna postavka plač") + 
   geom_boxplot(fill="red", colour="red" , alpha=I(0.2)) +
   geom_jitter(alpha=I(0.2)) +
-  geom_point()
+  geom_point() + 
+  labs(title="Porazdelitev plač boljše plačanih poklicev") 
 
 # TOP 3 GRAFICNO PO DREVESIH
 
@@ -125,9 +127,9 @@ graf4 <- a_b %>%
 
 # Zaposlenost top 3 poklicev in bot. 2 poklicev
 joined_t_e <- inner_join(t_e, kode, by="occ_code") 
-t_e_l_b <- joined_t_e[joined_t_e$occ_code %in%  c("39-5093","35-9021",
-               "29-1067","29-1061","29-1023"), ] %>% 
-          rename(poklic=occ_title)
+t_e_l_b <- joined_t_e[joined_t_e$occ_code %in%  
+          c("39-5093","35-9021","29-1067","29-1061","29-1023"), ] %>% 
+         rename(poklic=occ_title)
 
 graf5 <- t_e_l_b %>% filter(leto=="2018") %>%
   ggplot() +
@@ -160,7 +162,7 @@ states <- map_data("state")
 # POVPREČNE PLAČE (URNE) V ZDA 
 
 zemljevid <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/states_21basic.zip", "states",
-                                                     encoding="UTF-8") 
+                             encoding="UTF-8") 
 
 map1_db <- st.ha  %>%
   filter(sredina=="median") %>%
@@ -177,9 +179,6 @@ graf8 <- GDP_by_state %>% filter(State=="Alaska") %>%
   ggplot(aes(x=leto, y=GDP)) + 
   geom_point() +
   geom_line()
-
-
-
 
 
 
