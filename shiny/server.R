@@ -15,9 +15,9 @@ shinyServer(function(input, output) {
                geom_boxplot(fill="green", colour="green" , alpha=I(0.7)) +
                geom_point(size=0.2, colour="blue") +
                scale_x_continuous(name = "leto", breaks = seq(input$leto,input$leto,1)) + 
-               geom_jitter(alpha=I(0.4)) +
-               xlab("Leto") +
-               ylab("Urna mediana plača glede na poklic") 
+               scale_y_continuous(name = "Urna mediana plača glede na poklic", 
+                                   breaks = seq(20,120,20), limits = c(20,120)) + 
+               geom_jitter(alpha=I(0.4)) 
        )
     })
     
