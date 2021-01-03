@@ -84,13 +84,40 @@ Svoje podatke sem črpal s strani [SiStat](https://pxweb.stat.si/SiStat/sl) v ob
 source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 ```
 
-Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
-
-```{r zemljevid, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
-  tm_polygons("povprecje", title="Povprečje") +
-  tm_layout(title="Povprečno število otrok v družini")
+```{r graf1, echo=FALSE, fig.align='center'}
+graf_vrste_dohodka
 ```
+Prvi graf prikazuje višino razpoložljivega dohodka gospodinjstva glede na vrsto oziroma vir prejemka od leta 2008 naprej. Največji del k dohodku prispeva delo, ki se je prvo leto strmo dvigala, zaradi pozitivnega razvoja, nato pa se po letu 2009 začnejo poznati posledice velike gospodarske krize leta 2008 in delovni dohodek je rahlo padal vse do leta 2015, ko je spet sledil gospodarski napredek. Pokojnine so za razliko od delovnega dohodka imele stalno skoraj linearno rast in jih torej kriza ni prizadela, je pa njen vpliv viden pri socialnih prejemkih, ki so v času večje brezposelnosti rahlo narasli (obdobje od 2009 do 2012). Gledano na celotno obdobje pa so se rahlo povišali tudi ostali dohodki (dohodki iz kapitala, dohodki otrok, davek na premoženje...). Zanimivo je, da dohodek gospodinjstev, kljub veličini gospodarske krize na slovenskem, ni imel izrazitega padca.
+
+```{r graf2, echo=FALSE, fig.align='center'}
+graf_delez_vrste
+```
+Na drugem grafu vidimo delež posameznega vira dohodka v gospodinjstvu za leto 2019. Dve tretjini razpoložljivega dohodka predstavlja delovni dohodek, dobri petini gospodinjstev dohodek predstavljajo pokojnine, desetina jih prejema družinske in socialne prejemke ter približno dva odstotka predstavljajo ostali finančni viri. Kljub stalnemu spreminjanju višine posameznih vrst dohodka, pa je razmerje med njimi v zadnjem desetljetju ostajalo približno enako.
+
+
+```{r graf3, echo=FALSE, fig.align='center'}
+graf_spol
+```
+
+```{r graf4, echo=FALSE, fig.align='center'}
+graf_razlika_spol
+```
+Tretji in četrti graf ponazarjata razlike razpoložljivega dohodka med spoloma. Ker, kot rečeno pri grafu 2, delovni dohodek predstavlja največji del gospodinjskega dohodka, je graf 3 zelo podoben grafu delovnega dohodka iz prve vizualizacije. S tem lahko povežemo, da strogo višji dohodek moških izhaja predvsem iz razlike v plačah. Najmanjša razlika je bila dosežena po umiritvi gospodarske rasti leta 2012, ko je znašala približno 50€. Največja razlika pa ob začetku novega pozitivnega obdobja gospodarskega razvoja leta 2015, ko je narasla čez 300€, verjetno ob visokem povpraševanju po moški delovni sili, ko si je industrija in gradbeništvo opomoglo. Razlika je potem po letu 2015, kljub rasti dohodka, padala, vendar v primerjavi z začetkom obdobja lahko vseeno povežemo spremembo razlike med spoloma z rastjo dohodka oziroma gospodarstva.
+
+```{r graf5, echo=FALSE, fig.align='center'}
+graf_izobrazba_spol
+```
+Graf 5 predstavlja razpoložljivi dohodek gospodinjstev v odvisnosti od spola in dosežene izobrazbe.  
+
+
+
+```{r zemljevid, echo=FALSE, fig.align='center'}
+narisi_zemljevid
+```
+Zemljevidi prikazujejo višino razpoložljivega dohodka gospodinjstev v letu 2008 in 2019 ter njegovo rast v slednjem obdobju glede na posamezno statistično regijo Slovenijo.
+
+
+
 
 ***
 
