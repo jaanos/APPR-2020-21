@@ -52,10 +52,3 @@ kriza2008 <- read_csv2("podatki/kriza2008.csv",
 kriza2020 <- read_xlsx("podatki/kriza2020.xlsx",
                        col_names=c("leto","tip place", "placa"),
                        skip=2, n_max=21) %>% select(-"tip place")
-
-
-
-  
-  
-
-
