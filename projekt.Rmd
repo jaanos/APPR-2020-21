@@ -83,6 +83,29 @@ ggplot(kriza2008, aes(x=leto, y=placa)) + geom_point(colour="Red", size=3) +
 
 # Analiza in vizualizacija podatkov
 
+```{r vizualizacija, echo=FALSE, message=FALSE, warning=FALSE,  results='hide'}
+source("vizualizacija/vizualizacija.r", encoding="UTF-8")
+```
+
+Najprej sem analizirala višino povprečne bruto mesečne plače v posameznih dejavnostih glede na spol. Podatke sem prikazala grafično za vsako dejavnost posebaj glede na spol in izobrazbo. Jasno je, da imajo ženske in moški z visokošolsko/višješolsko izobrazbo najvišjo plačo v vseh gospodarskih dejavnostih. Prav tako imajo moški v primerjavi z ženskami višjo plačo pri vseh stopnjah izobrazbe(osnovnošolska ali manj, srednješolska, višješolska/visokošolska).
+
+Prvi graf prikazuje spremembo(v odstotokih) plače glede na gospodarsko dejavnost in spol od leta 2010 do 2018.
+
+```{r graf1, echo=FALSE, message=FALSE, warning=FALSE}
+print(graf1)
+```
+
+V nadaljevanju sem pogledala tudi maksimalne in minimalne dosežene plače glede na gospodarsko dejavnost. 
+Maksimalna plača pri moških znaša 3674€ v gospodarski panogi Zdravstvo in socialno varstvo, dosežena pa je z visokošolsko/višješolsko izobrazbo. Pri ženskah le-ta znaša 2771€ v panogi Oskrba z električno energijo, plinom, paro in je prav tako dosežena z visokošolsko(višješolsko izobrazbo. 
+Minimalna plača pri moških znaša 873€ v panogi Gostinjstvo, pri ženskah pa 722€ v panogi Druge raznovrstne poslovne dejavnosti. Pri obeh gre za osnovnošolsko izobrazbo ali manj.
+
+Analizirala sem tudi višino povprečne bruto mesečne plače po statističnih regijah Slovenije, in rezultate prikazala v zemljevidu Slovenije. Očitno je, da so najvišje plače v Osrednjeslovenski regiji, kar je pričakovati. Najnižje plače pa so v Pomurski regiji. 
+
+```{r map, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+print(map)
+```
+
+Primerjala sem tudi plačo v času prve večje krize v Sloveniji, ki se je dogajala tudi na svetovni ravni leta 2008 in jo primerjala s plačo v letih 2019 in 2020, ko se nam druga svetovna kriza približuje.
 
 ***
 
