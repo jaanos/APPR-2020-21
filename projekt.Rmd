@@ -104,8 +104,13 @@ Analizirala sem tudi višino povprečne bruto mesečne plače po statističnih r
 ```{r map, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 print(map)
 ```
+Zanimala me je tudi primerjava plače glede na zasebni in javni sektor glede na izobrazbo, kar prikazuje tudi spodnji graf.
 
-Primerjala sem tudi plačo v času prve večje krize v Sloveniji, ki se je dogajala tudi na svetovni ravni leta 2008 in jo primerjala s plačo v letih 2019 in 2020, ko se nam druga svetovna kriza približuje.
+```{r graf2, echo=FALSE, message=FALSE, warning=FALSE}
+print(graf2)
+```
+
+
 
 ***
 

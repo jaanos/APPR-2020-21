@@ -3,8 +3,7 @@
 require(ggplot2)
 require(dplyr)
 
-#Analiza plač glede na gospodarsko dejavnost, izobrazbo in spol
-
+#ANALIZA PLAČE GLEDE NA GOSPODARSKO DEJAVNOST OZIROMA PANOGO
 #Kmetijstvo in lov, gozdrastvo, ribištvo
 gospodarskadejavnostA_osmanj_moski <- gospodarskadejavnost %>% 
   filter(izobrazba == "Osnovnošolska ali manj", spol == "Moški", 
@@ -595,7 +594,7 @@ ggplot(gospodarskadejavnostS_osmanj_moski, aes(x= leto,y= placa)) +
   ylab("Višina plače(€)") +
   xlab("Leto")
 
-#SPREMEMBA PLAČE OD LETA 2010 DO LETA 2018 PO GOSPODARSKI DEJAVNOSTI(ločeno glede na spol)
+#Sprememba plače od leta 2010 do 2018
 #sprememba place v % = ((placa 2018 - placa 2010)/ placa 2010) * 100
 gd_2010_m <- gospodarskadejavnost2 %>%
   filter(leto == "2010", spol == "Moški")
@@ -631,7 +630,23 @@ minimum <- data.frame(gospodarskadejavnost %>%
   summarise(minimum = min(placa)))
 max_min <- merge(maksimum,minimum,by=c("spol", "izobrazba", "gospodarska.dejavnost"))
 
-#Analiza plač glede na javni in zasebni sektor
+
+#PLAČA GLEDE NA REGIJO IN SPOL
+visina.place <- povp_starost %>% filter(leto=="2018") %>% select(-leto)
+visina.place$regija[visina.place$regija == "Posavska"] <- "Spodnjeposavska"
+visina.place$regija[visina.place$regija == "Primorsko-notranjska"] <- "Notranjsko-kraska"
+
+
+zemljevid.place <- zemljevid_slovenije %>% left_join(visina.place, by=c("NAME_1"="regija"))
+
+map <- ggplot(zemljevid.place, aes(x=long, y=lat, fill=placa, label=paste0(NAME_1, "\n", placa))) +
+  geom_polygon(aes(group=group)) +
+  geom_text(data=zemljevid.place %>% group_by(NAME_1, placa)  %>% 
+              summarise(long=mean(long), lat=mean(lat)), size=3, colour='red') +
+  labs(title ="Višina povp. bruto plače po regijah Slovenije") 
+
+
+#ANALIZA PLAČE GLEDE NA JAVNI IN ZASEBNI SEKTOR
 javnisektor_osmanj_moski <- javnisektor %>%
   filter(izobrazba == "Osnovnošolska ali manj", spol== "Moški",
          sektor== "11 Javni sektor - SKUPAJ")
@@ -669,7 +684,7 @@ zasebnisektor_vs_zenske <-  javnisektor %>%
   filter(izobrazba == "Višješolska, visokošolska", spol=="Ženske",
          sektor== "12 Zasebni sektor - SKUPAJ")
 
-  #Graf-javni sektor
+#Graf-javni sektor
 ggplot(javnisektor_osmanj_moski, aes(x=leto, y=placa)) +
   geom_point(color="blue", size=2) +
   geom_point(data=javnisektor_osmanj_zenske, aes(x=leto, y=placa),color="light blue", size=2) +
@@ -681,7 +696,7 @@ ggplot(javnisektor_osmanj_moski, aes(x=leto, y=placa)) +
   ylab("Višina plače(€)") +
   xlab("Leto")
 
-  #Graf-zasebni sektor
+#Graf-zasebni sektor
 ggplot(zasebnisektor_osmanj_moski, aes(x=leto, y=placa)) +
   geom_point(color="blue", size=2) +
   geom_point(data=zasebnisektor_osmanj_zenske, aes(x=leto, y=placa),color="light blue", size=2) +
@@ -693,7 +708,7 @@ ggplot(zasebnisektor_osmanj_moski, aes(x=leto, y=placa)) +
   ylab("Višina plače(€)") +
   xlab("Leto")
 
-  #Graf-analiza povprečne plače po letih v javnem in zasebnem sektorju
+#Graf-analiza povprečne plače po letih v javnem in zasebnem sektorju
 javnisektor_osmanj <- javnisektor %>%
   filter(izobrazba == "Osnovnošolska ali manj", sektor== "11 Javni sektor - SKUPAJ")
 zasebnisektor_osmanj <- javnisektor %>%
@@ -707,18 +722,18 @@ javnisektor_vs <- javnisektor %>%
 zasebnisektor_vs <- javnisektor %>%
   filter(izobrazba == "Višješolska, visokošolska", sektor== "12 Zasebni sektor - SKUPAJ")
 
-ggplot(javnisektor_osmanj, aes(x=leto, y=placa)) + 
+graf2 <- ggplot(javnisektor_osmanj, aes(x=leto, y=placa)) + 
   geom_point(color="dark blue", size=2) +
   geom_point(data=zasebnisektor_osmanj, aes(x=leto, y=placa),color="light blue", size=2) +
   geom_point(data=javnisektor_sr, aes(x=leto, y=placa),color="red", size=2) +
   geom_point(data=zasebnisektor_sr, aes(x=leto, y=placa),color="light pink", size=2) +
   geom_point(data=javnisektor_vs, aes(x=leto, y=placa),color="dark green", size=2) +
   geom_point(data=zasebnisektor_vs, aes(x=leto, y=placa),color="green", size=2) +
-  labs(title="Primerjava plače v zasebnem sektorju glede na izobrazbo") +
+  labs(title="Primerjava plače v javnem in zasebnem sektorju glede na izobrazbo") +
   ylab("Višina plače(€)") +
   xlab("Leto")
-
-  #Minimalna in maksimalna placa glede na izobrazbo
+  
+#Minimalna in maksimalna placa glede na izobrazbo
 maksimum <- data.frame(javnisektor %>%
                        group_by(sektor, izobrazba, spol) %>%
                        summarise(maksimum = max(placa)))
@@ -736,8 +751,7 @@ placa_javnisektor_zenske <- max_min %>%
 placa_zasebnisektor_zenske <- max_min %>%
   filter(sektor=="12 Zasebni sektor - SKUPAJ", spol== "Ženske")
 
-
-  #Graf primerjave minimalne in maksimalne place glede na izobrazbo
+#Graf primerjave minimalne in maksimalne place glede na izobrazbo
 ggplot(placa_javnisektor_moski, aes(x=izobrazba, y=maksimum)) +
   geom_point(color="dark blue", size=2) +
   geom_point(placa_zasebnisektor_moski, mapping=aes(x=izobrazba, y=maksimum), color="dark green", size=2) +
@@ -751,68 +765,3 @@ ggplot(placa_javnisektor_moski, aes(x=izobrazba, y=maksimum)) +
   ylab("Višina plače(€)") +
   xlab("Izobrazba")
   
-#Krizi(2008,2020)
-meseci <- c("12", "11","10","09","08","07","06","05","04","03","02","01",
-            "12", "11","10","09","08","07","06","05","04","03","02","01",
-            "12", "11","10","09","08","07","06","05","04","03","02","01")
-leto <- c("2009","2009","2009","2009","2009","2009","2009","2009","2009","2009","2009","2009",
-          "2008","2008","2008","2008","2008","2008","2008","2008","2008","2008","2008","2008",
-          "2007","2007","2007","2007","2007","2007","2007","2007","2007","2007","2007","2007")
-kriza2008_meseci <- data.frame(leto, meseci, kriza2008$placa)
-kriza_leto2009 <- kriza2008_meseci %>%
-  filter(leto == "2009")
-kriza_leto2008 <- kriza2008_meseci %>%
-  filter(leto == "2008")
-kriza_leto2007 <- kriza2008_meseci %>%
-  filter(leto == "2007")
-
- #Kriza leta 2008
-ggplot(kriza_leto2007, mapping=aes(x=meseci, y=kriza2008.placa)) +
-  geom_point(color="red", size=2) +
-  geom_point(kriza_leto2008,mapping=aes(x=meseci, y=kriza2008.placa), color="blue", size=2) +
-  geom_point(kriza_leto2009,mapping=aes(x=meseci, y=kriza2008.placa), color="yellow", size=2) +
-  labs(title="Primerjava plače v letih 2007, 2008, 2009") +
-  ylab("Višina plače(€)") +
-  xlab("Meseci")
- 
-  #Primerjava leta 2007 z letom 2019
-meseci <- c("09","08","07","06","05","04","03","02","01",
-            "12", "11","10","09","08","07","06","05","04","03","02","01")
-leto <- c("2020","2020","2020","2020","2020","2020","2020","2020","2020",
-          "2019","2019","2019","2019","2019","2019","2019","2019","2019","2019","2019","2019")
-kriza2020_meseci <- data.frame(leto, meseci, kriza2020$placa)
-kriza_leto2019 <- kriza2020_meseci %>%
-  filter(leto == "2019")
-
-ggplot(kriza_leto2007, mapping=aes(x=meseci, y=kriza2008.placa)) +
-  geom_point(color="red", size=2) +
-  geom_point(kriza_leto2019, mapping=aes(x=meseci, y=kriza2020.placa), color="blue", size=2) +
-  labs(title="Primerjava plače v letih pred krizo(2007,2019)") +
-  ylab("Višina plače(€)") +
-  xlab("Meseci")
-
-  #Primerjava leta 2008 in 2020(do meseca 09)
-kriza_leto2020 <- kriza2020_meseci %>%
-  filter(leto == "2020")
-
-ggplot(kriza_leto2008, mapping=aes(x=meseci, y=kriza2008.placa)) +
-  geom_point(color="red", size=2) +
-  geom_point(kriza_leto2020, mapping=aes(x=meseci, y=kriza2020.placa), color="blue", size=2) +
-  labs(title="Primerjava plače v letih 2008,2020") +
-  ylab("Višina plače(€)") +
-  xlab("Meseci")
-
-#Plača glede na regijo in spol po letih
-visina.place <- povp_starost %>% filter(leto=="2018") %>% select(-leto)
-visina.place$regija[visina.place$regija == "Posavska"] <- "Spodnjeposavska"
-visina.place$regija[visina.place$regija == "Primorsko-notranjska"] <- "Notranjsko-kraska"
-
-
-zemljevid.place <- zemljevid_slovenije %>% left_join(visina.place, by=c("NAME_1"="regija"))
-
-map <- ggplot(zemljevid.place, aes(x=long, y=lat, fill=placa, label=paste0(NAME_1, "\n", placa))) +
-  geom_polygon(aes(group=group)) +
-  geom_text(data=zemljevid.place %>% group_by(NAME_1, placa)  %>% 
-              summarise(long=mean(long), lat=mean(lat)), size=3, colour='red') +
-  labs(title ="Višina povp. bruto plače po regijah Slovenije") 
-
