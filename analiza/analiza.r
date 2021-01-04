@@ -28,13 +28,13 @@ g3 <- g + geom_smooth(method = "loess")
 # modelček
 
 quadratic <- lm(data = podatki, GDP ~ I(leto) + I(leto^2))
-years <- data.frame(leto=seq(2019, 2024, 1))
+years <- data.frame(leto=seq(2011, 2022, 1))
 prediction <- mutate(years, GDP=predict(quadratic, years))
 
 regression <- prediction %>% ggplot(aes(x=leto, y=GDP)) + 
   geom_smooth(method='lm', fullrange=TRUE, color='red', formula=y ~ poly(x,1,raw=TRUE)) +
   geom_point(size=2, color="blue") + 
-  scale_x_continuous('Leto', breaks = seq(2019, 2024, 1), limits = c(2019,2024)) +
+  scale_x_continuous('Leto', breaks = seq(2019, 2022, 1), limits = c(2019,2022)) +
   ylab("BDP per capita") +
   labs(title = "Napoved BDP per capita.")
 

@@ -2,12 +2,12 @@
 
 # TOP 5 ZAPOSLENOSTI PO POKLICIH PO LETIH (NE VEM ČE BOMO UPORABILI)
 
-#                                              te_08 <- t_e %>% filter(leto=="2008") %>%  tail(n = 6) %>% head(n = 5)
-#                                              te_10 <- t_e %>% filter(leto=="2010") %>%  tail(n = 6) %>% head(n = 5)
-#                                              te_12 <- t_e %>% filter(leto=="2012") %>%  tail(n = 6) %>% head(n = 5)
-#                                              te_14 <- t_e %>% filter(leto=="2014") %>%  tail(n = 6) %>% head(n = 5)
-#                                              te_16 <- t_e %>% filter(leto=="2016") %>%  tail(n = 6) %>% head(n = 5)
-#                                              te_18 <- t_e %>% filter(leto=="2018") %>%  tail(n = 6) %>% head(n = 5)
+#   te_08 <- t_e %>% filter(leto=="2008") %>%  tail(n = 6) %>% head(n = 5)
+#   te_10 <- t_e %>% filter(leto=="2010") %>%  tail(n = 6) %>% head(n = 5)
+#   te_12 <- t_e %>% filter(leto=="2012") %>%  tail(n = 6) %>% head(n = 5)
+#   te_14 <- t_e %>% filter(leto=="2014") %>%  tail(n = 6) %>% head(n = 5)
+#   te_16 <- t_e %>% filter(leto=="2016") %>%  tail(n = 6) %>% head(n = 5)
+#   te_18 <- t_e %>% filter(leto=="2018") %>%  tail(n = 6) %>% head(n = 5)
 
 # PRIPRAVA ZA ANALIZO 
 
@@ -17,31 +17,31 @@
 
 ## GLEDE URNE POSTAVKE TOP
 
-#          h_mean_08_T <- h_mean %>% filter(leto=="2008") %>%  tail(n = 5) 
-#          h_mean_10_T <- h_mean %>% filter(leto=="2010") %>%  tail(n = 5)
-#          h_mean_12_T <- h_mean %>% filter(leto=="2012") %>%  tail(n = 5) 
-#          h_mean_14_T <- h_mean %>% filter(leto=="2014") %>%  tail(n = 5) 
-#          h_mean_16_T <- h_mean %>% filter(leto=="2016") %>%  tail(n = 5) 
-#          h_mean_18_T <- h_mean %>% filter(leto=="2018") %>%  tail(n = 5) 
+#   h_mean_08_T <- h_mean %>% filter(leto=="2008") %>%  tail(n = 5) 
+#   h_mean_10_T <- h_mean %>% filter(leto=="2010") %>%  tail(n = 5)
+#   h_mean_12_T <- h_mean %>% filter(leto=="2012") %>%  tail(n = 5) 
+#   h_mean_14_T <- h_mean %>% filter(leto=="2014") %>%  tail(n = 5) 
+#   h_mean_16_T <- h_mean %>% filter(leto=="2016") %>%  tail(n = 5) 
+#   h_mean_18_T <- h_mean %>% filter(leto=="2018") %>%  tail(n = 5) 
 
 
 ## GLEDE URNE POSTAVKE BOTTOM 
 
-#            h_mean_08_B <- h_mean %>% filter(leto=="2008") %>%  slice(1:5)
-#            h_mean_10_B <- h_mean %>% filter(leto=="2010") %>%  slice(1:5)
-#            h_mean_12_B <- h_mean %>% filter(leto=="2012") %>%  slice(1:5)
-#            h_mean_14_B <- h_mean %>% filter(leto=="2014") %>%  slice(1:5)
-#            h_mean_16_B <- h_mean %>% filter(leto=="2016") %>%  slice(1:5)
-#            h_mean_18_B <- h_mean %>% filter(leto=="2018") %>%  slice(1:5)
-#            
-#            ## GLEDE AVRAGE TOP
-#            
-#            a_mean_08_T <- a_mean %>% filter(leto=="2008") %>%  tail(n = 5) 
-#            a_mean_10_T <- a_mean %>% filter(leto=="2010") %>%  tail(n = 5)
-#            a_mean_12_T <- a_mean %>% filter(leto=="2012") %>%  tail(n = 5) 
-#            a_mean_14_T <- a_mean %>% filter(leto=="2014") %>%  tail(n = 5) 
-#            a_mean_16_T <- a_mean %>% filter(leto=="2016") %>%  tail(n = 5) 
-#            a_mean_18_T <- a_mean %>% filter(leto=="2018") %>%  tail(n = 5) 
+#    h_mean_08_B <- h_mean %>% filter(leto=="2008") %>%  slice(1:5)
+#    h_mean_10_B <- h_mean %>% filter(leto=="2010") %>%  slice(1:5)
+#    h_mean_12_B <- h_mean %>% filter(leto=="2012") %>%  slice(1:5)
+#    h_mean_14_B <- h_mean %>% filter(leto=="2014") %>%  slice(1:5)
+#    h_mean_16_B <- h_mean %>% filter(leto=="2016") %>%  slice(1:5)
+#    h_mean_18_B <- h_mean %>% filter(leto=="2018") %>%  slice(1:5)
+#    
+#    ## GLEDE AVRAGE TOP
+#    
+#    a_mean_08_T <- a_mean %>% filter(leto=="2008") %>%  tail(n = 5) 
+#    a_mean_10_T <- a_mean %>% filter(leto=="2010") %>%  tail(n = 5)
+#    a_mean_12_T <- a_mean %>% filter(leto=="2012") %>%  tail(n = 5) 
+#    a_mean_14_T <- a_mean %>% filter(leto=="2014") %>%  tail(n = 5) 
+#    a_mean_16_T <- a_mean %>% filter(leto=="2016") %>%  tail(n = 5) 
+#    a_mean_18_T <- a_mean %>% filter(leto=="2018") %>%  tail(n = 5) 
 
 ## GLEDE AVRAGE BOTTOM
 
@@ -51,8 +51,6 @@
 #    a_mean_14_B <- a_mean %>% filter(leto=="2014") %>%  slice(1:5)
 #    a_mean_16_B <- a_mean %>% filter(leto=="2016") %>%  slice(1:5)
 #    a_mean_18_B <- a_mean %>% filter(leto=="2018") %>%  slice(1:5)
-#   
-
 
 # GRAF, KI ANALIZIRA ZAPOSLITEV
 
@@ -150,15 +148,10 @@ graf6 <- t_e_l_b %>%
    xlab("Leto") +
    ylab("Zaposlenost") +
    labs(title="Deleži poklicev (najboljše plačanih v primeravi z najmanj)") 
-  
-  
-
 
 # MAPE ZVEZNIH DRZAV (D.F.)
 
 states <- map_data("state") 
-
-
 
 # Izriše ZDA 
 
