@@ -70,6 +70,9 @@ vrste_dohodka <- read_html(url, encoding = "UTF-8") %>%
   subset(Meritev != "Povprečni dohodek na gospodinjstvo") %>% #zanima me le povprečni na člana
   select(-Meritev)
 
+vrste_dohodka$Vrsta.dohodka <- factor(vrste_dohodka$Vrsta.dohodka, levels = c("DOHODEK IZ DELA", "POKOJNINE Z DODATKI",
+                                                                              "DRUŽINSKI IN SOCIALNI PREJEMKI", "DRUGI DOHODKI"))
+
 #Izvoz v CSV
 write.csv2(starost_spol_vsi, "podatki/starost_spol_vsi_tidy.csv", fileEncoding = "UTF-8")
 write.csv2(starost_spol, "podatki/starost_spol_tidy.csv", fileEncoding = "UTF-8")
