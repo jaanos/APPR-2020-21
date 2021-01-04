@@ -27,6 +27,9 @@ source("lib/rstudio.r", encoding="UTF-8")
 V svoji projektni nalogi bom analiziral razpoložljivi dohodek slovenskih gospodinjstev zadnjih let. Opazoval bom povprečni dohodek na člana gospodinjstva po opravljenih socialnih transferjih glede na vrsto dohodka, spol, starost in izobrazbo ter dohodek po statističnih regijah Slovenije.
 
 
+<center>
+![](slike/dohodek_gospodinjstev.jpg)
+
 ***
 
 # Obdelava, uvoz in čiščenje podatkov
@@ -70,7 +73,7 @@ Svoje podatke sem črpal s strani [SiStat](https://pxweb.stat.si/SiStat/sl) v ob
   
 4. [Povprečni razpoložljivi dohodek gospodinjstev po vrstah dohodka (EUR)](https://pxweb.stat.si:443/SiStatData/sq/1214)
   `vrste_dohodka`
-  - `Vrsta.dohodka` - spremenljivka: Vrsta dohodka (character),
+  - `Vrsta.dohodka` - spremenljivka: Vrsta dohodka (urejen faktor),
   - `Leto` - spremenljivka: Leto meritve dohodka (integer),
   - `Dohodek` - meritev: Povprečni dohodek na člana gospodinjstva po opravljenih socialnih transferjih (integer).
 
@@ -105,14 +108,14 @@ Tretji in četrti graf ponazarjata razlike razpoložljivega dohodka med spoloma.
 ```{r graf5, echo=FALSE, fig.align='center'}
 graf_izobrazba_spol
 ```
-Graf 5 predstavlja razpoložljivi dohodek gospodinjstev v odvisnosti od spola in dosežene izobrazbe.  
+Graf 5 predstavlja razpoložljivi dohodek gospodinjstev v odvisnosti od spola in dosežene izobrazbe. Pričakovani imajo višje izobražena gospodinjstva tudi višji dohodek, hkrati je vidno, da je tudi preskok med dohodkom višje in nižje izobrazbe vedno večji (med osnovno in srednješolsko poklicno dokaj majhen, med strokovno in višješolsko pa izrazito višji). Z višanjem dohodka je opazno tudi večanje razlike med spoloma (na osnovnošolski ravni je razlika med spoloma dokaj majhna, na višješolski pa že občutna). Vse krivulje so sicer podobne oblike, še najbolj izstopa padec dohodka žensk z višjo izobrazbo v letih 2012-2016, medtem ko je dohodek pri moških ostajal več ali manj konstanten. Od leta 2016 pa se na vseh ravneh vidi pozitiven gospodarski trend.   
 
 
 
-```{r zemljevid, echo=FALSE, fig.align='center'}
+```{r zemljevid, echo=FALSE, fig.align='center', warning=FALSE}
 narisi_zemljevid
 ```
-Zemljevidi prikazujejo višino razpoložljivega dohodka gospodinjstev v letu 2008 in 2019 ter njegovo rast v slednjem obdobju glede na posamezno statistično regijo Slovenijo.
+Zemljevidi prikazujejo višino razpoložljivega dohodka gospodinjstev v letu 2008 in 2019 ter njegovo rast v slednjem obdobju glede na posamezno statistično regijo Slovenijo (v odstotkih). Najvišji dohodek v obeh letih imajo gospodinjstva v osrednjeslovenski regiji. Leta 2008 je slednji najbolje sledila goriška regija, ki pa je z najnižjo stopnjo rasti v zadnjem desetletju nazadovala. Najvišjo skoraj 50 odstotno rast je doživela pomurska regija, ki pa vseeno ostaja med regijami z najnižjim dohodkom gospodinjstev. Se pa je v obravnavanem obdobju zmanjšala razlika med najbolj in najmanj razvito regijo iz dobrih 2000€ na slabih 1500€ razlike.
 
 
 
