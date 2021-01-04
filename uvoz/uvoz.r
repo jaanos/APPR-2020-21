@@ -22,10 +22,9 @@ regija_starost <- read_csv2("podatki/regija_starost.csv",
                           skip=3, na="-",
                           locale=locale(encoding="Windows-1250"))
 
-regija_starost <- regija_starost %>% fill(1) %>% drop_na(2) %>% 
-  melt(id.vars=stolpci2[1:2],variable.name="leto", value.name = "placa", na.rm = TRUE) %>%
-  mutate(leto=parse_number(as.character(leto)))
-
+#regija_starost <- regija_starost %>% fill(1) %>% drop_na(2) %>% 
+  #melt(id.vars=stolpci2[1:2],variable.name="leto", value.name = "placa", na.rm = TRUE) %>%
+  #mutate(leto=parse_number(as.character(leto)))
 
 povp_starost <- regija_starost %>% filter(starost=="15-64 let") %>% select(-starost)
 regija_starost <- regija_starost[!(regija_starost$starost=="15-64 let"), ]
@@ -47,7 +46,7 @@ javnisektor_spolskupaj <- read_csv2("podatki/javnisektor2.csv",
 #Povprečna bruto mesečna plača(kriza)
 kriza2008 <- read_csv2("podatki/kriza2008.csv",
                        col_names=c("leto","tip place", "placa"),
-                       skip=3, na="-",
+                       skip=4, na="-",
                        locale=locale(encoding="Windows-1250")) %>% select(c(-2))
 
 kriza2020 <- read_xlsx("podatki/kriza2020.xlsx",
