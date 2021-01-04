@@ -11,13 +11,26 @@ gospodarskadejavnost <- read_csv2("podatki/placa_dejavnost.csv",
                                   skip=3, na="-",
                                   locale=locale(encoding="Windows-1250"))
 
+gospodarskadejavnost2 <- read_csv2("podatki/spolskupaj.csv",
+                                  col_names=c("gospodarska.dejavnost","izobrazba","leto","spol","placa"),
+                                  skip=3, na="-",
+                                  locale=locale(encoding="Windows-1250")) 
 
 #Povprečna bruto mesečna plača glede na regijo in spol
-regijainspol <- read_csv2("podatki/placa_regija.csv",
-                          col_names=c("regija","spol","leto","placa"),
+regija_starost <- read_csv2("podatki/regija_starost.csv",
+                          col_names=c("regija","starost","leto", "placa"),
                           skip=3, na="-",
                           locale=locale(encoding="Windows-1250"))
 
+regija_starost <- regija_starost %>% fill(1) %>% drop_na(2) %>% 
+  melt(id.vars=stolpci2[1:2],variable.name="leto", value.name = "placa", na.rm = TRUE) %>%
+  mutate(leto=parse_number(as.character(leto)))
+
+
+povp_starost <- regija_starost %>% filter(starost=="15-64 let") %>% select(-starost)
+regija_starost <- regija_starost[!(regija_starost$starost=="15-64 let"), ]
+
+sprememba <- povp_starost %>% filter(leto =="2010" | leto =="2014")
 
 #Povprečna bruto mesečna plača v javnem in zasebnem sektorju glede na izobrazbo in spol
 javnisektor <- read_csv2("podatki/sektor.csv",
