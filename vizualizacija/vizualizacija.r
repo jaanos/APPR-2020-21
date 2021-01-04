@@ -6,7 +6,8 @@
 graf_vrste_dohodka <- ggplot(vrste_dohodka, aes(x=factor(Leto), y=Dohodek,group=Vrsta.dohodka, colour=Vrsta.dohodka)) + 
   geom_line(aes(colour=Vrsta.dohodka)) +
   geom_point(aes(colour=Vrsta.dohodka)) +
-  labs(title="Dohodek glede na vrsto", x="Leto", y = "Dohodek")
+  scale_x_discrete(guide = guide_axis(check.overlap = TRUE)) +
+  labs(title="Dohodek glede na vrsto", x="Leto", y = "Dohodek", colour="Vrsta dohodka")
 print(graf_vrste_dohodka)
 
 
@@ -35,6 +36,7 @@ print(graf_delez_vrste)
 graf_spol <- ggplot(spol, aes(x=factor(Leto), y=Dohodek, group=Spol)) +
   geom_line(aes(color=Spol)) +
   geom_point(aes(color=Spol)) +
+  scale_x_discrete(guide = guide_axis(check.overlap = TRUE)) +
   labs(title="Razlika med spoloma", x="Leto", y = "Dohodek", fill="Leto")
 print(graf_spol)
 
@@ -66,7 +68,8 @@ graf_izobrazba_spol <- ggplot(izobrazba_spol, aes(x=factor(Leto), y=Dohodek)) +
   scale_color_manual(breaks=c("Moški", "Ženske"), values=c("#00BFC4", "#F8766D"))+
   theme_bw() +
   theme(plot.title = element_text(), panel.grid = element_blank()) +
-  labs(title="Izobrazba in spol", x="Leto", y = "Dohodek")+
+  labs(title="Izobrazba in spol", x="Leto", y = "Dohodek") +
+  scale_x_discrete(guide = guide_axis(check.overlap = TRUE)) +
   facet_wrap(~Izobrazba)
 
 print(graf_izobrazba_spol)
@@ -94,10 +97,23 @@ regije_8_19 <- regije %>%
 
 
 narisi_zemljevid <- tm_shape(merge(zemljevid_regije, regije_8_19, by.x="NAME_1", by.y="Regija")) +
-  tm_polygons(c("2008", "2019", "Rast") , style="jenks", palette = "YlGn") +
+  tm_polygons(c("2008", "2019", "Rast") , style="cont", palette = "YlGn") +
+  tm_layout(legend.position = c("right", "bottom"), 
+            main.title = "Zemljevid razpoložljivega dohodka gospodinjstev") +
   tm_facets(sync = TRUE, ncol = 2)
 
 print(narisi_zemljevid)
+
+#narisi_zemljevid_regije <- tm_shape(zemljevid_regije) +
+#  tm_polygons(col = "white") +
+#  tm_text("NAME_1", size = 0.5)
+#
+#zemljevid_skupaj <- tmap_arrange(narisi_zemljevid)
+#
+#print(zemljevid_skupaj)
+
+
+
 
 
 
