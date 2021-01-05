@@ -729,7 +729,28 @@ graf2 <- ggplot(javnisektor ,aes(x=leto, y=placa, fill=factor(sektor))) +
   guides(fill=guide_legend("Sektor")) +
   xlab("Leto") + 
   ylab("Višina plače(€)")+
-  ggtitle("Primerjava plače v javnem in zasebnem sektorju glede na izobrazbo")
+  ggtitle("Primerjava plače v javnem in zasebnem sektorju")
+
+javnisektor_izobrazba <- javnisektor %>%
+  filter(sektor=="11 Javni sektor - SKUPAJ")
+zasebnisektor_izobrazba <- javnisektor %>%
+  filter(sektor=="12 Zasebni sektor - SKUPAJ")
+
+graf3 <- ggplot(javnisektor_izobrazba ,aes(x=leto, y=placa, fill=factor(izobrazba))) + 
+  geom_col(position="dodge")  + 
+  coord_flip() +
+  guides(fill=guide_legend("Izobrazba")) +
+  xlab("Leto") + 
+  ylab("Višina plače(€)")+
+  ggtitle("Primerjava plače v zasebnem sektorju glede na izobrazbo")
+
+graf4 <- ggplot(zasebnisektor_izobrazba ,aes(x=leto, y=placa, fill=factor(izobrazba))) + 
+  geom_col(position="dodge")  + 
+  coord_flip() +
+  guides(fill=guide_legend("Izobrazba")) +
+  xlab("Leto") + 
+  ylab("Višina plače(€)")+
+  ggtitle("Primerjava plače v javnem sektorju glede na izobrazbo")
 
 #Minimalna in maksimalna placa glede na izobrazbo
 maksimum <- data.frame(javnisektor %>%
@@ -749,17 +770,14 @@ placa_javnisektor_zenske <- max_min %>%
 placa_zasebnisektor_zenske <- max_min %>%
   filter(sektor=="12 Zasebni sektor - SKUPAJ", spol== "Ženske")
 
-#Graf primerjave minimalne in maksimalne place glede na izobrazbo
-ggplot(placa_javnisektor_moski, aes(x=izobrazba, y=maksimum)) +
-  geom_point(color="dark blue", size=2) +
-  geom_point(placa_zasebnisektor_moski, mapping=aes(x=izobrazba, y=maksimum), color="dark green", size=2) +
-  geom_point(placa_javnisektor_zenske, mapping=aes(x=izobrazba, y=maksimum), color="red", size=2) +
-  geom_point(placa_zasebnisektor_zenske, mapping=aes(x=izobrazba, y=maksimum), color="pink", size=2) +
-  geom_point(placa_zasebnisektor_moski, mapping=aes(x=izobrazba, y=minimum), color="black", size=2) +
-  geom_point(placa_javnisektor_zenske, mapping=aes(x=izobrazba, y=minimum), color="grey", size=2) +
-  geom_point(placa_zasebnisektor_zenske, mapping=aes(x=izobrazba, y=minimum), color="yellow", size=2) +
-  geom_point(placa_javnisektor_moski, mapping=aes(x=izobrazba, y=minimum), color="green", size=2)+
-  labs(title="Primerjava minimalne in maksimalne plače v zasebnem in javnem sektorju") +
-  ylab("Višina plače(€)") +
-  xlab("Izobrazba")
-  
+#Primerjava minimalne in maksimalne place glede na izobrazbo v letu 2018
+max_min_2018 <- max_min %>%
+  filter(leto == "2018")
+
+ggplot(max_min ,aes(x=placa, y=izobrazba, fill=factor(izobrazba))) + 
+  geom_col(position="dodge")  + 
+  coord_flip() +
+  guides(fill=guide_legend("Izobrazba")) +
+  xlab("Višina plače(€)") + 
+  ylab("Izobrazba")+
+  ggtitle("Primerjava plače(minimalna, maksimalna) glede na izobrazbo")
