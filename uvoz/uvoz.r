@@ -1,55 +1,57 @@
-# 2. faza: Uvoz podatkov
+require(dplyr)
+require(tidyr)
+require(readr)
+require(readxl)
 
 sl <- locale("sl", decimal_mark=",", grouping_mark=".")
 
-# Funkcija, ki uvozi občine iz Wikipedije
-uvozi.obcine <- function() {
-  link <- "http://sl.wikipedia.org/wiki/Seznam_ob%C4%8Din_v_Sloveniji"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-    .[[1]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  colnames(tabela) <- c("obcina", "povrsina", "prebivalci", "gostota", "naselja",
-                        "ustanovitev", "pokrajina", "regija", "odcepitev")
-  tabela$obcina <- gsub("Slovenskih", "Slov.", tabela$obcina)
-  tabela$obcina[tabela$obcina == "Kanal ob Soči"] <- "Kanal"
-  tabela$obcina[tabela$obcina == "Loški potok"] <- "Loški Potok"
-  for (col in c("povrsina", "prebivalci", "gostota", "naselja", "ustanovitev")) {
-    if (is.character(tabela[[col]])) {
-      tabela[[col]] <- parse_number(tabela[[col]], na="-", locale=sl)
-    }
-  }
-  for (col in c("obcina", "pokrajina", "regija")) {
-    tabela[[col]] <- factor(tabela[[col]])
-  }
-  return(tabela)
-}
+#Povprečna bruto mesečna plača glede na gospodarsko dejavnost, izobrazbo in spol
+gospodarskadejavnost <- read_csv2("podatki/placa_dejavnost.csv",
+                                  col_names=c("gospodarska.dejavnost","izobrazba","spol","leto","placa"),
+                                  skip=3, na="-",
+                                  locale=locale(encoding="Windows-1250"))
 
-# Funkcija, ki uvozi podatke iz datoteke druzine.csv
-uvozi.druzine <- function(obcine) {
-  data <- read_csv2("podatki/druzine.csv", col_names=c("obcina", 1:4),
-                    locale=locale(encoding="Windows-1250"))
-  data$obcina <- data$obcina %>% strapplyc("^([^/]*)") %>% unlist() %>%
-    strapplyc("([^ ]+)") %>% sapply(paste, collapse=" ") %>% unlist()
-  data$obcina[data$obcina == "Sveti Jurij"] <- iconv("Sveti Jurij ob Ščavnici", to="UTF-8")
-  data <- data %>% pivot_longer(`1`:`4`, names_to="velikost.druzine", values_to="stevilo.druzin")
-  data$velikost.druzine <- parse_number(data$velikost.druzine)
-  data$obcina <- parse_factor(data$obcina, levels=obcine)
-  return(data)
-}
+gospodarskadejavnost2 <- read_csv2("podatki/spolskupaj.csv",
+                                  col_names=c("gospodarska.dejavnost","izobrazba","leto","spol","placa"),
+                                  skip=3, na="-",
+                                  locale=locale(encoding="Windows-1250"))
+gospodarskadejavnost2 <- head(gospodarskadejavnost2, -8)
+  
 
-# Zapišimo podatke v razpredelnico obcine
-obcine <- uvozi.obcine()
+#Povprečna bruto mesečna plača glede na regijo in spol
+regija_starost <- read_csv2("podatki/regija_starost.csv",
+                          col_names=c("regija","starost","leto", "placa"),
+                          skip=3, na="-",
+                          locale=locale(encoding="Windows-1250"))
 
-# Zapišimo podatke v razpredelnico druzine.
-druzine <- uvozi.druzine(levels(obcine$obcina))
+#regija_starost <- regija_starost %>% fill(1) %>% drop_na(2) %>% 
+  #melt(id.vars=stolpci2[1:2],variable.name="leto", value.name = "placa", na.rm = TRUE) %>%
+  #mutate(leto=parse_number(as.character(leto)))
 
-# Če bi imeli več funkcij za uvoz in nekaterih npr. še ne bi
-# potrebovali v 3. fazi, bi bilo smiselno funkcije dati v svojo
-# datoteko, tukaj pa bi klicali tiste, ki jih potrebujemo v
-# 2. fazi. Seveda bi morali ustrezno datoteko uvoziti v prihodnjih
-# fazah.
+povp_starost <- regija_starost %>% filter(starost=="15-64 let") %>% select(-starost)
+regija_starost <- regija_starost[!(regija_starost$starost=="15-64 let"), ]
+
+sprememba <- povp_starost %>% filter(leto =="2010" | leto =="2014")
+
+#Povprečna bruto mesečna plača v javnem in zasebnem sektorju glede na izobrazbo in spol
+javnisektor <- read_csv2("podatki/sektor.csv",
+                         col_names=c("sektor","izobrazba","spol","leto","placa"),
+                         skip=3, na="-",
+                         locale=locale(encoding="Windows-1250"))
+
+javnisektor_spolskupaj <- read_csv2("podatki/javnisektor2.csv",
+                                    col_names=c("sektor","spol","izobrazba","leto","placa"),
+                                    skip=3, na="-",
+                                    locale=locale(encoding="Windows-1250"))
+
+
+#Povprečna bruto mesečna plača(kriza)
+kriza2008 <- read_csv2("podatki/kriza2008.csv",
+                       col_names=c("leto","tip place", "placa"),
+                       skip=4, na="-",
+                       locale=locale(encoding="Windows-1250")) %>% select(c(-2))
+
+kriza2020 <- read_xlsx("podatki/kriza2020.xlsx",
+                       col_names=c("leto","tip place", "placa"),
+                       skip=2, n_max=21) %>% select(-"tip place")
+

@@ -2,13 +2,44 @@
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
-* [![Shiny](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/jaanos/APPR-2020-21/master?urlpath=shiny/APPR-2020-21/projekt.Rmd) Shiny
-* [![RStudio](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/jaanos/APPR-2020-21/master?urlpath=rstudio) RStudio
+* [![Shiny](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/nezakrzan/APPR-2020-21/master?urlpath=shiny/APPR-2020-21/projekt.Rmd) Shiny
+* [![RStudio](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/nezakrzan/APPR-2020-21/master?urlpath=rstudio) RStudio
 
-## Tematika
+# Analiza bruto mesečnih plač v Sloveniji
 
-Izbrali si boste temo, s katero se bo vaš projekt ukvarjal.
-Tukaj boste napisali, kje ste dobili podatke, ter kakšen je vaš cilj.
+Analizirala bom višino povprečne bruto mesečne plače v odvisnosti od gospodarske dejavnosti, izobrazbe ter spola. Zanimal me bo trend spreminjanja višine plače glede na gospodarsko dejavnost in višina povprečne plače po regijah po spolu. Podtake bom vizualizirala s pomočjo zemljevida in grafov.
+Primerjala bom tudi plače v javnem in zasebnem sektorju glede na izobrazbo in spol.
+Na koncu bom primerjala tudi bruto mesečne plače v času krize leta 2008 s krizo Covid-19 leta 2020.
+
+### Potek dela
+1. Pridobitev in ureditev podatkov
+2. Primerjava višine plače glede na gospodarsko dejavnost
+3. Primerjava višine povprečne plače po regijah
+4. Vizualizacija primerjav
+5. Višina plače v javnem in zasebnem sekturju
+6. Primerjava povprečne bruto mesečne plače z evropskim povprečjem
+
+### Tabele
+
+1. tabela: Povprečna bruto mesečna plača glede na gospodarsko dejavnost, izobrazbo in spol.
+* Stolpci: Gospodarska dejavnost, izobrazba, spol, leto, plača
+
+2. tabela: Povprečna bruto mesečna plača glede na regijo in spol.
+* Stolpci: Regija, spol, leto, plača
+
+3. tabela: Povprečna bruto mesečna plača v javnem in zasebnem sektorju glede na izobrazbo in spol.
+* Stolpci: Javni sektor, zasebi sektor, izobrazba, spol, leto, plača
+
+4. tabela: Povprečna bruto mesečna plača v Sloveniji leta 2007, 2008 in 2009.
+* Stolpci: Leto, plača
+
+5. tabela: Povprečna bruto mesečna plača v Sloveniji leta 2019 in 2020.
+* Stolpci: Leto, plača
+
+
+### Viri:
+* SiStat: https://pxweb.stat.si/SiStat/sl/Podrocja/Index/98/place-in-stroski-dela
+
 
 ## Program
 
