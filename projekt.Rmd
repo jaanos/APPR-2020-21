@@ -92,13 +92,15 @@ Analizirala sem tudi višino povprečne bruto mesečne plače po statističnih r
 ```{r map, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 print(map)
 ```
+
 Zanimala me je tudi primerjava plače glede na zasebni in javni sektor glede na izobrazbo, kar prikazuje tudi spodnji graf.
+
 
 ```{r graf2, echo=FALSE, message=FALSE, warning=FALSE}
 print(graf2)
 ```
 
-
+Razvidno je da se plača pri višješolski/visokošolski pri obeh sektorjih od leta 2010 v primerjavi z letom 2017 praktično ni spremenila. Plača pri osnovnošolski izobrazbi ali manj  v javnem sektorju pa se je povečala za 19,3%, pri srednješolski izobrazbi pa za 10,8%. V zasebnem sektorju se je plača pri osnovnošolski izobrazbi ali manj povečala za 27,3%, pri srednješolski izobrazbi pa za 15,9%. Rast plače je nekoliko večja v zasebnem sektorju.
 
 ***
 

@@ -613,10 +613,13 @@ sprememba <- round(((gd_zenske$placa.y - gd_zenske$placa.x)/gd_zenske$placa.x) *
 gd_zenske$sprememba <- sprememba
 
 gd_sprememba <- rbind(gd_moski, gd_zenske)
-graf1 <- ggplot(gd_sprememba ,aes(x=gospodarska.dejavnost, y=sprememba, fill=factor(spol))) + 
+gd.crke <- c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
+             "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S")
+gd_sprememba1 <- data.frame(gd.crke, gd_sprememba$gospodarska.dejavnost, gd_sprememba$spol, gd_sprememba$sprememba)
+graf1 <- ggplot(gd_sprememba1 ,aes(x=gd.crke, y=gd_sprememba.sprememba, fill=factor(gd_sprememba.spol))) + 
   geom_col(position="dodge")  + 
   coord_flip() +
-  guides(fill=guide_legend("Spol")) + 
+  guides(fill=guide_legend("Spol")) +
   xlab("Gospodarska dejavnost") + 
   ylab("Sprememba")+
   ggtitle("Sprememba plače glede na gospodarsko dejavnost")
@@ -643,6 +646,17 @@ map <- ggplot(zemljevid.place, aes(x=long, y=lat, fill=placa, label=paste0(NAME_
   geom_polygon(aes(group=group)) +
   geom_text(data=zemljevid.place %>% group_by(NAME_1, placa)  %>% 
               summarise(long=mean(long), lat=mean(lat)), size=3, colour='red') +
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank(),
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank()) +
   labs(title ="Višina povp. bruto plače po regijah Slovenije") 
 
 
@@ -709,30 +723,14 @@ ggplot(zasebnisektor_osmanj_moski, aes(x=leto, y=placa)) +
   xlab("Leto")
 
 #Graf-analiza povprečne plače po letih v javnem in zasebnem sektorju
-javnisektor_osmanj <- javnisektor %>%
-  filter(izobrazba == "Osnovnošolska ali manj", sektor== "11 Javni sektor - SKUPAJ")
-zasebnisektor_osmanj <- javnisektor %>%
-  filter(izobrazba == "Osnovnošolska ali manj", sektor== "12 Zasebni sektor - SKUPAJ")
-javnisektor_sr <- javnisektor %>%
-  filter(izobrazba == "Srednješolska", sektor== "11 Javni sektor - SKUPAJ")
-zasebnisektor_sr <- javnisektor %>%
-  filter(izobrazba == "Srednješolska", sektor== "12 Zasebni sektor - SKUPAJ")
-javnisektor_vs <- javnisektor %>%
-  filter(izobrazba == "Višješolska, visokošolska", sektor== "11 Javni sektor - SKUPAJ")
-zasebnisektor_vs <- javnisektor %>%
-  filter(izobrazba == "Višješolska, visokošolska", sektor== "12 Zasebni sektor - SKUPAJ")
+graf2 <- ggplot(javnisektor ,aes(x=leto, y=placa, fill=factor(sektor))) + 
+  geom_col(position="dodge")  + 
+  coord_flip() +
+  guides(fill=guide_legend("Sektor")) +
+  xlab("Leto") + 
+  ylab("Višina plače(€)")+
+  ggtitle("Primerjava plače v javnem in zasebnem sektorju glede na izobrazbo")
 
-graf2 <- ggplot(javnisektor_osmanj, aes(x=leto, y=placa)) + 
-  geom_point(color="dark blue", size=2) +
-  geom_point(data=zasebnisektor_osmanj, aes(x=leto, y=placa),color="light blue", size=2) +
-  geom_point(data=javnisektor_sr, aes(x=leto, y=placa),color="red", size=2) +
-  geom_point(data=zasebnisektor_sr, aes(x=leto, y=placa),color="light pink", size=2) +
-  geom_point(data=javnisektor_vs, aes(x=leto, y=placa),color="dark green", size=2) +
-  geom_point(data=zasebnisektor_vs, aes(x=leto, y=placa),color="green", size=2) +
-  labs(title="Primerjava plače v javnem in zasebnem sektorju glede na izobrazbo") +
-  ylab("Višina plače(€)") +
-  xlab("Leto")
-  
 #Minimalna in maksimalna placa glede na izobrazbo
 maksimum <- data.frame(javnisektor %>%
                        group_by(sektor, izobrazba, spol) %>%
@@ -742,7 +740,7 @@ minimum <- data.frame(javnisektor %>%
                       summarise(minimum = min(placa)))
 max_min <- merge(maksimum,minimum,by=c("spol", "izobrazba", "sektor"))
 
-placa_javnisektor_mosk <- max_min %>%
+placa_javnisektor_moski <- max_min %>%
   filter(sektor=="11 Javni sektor - SKUPAJ", spol== "Moški")
 placa_zasebnisektor_moski <- max_min %>%
   filter(sektor=="12 Zasebni sektor - SKUPAJ", spol== "Moški") 

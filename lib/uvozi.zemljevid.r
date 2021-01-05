@@ -72,3 +72,4 @@ uvozi.zemljevid <- function(url, ime.zemljevida, pot.zemljevida="",
 zemljevid_slovenije <- uvozi.zemljevid("http://biogeo.ucdavis.edu/data/gadm2.8/shp/SVN_adm_shp.zip",
                                        "SVN_adm1", mapa = "zemljevid_Slovenije", encoding = "Windows-1250") %>% 
   fortify()
+

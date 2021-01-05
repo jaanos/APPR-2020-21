@@ -14,7 +14,9 @@ gospodarskadejavnost <- read_csv2("podatki/placa_dejavnost.csv",
 gospodarskadejavnost2 <- read_csv2("podatki/spolskupaj.csv",
                                   col_names=c("gospodarska.dejavnost","izobrazba","leto","spol","placa"),
                                   skip=3, na="-",
-                                  locale=locale(encoding="Windows-1250")) 
+                                  locale=locale(encoding="Windows-1250"))
+gospodarskadejavnost2 <- head(gospodarskadejavnost2, -8)
+  
 
 #Povprečna bruto mesečna plača glede na regijo in spol
 regija_starost <- read_csv2("podatki/regija_starost.csv",
@@ -52,3 +54,4 @@ kriza2008 <- read_csv2("podatki/kriza2008.csv",
 kriza2020 <- read_xlsx("podatki/kriza2020.xlsx",
                        col_names=c("leto","tip place", "placa"),
                        skip=2, n_max=21) %>% select(-"tip place")
+
