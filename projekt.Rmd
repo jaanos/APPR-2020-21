@@ -127,6 +127,13 @@ tortnidiagram
 source("analiza/analiza.r", encoding="UTF-8")
 ```
 
+```{r graf12, echo=FALSE, fig.align='center'}
+graf12
+```
+
+```{r graf11, echo=FALSE, fig.align='center'}
+graf11
+```
 
 ***
 
