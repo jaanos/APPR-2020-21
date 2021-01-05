@@ -2,8 +2,11 @@
 shinyServer(function(input, output) {
   output$distPlot <- renderPlot({
     ggplot(nat.ha %>% filter(sredina == "mean"), aes(x=h)) +
-      geom_histogram(bins=input$bini, fill="yellow", color="black") +
-      xlab("Urna postavka") + ylab("Absolutna frekvenca") +
+      geom_histogram(aes(y=..density..), 
+                     bins=input$bini, fill="#2BFFF2", color="black") +
+      geom_density(alpha=.3, fill="#4EFF2B") +
+      xlab("Urna postavka") + 
+      ylab("Absolutna frekvenca") +
       ggtitle("Histogram pojavljenosti povprečnih plač")
   })
   
@@ -37,12 +40,12 @@ shinyServer(function(input, output) {
       
       output$distPlot4 <- renderPlot ({
         w1 <- st.ha %>% filter(state==input$drzava2, sredina=="median") 
-        w2 <- h_mean_c
+        w2 <- h_mean_c 
         names(w1) <- names(w2) 
         w3 <- rbind(w1, w2)
         print( ggplot(w3) +
                  aes(x = leto, y=h, col=state) + 
-                # geom_point(size=2) +
+              # geom_point(size=2) +
                  xlab("Leto") +
                  ylab("Povprečna urna postavka") +
                  labs(title="Primerjava urnih postavk.") +

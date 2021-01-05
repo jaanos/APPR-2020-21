@@ -1,5 +1,39 @@
 # 3. faza: Vizualizacija podatkov
 
+z1 <- tabela %>% filter(State=="Alaska")
+z2 <- tabela %>% filter(State=="United States")
+z3 <- rbind(z1, z2) %>% rename(state=State)
+graf10 <- ggplot(z3) +
+         aes(x = leto, y=GDP, col=State) + 
+         geom_point(size=2) +
+         geom_line(size=1)  +
+         xlab("Leto") +
+         ylab("BDP per capita") +
+         labs(title="Primerjava BDP per capita.") 
+
+w1 <- st.ha %>% filter(state=="Alaska", sredina=="median")
+w2 <- h_mean_c 
+names(w1) <- names(w2) 
+w3 <- rbind(w1, w2) 
+
+poskus <- inner_join(w3, z3, by=c("state","leto")) 
+
+ggplot(z3) +
+  aes(x = leto, y=GDP, col=State) + 
+  geom_point(size=2) +
+  geom_line(size=1)  +
+  xlab("Leto") +
+  ylab("BDP per capita") +
+  labs(title="Primerjava BDP per capita.") 
+
+graf11 <- ggplot(w3) +
+         aes(x = leto, y=h, col=state) + 
+         # geom_point(size=2) +
+         xlab("Leto") +
+         ylab("Povprečna urna postavka") +
+         labs(title="Primerjava urnih postavk.") +
+         stat_smooth(method = "lm")
+  
 # TOP 5 ZAPOSLENOSTI PO POKLICIH PO LETIH (NE VEM ČE BOMO UPORABILI)
 
 #   te_08 <- t_e %>% filter(leto=="2008") %>%  tail(n = 6) %>% head(n = 5)
