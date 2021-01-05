@@ -93,14 +93,24 @@ Analizirala sem tudi višino povprečne bruto mesečne plače po statističnih r
 print(map)
 ```
 
-Zanimala me je tudi primerjava plače glede na zasebni in javni sektor glede na izobrazbo, kar prikazuje tudi spodnji graf.
+Zanimala me je tudi primerjava plače glede na zasebni in javni sektor, kar prikazuje spodnji graf.
 
 
 ```{r graf2, echo=FALSE, message=FALSE, warning=FALSE}
 print(graf2)
 ```
+Plača je bil v vmesnih letih(2012-2015) skoraj enaka in se je razlika manjšala, v zadnij 3 letih pa se razlika med plačo v javnem sektorju in zasebnem ponovno nekoliko povečuje, kar bi lahko z ekonomskega vidika pomenilo, da se zasebna podjetja pripravljajo na prihajajpčo krizo oz. krizo Covid-19.
 
-Razvidno je da se plača pri višješolski/visokošolski pri obeh sektorjih od leta 2010 v primerjavi z letom 2017 praktično ni spremenila. Plača pri osnovnošolski izobrazbi ali manj  v javnem sektorju pa se je povečala za 19,3%, pri srednješolski izobrazbi pa za 10,8%. V zasebnem sektorju se je plača pri osnovnošolski izobrazbi ali manj povečala za 27,3%, pri srednješolski izobrazbi pa za 15,9%. Rast plače je nekoliko večja v zasebnem sektorju.
+```{r graf3, graf4, echo=FALSE, message=FALSE, warning=FALSE}
+print(graf3)
+print(graf4)
+```
+
+Plača se je pri višješolski/visokošolski pri obeh sektorjih od leta 2010 v primerjavi z letom 2017 praktično ni spremenila. Plača pri osnovnošolski izobrazbi ali manj  v javnem sektorju pa se je povečala za 19,3%, pri srednješolski izobrazbi pa za 10,8%. V zasebnem sektorju se je plača pri osnovnošolski izobrazbi ali manj povečala za 27,3%, pri srednješolski izobrazbi pa za 15,9%. Rast plače je nekoliko večja v zasebnem sektorju.
+
+V letu 2018 je najnižja plača bila pri ženskah z osnovnošolsko izobrazbo ali manj v javnem sektorju. Od najnižje plače v zasebnem sektorju se je razlikovala za 36€. Najvišja plača je bila prav tako dosežena v javnem sektorju z višješolsko/visokošolsko izobrazbo in se od najvišje plače v zasebnem sektorju razlikuje za 121€, kar je precej večja razlika kot pri najnižji plači.
+
+Zanimivo je, da so najnižje plače ne glede na to ali gledamo po vrsti sektorja ali po gospodarski dejavnosti vedno dosežene pri ženskah, za razliko od najvišjih plač, ki so pri različnih gospodarskih dejavnostih nekatere dosežene tudi ženskah ne samo pri moških, vendar še vseeno močno prevladujejo moški.
 
 ***
 
