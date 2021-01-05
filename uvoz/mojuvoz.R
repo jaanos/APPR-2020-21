@@ -44,7 +44,7 @@ tabela4nova <- gather(tabela5, -izobrazevanje, -leto, key=studij, value=stevilo,
 
 #tabela5novanova so podatki o številu prebivalcev po regijah po letih
 
-url <- "prebivalciregije4.htm"
+url <- "podatki/prebivalciregije4.htm"
 stran <- read_html(url)
 tabela5nova <- stran %>% html_nodes(xpath="//table") %>% .[[1]] %>% html_table(fill = TRUE)
 colnames(tabela5nova) <- c("regija", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019")
@@ -73,3 +73,18 @@ skupnatabela2$stevilo.y <- as.numeric(skupnatabela2$stevilo.y)
 skupnatabela2 <- transform(skupnatabela2, delez = (stevilo.x / stevilo.y)/10)
 skupnatabela2 <- subset(skupnatabela2, select = - stevilo.x)
 skupnatabela2 <- subset(skupnatabela2, select = - stevilo.y)
+
+tabela1novadijaki$leto <- as.numeric(tabela1novadijaki$leto)
+tabela1novadijaki$stevilo <- as.numeric(tabela1novadijaki$stevilo)
+stevilodijakovpoletih <- tabela1novadijaki %>% group_by(leto) %>% summarise(skupaj=sum(stevilo))
+
+tabela1novadiplomanti$leto <- as.numeric(tabela1novadiplomanti$leto)
+tabela1novadiplomanti$stevilo <- as.numeric(tabela1novadiplomanti$stevilo)
+stevilodiplomantovpoletih <- tabela1novadiplomanti %>% group_by(leto) %>% summarise(skupaj=sum(stevilo))
+
+tabelaprebivalci$leto <- as.numeric(tabelaprebivalci$leto)
+tabelaprebivalci$stevilo <- as.numeric(tabelaprebivalci$stevilo)
+tabelaprebivalcipoletih <- tabelaprebivalci  %>% group_by(leto) %>% summarise(skupaj=sum(stevilo))
+
+tabela <- full_join(tabelaprebivalcipoletih, stevilodijakovpoletih, by = "leto")
+tabela_tri_zdruzene <- full_join(tabela, stevilodiplomantovpoletih, by = "leto")
