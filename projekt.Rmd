@@ -112,7 +112,7 @@ Naslednji graf nam prikazuje, katere izobraževalne programe terciarnega izobra�
 graf6
 ```
 
-Spodnji tortni diagram prikazuje kakšen je delež diplomantov, ki diplomira na rednem študiju v primerjavi z izrednim študijem.
+Spodnji tortni diagram prikazuje razmerje diplomantov v preučevanih desetih letih, ki diplomira na rednem študiju v primerjavi s tistimi, ki diplomirajo na izrednem študiju. Iz podatkov je razvidno, da je število diplomantov na izredne študiju precej manj v primerjavi na rednem.
 
 ```{r tortnidiagram, echo=FALSE, fig.align='center'}
 tortnidiagram
