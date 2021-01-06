@@ -97,20 +97,19 @@ Na drugem grafu vidimo delež posameznega vira dohodka v gospodinjstvu za leto 2
 
 
 ```{r graf3, echo=FALSE, fig.align='center'}
-graf_spol
+graf_spol_skupaj
 ```
+Tretji graf ponazarja razlike razpoložljivega dohodka med spoloma. Ker, kot rečeno pri grafu 2, delovni dohodek predstavlja največji del gospodinjskega dohodka, je levi graf zelo podoben grafu delovnega dohodka iz prve vizualizacije. S tem lahko povežemo, da strogo višji dohodek moških izhaja predvsem iz razlike v plačah. Najmanjša razlika je bila dosežena po umiritvi gospodarske rasti leta 2012, ko je znašala približno 50€. Največja razlika pa ob začetku novega pozitivnega obdobja gospodarskega razvoja leta 2015, ko je narasla čez 300€, verjetno ob visokem povpraševanju po moški delovni sili, ko si je industrija in gradbeništvo opomoglo. Razlika je potem po letu 2015, kljub rasti dohodka, padala, vendar v primerjavi z začetkom obdobja lahko vseeno povežemo spremembo razlike med spoloma z rastjo dohodka oziroma gospodarstva.
 
 ```{r graf4, echo=FALSE, fig.align='center'}
-graf_razlika_spol
-```
-Tretji in četrti graf ponazarjata razlike razpoložljivega dohodka med spoloma. Ker, kot rečeno pri grafu 2, delovni dohodek predstavlja največji del gospodinjskega dohodka, je graf 3 zelo podoben grafu delovnega dohodka iz prve vizualizacije. S tem lahko povežemo, da strogo višji dohodek moških izhaja predvsem iz razlike v plačah. Najmanjša razlika je bila dosežena po umiritvi gospodarske rasti leta 2012, ko je znašala približno 50€. Največja razlika pa ob začetku novega pozitivnega obdobja gospodarskega razvoja leta 2015, ko je narasla čez 300€, verjetno ob visokem povpraševanju po moški delovni sili, ko si je industrija in gradbeništvo opomoglo. Razlika je potem po letu 2015, kljub rasti dohodka, padala, vendar v primerjavi z začetkom obdobja lahko vseeno povežemo spremembo razlike med spoloma z rastjo dohodka oziroma gospodarstva.
-
-```{r graf5, echo=FALSE, fig.align='center'}
 graf_izobrazba_spol
 ```
-Graf 5 predstavlja razpoložljivi dohodek gospodinjstev v odvisnosti od spola in dosežene izobrazbe. Pričakovani imajo višje izobražena gospodinjstva tudi višji dohodek, hkrati je vidno, da je tudi preskok med dohodkom višje in nižje izobrazbe vedno večji (med osnovno in srednješolsko poklicno dokaj majhen, med strokovno in višješolsko pa izrazito višji). Z višanjem dohodka je opazno tudi večanje razlike med spoloma (na osnovnošolski ravni je razlika med spoloma dokaj majhna, na višješolski pa že občutna). Vse krivulje so sicer podobne oblike, še najbolj izstopa padec dohodka žensk z višjo izobrazbo v letih 2012-2016, medtem ko je dohodek pri moških ostajal več ali manj konstanten. Od leta 2016 pa se na vseh ravneh vidi pozitiven gospodarski trend.   
+Graf 4 predstavlja razpoložljivi dohodek gospodinjstev v odvisnosti od spola in dosežene izobrazbe. Pričakovani imajo višje izobražena gospodinjstva tudi višji dohodek, hkrati je vidno, da je tudi preskok med dohodkom višje in nižje izobrazbe vedno večji (med osnovno in srednješolsko poklicno dokaj majhen, med strokovno in višješolsko pa izrazito višji). Z višanjem dohodka je opazno tudi večanje razlike med spoloma (na osnovnošolski ravni je razlika med spoloma dokaj majhna, na višješolski pa že občutna). Vse krivulje so sicer podobne oblike, še najbolj izstopa padec dohodka žensk z višjo izobrazbo v letih 2012-2016, medtem ko je dohodek pri moških ostajal več ali manj konstanten. Od leta 2016 pa se na vseh ravneh vidi pozitiven gospodarski trend. 
 
-
+```{r graf5, echo=FALSE, fig.align='center'}
+graf_starost_spol
+```
+Peti graf predstavlja odvisnost razpoložljivega dohodka gospodinjstva od starosti in spola posameznika. V povprečju gledano se dohodek glede na starost viša. Največje odstopanje od tega se opazi pri ženskah nad 65 let, ko celotna krivulja leži pod obema krivuljama za starostno skupino 50-64 let. Prav tako je tudi razlika med spoloma med najstarejšimi največja, torej so pokojnine pri moških občutno višje kot pri ženskah, kar je še bolj presenetljivo, saj je dohodek žensk v starosti 50-64 v povprečju rahlo višji od moških (morda zaradi hitrejšega upokojevanja moških v posameznih panogah). Krizno obdobje po letu 2008 (do približno 2013) je najhitreje vplivalo na starostno skupino 18-24 let, saj jo sestavljajo predvsem študenti oziroma osebe z začasno zaposlitvijo.
 
 ```{r zemljevid, echo=FALSE, fig.align='center', warning=FALSE}
 narisi_zemljevid
@@ -128,17 +127,6 @@ Zemljevidi prikazujejo višino razpoložljivega dohodka gospodinjstev v letu 200
 source("analiza/analiza.r", encoding="UTF-8")
 ```
 
-Spodnji graf prikazuje povezavo med številom naselij in površino občine.
-
-```{r graf, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-ggplot(inner_join(obcine, data.frame(obcina=names(skupine),
-                                     skupina=factor(skupine)), by="obcina")
-, aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() +
-  ggtitle("Število naselij glede na površino občine") +
-  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-  guides(color=guide_legend(title="Skupina"),
-         size=guide_legend(title="Prebivalci (* 1000)"))
-```
 
 ***
 
