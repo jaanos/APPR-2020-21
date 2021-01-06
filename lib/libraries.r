@@ -18,6 +18,7 @@ library(hrbrthemes)
 library(scales)
 library(waffle)
 library(ggthemes)
+library(ggpubr)
 
 
 options(gsubfn.engine="R")

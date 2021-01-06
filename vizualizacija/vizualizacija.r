@@ -37,7 +37,7 @@ graf_spol <- ggplot(spol, aes(x=factor(Leto), y=Dohodek, group=Spol)) +
   geom_line(aes(color=Spol)) +
   geom_point(aes(color=Spol)) +
   scale_x_discrete(guide = guide_axis(check.overlap = TRUE)) +
-  labs(title="Razlika med spoloma", x="Leto", y = "Dohodek", fill="Leto")
+  labs(x="Leto", y = "Dohodek", fill="Leto")
 print(graf_spol)
 
 # 4. graf: razlika po spolu 2
@@ -50,20 +50,25 @@ razlika_spol <- spol %>%
 graf_razlika_spol <- ggplot(razlika_spol, aes(x=factor(Leto), y=Razlika, group=1)) +
   geom_line() +
   geom_point() +
-  labs(title="Razlika med spoloma 2", x="Leto", y = "Razlika dohodka")
+  scale_x_discrete(guide = guide_axis(check.overlap = TRUE)) +
+  labs(x="Leto", y = "Razlika dohodka")
 
 print(graf_razlika_spol)
 
+# 5. graf: Razlika med spoloma - skupaj
+graf_spol_skupaj <- ggarrange(graf_spol, graf_razlika_spol, labels=c("Dohodek po spolu", "Razlika"),
+                              common.legend = TRUE, legend = "bottom")
+print(graf_spol_skupaj)
 
-# 5. graf: izobrazba
+# 6. graf: izobrazba
 
-izobrazba_spol <- izobrazba_spol %>%
+izobrazba_spol_2 <- izobrazba_spol %>%
   mutate(Izobrazba2=Izobrazba, Spol2=Spol)
 
 
-graf_izobrazba_spol <- ggplot(izobrazba_spol, aes(x=factor(Leto), y=Dohodek)) +
-  geom_line(data=izobrazba_spol %>% dplyr::select(-Izobrazba, -Spol),
-            aes(group=interaction(Spol2, Izobrazba2)), color="grey", size=0.5) +
+graf_izobrazba_spol <- ggplot(izobrazba_spol_2, aes(x=factor(Leto), y=Dohodek)) +
+  geom_line(izobrazba_spol_2 %>% select(-Izobrazba, -Spol),
+            mapping=aes(group=interaction(Spol2, Izobrazba2)), color="grey", size=0.5) +
   geom_line(aes(group=interaction(Spol, Izobrazba), color=Spol), size=1.2)+
   scale_color_manual(breaks=c("Moški", "Ženske"), values=c("#00BFC4", "#F8766D"))+
   theme_bw() +
@@ -73,6 +78,25 @@ graf_izobrazba_spol <- ggplot(izobrazba_spol, aes(x=factor(Leto), y=Dohodek)) +
   facet_wrap(~Izobrazba)
 
 print(graf_izobrazba_spol)
+
+
+#7. graf: starost
+starost_spol_2 <- starost_spol %>%
+  mutate(Starost2=Starost, Spol2=Spol)
+
+
+graf_starost_spol <- ggplot(starost_spol_2, aes(x=factor(Leto), y=Dohodek)) +
+  geom_line(starost_spol_2 %>% select(-Starost, -Spol), 
+            mapping=aes(group=interaction(Spol2, Starost2)), color="grey", size=0.5) +
+  geom_line(aes(group=interaction(Spol, Starost), color=Spol), size=1.2)+
+  scale_color_manual(breaks=c("Moški", "Ženske"), values=c("#00BFC4", "#F8766D"))+
+  theme_bw() +
+  theme(plot.title = element_text(), panel.grid = element_blank()) +
+  labs(title="Starost in spol", x="Leto", y = "Dohodek") +
+  scale_x_discrete(guide = guide_axis(check.overlap = TRUE)) +
+  facet_wrap(~Starost)
+
+print(graf_starost_spol)
 
 
 # Zemljevid statističnih regij
@@ -104,13 +128,17 @@ narisi_zemljevid <- tm_shape(merge(zemljevid_regije, regije_8_19, by.x="NAME_1",
 
 print(narisi_zemljevid)
 
-#narisi_zemljevid_regije <- tm_shape(zemljevid_regije) +
-#  tm_polygons(col = "white") +
-#  tm_text("NAME_1", size = 0.5)
-#
+
+narisi_zemljevid_regije <- tm_shape(zemljevid_regije) +
+  tm_polygons(col = "white") +
+  tm_text("NAME_1", size = "AREA")
+print(narisi_zemljevid_regije)
+
+
 #zemljevid_skupaj <- tmap_arrange(narisi_zemljevid)
 #
 #print(zemljevid_skupaj)
+
 
 
 
