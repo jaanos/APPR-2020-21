@@ -36,6 +36,7 @@ obcine <- function(){
   uvoz$Stevilo <- parse_number(uvoz$Stevilo) 
   uvoz[is.na(uvoz)] <- 0
   uvoz %>% data.frame()
+  uvoz$Obcina[100] <- "Mežica"
   
   return(uvoz)
 }
@@ -112,6 +113,8 @@ kapacitete.vrste.obcin <- function(){
 }
 
 kapacitete.vrste.obcin <- kapacitete.vrste.obcin()
+
+# Zemljevid obcin
 
 
 

@@ -12,6 +12,7 @@ library(ggplot2)
 library(ggthemes)
 library(rgdal)
 library(tmap)
+library(tmaptools)
 
 options(gsubfn.engine="R")
 
