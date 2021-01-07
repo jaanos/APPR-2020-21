@@ -114,7 +114,7 @@ kapacitete.vrste.obcin <- function(){
 
 kapacitete.vrste.obcin <- kapacitete.vrste.obcin()
 
-# Zemljevid obcin
+
 
 
 
