@@ -1,15 +1,76 @@
 # 3. faza: Vizualizacija podatkov
 
-# Uvozimo zemljevid.
-zemljevid <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/OB.zip", "OB",
-                             pot.zemljevida="OB", encoding="Windows-1250")
-# Če zemljevid nima nastavljene projekcije, jo ročno določimo
-proj4string(zemljevid) <- CRS("+proj=utm +zone=10+datum=WGS84")
+# Prenocitve, tipi turisticnih obcin
 
-levels(zemljevid$OB_UIME) <- levels(zemljevid$OB_UIME) %>%
-  { gsub("Slovenskih", "Slov.", .) } %>% { gsub("-", " - ", .) }
-zemljevid$OB_UIME <- factor(zemljevid$OB_UIME, levels=levels(obcine$obcina))
+graf.prenocitve.tipi <- ggplot(prenocitve.tipi) +
+  aes(x=Leto, y=Stevilo, group=Tip, colour=Tip) +
+  geom_point(size=2) +
+  geom_line(size=1) +
+  labs(title="Število prenočitev po tipu občin",
+       y="Število prenočitev", x="Leto") +
+  theme_hc() +
+  scale_x_continuous(limits=c(2010, 2019), breaks=seq(2010, 2019, 1)) +
+  scale_y_continuous(limits=c(0, 4800000),
+                            breaks=seq(0,4800000,500000)) +
+  scale_color_discrete(name = "Tip občine")
 
-# Izračunamo povprečno velikost družine
-povprecja <- druzine %>% group_by(obcina) %>%
-  summarise(povprecje=sum(velikost.druzine * stevilo.druzin) / sum(stevilo.druzin))
+
+
+# Stolpicni diagram vseh gostov
+
+gostje <- vsi.gosti[-c(33:64),] %>%
+  filter(Leto %in% c(2000:2019))
+
+diagram.vseh.gostov <- ggplot(gostje) +
+  aes(x=Leto, y=Stevilo, fill=Tip) +
+  geom_bar(stat="identity", position = "dodge") +
+  labs(title = "Število vseh gostov", y="Število gostov", x="Leto") +
+  theme_bw() +
+  scale_x_continuous(limits=c(1999, 2020), breaks=seq(2000, 2020, 2)) +
+  scale_y_continuous(limits=c(0, 4800000),
+                     breaks=seq(0,4800000,500000)) +
+  scale_color_discrete(name = "Gosti")
+
+
+
+# Graf vseh prenocitev
+
+prenocitve <- filter(vse.prenocitve, Tip=="Skupaj",
+                     Leto %in% c(2000:2019))
+
+graf.vseh.prenocitev <- ggplot(prenocitve) +
+  aes(x=Leto, y=Stevilo) +
+  geom_point(size=2) +
+  geom_line(size=1, colour="blue") +
+  scale_y_continuous(limits=c(5000000,16000000),
+                     breaks=seq(5000000, 16000000, 1000000)) +
+  scale_x_continuous(limits=c(2000, 2020), breaks=seq(2000, 2020, 2)) +
+  labs(title="Število vseh prenočitev", y="Število prenočitev") +
+  theme_hc()
+
+
+# Zemljevid obcin
+
+slo <- readOGR(dsn="vizualizacija/OB", layer="OB", encoding="UTF-8")
+
+
+
+
+  
+
+
+ 
+
+  
+
+
+ 
+
+
+  
+   
+
+
+
+
+
