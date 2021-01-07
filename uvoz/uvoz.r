@@ -36,7 +36,8 @@ obcine <- function(){
   uvoz$Stevilo <- parse_number(uvoz$Stevilo) 
   uvoz[is.na(uvoz)] <- 0
   uvoz %>% data.frame()
-  uvoz$Obcina[100] <- "Mežica"
+  uvoz$Obcina[100] <- "MeÅ¾ica"
+
   
   return(uvoz)
 }
