@@ -13,6 +13,10 @@ library(ggthemes)
 library(rgdal)
 library(tmap)
 library(tmaptools)
+library(RColorBrewer)
+library(maptools)
+library(broom)
+
 
 options(gsubfn.engine="R")
 

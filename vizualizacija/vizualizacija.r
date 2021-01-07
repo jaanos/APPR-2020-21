@@ -51,6 +51,60 @@ graf.vseh.prenocitev <- ggplot(prenocitve) +
 
 # Zemljevid obcin
 
+obcine <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/OB.zip", "OB",
+                          pot.zemljevida="OB", encoding="Windows-1250")
+proj4string(obcine) <- CRS("+proj=utm +zone=10+datum=WGS84")
+tm_shape(obcine) + tm_polygons("OB_UIME") + tm_legend(show=FALSE)
+obcine$OB_UIME <- as.factor(obcine$OB_UIME)
+
+lvls <- levels(obcine$OB_UIME) %>% str_replace("Slov[.]", "Slovenskih") %>%
+  sort()
+
+prihodi <- obcine_prihodi$Obcina %>% 
+  str_replace(" - ","-") %>%
+  str_replace("/.*","") %>%
+  str_replace("Slov[.]", "Slovenskih") %>%
+  sort() %>% parse_factor()
+
+obcine_prihodi2 <- obcine_prihodi
+obcine_prihodi2$Obcina <- prihodi
+
+zdruzena <- merge(obcine, obcine_prihodi2, by.x="OB_UIME", by.y="Obcina")
+zdruzena$Stevilo[95] <- 0
+obcine_podatki <- data.frame("id"=zdruzena$OB_ID, "Stevilo"=zdruzena$Stevilo) %>% 
+  mutate(id = as.character(obcine_podatki$id))
+zdruzena_fort <- tidy(zdruzena, region="OB_ID")
+
+fort_stevilo <- zdruzena_fort %>% left_join(obcine_podatki, by="id")
+
+kvantili <- quantile(zdruzena$Stevilo, seq(0, 1, 1/4))
+
+brezOzadja <- theme_bw() +
+  theme(
+    axis.line=element_blank(),
+    axis.text.x=element_blank(),
+    axis.text.y=element_blank(),
+    axis.ticks=element_blank(),
+    axis.title.x=element_blank(),
+    axis.title.y=element_blank(),
+    panel.background=element_blank(),
+    panel.border=element_blank(),
+    panel.grid.major=element_blank(),
+    panel.grid.minor=element_blank(),
+    plot.background=element_blank()
+  ) 
+
+legenda <- paste(as.integer(kvantili[1:4]),as.integer(kvantili[2:5]),sep="-")
+
+zemljevid <- fort_stevilo %>% mutate(kvantil=factor(findInterval(fort_stevilo$Stevilo,
+                                       kvantili, all.inside=TRUE))) %>%
+  ggplot() + geom_polygon(color="black", size=0.001) + 
+  aes(x=long, y=lat, group=group, fill=kvantil) +
+  scale_fill_brewer(type = 4, palette="Reds", labels=legenda) +
+  labs(title="Število prihodov po posameznih občinah") +
+  guides(fill=guide_legend(title="Število prihodov")) +
+  brezOzadja 
+ 
 
 
 
@@ -58,7 +112,13 @@ graf.vseh.prenocitev <- ggplot(prenocitve) +
 
 
 
-  
+
+
+
+
+
+
+
 
 
  
