@@ -79,10 +79,14 @@ Svoje podatke sem črpal s strani [SiStat](https://pxweb.stat.si/SiStat/sl) v ob
 ***
 
 # Analiza in vizualizacija podatkov
-
-```{r vizualizacija, results='hide'}
+```{r vizualizacija, message=FALSE, warning=FALSE, include=FALSE, results='hide'}
 source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 ```
+
+```{r analiza, include=FALSE, results='hide'}
+source("analiza/analiza.r", encoding="UTF-8")
+```
+
 
 ```{r graf1, echo=FALSE, fig.align='center'}
 graf_vrste_dohodka
@@ -99,6 +103,13 @@ Na drugem grafu vidimo delež posameznega vira dohodka v gospodinjstvu za leto 2
 graf_spol_skupaj
 ```
 Tretji graf ponazarja razlike razpoložljivega dohodka med spoloma. Ker, kot rečeno pri grafu 2, delovni dohodek predstavlja največji del gospodinjskega dohodka, je levi graf zelo podoben grafu delovnega dohodka iz prve vizualizacije. S tem lahko povežemo, da strogo višji dohodek moških izhaja predvsem iz razlike v plačah. Najmanjša razlika je bila dosežena po umiritvi gospodarske rasti leta 2012, ko je znašala približno 50€. Največja razlika pa ob začetku novega pozitivnega obdobja gospodarskega razvoja leta 2015, ko je narasla čez 300€, verjetno ob visokem povpraševanju po moški delovni sili, ko si je industrija in gradbeništvo opomoglo. Razlika je potem po letu 2015, kljub rasti dohodka, padala, vendar v primerjavi z začetkom obdobja lahko vseeno povežemo spremembo razlike med spoloma z rastjo dohodka oziroma gospodarstva.
+
+```{r graf6, echo=FALSE, fig.align='center'}
+graf_napoved_spol_moski
+```
+
+
+
 
 ```{r graf4, echo=FALSE, fig.align='center'}
 graf_izobrazba_spol
@@ -117,14 +128,6 @@ Zemljevidi prikazujejo višino razpoložljivega dohodka gospodinjstev v letu 200
 
 
 
-
-***
-
-# Napredna analiza podatkov
-
-```{r analiza}
-source("analiza/analiza.r", encoding="UTF-8")
-```
 
 
 ***
