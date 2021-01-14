@@ -7,6 +7,7 @@ output:
     includes:
       in_header: lib/styles.sty
     latex_engine: xelatex
+runtime: shiny
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
@@ -93,6 +94,11 @@ graf_vrste_dohodka
 ```
 Prvi graf prikazuje višino razpoložljivega dohodka gospodinjstva glede na vrsto oziroma vir prejemka od leta 2008 naprej. Največji del k dohodku prispeva delo, ki se je prvo leto strmo dvigala, zaradi pozitivnega razvoja, nato pa se po letu 2009 začnejo poznati posledice velike gospodarske krize leta 2008 in delovni dohodek je rahlo padal vse do leta 2015, ko je spet sledil gospodarski napredek. Pokojnine so za razliko od delovnega dohodka imele stalno skoraj linearno rast in jih torej kriza ni prizadela, je pa njen vpliv viden pri socialnih prejemkih, ki so v času večje brezposelnosti rahlo narasli (obdobje od 2009 do 2012). Gledano na celotno obdobje pa so se rahlo povišali tudi ostali dohodki (dohodki iz kapitala, dohodki otrok, davek na premoženje...). Zanimivo je, da dohodek gospodinjstev, kljub veličini gospodarske krize na slovenskem, ni imel izrazitega padca.
 
+```{r shiny}
+shinyAppDir("shiny", options=list(width="100%", height=450))
+```
+
+
 ```{r graf2, echo=FALSE, fig.align='center'}
 graf_delez_vrste
 ```
@@ -125,7 +131,6 @@ Peti graf predstavlja odvisnost razpoložljivega dohodka gospodinjstva od staros
 narisi_zemljevid
 ```
 Zemljevidi prikazujejo višino razpoložljivega dohodka gospodinjstev v letu 2008 in 2019 ter njegovo rast v slednjem obdobju glede na posamezno statistično regijo Slovenijo (v odstotkih). Najvišji dohodek v obeh letih imajo gospodinjstva v osrednjeslovenski regiji. Leta 2008 je slednji najbolje sledila goriška regija, ki pa je z najnižjo stopnjo rasti v zadnjem desetletju nazadovala. Najvišjo skoraj 50 odstotno rast je doživela pomurska regija, ki pa vseeno ostaja med regijami z najnižjim dohodkom gospodinjstev. Se pa je v obravnavanem obdobju zmanjšala razlika med najbolj in najmanj razvito regijo iz dobrih 2000€ na slabih 1500€ razlike.
-
 
 
 

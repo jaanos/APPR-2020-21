@@ -1,24 +1,18 @@
 library(shiny)
 
-shinyServer(function(input, output) {
-  output$druzine <- DT::renderDataTable({
-    druzine %>% pivot_wider(names_from="velikost.druzine", values_from="stevilo.druzin") %>%
-      rename(`Občina`=obcina)
-  })
+function(input, output) {
   
-  output$pokrajine <- renderUI(
-    selectInput("pokrajina", label="Izberi pokrajino",
-                choices=c("Vse", levels(obcine$pokrajina)))
-  )
-  output$naselja <- renderPlot({
-    main <- "Pogostost števila naselij"
-    if (!is.null(input$pokrajina) && input$pokrajina %in% levels(obcine$pokrajina)) {
-      t <- obcine %>% filter(pokrajina == input$pokrajina)
-      main <- paste(main, "v regiji", input$pokrajina)
-    } else {
-      t <- obcine
-    }
-    ggplot(t, aes(x=naselja)) + geom_histogram() +
-      ggtitle(main) + xlab("Število naselij") + ylab("Število občin")
+  output$graf_vrste <- renderPlot({
+    graf_vrste <- ggplot(vrste_dohodka %>% filter(Leto == input$Leto,
+                                                  Vrsta.dohodka %in% input$Vrsta)) + 
+      aes(x=Vrsta.dohodka, y=Dohodek, fill=Vrsta.dohodka) +
+      geom_col(position = "dodge") +
+      labs(title = "Dohodek glede na vrsto") + theme(plot.title = element_text(hjust = 0.5)) +
+      ylab("Dohodek") +
+      labs(fill = "Vrste dohodka") +
+      theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+      scale_y_continuous(breaks=seq(0, 7000, 1000))
+    print(graf_vrste)
   })
-})
+
+}

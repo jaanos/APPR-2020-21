@@ -1,17 +1,17 @@
 library(shiny)
 
-shinyUI(fluidPage(
+fluidPage(
+  titlePanel(""),
   
-  titlePanel("Slovenske občine"),
+  tabPanel("Graf",
+           sidebarPanel(
+             selectInput("Leto", label = "Izberi leto", 
+                         choices = unique(vrste_dohodka$Leto)),
+             checkboxGroupInput("Vrsta", "Izbere vrste:",
+                                c("DOHODEK IZ DELA", "POKOJNINE Z DODATKI",
+                                  "DRUŽINSKI IN SOCIALNI PREJEMKI", "DRUGI DOHODKI")),),
+           mainPanel(plotOutput("graf_vrste")))
   
-  tabsetPanel(
-      tabPanel("Velikost družine",
-               DT::dataTableOutput("druzine")),
-      
-      tabPanel("Število naselij",
-               sidebarPanel(
-                  uiOutput("pokrajine")
-                ),
-               mainPanel(plotOutput("naselja")))
-    )
-))
+  
+  
+)
