@@ -1,13 +1,12 @@
 ---
-title: "Poročilo pri predmetu Analiza podatkov s programom R"
-author: "Študent FMF"
+title: "Analiza turizma v Sloveniji"
+author: "Žiga Gartner"
 output:
   html_document: default
   pdf_document:
     includes:
       in_header: lib/styles.sty
     latex_engine: xelatex
-runtime: shiny
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
@@ -24,9 +23,13 @@ source("lib/rstudio.r", encoding="UTF-8")
 
 # Izbira teme
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
+Analiziral bom turizem v Sloveniji. Analiziral bom gibanje prenočitev in turističnih
+kapacitet za posamezen tip turističnih občin, demografsko sestavo turistov in 
+gibanje števila vseh prihodov in prenočitev. Za konec bom analiziral še
+število prihodov v posameznih občinah. Večinoma so podatki za obdobje 2010-2019.
 
-![](slike/grb.png)
+
+
 
 ***
 
@@ -36,33 +39,34 @@ Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
+Podatke smo uvozili s statističnega urada Republike Slovenije in v obliki HTML
+z Wikipedije. Podatke imamo v petih razpredelnicah v obliki *tidy data*.
 
-1. `druzine` - podatki o družinah za vsako občino
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `velikost.druzine` - spremenljivka: število otrok v družini (število: 1, 2, 3 ali 4, kjer zadnja vrednost pomeni 4 ali več),
-  - `stevilo.druzin` - meritev: število družin z ustreznim številom otrok v ustrezni občini (število).
+1. `prenocitve.tipi` - podatki o prenočitvah za posamezen tip turističnih občin
+  - `Tip` - spremenljivka: tip turistične občine,
+  - `Leto` - spremenljivka: leto meritve,
+  - `Stevilo` - meritev: število prenočitev v ustreznem tipu turistične občine.
 
-2. `obcine` - podatki o občinah
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `povrsina` - meritev: površina občine v km$^2$ (število),
-  - `prebivalci` - meritev: prebivalstvo občine (število),
-  - `gostota` - meritev: število prebivalcev na km$^2$ (število),
-  - `naselja` - meritev: število naselij v občini (število),
-  - `ustanovitev` - meritev: leto ustanovitve občine (število),
-  - `pokrajina` - meritev: pokrajina, ki ji občina pripada (neurejen faktor),
-  - `regija` - meritev: regija, ki ji občina pripada (neurejen faktor),
-  - `odcepitev` - meritev: podatki o občinah, od katerih se je občina odcepila (besedilo).
+2. `obcine_prihodi` - podatki o prihodih za posamezno občino
+  - `Obcina` - spremenljivka: ime občine,
+  - `Stevilo` - meritev: število prihodov za ustrezno občino.
 
-**Opomba**: da bi razpredelnica `obcine` res bila v obliki *tidy data*, bi morali odstraniti stolpec `gostota` (saj je izpeljan iz stolpcev `povrsina` in `prebivalci`), podatke o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s stolpcem `odcepitev`.
+3. `vsi.gosti` - število vseh gostov v Sloveniji
+  - `Tip` - spremenljivka: tip gosta,
+  - `Leto` - spremenljivka: leto meritve,
+  - `Stevilo` - meritev: število gostov za ustrezen tip.
+  
+4. `vse.prenocitve` - število vseh prenočitev v Sloveniji
+  - `Tip` - spremenljivka: tip gosta,
+  - `Leto` - spremenljivka: leto meritve,
+  - `Stevilo` - meritev: število prenočitev za ustrezen tip gosta.
+  
+5. `kapacitete.vrste.obcin` - podatki o turističnih kapacitetah za posamezen tip turističnih občin
+  - `Tip` - spremenljivka: tip turistične občine,
+  - `Leto` - spremenljivka: leto meritve,
+  - `Stevilo` - meritev: obseg turističnih kapacitet v ustreznem tipu turistične občine.  
 
-Spodnji graf prikazuje porazdelitev števila naselij v občinah.
 
-```{r histogram, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-ggplot(obcine, aes(x=naselja)) + geom_histogram() +
-  ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
-```
 
 ***
 
@@ -72,36 +76,69 @@ ggplot(obcine, aes(x=naselja)) + geom_histogram() +
 source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 ```
 
-Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
-
-```{r zemljevid, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
-  tm_polygons("povprecje", title="Povprečje") +
-  tm_layout(title="Povprečno število otrok v družini")
+```{r graf.vseh.prenocitev, echo=FALSE, fig.align='center'}
+graf.vseh.prenocitev
 ```
 
-***
+Graf prikazuje število vseh prenočitev turistov v Sloveniji.
+Opazimo, da v zadnjih dveh destletjih število vseh prenočitev
+turistov stabilno narašča. Padec se je zgodil le med letoma 2008
+in 2009, najverjetneje zaradi gospodarske krize.
 
-# Napredna analiza podatkov
 
-```{r analiza}
-source("analiza/analiza.r", encoding="UTF-8")
+
+```{r graf.prenocitve.tipi, echo=FALSE, fig.align='center'}
+graf.prenocitve.tipi
 ```
 
-Spodnji graf prikazuje povezavo med številom naselij in površino občine.
+Iz grafa lahko razberemo kako so se je v zadnjem desetletju gibalo
+število vseh prenočitev turistov glede na posamezen tip turističnih občin v
+Sloveniji. Največjo rast števila prenočitev opazimo v gorskih občinah in 
+v Ljubljani. Najmanjšo rast števila prenočitev v preteklem desetletju so
+imele zdraviliške in mestne občine.
 
-```{r graf, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-ggplot(inner_join(obcine, data.frame(obcina=names(skupine),
-                                     skupina=factor(skupine)), by="obcina")
-, aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() +
-  ggtitle("Število naselij glede na površino občine") +
-  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-  guides(color=guide_legend(title="Skupina"),
-         size=guide_legend(title="Prebivalci (* 1000)"))
+
+
+```{r zemljevid, echo=FALSE, fig.align='center'}
+zemljevid
 ```
 
-***
+Zemljevid prikazuje število vseh prihodov po posameznih občinah v
+Sloveniji, za leto 2019. Opazimo, da so največ prihodov zabeležile
+občine na območju Triglavskega narodnega parka, Obalno-kraške regije in
+Osrednje slovenske regije ter posamezne občine v preostalih delih Slovenije.
 
-```{r shiny}
-shinyAppDir("shiny", options=list(width="100%", height=600))
+
+
+```{r diagram.vseh.gostov, echo=FALSE, fig.align='center'}
+diagram.vseh.gostov
 ```
+
+Na grafu je prikazana demografska sestava gostov v Sloveniji. Opazimo,
+da je v zadnjih letih tujih gostov precej več kot domačih. Povečujeta se
+obe števili, vendar število tujih hitreje kot število domačih. Število tujih 
+gostov se je povečevalo vsa leta, razen med gospodarsko krizo leta 2009.
+
+
+
+```{r graf.zmogljivosti.tipi, echo=FALSE, fig.align='center'}
+graf.zmogljivosti.tipi
+```
+
+Grafi prikazujejo število prenočitvenih zmogljivosti za posamezen tip
+turističnih občin v zadnjem desetletju. Prenočitvene zmogljivosti so se
+najbolj povečale v gorskih občinah in v obmorskih občinah, najmanj pa v
+mestnih občinah in zdraviliških občinah.
+
+
+
+```{r graf.zmogljivosti.rast, echo=FALSE, fig.align='center'}
+graf.zmogljivosti.rast
+```
+
+Na grafih so prikazane letne odstotne rasti prenočitvenih zmogljivosti
+za posamezen tip turističnih občin. Najvišja letna rast prenočitvenih 
+zmogljivosti je nastopila v mestnih občinah leta 2012, najvišji
+padec pa v Ljubljani leta 2019.
+
+
