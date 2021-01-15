@@ -144,7 +144,6 @@ graf.zmogljivosti.tipi <- ggplot(kapacitete.vrste.obcin) +
   geom_line(size=1) +
   labs(title="Prenočitvene zmogljivosti za posamezen tip turističnih občin",
        y="Prenočitvena zmogljivost", x="Leto") +
-  theme_hc() +
   scale_x_continuous(limits=c(2010, 2019), breaks=seq(2010, 2019, 3)) +
   facet_wrap(.~Tip, ncol=2, scales="free") +
   scale_color_discrete(name = "Tip občine") 
@@ -156,7 +155,6 @@ graf.zmogljivosti.rast <- ggplot(kapacitete.vrste.obcin.rast) +
   facet_wrap(.~Tip, ncol=2) +
   labs(title="Rast prenocitvenih zmogljivosti za posamezen tip turističnih občin",
        y="Rast prenocitvenih zmogljivosti (%)", x="Leto") +
-  theme_hc() +
   scale_x_continuous(limits=c(2010, 2019), breaks=seq(2010, 2019, 2)) +
   scale_y_continuous(limits=c(-20, 20), breaks=seq(-20, 20, 10)) +
   scale_color_discrete(name = "Tip občine") 
