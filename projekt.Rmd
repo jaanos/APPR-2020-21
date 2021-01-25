@@ -94,7 +94,7 @@ source("analiza/analiza.r", encoding="UTF-8")
 
 ### Dohodek gospodinjstev po vrstah dohodka
 
-Začel bom z analizo vrst oziroma virov dohodka, ki sestavljajo razpoložljivi gospodinjski dohodek. V prvi vizualizaciji si lahko po želji ogledamo višino posamezne vrste dohodka za leta od 2008 do 2019. Opazimo, da kljub stalnemu spreminjanju višine posameznih vrst dohodka skozi leta, je razmerje med njimi v zadnjem desetljetju ostajalo približno enako.
+Začel bom z analizo vrst oziroma virov dohodka, ki sestavljajo razpoložljivi gospodinjski dohodek. V prvi vizualizaciji si lahko po želji ogledamo višino posamezne vrste dohodka za leta od 2008 do 2019. Opazimo, da kljub stalnemu spreminjanju višine posameznih vrst dohodka skozi leta, je razmerje med njimi v zadnjem desetletju ostajalo približno enako.
 
 ```{r shiny}
 shinyAppDir("shiny", options=list(width="100%", height=450))
@@ -109,7 +109,7 @@ graf_delez_vrste
 ```{r graf1, echo=FALSE, fig.align='center'}
 graf_vrste_dohodka
 ```
-Ko višino razpoložljivega dohodka gospodinjstva glede na vrsto oziroma vir prejemka prikažemo naenkrat v grafu za celotno obravnavano obdobje lahko analiziramo gibanje posamezne vrste. Največji del k dohodku prispeva delo, čigar višina se je prvo leto strmo dvigala, zaradi pozitivnega ekonomskega razvoja, nato pa se po letu 2009 začnejo poznati posledice velike gospodarske krize leta 2008 in delovni dohodek je rahlo padal vse do leta 2015, ko je spet sledil gospodarski napredek. Pokojnine so za razliko od delovnega dohodka imele stalno skoraj linearno rast in jih torej kriza ni prizadela, je pa njen vpliv viden pri socialnih prejemkih, ki so v času večje brezposelnosti rahlo narasli (obdobje od 2009 do 2012). Gledano na celotno obdobje pa so se rahlo povišali tudi ostali dohodki (dohodki iz kapitala, dohodki otrok, davek na premoženje...). Zanimivo je, da dohodek gospodinjstev, kljub veličini gospodarske krize na slovenskem, ni imel izrazitega padca ter hkrati, da ekonomski položaj države na ostale vrste prejemkov, razen delovnega, ne vpliva v večji meri.
+Ko višino razpoložljivega dohodka gospodinjstva glede na vrsto oziroma vir prejemka prikažemo naenkrat v grafu za celotno obravnavano obdobje lahko analiziramo gibanje posamezne vrste. Največji del k dohodku prispeva delo, čigar višina se je prvo leto strmo dvigala, zaradi pozitivnega ekonomskega razvoja, nato pa se po letu 2009 začnejo poznati posledice velike gospodarske krize leta 2008 in delovni dohodek je rahlo padal vse do leta 2015, ko je spet sledil gospodarski napredek. Pokojnine so za razliko od delovnega dohodka imele stalno skoraj linearno rast in jih torej kriza ni prizadela, je pa njen vpliv viden pri socialnih prejemkih, ki so v času večje brezposelnosti rahlo narasli (obdobje od 2009 do 2012). Gledano na celotno obdobje pa so se rahlo povišali tudi ostali dohodki (dohodki iz kapitala, dohodki otrok, davek na premoženje...). Zanimivo je, da dohodek gospodinjstev, kljub veličini gospodarske krize v Sloveniji, ni imel izrazitega padca, kar je dobro v smislu, da se je ohranjala približno enaka količina potrošnje kot v času pred krizo. Ekonomski položaj države na ostale vrste prejemkov, razen delovnega, ne vpliva v večji meri.
 
 ### Razlike glede na spol
 
@@ -118,7 +118,7 @@ Sledi analiza razpoložljivega dohodka gospodinjstev glede na spol. V naslednjem
 ```{r graf3, echo=FALSE, fig.align='center'}
 graf_spol_skupaj
 ```
-Ker, kot rečeno pri pri vrstah dohodka, delovni dohodek predstavlja največji del gospodinjskega dohodka, je levi graf po obliki zelo podoben grafu delovnega dohodka iz vizualizacije pred to. S tem lahko povežemo, da strogo višji dohodek moških izhaja predvsem iz razlike v plačah. Najmanjša razlika je bila dosežena po umiritvi gospodarske rasti leta 2012, ko je znašala približno 50€. Največja razlika pa ob začetku novega pozitivnega obdobja gospodarskega razvoja leta 2015, ko je narasla čez 300€ (verjetno ob visokem povpraševanju po moški delovni sili, ko si je industrija in gradbeništvo po krizi opomoglo). Razlika je potem po letu 2015, kljub rasti dohodka, padala, vendar v primerjavi z začetkom obdobja lahko vseeno povežemo spremembo razlike med spoloma z rastjo dohodka oziroma gospodarstva.
+Ker, kot rečeno pri vrstah dohodka, delovni dohodek predstavlja največji del gospodinjskega dohodka, je levi graf po obliki zelo podoben grafu delovnega dohodka iz vizualizacije pred to. S tem lahko povežemo, da strogo višji dohodek moških izhaja predvsem iz razlike v plačah. Najmanjša razlika je bila dosežena po umiritvi gospodarske rasti leta 2012, ko je znašala približno 50€. Največja razlika pa ob začetku novega pozitivnega obdobja gospodarskega razvoja leta 2015, ko je narasla čez 300€ (verjetno ob visokem povpraševanju po moški delovni sili, ko si je industrija in gradbeništvo po krizi opomoglo). Razlika je potem po letu 2015, kljub rasti dohodka, padala, vendar v primerjavi z začetkom obdobja lahko vseeno povežemo spremembo razlike med spoloma z rastjo dohodka oziroma gospodarstva.
 
 ```{r graf6, echo=FALSE, fig.align='center'}
 graf_napoved_spol_moski
@@ -132,7 +132,7 @@ Sledi primerjava višine razpoložljivega dohodka glede na doseženo izobrazbo (
 ```{r graf4, echo=FALSE, fig.align='center'}
 graf_izobrazba_spol
 ```
-Na grafu ni opaziti večjih presenečenj, pričakovano imajo višje izobražena gospodinjstva tudi višji dohodek, hkrati je vidno, da je tudi preskok med dohodkom višje in nižje izobrazbe vedno večji (med osnovno in srednješolsko poklicno dokaj majhen, med strokovno in višješolsko pa izrazito višji). Z višanjem dohodka je opazno tudi večanje razlike med spoloma (na osnovnošolski ravni je razlika med spoloma dokaj majhna, na višješolski pa že občutna). Vse krivulje so sicer podobne oblike, še najbolj izstopa padec dohodka žensk z višjo izobrazbo v letih 2012-2016, medtem ko je dohodek pri moških ostajal več ali manj konstanten. Od leta 2016 pa se na vseh ravneh vidi pozitiven gospodarski trend.
+Na grafu ni opaziti večjih presenečenj, pričakovano imajo višje izobražena gospodinjstva tudi višji dohodek, hkrati je vidno, da je tudi preskok med dohodkom višje in nižje izobrazbe vedno večji (med osnovno in srednješolsko poklicno dokaj majhen, med strokovno in višješolsko pa izrazito višji). Z višanjem dohodka je opazno tudi večanje razlike med spoloma (na osnovnošolski ravni je razlika med spoloma dokaj majhna, na višješolski pa že občutna). Vse krivulje so sicer podobne oblike, še najbolj izstopa padec dohodka žensk z višjo izobrazbo v letih 2012-2016, medtem ko je dohodek pri moških ostajal več ali manj konstanten v teh letih. Od leta 2016 pa se na vseh ravneh vidi pozitiven gospodarski trend. Čeprav se razlike med dohodkom najnižje in najvišje izobraženimi zdijo dokaj visoke, pa Slovenija vseeno spada v evropski vrh po dohodkovni enakosti.
 
 ### Starost
 
@@ -146,10 +146,11 @@ Zgornji graf prikazuje odvisnost razpoložljivega dohodka gospodinjstva od staro
 ```{r zemljevid, echo=FALSE, fig.align='center', warning=FALSE}
 narisi_zemljevid
 ```
-Zemljevidi prikazujejo višino razpoložljivega dohodka gospodinjstev v letu 2008 in 2019 ter njegovo rast v slednjem obdobju glede na posamezno statistično regijo Slovenije (v odstotkih). Najvišji dohodek v obeh letih imajo gospodinjstva v osrednjeslovenski regiji. Leta 2008 je slednji najbolje sledila goriška regija, ki pa je z najnižjo stopnjo rasti v zadnjem desetletju nazadovala. Najvišjo skoraj 50 odstotno rast je doživela pomurska regija, ki pa vseeno ostaja med regijami z najnižjim dohodkom gospodinjstev. Se pa je v obravnavanem obdobju zmanjšala razlika med najbolj in najmanj razvito regijo iz dobrih 2000€ na slabih 1500€ razlike. Višino dohodka v posamezni regiji lahko povežemo z gospodarsko razvitostjo določenega območja, kljub posledičnim višjim stroškom življenja.
+Zemljevidi prikazujejo višino razpoložljivega dohodka gospodinjstev v letih 2008 in 2019 ter njegovo rast v slednjem obdobju glede na posamezno statistično regijo Slovenije (v odstotkih). Najvišji dohodek v obeh letih imajo gospodinjstva v osrednjeslovenski regiji. Leta 2008 je slednji najbolje sledila goriška regija, ki pa je z najnižjo stopnjo rasti v zadnjem desetletju nazadovala. Najvišjo skoraj 50 odstotno rast je doživela pomurska regija, ki pa vseeno ostaja med regijami z najnižjim dohodkom gospodinjstev. Se pa je v obravnavanem obdobju zmanjšala razlika med najbolj in najmanj razvito regijo iz dobrih 2000€ na slabih 1500€ razlike. Višino dohodka v posamezni regiji lahko povežemo z gospodarsko razvitostjo določenega območja, kljub posledičnim višjim stroškom življenja. V obeh letih se vidi razlika v razvitosti med vzhodno in zahodno Slovenijo, ki pa se zmanjšuje.
 
 # Zaključek
 
+Razpoložljivi dohodek gospodinjstev je s svojim vplivom na potrošnjo in naložbe pomemben sestavni del BDP-ja. Ker je v največji meri odvisen od delovnega dohodka (plač), se zato prilagaja določenim ekonomskim situacijam v državi, a je v Sloveniji, tudi v času velike gospodarske krize leta 2008, ohranjal dokaj minimalen padec svoje vrednosti. Pričakovane razlike med spoloma in višino dosežene izobrazbe se s pozitivnim gospodarskim trendom in posledično rastjo dohodka še bolj povečujejo. Ob analizi starostnih skupin pa lahko predvidevamo določene spremembe velikosti gospodinjstva (rojstvo otrok, selitev od doma). Regijsko gledano se z višjo rastjo vzhodnega (gospodarsko manj razvitega) dela Slovenije razlike v dohodku manjšajo. 
 
 
 
