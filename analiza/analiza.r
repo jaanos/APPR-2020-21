@@ -17,6 +17,7 @@ napoved_spol_moski <- bind_rows( (spol_moski),napoved)
 
 graf_napoved_spol_moski <- ggplot(napoved_spol_moski, aes(x=Leto, y=Dohodek)) +
   geom_point() +
+  geom_point(data=napoved, color="red") +
   geom_smooth(method = "lm", formula = y ~ x, col="red") +
   scale_x_continuous(breaks = seq(2008, 2024, 2)) +
   ggtitle("Napoved dohodka - moški")
