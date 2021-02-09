@@ -4,6 +4,13 @@ library(gsubfn)
 library(tidyr)
 library(tmap)
 library(shiny)
+library(readr)
+library(dplyr)
+library(readxl)
+library(openxlsx)
+require(ggplot2)
+require(rvest)
+require(xml2)
 
 options(gsubfn.engine="R")
 

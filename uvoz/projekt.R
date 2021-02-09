@@ -1,8 +1,4 @@
-library(readxl)
-library(openxlsx)
-require(tidyr)
-require(readr)
-require(dplyr)
+
 
 leta <- c(7, 8, 9, 15, 16, 17, 18, 19, 20)
 drzave <- c("SLO"="Slovenija", "ZDA"="United States of America")
@@ -21,10 +17,7 @@ names(zasluzki.po.letih)[1] <- 'Leto'
 
 
 
-require(rvest)
-require(xml2)
 stran <- "https://www.the-numbers.com/market/2019/genre/Adventure"
 
 stran <- stran %>% html_nodes(xpath="//table") %>% .[[2]] %>% html_table()
 
-require(ggplot2)
