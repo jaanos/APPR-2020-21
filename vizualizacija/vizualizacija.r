@@ -2,16 +2,18 @@
 
 # Prenocitve, tipi turisticnih obcin
 
-graf.prenocitve.tipi <- ggplot(prenocitve.tipi) +
+prenocitve.tipi.mio <- prenocitve.tipi %>% mutate(Stevilo = Stevilo / 1000000)
+
+graf.prenocitve.tipi <- ggplot(prenocitve.tipi.mio) +
   aes(x=Leto, y=Stevilo, group=Tip, colour=Tip) +
   geom_point(size=2) +
   geom_line(size=1) +
   labs(title="Število prenočitev po tipu občin",
-       y="Število prenočitev", x="Leto") +
+       y="Število prenočitev (milijoni)", x="Leto") +
   theme_hc() +
   scale_x_continuous(limits=c(2010, 2019), breaks=seq(2010, 2019, 1)) +
-  scale_y_continuous(limits=c(0, 4800000),
-                            breaks=seq(0,4800000,500000)) +
+  scale_y_continuous(limits=c(0, 5),
+                            breaks=seq(0,5, 0.5)) +
   scale_color_discrete(name = "Tip občine") 
   
 
@@ -22,14 +24,16 @@ graf.prenocitve.tipi <- ggplot(prenocitve.tipi) +
 gostje <- vsi.gosti[-c(33:64),] %>%
   filter(Leto %in% c(2000:2019))
 
-diagram.vseh.gostov <- ggplot(gostje) +
+gostje.mio <- gostje %>% mutate(Stevilo = Stevilo / 1000000)
+
+diagram.vseh.gostov <- ggplot(gostje.mio) +
   aes(x=Leto, y=Stevilo, fill=Tip) +
   geom_bar(stat="identity", position = "dodge") +
-  labs(title = "Število vseh gostov", y="Število gostov", x="Leto") +
-  theme_bw() +
+  labs(title = "Število vseh gostov milijoni", y="Število gostov (milijoni)",
+       x="Leto") + theme_bw() +
   scale_x_continuous(limits=c(1999, 2020), breaks=seq(2000, 2020, 2)) +
-  scale_y_continuous(limits=c(0, 4800000),
-                     breaks=seq(0,4800000,500000)) +
+  scale_y_continuous(limits=c(0, 5),
+                     breaks=seq(0,5, 0.5)) +
   scale_color_discrete(name = "Gosti")
 
 
@@ -37,16 +41,17 @@ diagram.vseh.gostov <- ggplot(gostje) +
 # Graf vseh prenocitev
 
 prenocitve <- filter(vse.prenocitve, Tip=="Skupaj",
-                     Leto %in% c(2000:2019))
+                     Leto %in% c(2000:2019)) %>%
+  mutate(Stevilo = Stevilo / 1000000)
 
 graf.vseh.prenocitev <- ggplot(prenocitve) +
   aes(x=Leto, y=Stevilo) +
   geom_point(size=2) +
   geom_line(size=1, colour="blue") +
-  scale_y_continuous(limits=c(5000000,16000000),
-                     breaks=seq(5000000, 16000000, 1000000)) +
+  scale_y_continuous(limits=c(5,16),
+                     breaks=seq(5, 16, 1)) +
   scale_x_continuous(limits=c(2000, 2020), breaks=seq(2000, 2020, 2)) +
-  labs(title="Število vseh prenočitev", y="Število prenočitev") +
+  labs(title="Število vseh prenočitev", y="Število prenočitev (milijoni)") +
   theme_hc()
 
 
@@ -95,7 +100,7 @@ brezOzadja <- theme_bw() +
     plot.background=element_blank()
   ) 
 
-legenda <- paste(as.integer(kvantili[1:4]),as.integer(kvantili[2:5]),sep="-")
+legenda <- c("Prvi kvartil", "Drugi kvartil", "Tretji kvartil", "Četrti kvartil")
 
 zemljevid <- fort_stevilo %>% mutate(kvantil=factor(findInterval(fort_stevilo$Stevilo,
                                        kvantili, all.inside=TRUE))) %>%
@@ -107,16 +112,16 @@ zemljevid <- fort_stevilo %>% mutate(kvantil=factor(findInterval(fort_stevilo$St
   brezOzadja 
  
 
-# Graf rasti stevila prenocitev
+# Graf rasti stevila prenocitvenih zmogljivosti
 
 kapacitete.vrste.obcin$Rast <- 0
 
-zdraviliske.obcine <- subset(kapacitete.vrste.obcin, Tip=="Zdraviliske obcine")
-gorske.obcine <- subset(kapacitete.vrste.obcin, Tip=="Gorske obcine")
-obmorske.obcine <- subset(kapacitete.vrste.obcin, Tip=="Obmorske obcine")
+zdraviliske.obcine <- subset(kapacitete.vrste.obcin, Tip=="Zdraviliške občine")
+gorske.obcine <- subset(kapacitete.vrste.obcin, Tip=="Gorske občine")
+obmorske.obcine <- subset(kapacitete.vrste.obcin, Tip=="Obmorske občine")
 ljubljana <- subset(kapacitete.vrste.obcin, Tip=="Ljubljana")
-mestne.obcine <- subset(kapacitete.vrste.obcin, Tip=="Mestne obcine")
-ostale.obcine <- subset(kapacitete.vrste.obcin, Tip=="Ostale obcine")
+mestne.obcine <- subset(kapacitete.vrste.obcin, Tip=="Mestne občine")
+ostale.obcine <- subset(kapacitete.vrste.obcin, Tip=="Ostale občine")
 
 rast <- function(data){
   k <- ncol(data)
@@ -126,6 +131,7 @@ rast <- function(data){
   data[,k] <- round(data[,k], digits=2)
   return(data)
 }
+
 
 zdraviliske.obcine.rast <- rast(zdraviliske.obcine)
 gorske.obcine.rast <- rast(gorske.obcine)
@@ -138,16 +144,6 @@ kapacitete.vrste.obcin.rast <- data.frame(rbind(zdraviliske.obcine.rast,
   gorske.obcine.rast, obmorske.obcine.rast, ljubljana.rast,
   mestne.obcine.rast, ostale.obcine.rast))
 
-graf.zmogljivosti.tipi <- ggplot(kapacitete.vrste.obcin) +
-  aes(x=Leto, y=Stevilo, group=Tip, colour=Tip) +
-  geom_point(size=2) +
-  geom_line(size=1) +
-  labs(title="Prenočitvene zmogljivosti za posamezen tip turističnih občin",
-       y="Prenočitvena zmogljivost", x="Leto") +
-  scale_x_continuous(limits=c(2010, 2019), breaks=seq(2010, 2019, 3)) +
-  facet_wrap(.~Tip, ncol=2, scales="free") +
-  scale_color_discrete(name = "Tip občine") 
-
 graf.zmogljivosti.rast <- ggplot(kapacitete.vrste.obcin.rast) +
   aes(x=Leto, y=Rast, colour=Tip) +
   geom_point(size=2) +
@@ -157,7 +153,24 @@ graf.zmogljivosti.rast <- ggplot(kapacitete.vrste.obcin.rast) +
        y="Rast prenocitvenih zmogljivosti (%)", x="Leto") +
   scale_x_continuous(limits=c(2010, 2019), breaks=seq(2010, 2019, 2)) +
   scale_y_continuous(limits=c(-20, 20), breaks=seq(-20, 20, 10)) +
+  scale_color_discrete(name = "Tip občine")
+
+
+# Graf prenocitvenih zmogljivosti
+
+kapacitete.vrste.obcin.tisoci <- kapacitete.vrste.obcin %>%
+  mutate(Stevilo = Stevilo / 1000)
+
+graf.zmogljivosti.tipi <- ggplot(kapacitete.vrste.obcin.tisoci) +
+  aes(x=Leto, y=Stevilo, group=Tip, colour=Tip) +
+  geom_point(size=2) +
+  geom_line(size=1) +
+  labs(title="Prenočitvene zmogljivosti za posamezen tip turističnih občin",
+       y="Prenočitvena zmogljivost (tisoči)", x="Leto") +
+  scale_x_continuous(limits=c(2010, 2019), breaks=seq(2010, 2019, 3)) +
+  facet_wrap(.~Tip, ncol=2, scales="free") +
   scale_color_discrete(name = "Tip občine") 
+
 
 
 

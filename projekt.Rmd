@@ -39,7 +39,7 @@ gibanje števila vseh prihodov in prenočitev. Za konec bom analiziral še
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Podatke smo uvozili s statističnega urada Republike Slovenije in v obliki HTML
+Podatke smo uvozili s statističnega urada Republike Slovenije v obliki CSV in v obliki HTML
 z Wikipedije. Podatke imamo v petih razpredelnicah v obliki *tidy data*.
 
 1. `prenocitve.tipi` - podatki o prenočitvah za posamezen tip turističnih občin

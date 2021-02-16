@@ -2,8 +2,8 @@
 sl <- locale("sl", decimal_mark=",", grouping_mark=".")
 
 letnice <- c(2010: 2019)
-tipi <- c("Zdraviliske obcine","Gorske obcine","Obmorske obcine","Ljubljana",
-        "Mestne obcine","Ostale obcine")
+tipi <- c("Zdraviliške občine","Gorske občine","Obmorske občine","Ljubljana",
+        "Mestne občine","Ostale občine")
 
 # Prenocitve po vrstah obcin
 
@@ -56,7 +56,7 @@ vsi.gosti <- function(){
     .[[1]] %>% html_table(fill=TRUE)
   gosti <- gosti[-c(2, 5)] 
   gosti <- gosti[-c(5), ]
-  colnames(gosti) <- c("Leto", "Tuji", "Domaci", "Skupaj")
+  colnames(gosti) <- c("Leto", "Tuji", "Domači", "Skupaj")
   gosti <- pivot_longer(gosti, -Leto,
                              names_to = "Tip", values_to = "Stevilo")
   gosti <- gosti[, c("Tip", "Leto", "Stevilo")]
