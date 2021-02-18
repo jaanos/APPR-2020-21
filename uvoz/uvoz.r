@@ -28,11 +28,11 @@ prenocitve.tipi <- prenocitve.vrste.obcin()
 
 # Prihodi po obcinah
 
-obcine <- function(){
-  uvoz <- read_csv2("podatki/prihodi_po_obcinah.csv",
-                             locale=locale(encoding="Windows-1250"),
-                             col_names=c("Obcina","Drzave", "Stevilo"))
-  uvoz <- uvoz[-c(1,2),-c(2)]
+obcine <- function(datoteka, leto=2019){
+  uvoz <- read_csv2(datoteka, locale=locale(encoding="Windows-1250"),
+                              col_names=c("Obcina", "Leto", "Stevilo"))
+  uvoz <- uvoz[-c(1,2),]
+  uvoz$Leto <- paste(leto)
   uvoz$Stevilo <- parse_number(uvoz$Stevilo) 
   uvoz[is.na(uvoz)] <- 0
   uvoz %>% data.frame()
@@ -42,7 +42,9 @@ obcine <- function(){
   return(uvoz)
 }
 
-obcine_prihodi <- obcine()
+obcine_prihodi_2019 <- obcine("podatki/prihodi_po_obcinah_2019.csv")
+obcine_prihodi_2018 <- obcine("podatki/prihodi_po_obcinah_2018.csv", 2018)
+obcine_prihodi <- rbind(obcine_prihodi_2018, obcine_prihodi_2019)
 
 
 

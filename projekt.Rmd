@@ -49,6 +49,7 @@ z Wikipedije. Podatke imamo v petih razpredelnicah v obliki *tidy data*.
 
 2. `obcine_prihodi` - podatki o prihodih za posamezno občino
   - `Obcina` - spremenljivka: ime občine,
+  - `Leto` - spremenljivka: leto meritve,
   - `Stevilo` - meritev: število prihodov za ustrezno občino.
 
 3. `vsi.gosti` - število vseh gostov v Sloveniji
@@ -100,7 +101,7 @@ imele zdraviliške in mestne občine.
 
 
 ```{r zemljevid, echo=FALSE, fig.align='center'}
-zemljevid
+zemljevid_2019
 ```
 
 Zemljevid prikazuje število vseh prihodov po posameznih občinah v

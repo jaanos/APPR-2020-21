@@ -57,6 +57,8 @@ graf.vseh.prenocitev <- ggplot(prenocitve) +
 
 # Zemljevid obcin
 
+
+zemljevid <- function(datoteka){
 obcine <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/OB.zip", "OB",
                           pot.zemljevida="OB", encoding="Windows-1250")
 proj4string(obcine) <- CRS("+proj=utm +zone=10+datum=WGS84")
@@ -66,13 +68,13 @@ obcine$OB_UIME <- as.factor(obcine$OB_UIME)
 lvls <- levels(obcine$OB_UIME) %>% str_replace("Slov[.]", "Slovenskih") %>%
   sort()
 
-prihodi <- obcine_prihodi$Obcina %>% 
+prihodi <- datoteka$Obcina %>% 
   str_replace(" - ","-") %>%
   str_replace("/.*","") %>%
   str_replace("Slov[.]", "Slovenskih") %>%
   sort() %>% parse_factor()
 
-obcine_prihodi2 <- obcine_prihodi
+obcine_prihodi2 <- datoteka
 obcine_prihodi2$Obcina <- prihodi
 
 zdruzena <- merge(obcine, obcine_prihodi2, by.x="OB_UIME", by.y="Obcina")
@@ -107,10 +109,15 @@ zemljevid <- fort_stevilo %>% mutate(kvantil=factor(findInterval(fort_stevilo$St
   ggplot() + geom_polygon(color="black", size=0.001) + 
   aes(x=long, y=lat, group=group, fill=kvantil) +
   scale_fill_brewer(type = 4, palette="Reds", labels=legenda) +
-  labs(title="Število prihodov po posameznih občinah (2019)") +
+  labs(title="Število prihodov po posameznih občinah") +
   guides(fill=guide_legend(title="Število prihodov")) +
   brezOzadja 
- 
+
+return(zemljevid)
+}
+
+zemljevid_2019 <- zemljevid(obcine_prihodi_2019)
+zemljevid_2018 <- zemljevid(obcine_prihodi_2018)
 
 # Graf rasti stevila prenocitvenih zmogljivosti
 
