@@ -2,10 +2,8 @@
 
 # Prenocitve, tipi turisticnih obcin
 
-prenocitve.tipi.mio <- prenocitve.tipi %>% mutate(Stevilo = Stevilo / 1000000)
-
 graf.prenocitve.tipi <- function(datoteka){
-  zemljevid <- ggplot(datoteka) +
+  graf <- ggplot(datoteka) +
     aes(x=Leto, y=Stevilo, group=Tip, colour=Tip) +
     geom_point(size=2) +
     geom_line(size=1) +
@@ -16,7 +14,7 @@ graf.prenocitve.tipi <- function(datoteka){
     scale_y_continuous(limits=c(0, 5),
                               breaks=seq(0,5, 0.5)) +
     scale_color_discrete(name = "Tip občine")
-  return(zemljevid)
+  return(graf)
 }
   
 graf.prenocitve.tipi <- graf.prenocitve.tipi(prenocitve.tipi.mio)
@@ -88,7 +86,7 @@ zdruzena_fort <- tidy(zdruzena, region="OB_ID")
 
 fort_stevilo <- zdruzena_fort %>% left_join(obcine_podatki, by="id")
 
-kvantili <- quantile(zdruzena$Stevilo, seq(0, 1, 1/4))
+vrednosti <- round((quantile(obcine_prihodi_2018$Stevilo) + quantile(obcine_prihodi_2018$Stevilo)) / c(2, 2, 2, 2, 2))
 
 brezOzadja <- theme_bw() +
   theme(
@@ -107,10 +105,10 @@ brezOzadja <- theme_bw() +
 
 legenda <- c("Prvi kvartil", "Drugi kvartil", "Tretji kvartil", "Četrti kvartil")
 
-zemljevid <- fort_stevilo %>% mutate(kvantil=factor(findInterval(fort_stevilo$Stevilo,
-                                       kvantili, all.inside=TRUE))) %>%
+zemljevid <- fort_stevilo %>% mutate(vrednost=factor(findInterval(fort_stevilo$Stevilo,
+                                       vrednosti, all.inside=TRUE))) %>%
   ggplot() + geom_polygon(color="black", size=0.001) + 
-  aes(x=long, y=lat, group=group, fill=kvantil) +
+  aes(x=long, y=lat, group=group, fill=vrednost) +
   scale_fill_brewer(type = 4, palette="Reds", labels=legenda) +
   labs(title="Število prihodov po posameznih občinah") +
   guides(fill=guide_legend(title="Število prihodov")) +

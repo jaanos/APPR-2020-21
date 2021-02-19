@@ -23,8 +23,7 @@ prenocitve.vrste.obcin <- function(){
 }
 
 prenocitve.tipi <- prenocitve.vrste.obcin()
-
-
+prenocitve.tipi.mio <- prenocitve.tipi %>% mutate(Stevilo = Stevilo / 1000000)
 
 # Prihodi po obcinah
 

@@ -16,6 +16,7 @@ library(tmaptools)
 library(RColorBrewer)
 library(maptools)
 library(broom)
+library(shinythemes)
 
 
 options(gsubfn.engine="R")
