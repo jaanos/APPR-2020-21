@@ -1,4 +1,4 @@
-server <- function(input, output){
+server <- shinyServer(function(input, output){
   output$map <- renderPlot({
     if(input$izbira == "2018"){
       obcine <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/OB.zip", "OB",
@@ -110,4 +110,4 @@ server <- function(input, output){
       return(zemljevid)
     }
   })
-}
+})

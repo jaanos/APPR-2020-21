@@ -12,4 +12,4 @@ ui <- shinyUI(fluidPage(
               mainPanel(plotOutput("map"))))))
 
 
-shinyApp(ui, server)
+
