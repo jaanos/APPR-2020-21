@@ -4,19 +4,22 @@
 
 prenocitve.tipi.mio <- prenocitve.tipi %>% mutate(Stevilo = Stevilo / 1000000)
 
-graf.prenocitve.tipi <- ggplot(prenocitve.tipi.mio) +
-  aes(x=Leto, y=Stevilo, group=Tip, colour=Tip) +
-  geom_point(size=2) +
-  geom_line(size=1) +
-  labs(title="Število prenočitev po tipu občin",
-       y="Število prenočitev (milijoni)", x="Leto") +
-  theme_hc() +
-  scale_x_continuous(limits=c(2010, 2019), breaks=seq(2010, 2019, 1)) +
-  scale_y_continuous(limits=c(0, 5),
-                            breaks=seq(0,5, 0.5)) +
-  scale_color_discrete(name = "Tip občine") 
+graf.prenocitve.tipi <- function(datoteka){
+  zemljevid <- ggplot(datoteka) +
+    aes(x=Leto, y=Stevilo, group=Tip, colour=Tip) +
+    geom_point(size=2) +
+    geom_line(size=1) +
+    labs(title="Število prenočitev po tipu občin",
+        y="Število prenočitev (milijoni)", x="Leto") +
+    theme_hc() +
+    scale_x_continuous(limits=c(2010, 2019), breaks=seq(2010, 2019, 1)) +
+    scale_y_continuous(limits=c(0, 5),
+                              breaks=seq(0,5, 0.5)) +
+    scale_color_discrete(name = "Tip občine")
+  return(zemljevid)
+}
   
-
+graf.prenocitve.tipi <- graf.prenocitve.tipi(prenocitve.tipi.mio)
 
 
 # Stolpicni diagram vseh gostov
