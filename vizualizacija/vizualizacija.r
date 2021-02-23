@@ -22,8 +22,8 @@ graf.prenocitve.tipi <- graf.prenocitve.tipi(prenocitve.tipi.mio)
 
 # Stolpicni diagram vseh gostov
 
-gostje <- vsi.gosti[-c(33:64),] %>%
-  filter(Leto %in% c(2000:2019))
+gostje <- vsi.gosti[-c(34:66),] %>%
+  filter(Leto %in% c(2000:2020))
 
 gostje.mio <- gostje %>% mutate(Stevilo = Stevilo / 1000000)
 
@@ -32,7 +32,7 @@ diagram.vseh.gostov <- ggplot(gostje.mio) +
   geom_bar(stat="identity", position = "dodge") +
   labs(title = "Število vseh gostov milijoni", y="Število gostov (milijoni)",
        x="Leto") + theme_bw() +
-  scale_x_continuous(limits=c(1999, 2020), breaks=seq(2000, 2020, 2)) +
+  scale_x_continuous(limits=c(1999, 2021), breaks=seq(2000, 2020, 2)) +
   scale_y_continuous(limits=c(0, 5),
                      breaks=seq(0,5, 0.5)) +
   scale_color_discrete(name = "Gosti")
@@ -42,7 +42,7 @@ diagram.vseh.gostov <- ggplot(gostje.mio) +
 # Graf vseh prenocitev
 
 prenocitve <- filter(vse.prenocitve, Tip=="Skupaj",
-                     Leto %in% c(2000:2019)) %>%
+                     Leto %in% c(2000:2020)) %>%
   mutate(Stevilo = Stevilo / 1000000)
 
 graf.vseh.prenocitev <- ggplot(prenocitve) +

@@ -1,4 +1,5 @@
-ui <- shinyUI(fluidPage(
+
+shinyUI(fluidPage(
   theme=shinytheme("lumen"),
   headerPanel("Število prihodov po posameznih občinah"),
   fluidRow(sidebarLayout(sidebarPanel(selectInput("izbira",

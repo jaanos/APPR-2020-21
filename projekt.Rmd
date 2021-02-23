@@ -89,14 +89,49 @@ in 2009, najverjetneje zaradi gospodarske krize.
 
 
 
-```{r graf.prenocitve.tipi, echo=FALSE, fig.align='center'}
-graf.prenocitve.tipi
+```{r, echo=FALSE, fig.align='center'}
+shinyApp(ui <- fluidPage(
+  theme=shinytheme("lumen"),
+  headerPanel("Število prenočitev po tipu turističnih občin"),
+  fluidRow(sidebarLayout(sidebarPanel(checkboxGroupInput("izbira", label =strong("Tip občine"),
+                                        choices=c("Zdraviliške"="Zdraviliške obcine",
+                                                  "Gorske"="Gorske obcine" ,
+                                                    "Obmorske"="Obmorske obcine",
+                                                  "Ljubljana"="Ljubljana",
+                                                    "Mestne"="Mestne obcine",
+                                                  "Ostale"="Ostale obcine"),
+                                        selected=c("Zdraviliške obcine",
+                                                   "Gorske obcine",
+                                                   "Obmorske obcine",
+                                                   "Ljubljana",
+                                                   "Mestne obcine",
+                                                   "Ostale obcine"))),
+                                        mainPanel(plotOutput("plot"))))),
+
+server<- function(input,output){
+  output$plot <- renderPlot({
+    datoteka <- prenocitve.tipi.mio[prenocitve.tipi.mio$Tip %in% input$izbira,]
+    
+    g <- ggplot(datoteka) +
+          aes(x=Leto, y=Stevilo, group=Tip, colour=Tip) +
+          geom_point(size=2) +
+          geom_line(size=1) +
+          labs(y="Število prenočitev (milijoni)", x="Leto") +
+          theme_hc() +
+          scale_x_continuous(limits=c(2010, 2019), breaks=seq(2010, 2019, 1)) +
+          scale_y_continuous(limits=c(0, 5),
+                            breaks=seq(0,5, 0.5)) +
+          scale_color_discrete(name = "Tip turistične občine")
+    return(g)
+  })
+},
+options = list(width="100%", height=500))
 ```
 
-Iz grafa lahko razberemo kako so se je v zadnjem desetletju gibalo
+V aplikaciji si lahko pogledamo kako se je v zadnjem desetletju gibalo
 število vseh prenočitev turistov glede na posamezen tip turističnih občin v
 Sloveniji. Največjo rast števila prenočitev opazimo v gorskih občinah in 
-v Ljubljani. Najmanjšo rast števila prenočitev v preteklem desetletju so
+v Ljubljani. Najmanjšo rast števila prenočitev v preteklem desetletju pa so
 imele zdraviliške in mestne občine.
 
 
@@ -146,5 +181,24 @@ Na grafih so prikazane letne odstotne rasti prenočitvenih zmogljivosti
 za posamezen tip turističnih občin. Najvišja letna rast prenočitvenih 
 zmogljivosti je nastopila v mestnih občinah leta 2012, najvišji
 padec pa v Ljubljani leta 2019.
+
+
+
+
+***
+
+# Napredna analiza podatkov
+
+```{r analiza, echo=FALSE, message=FALSE, warning=FALSE}
+source("analiza/analiza.r", encoding = "UTF-8")
+```
+
+```{r graf_k, echo=FALSE, fig.align='center'}
+graf_k
+```
+
+```{r graf_r, echo=FALSE, fig.align='center'}
+graf_r
+```
 
 
