@@ -30,7 +30,7 @@ gostje.mio <- gostje %>% mutate(Stevilo = Stevilo / 1000000)
 diagram.vseh.gostov <- ggplot(gostje.mio) +
   aes(x=Leto, y=Stevilo, fill=Tip) +
   geom_bar(stat="identity", position = "dodge") +
-  labs(title = "Število vseh gostov milijoni", y="Število gostov (milijoni)",
+  labs(title = "Število vseh gostov (milijoni)", y="Število gostov (milijoni)",
        x="Leto") + theme_bw() +
   scale_x_continuous(limits=c(1999, 2021), breaks=seq(2000, 2020, 2)) +
   scale_y_continuous(limits=c(0, 5),
