@@ -12,3 +12,5 @@
 #    "numDeriv",
 #    "rootSolve"
 #))
+
+install.packages("rvest", repos="https://cloud.r-project.org")
