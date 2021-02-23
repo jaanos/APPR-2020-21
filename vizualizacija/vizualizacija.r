@@ -103,7 +103,7 @@ brezOzadja <- theme_bw() +
     plot.background=element_blank()
   ) 
 
-legenda <- c("Prvi kvartil", "Drugi kvartil", "Tretji kvartil", "Četrti kvartil")
+legenda <- c("Prvi skupina", "Druga skupina", "Tretja skupina", "Četrta skupina")
 
 zemljevid <- fort_stevilo %>% mutate(vrednost=factor(findInterval(fort_stevilo$Stevilo,
                                        vrednosti, all.inside=TRUE))) %>%

@@ -40,8 +40,8 @@ gibanje števila vseh prihodov in prenočitev. Za konec bom analiziral še
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Podatke smo uvozili s statističnega urada Republike Slovenije v obliki CSV in v obliki HTML
-z Wikipedije. Podatke imamo v petih razpredelnicah v obliki *tidy data*.
+Podatke smo uvozili s statističnega urada Republike Slovenije v obliki CSV in 
+z Wikipedije v obliki HTML. Podatke imamo v petih razpredelnicah v obliki *tidy data*.
 
 1. `prenocitve.tipi` - podatki o prenočitvah za posamezen tip turističnih občin
   - `Tip` - spremenljivka: tip turistične občine,
@@ -83,9 +83,11 @@ graf.vseh.prenocitev
 ```
 
 Graf prikazuje število vseh prenočitev turistov v Sloveniji.
-Opazimo, da v zadnjih dveh destletjih število vseh prenočitev
-turistov stabilno narašča. Padec se je zgodil le med letoma 2008
-in 2009, najverjetneje zaradi gospodarske krize.
+Opazimo, da je število vseh prenočitev do leta 2019 stabilno naraščalo.
+Do odstopanja je prišlo le med letoma 2008 in 2009, najverjetneje zaradi gospodarske
+krize. Leta 2020 je slovenski turizem, zaradi virusa SARS-CoV-2, padel v hudo krizo. Na
+grafu lahko opazimo, da je število vseh prenočitev leta 2020 padlo za skoraj 50%,
+glede na prejšnje leto.
 
 
 
@@ -136,14 +138,14 @@ imele zdraviliške in mestne občine.
 
 
 
-```{r shiny, echo=FALSE, fig.align='center'}
+```{r shiny,echo=FALSE, fig.align='center'}
 shinyAppDir("shiny", options=list(width="100%", height=500))
 ```
 
 Aplikacija prikazuje število vseh prihodov po posameznih občinah v
-Sloveniji za leto 2019 in leto 2018. Opazimo, da so največ prihodov zabeležile
+Sloveniji za leto 2018 in leto 2019. Opazimo, da so največ prihodov zabeležile
 občine na območju Triglavskega narodnega parka, Obalno-kraške regije in
-Osrednje slovenske regije ter posamezne občine v preostalih delih Slovenije.
+Osrednjeslovenske regije ter posamezne občine v preostalih delih Slovenije.
 Prav tako opazimo, da ni bistvene razlike med prihodi po posameznih občinah za
 obe leti. Število prihodov se je opazno povečalo le v nekaterih občinah,
 npr. Gorje in Brežice, najdemo pa tudi občine v katerih se je število
@@ -156,9 +158,12 @@ diagram.vseh.gostov
 ```
 
 Na grafu je prikazana demografska sestava gostov v Sloveniji. Opazimo,
-da je v zadnjih letih tujih gostov precej več kot domačih. Povečujeta se
-obe števili, vendar število tujih hitreje kot število domačih. Število tujih 
-gostov se je povečevalo vsa leta, razen med gospodarsko krizo leta 2009.
+da je v zadnjih letih tujih gostov precej več kot domačih. Do leta 2019 sta se
+povečevali obe števili, vendar število tujih turistov hitreje kot število domačih.
+Leta 2020 opazimo močan upad števila tujih gostov zaradi koronavirusa in sicer za skoraj 80%, zanimivo pa je, da se je število domačih gostov povečalo, najverjetneje
+zaradi fiskalne politike vlade v času gospodarske krize zaradi koronavirusa. Leta
+2020 je bilo število domačih gostov, prvič v tem tisočletju, večje od števila
+tujih gostov.
 
 
 
@@ -179,9 +184,8 @@ graf.zmogljivosti.rast
 
 Na grafih so prikazane letne odstotne rasti prenočitvenih zmogljivosti
 za posamezen tip turističnih občin. Najvišja letna rast prenočitvenih 
-zmogljivosti je nastopila v mestnih občinah leta 2012, najvišji
-padec pa v Ljubljani leta 2019.
-
+zmogljivosti je nastopila v mestnih občinah med letoma 2011 in 2012, najvišji
+padec pa v Ljubljani med letoma 2018 in 2019.
 
 
 
@@ -197,8 +201,37 @@ source("analiza/analiza.r", encoding = "UTF-8")
 graf_k
 ```
 
+Na grafu si lahko pogledamo kako so razvrščene turistične občine po metodi voditeljev.
+Če pogledamo še graf števila prenočitev po posameznih občinah in graf prenočitvenih
+zmogljivosti za posamezen tip turističnih občin, opazimo, da metoda v zgornjo skupino
+razvrsti samo gorske občine, v spodnjo skupino obmorske in zdraviliške občine, v srednjo
+pa mestne in ostale občine. Model Ljubljano razvrsti v spodnjo in srednjo skupino, odvisno 
+od leta meritve.
+
+
+
 ```{r graf_r, echo=FALSE, fig.align='center'}
 graf_r
 ```
+
+Graf prikazuje napoved gibanja števila vseh prenočitev za leta 2021, 2022 in 2023.
+Opazimo, da model za naslednja tri leta napoveduje rast števila vseh prenocitev,
+po hudem upadu, ki se je zgodil leta 2020. Na grafu napoved števila prenočitev
+prikazujejo rdeče točke.
+
+
+
+***
+
+# Zaključek
+Na podlagi pridobljenih podatkov in njihove analize lahko ocenimo, da je bil
+slovenski turizem do leta 2019 v trendu rasti. Leta 2020 je turizem,
+zaradi koronavirusa, zašel v hudo krizo in doživel najhujši upad števila vseh
+prenočitev v tem stoletju. Kljub temu lahko ocenimo, da si bo slovenski turizem
+v prihodnosti opomogel in nadaljeval trend rasti, saj je zmožnost za razvoj turizma,
+zaradi geografskih značilnosti Slovenije, visoka. Našo oceno, da si bo turizem v prihodnosti
+opomogel bi lahko podkrepili z modelom iz poglavja Napredna analiza podatkov, ki 
+napoveduje rast števila vseh prenočitev za naslednja tri leta.
+
 
 

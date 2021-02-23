@@ -45,7 +45,7 @@ shinyServer(function(input, output){
           plot.background=element_blank()
         ) 
       
-      legenda <- c("Prvi kvartil", "Drugi kvartil", "Tretji kvartil", "Četrti kvartil")
+      legenda <- c("Prva skupina", "Druga skupina", "Tretja skupina", "Četrta skupina")
       
       zemljevid <- fort_stevilo %>% mutate(vrednost=factor(findInterval(fort_stevilo$Stevilo,
                                                                        vrednosti, all.inside=TRUE))) %>%
@@ -99,7 +99,7 @@ shinyServer(function(input, output){
           plot.background=element_blank()
         ) 
       
-      legenda <- c("Prvi kvartil", "Drugi kvartil", "Tretji kvartil", "Četrti kvartil")
+      legenda <- c("Prva skupina", "Druga skupina", "Tretja skupina", "Četrta skupina")
       
       zemljevid <- fort_stevilo %>% mutate(vrednost=factor(findInterval(fort_stevilo$Stevilo,
                                                                       vrednosti, all.inside=TRUE))) %>%

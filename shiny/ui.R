@@ -5,11 +5,11 @@ shinyUI(fluidPage(
   fluidRow(sidebarLayout(sidebarPanel(selectInput("izbira",
               label=strong("Izbira leta:"), 
               choices=c("2018","2019"),
-              selected="2019"),
-              p("1.kvartil: 0-249 prihodov"),
-              p("2.kvartil: 250-2297 prihodov"),
-              p("3.kvartil: 2298-13261 prihodov"),
-              p("2.kvartil: 13262-1022862 prihodov")),
+              selected="2018"),
+              p("1.skupina: 0-249 prihodov"),
+              p("2.skupina: 250-2297 prihodov"),
+              p("3.skupina: 2298-13261 prihodov"),
+              p("4.skupina: 13262-1022862 prihodov")),
               mainPanel(plotOutput("map"))))))
 
 
