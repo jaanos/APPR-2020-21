@@ -39,7 +39,7 @@ napoved_dobicek <- prihodnost_dobicek%>%
 premica_dobicek<-ggplot(morningstar,aes(x=Leto,y=Neto_dobicek_na_delnico,
                                         color="Dobiček na delnico"))+
   geom_point(aes(color="Točne vrdednosti"))+
-  geom_smooth(method = lm,formula = y~x,se=F)+
+  geom_smooth(method = lm,formula = y~x,se=F,fullrange=TRUE)+
   geom_point(data = napoved_dobicek,aes(x=Leto,y=Neto_dobicek_na_delnico,
                                         color="Napoved dobička za naprej"),size=3)+
   scale_colour_manual(name="LEGENDA",values=c("red","green","black"))+
@@ -64,7 +64,7 @@ reg_pov <- function(prihodnost_dobicek_na_delnico,vrsta_modela){
   premica_odvisnost<-ggplot(yah.mor,aes(x=Neto_dobicek_na_delnico,y=Najvisja_cena,
                                         color="Približek za naše podatke"))+
     geom_point(aes(color="Točne vrednosti"))+
-    geom_smooth(method = lm,formula = y~x,se=F)+
+    geom_smooth(method = lm,formula = y~x,se=F,fullrange=TRUE)+
     geom_point(data = napoved_povezava1,
              aes(x=Neto_dobicek_na_delnico,y=Najvisja_cena,
                  color="Napoved cene preko dobička"),size=3)+
@@ -98,7 +98,7 @@ napoved_opt<- prihodnost_opt%>%mutate(Najvisja_cena=predict(model_opt,.))
 premica_odvisnost_opt <- ggplot(filter(cena.earning,skupina==1),
                                 aes(x=Neto_dobicek_na_delnico,y=Najvisja_cena,
                                     color="Izboljšan približek"))+
-  geom_smooth(method = lm,formula = y~x,se=F)+
+  geom_smooth(method = lm,formula = y~x,se=F,fullrange=TRUE)+
   geom_point(aes(color="Točne vrdednosti"))+
   geom_point(data = napoved_opt,
              aes(x=Neto_dobicek_na_delnico,y=Najvisja_cena,

@@ -65,7 +65,7 @@ graf_tortni_SP <- ggplot(priprava1_SP) +
   geom_bar(stat="identity",width=1)+
   coord_polar("y",start = 0)  +
   geom_text(aes(y=g, label=paste0(round(delezSP, 2), "%")),
-            x=1.3, color="white", size=4) +
+            x=1.3, color="red", size=4) +
   labs(title="Povprečna profitna marža za podjetja v S&P500",fill="LEGENDA")+
   scale_fill_manual(values = c("#00FFFF","#0000FF"))+
   theme_void()+

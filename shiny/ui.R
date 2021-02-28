@@ -1,7 +1,8 @@
 shinyUI(
   fluidPage(
     theme = shinytheme("darkly"),
-    navbarPage("AAPLE",
+    tabsetPanel(
+      tabPanel("AAPLE",
                         titlePanel(title=h1("Napoved dobička na delnico ter cene za podjetje Apple",
                                             align="center",style="margin:80px")),
                         sidebarLayout(
@@ -23,6 +24,7 @@ shinyUI(
                             fluidRow(plotOutput(outputId = "drugigraf",width="80%",height="400px"),
                                      align = "center",style="padding:40px 0px 40px 0px")),
                            )
+      )
     )
   )
 )   

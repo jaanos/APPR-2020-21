@@ -191,7 +191,7 @@ Spodaj imamo simulacijo dobička na delnico v prihodnje, kjer lahko izberemo pol
 Drugi graf v simulaciji predstavlja povezavo med dobičkom in ceno delnice. Za napoved cene v izbranem letu se uporabi izračunani dobiček iz prejšnjega grafa. Na izbiro pa imamo ali želimo uporabiti optimizirane podatke (po metodi gručenja) ali osnovne.
 
 ```{r shiny, echo=FALSE}
-shinyAppDir("shiny", options=list(width="100%", height=600))
+shinyAppDir("shiny", options=list(width="100%", height=1200))
 ```
 
 ***
