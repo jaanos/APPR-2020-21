@@ -7,7 +7,7 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
 ## Analiza podjetja Apple v primerjavi s S&P500
 
-# Osnovna ideja
+### Osnovna ideja
 
 Za projektno nalogo bom analiziral podatke podjetja Apple in jih primerjal s borznim indeksom S&P 500.
 Pogledal bom rast prodaje,neto dobička,knjigovodske vrednosti in dividend od S$P 500 in podjetja Appla v zadnjih 10tih letih,
@@ -16,7 +16,7 @@ Nato bom primerjal še koeficenta P/E (cena/dobiček na delnico),P/B (cena/knjig
 od podjetja Appla in S&P500 za zadnjih 10 let. Na zemljevidu sveta bom tudi prikazal prodajo podjetja Apple po svetu.
 
 
-# Tabele
+### Tabele
 
 1. [podatki_prodaja_svet](https://www.sec.gov/Archives/edgar/data/320193/000032019319000119/a10-k20199282019.htm#sDBCC0D7FC5D05F49A572F9AA0627E992)- podatki o prodaji in dobičku podjetja Apple po svetu
 * `Podatki` - spremenljivka: vrsta meritve (Prodaja, dobiček pred davkom)
