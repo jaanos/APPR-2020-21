@@ -111,6 +111,9 @@ Za zagon tega vzorca je potrebno namestiti sledeče pakete za R:
 * `maptools` - za delo z zemljevidi
 * `tmap` - za izrisovanje zemljevidov
 * `extrafont` - za pravilen prikaz šumnikov (neobvezno)
+* `shinythemes` - za obliko shiny aplikacije
+* `Quandl` - za podatke iz qandle
+* `quantmod` - za podatke iz yahoo-finance
 
 ## Binder
 
