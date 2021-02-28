@@ -15,6 +15,8 @@ library(Quandl)
 library(ggplot2)
 library(shiny)
 library(shinythemes)
+library(mgcv)
+
 options(gsubfn.engine="R")
 
 # Uvozimo funkcije za pobiranje in uvoz zemljevida.

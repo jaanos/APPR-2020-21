@@ -4,10 +4,10 @@
 #PE GRAF
 
 pe_graf <-right_join(podatki_quandl_pe,PE) %>%  ggplot() + 
-  geom_line(aes(x=Leto,y=P.E_SP500,colour="SP 500"),size=1) + 
-  geom_line(aes(x=Leto,y=PE,colour="Najvišji P/E Applove delnice"),size=1) +
+  geom_line(aes(x=Leto,y=P.E_SP500,colour="S&P 500"),size=1) + 
+  geom_line(aes(x=Leto,y=PE,colour="Apple"),size=1) +
   scale_colour_manual(name="LEGENDA",values=c("red","skyblue"))+
-  labs(title="Primerjava P/E")+
+  labs(title="Primerjava P/E med delnico Appla in S&P 500")+
   scale_x_continuous(name = "Leto", breaks = seq(2011,2020,1))+
   scale_y_continuous(name = "P/E", breaks = seq(0,50,2))+
   theme(legend.position = c(0.3, 0.8),
@@ -20,12 +20,12 @@ pe_graf <-right_join(podatki_quandl_pe,PE) %>%  ggplot() +
 colnames(Rast_knjigovodske_vrednosti) <- c("Leto","Rast1")
 rast_knjigovodske_graf <- right_join(Rast_knjigovodske_vrednosti,Rast_SP_knjigovodske_vrednosti)%>%
   filter(Leto>2011)%>%
-  ggplot() + geom_line(aes(x=Leto,y=Rast1,colour="Rast Applove kjigovodkse vrednosti"),size=1) + 
-  geom_line(aes(x=Leto,y=Rast,colour="Rast knjigovodske vrednosti SP 500"),size=1) +
+  ggplot() + geom_line(aes(x=Leto,y=Rast1,colour="Apple"),size=1) + 
+  geom_line(aes(x=Leto,y=Rast,colour="S&P 500"),size=1) +
   scale_colour_manual(name="LEGENDA",values=c("red","skyblue"))+
-  labs(title="Primerjava rasti knjigovodkse vrednosti Appla in SP 500")+
+  labs(title="Primerjava rasti knjigovodske vrednosti Appla in SP 500")+
   scale_x_continuous(name = "Leto", breaks = seq(2012,2020,1))+
-  scale_y_continuous(name = "Rast(%)", breaks = seq(-30,50,5))+
+  scale_y_continuous(name = "Rast (%)", breaks = seq(-30,50,5))+
   theme(legend.position = c(0.4, 0.8),
         panel.grid.minor = element_blank(),
         plot.title = element_text(hjust = 0.5))
@@ -66,7 +66,7 @@ graf_tortni_SP <- ggplot(priprava1_SP) +
   coord_polar("y",start = 0)  +
   geom_text(aes(y=g, label=paste0(round(delezSP, 2), "%")),
             x=1.3, color="white", size=4) +
-  labs(title="Povprečna profitna marža za podjetja v SP500",fill="LEGENDA")+
+  labs(title="Povprečna profitna marža za podjetja v S&P500",fill="LEGENDA")+
   scale_fill_manual(values = c("#00FFFF","#0000FF"))+
   theme_void()+
   theme(plot.title = element_text(hjust = 0.5))
@@ -100,7 +100,7 @@ zemljevid <- ggplot(svet1,aes(x=long,y=lat,group=group, fill=Vrednost))+
   theme(axis.title=element_blank(), axis.text=element_blank(), 
         axis.ticks=element_blank(), panel.background = element_blank()) +
   scale_fill_gradient(low = "#330000", high="#FF0033",limits=c(0,120000)) +
-  labs(fill="Prodaja v USD")
+  labs(fill="Prodaja v milijonih USD")
 
 
 

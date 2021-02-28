@@ -1,6 +1,6 @@
 ---
-title: "Poročilo pri predmetu Analiza podatkov s programom R"
-author: "Študent FMF"
+title: "Primerjava podjetja Apple in S&P 500"
+author: "Ian Spiller"
 output:
   html_document: default
   pdf_document:
@@ -10,10 +10,11 @@ output:
 runtime: shiny
 ---
 
+
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
 
-# Uvoz vseh potrebnih knjižnic
+#uvoz knjiznic
 source("lib/libraries.r", encoding="UTF-8")
 ```
 
@@ -24,61 +25,142 @@ source("lib/rstudio.r", encoding="UTF-8")
 
 # Izbira teme
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
+V projektni nalogi bom primerjal podjetje Apple oziroma njihovo delnico s S&P 500 (indeks 500 največjih Ameriških podjetji). Pogledal bom dva najbolj poznana koeficenta P/E in P/B, rast prodaje, dobička, dividende, knjigovodske vrednosti ter profitno maržo. Koeficient P/E predstavlja razmerje med ceno delnice in neto dobičkom na delnico, P/B pa razmerje cene in knjigovodske vrednosti delnice. Profitna marža je vrednost izražena v %, ki predstavlja delež dobička v celotni prodaji. Za anlizo podjetja Apple sem se odločil, saj je eno največjih Ameriških podjetij in je vsem dobro poznano. Razlog, da ga primerjam s S&P 500 je, da S&P 500 v nekem smislu predstavlja Ameriško ekonomijo oziroma stanje v njej, saj zajema, kot že povedano, 500 največjih Ameriških podjetij. V S&P 500 je seveda vključen tudi Apple, vendar mislim, da je primerjava vseeno ustrezna, saj podjetje Apple predstavlja dovolj majhen delež znotraj S&P 500.   
 
-![](slike/grb.png)
+
+
+<center>
+![](slike/slika_borza.jpg)
+
 
 ***
 
 # Obdelava, uvoz in čiščenje podatkov
 
 ```{r uvoz}
-source("uvoz/uvoz.r", encoding="UTF-8")
+source("uvoz/uvoz.r",encoding="UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
+Podatke za analizo sem uvozil iz SEC-a preko HTML-ja, Morningstarja in Datahuba preko CSV-ja, iz Yahoo finance in Qandla s pomočjo vgrajenih knjižnic. Nato sem iz dobljenih podatkov naredil potrebne izračune.
 
-1. `druzine` - podatki o družinah za vsako občino
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `velikost.druzine` - spremenljivka: število otrok v družini (število: 1, 2, 3 ali 4, kjer zadnja vrednost pomeni 4 ali več),
-  - `stevilo.druzin` - meritev: število družin z ustreznim številom otrok v ustrezni občini (število).
+1. [podatki_prodaja_svet](https://www.sec.gov/Archives/edgar/data/320193/000032019319000119/a10-k20199282019.htm#sDBCC0D7FC5D05F49A572F9AA0627E992)- podatki o prodaji in dobičku podjetja Apple po svetu
+- `Podatki` - spremenljivka: vrsta meritve (Prodaja, dobiček pred davkom)
+- `Regija` - spremenljivka: kontinent
+- `Leto` - spremenljivka: leto meritve (število: 2017-2019)
+- `Vrednost` - meritev: vrednost prodaje in dobička pred obračunanim davkom v miljonih USD (število)
 
-2. `obcine` - podatki o občinah
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `povrsina` - meritev: površina občine v km$^2$ (število),
-  - `prebivalci` - meritev: prebivalstvo občine (število),
-  - `gostota` - meritev: število prebivalcev na km$^2$ (število),
-  - `naselja` - meritev: število naselij v občini (število),
-  - `ustanovitev` - meritev: leto ustanovitve občine (število),
-  - `pokrajina` - meritev: pokrajina, ki ji občina pripada (neurejen faktor),
-  - `regija` - meritev: regija, ki ji občina pripada (neurejen faktor),
-  - `odcepitev` - meritev: podatki o občinah, od katerih se je občina odcepila (besedilo).
+2. [morningstar](https://financials.morningstar.com/ratios/r.html?t=0P000000GY&culture=en&platform=sal)
+- `Leto` - spremenljivka: leto meritve (število: 2011-2020)
+- `Prodaja` - meritev: prodaja v milijonih USD (število)
+- `Neto_dobicek` - meritev: dobiček po obračunanem davku v milijonih USD (število)
+- `Neto_dobicek_na_delnico` - meritev: dobiček po obračunanem davku na posamezno delnico v USD (število)
+- `Dividenda` - meritev: dividenda v USD (število)
+- `Knjigovodska_vrednost`: knjigovodska vrednost posamezne delnice v USD (število)
 
-**Opomba**: da bi razpredelnica `obcine` res bila v obliki *tidy data*, bi morali odstraniti stolpec `gostota` (saj je izpeljan iz stolpcev `povrsina` in `prebivalci`), podatke o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s stolpcem `odcepitev`.
+3. [yahoo](https://finance.yahoo.com/quote/AAPL/history/) - za uvoz podatkov sem uporabil knjižnico quantmod 
+- `Najvisja_cena` - meritev: najvišja cena Applove delnice decembra vsako leto v USD (število)
+- `Leto` - spremenljivka: leto meritve (število: 2011-2020)
 
-Spodnji graf prikazuje porazdelitev števila naselij v občinah.
+4. [podatki_quandl_pe](https://www.quandl.com/data/MULTPL/SHILLER_PE_RATIO_MONTH-Shiller-PE-Ratio-by-Month) - za uvoz sem uporabil knjižnico Quandl
+- `Leto` - spremenljivka: leto meritve (število: 2011-2020)
+- `P.E_SP500` - meritev: P/E koeficient indeksa S&P 500 (število)
 
-```{r histogram, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-ggplot(obcine, aes(x=naselja)) + geom_histogram() +
-  ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
-```
+5. [podatki_quandl_pb](https://www.quandl.com/data/MULTPL/SP500_PBV_RATIO_YEAR-S-P-500-Price-to-Book-Value-by-Year) - za uvoz sem uporabil knjižnico Quandl
+- `Leto` - spremenljivka: leto meritve (število: 2011-2020)
+- `P.B_SP500` - meritev: P/B koeficient indeksa S&P 500 (število)
+
+6. [podatki_quandl_prodaja](https://www.quandl.com/data/MULTPL/SP500_SALES_YEAR-S-P-500-Sales-by-Year) - za uvoz sem uporabil knjižnico Quandl
+- `Leto` - spremenljivka: leto meritve (število: 2011-2020)
+- `Prodaja_SP500` - meritev: prodaja vseh podjetji v S&P 500 v milijardah USD (število)
+
+7. [podatki_quandl_earning](https://www.quandl.com/data/MULTPL/SP500_EARNINGS_YEAR-S-P-500-Earnings-by-Year) - za uvoz sem uporabil knjižnico Quandl
+- `Leto` - spremenljivka: leto meritve (število: 2011-2020)
+- `Earning_SP500` - meritev: dobiček po davkih vseh podjetji v S&P 500 v milijardah USD (število)
+
+8. [podatki_quandl_bv](https://www.quandl.com/data/MULTPL/SP500_BVPS_YEAR-S-P-500-Book-Value-Per-Share-by-Year) - za uvoz sem uporabil knjižnico Quandl
+- `Leto` - spremenljivka: leto meritve (število: 2011-2020)
+- `BV_SP500` - meritev: knjigovodska vrednost "delnice" indeksa S&P 500 v USD (vsota vseh knjigovodskih vrednosti na delnico podjetji v S&P 500) (število) 
+
+9. [podatki_quandl_dividenda](https://www.quandl.com/data/MULTPL/SP500_DIV_YEAR-S-P-500-Dividend-by-Year) - za uvoz sem uporabil knjižnico Quandl
+- `Leto` - spremenljivka: leto meritve (število: 2011-2020)
+- `Dividenda_SP500` - meritev: vsota vseh dividend v S&P 500 (število)
+
+10. [kontinenti](https://datahub.io/JohnSnowLabs/country-and-continent-codes-list)
+- `Continent_Name` - spremenljivka: ime kontinenta (znaki)
+- `Country_Name` - spremenljivka: ime države (znaki)
+- `GU_A3` - spremenljivka: kratica države (znaki)
+
+Ko sem uvozil vse zgoraj navedene podatke, sem izračunal še P/E in P/B za delnico Appla.
+
+11. Tabela PE
+- `Leto` - spremenljivka: leto meritve (število: 2011-2020)
+- `PE_povprecen` - meritev: vrednost koeficienta P/E izračunana s najvišjo ceno (število)
+
+12. Tabela PB
+- `Leto` - spremenljivka: leto meritve (število: 2011-2020)
+- `PE_povprecen` - meritev: vrednost koeficienta P/B izračunana s najvišjo ceno (število)
+
+Nato sem definiral funkcijo `rast` in izračunal tudi rasti prodaje, dobička, dividende in knjigovodske vredosti na delnico za podjetje Apple in S&P 500. Vse izračunane tabele so oblike:
+
+- `Leto` - spremenljivka: leto meritve (število: 2011-2020)
+
+- `Rast` - meritev: izračun rasti v % (število)
+
+Imena tabel so:
+
+- Rast_prodaje
+- Rast_dobicka
+- Rast_dividende
+- Rast_knjigovodske_vrednosti
+- Rast_SP_prodaje
+- Rast_SP_dobicka
+- Rast_SP_dividende
+- Rast_SP_knjigovodske_vrednosti
 
 ***
 
 # Analiza in vizualizacija podatkov
 
-```{r vizualizacija, results='hide'}
+```{r vizualizacija, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 ```
+Po analizi vseh podatkov sem izbral štiri najbolj zanimive in jih prikazal v spodnjih grafih. Grafi prikazujejo primerjavo P/E-ja, rasti knjigovodske vrednosti in profitne marže podjetja Apple glede na S&P 500. Zadnji graf predstavlja prodajo podjetja Apple po svetu.
 
-Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
-
-```{r zemljevid, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
-  tm_polygons("povprecje", title="Povprečje") +
-  tm_layout(title="Povprečno število otrok v družini")
+```{r graf1, echo=FALSE, fig.align='center'}
+pe_graf
 ```
+
+
+Zgornji graf predstavlja primerjavo P/E-ja od Applove delnice in S&P 500. Vidimo, da je bil P/E delnice Appla ves čas nižji kot P/E S&P 500, razen od leta 2019, ko je njihova vrednost močno narasla. Slednja rast je posledica visoke rasti cene Applove delnice in ne znižanja njihovih dobičkov na delnico. Sam sem bil nad rezultatom presenečen, saj bi pričakoval, da bo podjetje Apple, kot eno največjih tehnoloških podjetij, imelo višji P/E kot S&P 500 ves čas, ne le zadnje leto in pol.
+
+
+```{r graf2, echo=FALSE, fig.align='center'}
+rast_knjigovodske_graf
+```
+
+
+V prejšnjem grafu smo videli, kako je v zadnjem času narastel P/E Applove delnice kot posledica rasti njene cene. V zgornjem grafu pa vidimo, da ima podjetje Apple od leta 2018 celo negativno rast knjigovodske vrednosti, medtem ko ima S&P 500 vsa leta rast nekje med 0% in 8%, kar je nekoliko presenetljivo. V zadnjem letu je bil padec Applove knjigovodske vrednosti zares izrazit, celo -20%. Knjigovodska vrednost je definirana kot razlika med vsemi sredstvi in vsemi obveznostmi podjetja, zato nam njen padec pove, da se podjetje bodisi bolj zadolžuje ali pa znižuje svoja sredstva.
+
+
+```{r graf3, echo=FALSE,align='center'}
+graf_tortni
+```
+
+
+```{r graf4, echo=FALSE,align='center'}
+graf_tortni_SP
+```
+
+Tortna diagrama nam predstavljata profitno maržo podjetja Apple in profitno maržo S&P 500. Vidimo, da ima Apple skoraj trikrat višjo profitno maržo, kar pomeni, da je dosti bolj profitabilen kot povprečno podjetje v S&P 500. Od vsakega prodanega izdelka podjetje Apple v povprečju zasluži 20% cene izdelka, medtem ko v povprečju posamezno podjetje v S&P 500 zasluži le 8% cene posameznega izdelka. To je zagotovo ena izmed lastnosti, ki mu daje veliko konkurenčno prednost. Iz zgornjih diagramov bi lahko pomislili, da je eden izmed razlogov za veliko rast cene Applove delnice, v zadnjem času tudi velika profitna marža. Vendar po pregledu njihove profitne marže v zadnjih desetih letih vidimo, da se je ves čas gibala okoli 20% in to ni nič novega.
+
+
+Analiziral sem tudi druge parametre vendar nisem opazil zanimivih posebnosti. Koeficient P/B delnice podjetja Apple je zadnjih deset let ves čas višji od S&P 500, kar ni presenetljivo, saj gre za tehnološko podjetje. Dividendo je podjetje Apple začel izplačevati leta 2012 in od takrat je vsako leto rasla hitreje kot dividenda od S&P 500, vendar je pri trenutni ceni delnice Appla njihova dividenda relativno nizka. Rast prodaje in dobička sta tako pri Applu kot pri S&P 500 vidno povezana, kar je pričakovano. Morda bi pričakoval večjo povezavo med dobičkom S&P 500 in dobičkom Appla, vendar je na podlagi zadnjih 10 let nisem opazil (oziroma vsaj ne izrazite).  
+
+```{r graf5, echo=FALSE,align='center'}
+zemljevid
+```
+
+Zgoraj vidimo zemljevid sveta, na katerem je prikazana prodaja podjetja Apple po svetu. Podatke sem dobil iz letnega poročila, kjer so svet razdelili na pet območji in sicer Ameriko, kamor štejemo tako severno kot južno Ameriko, Kitajsko, Japonsko, Avstralijo in Oceanijo ter Evropo kamor spada še cela Afrika, bližnji vzhod ter preostala Azija.
 
 ***
 
@@ -88,20 +170,40 @@ tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
 source("analiza/analiza.r", encoding="UTF-8")
 ```
 
-Spodnji graf prikazuje povezavo med številom naselij in površino občine.
+Pri napredni analizi podatkov sem se odločil, da bom preko vgrajene metode loess in linearne regresije po metodi najmanjših kvadratov poskušal napovedati prihodnje dobičke na delnico. Nato sem s pomočjo linearne regresije po metodi najmanjših kvadratov poskušal poiskati povezavo med dobičkom na delnico in ceno delnice. S pomočjo obeh modelov sem preko napovedanih dobičkov poskušal napovedati ceno delnice v prihodnje. Povezavo med dobičkom na delnico in ceno delnice sem nato poskušal optimizirati tako, da sem izvedel gručenje, kjer se je pričakovano pokazalo, da vse vrednosti pripadajo eni grupi, samo vrednost zadnjega leta leži v dugi. Zato sem poskušal izboljšati metodo, tako da sem izločil zadnje leto. Spodnja grafa predstavljata napoved dobička za leto 2021 po metodi loess in napoved cene delnice iz dobljenega napovedanega dobička s pomočjo linearne regresije po metodi najmanjših kvadratov. 
 
-```{r graf, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-ggplot(inner_join(obcine, data.frame(obcina=names(skupine),
-                                     skupina=factor(skupine)), by="obcina")
-, aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() +
-  ggtitle("Število naselij glede na površino občine") +
-  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-  guides(color=guide_legend(title="Skupina"),
-         size=guide_legend(title="Prebivalci (* 1000)"))
+
+```{r graf6, echo=FALSE, fig.align='center'}
+loe_ear(2021)
+```
+
+
+```{r graf7, echo=FALSE, fig.align='center'}
+opt_pov(2021,model_earning)
+```
+
+
+***
+
+# Shiny
+
+Spodaj imamo simulacijo dobička na delnico v prihodnje, kjer lahko izberemo poljubno vrednost med letoma 2021 in 2025 ter metodo, s katero želimo izvesti napoved. Na voljo imamo metodo linearne regresije po metodi najmanjših kvadratov ter vgrajeno metodo loess. Ko izberemo metodo in leto, se nam izriše graf, kjer y kordinata željene točke predstavlja prihodnji dobiček.
+Drugi graf v simulaciji predstavlja povezavo med dobičkom in ceno delnice. Za napoved cene v izbranem letu se uporabi izračunani dobiček iz prejšnjega grafa. Na izbiro pa imamo ali želimo uporabiti optimizirane podatke (po metodi gručenja) ali osnovne.
+
+```{r shiny, echo=FALSE}
+shinyAppDir("shiny", options=list(width="100%", height=600))
 ```
 
 ***
 
-```{r shiny}
-shinyAppDir("shiny", options=list(width="100%", height=600))
-```
+# Zaključek
+
+Po pregledu podatkov sem opazil nekatere zanimivosti. Najbolj me je presenetil P/E delnice podjetja Apple do leta 2018 in nato njegov skok. Zanimiv podatek je tudi profitna marža podjetja Apple, ki je izrazito višja od S&P 500. Seveda bi potrebovali bolj natančno analizo podjetja Apple in njegovega poslovanja, da bi lahko podali kakršnekoli zaključke glede trenutne cene njihove delnice. Vse simulacije, ki sem jih izvedel kažejo, da so danes investitorji pripravljeni plačati višjo ceno glede na dobičke kot pa v preteklosti.   
+
+
+
+
+
+
+
+

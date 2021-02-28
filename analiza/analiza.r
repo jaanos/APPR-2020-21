@@ -20,7 +20,7 @@ dobicek_na_delnico_graf <- ggplot(data=morningstar,
   scale_colour_manual(name="LEGENDA",values=c("red","green","black"))+
   labs(title="Graf dobička na delnico po metodi loess")+
   scale_x_continuous(name = "Leto", breaks = seq(2011,2025,1))+
-  scale_y_continuous(name = "Dobiček na delnico", breaks = seq(0,5,0.2))+
+  scale_y_continuous(name = "Dobiček na delnico (USD)", breaks = seq(0,5,0.2))+
   theme(legend.position = c(0.3, 0.8),
         panel.grid.minor = element_blank(),
         plot.title = element_text(hjust = 0.5))
@@ -45,7 +45,7 @@ premica_dobicek<-ggplot(morningstar,aes(x=Leto,y=Neto_dobicek_na_delnico,
   scale_colour_manual(name="LEGENDA",values=c("red","green","black"))+
   labs(title="Graf dobička na delnico s pomočjo linearne regresije")+
   scale_x_continuous(name = "Leto", breaks = seq(2011,2025,1))+
-  scale_y_continuous(name = "Dobiček na delnico", breaks = seq(0,5,0.2))+
+  scale_y_continuous(name = "Dobiček na delnico (USD)", breaks = seq(0,5,0.2))+
   theme(legend.position = c(0.3, 0.8),
         panel.grid.minor = element_blank(),
         plot.title = element_text(hjust = 0.5))
@@ -70,8 +70,8 @@ reg_pov <- function(prihodnost_dobicek_na_delnico,vrsta_modela){
                  color="Napoved cene preko dobička"),size=3)+
     scale_colour_manual(name="LEGENDA",values=c("green","red","black"))+
     labs(title="Napoved cene preko dobička s pomočjo linearne regresije")+
-    scale_x_continuous(name = "Dobiček na delnico", breaks = seq(0,5,0.2))+
-    scale_y_continuous(name = "Cena", breaks = seq(0,140,10))+
+    scale_x_continuous(name = "Dobiček na delnico (USD)", breaks = seq(0,5,0.2))+
+    scale_y_continuous(name = "Cena (USD)", breaks = seq(0,140,10))+
     theme(legend.position = c(0.3, 0.8),
           panel.grid.minor = element_blank(),
           plot.title = element_text(hjust = 0.5))
@@ -97,16 +97,16 @@ napoved_opt<- prihodnost_opt%>%mutate(Najvisja_cena=predict(model_opt,.))
 
 premica_odvisnost_opt <- ggplot(filter(cena.earning,skupina==1),
                                 aes(x=Neto_dobicek_na_delnico,y=Najvisja_cena,
-                                    color="Izbolšan približek"))+
+                                    color="Izboljšan približek"))+
   geom_smooth(method = lm,formula = y~x,se=F)+
   geom_point(aes(color="Točne vrdednosti"))+
   geom_point(data = napoved_opt,
              aes(x=Neto_dobicek_na_delnico,y=Najvisja_cena,
                  color="Izboljšana napoved cene"),size=3)+
-  scale_colour_manual(name="LEGENDA",values=c("green","red","black"))+
+  scale_colour_manual(name="LEGENDA",values=c("red","green","black"))+
   labs(title="Izboljšana napoved cene preko dobička s pomočjo linearne regresije")+
-  scale_x_continuous(name = "Dobiček na delnico", breaks = seq(0,5,0.2))+
-  scale_y_continuous(name = "Cena delnice", breaks = seq(0,110,5))+
+  scale_x_continuous(name = "Dobiček na delnico (USD)", breaks = seq(0,5,0.2))+
+  scale_y_continuous(name = "Cena delnice (USD)", breaks = seq(0,110,5))+
   theme(legend.position = c(0.3, 0.8),
         panel.grid.minor = element_blank(),
         plot.title = element_text(hjust = 0.5))
