@@ -143,36 +143,5 @@ Rast_SP_knjigovodske_vrednosti <- rast(podatki_quandl_bv,"BV_SP500")
 Rast_SP_dividende <- rast(podatki_quandl_dividenda,"Dividenda_SP500")
 
 
-#ZAPIS PODATKOV V CSV OBLIKO
-#write.csv(podatki_prodaja_svet,
-#          "C:\\Users\\PC\\Documents\\Sola\\2. letnik\\Obdelava podatkov R\\Projekt\\APPR-2020-21\\podatki\\Precisceni_SEC.csv",
-#          fileEncoding = "UTF-8",row.names=FALSE)
-#write.csv(morningstar,
-#          "C:\\Users\\PC\\Documents\\Sola\\2. letnik\\Obdelava podatkov R\\Projekt\\APPR-2020-21\\podatki\\Precisceni_morningstar.csv",
-#          fileEncoding = "UTF-8",row.names=FALSE)
-#write.csv(yahoo,
-#          "C:\\Users\\PC\\Documents\\Sola\\2. letnik\\Obdelava podatkov R\\Projekt\\APPR-2020-21\\podatki\\Precisceni_yahoo.csv",
-#          fileEncoding = "UTF-8",row.names=FALSE)
-#write.csv(podatki_quandl_pe,
-#          "C:\\Users\\PC\\Documents\\Sola\\2. letnik\\Obdelava podatkov R\\Projekt\\APPR-2020-21\\podatki\\Precisceni_quandl_pe.csv",
-#          fileEncoding = "UTF-8",row.names=FALSE)
-#write.csv(podatki_quandl_pb,
-#         "C:\\Users\\PC\\Documents\\Sola\\2. letnik\\Obdelava podatkov R\\Projekt\\APPR-2020-21\\podatki\\Precisceni_quandl_pb.csv",
-#          fileEncoding = "UTF-8",row.names=FALSE)
-#write.csv(podatki_quandl_prodaja,
-#          "C:\\Users\\PC\\Documents\\Sola\\2. letnik\\Obdelava podatkov R\\Projekt\\APPR-2020-21\\podatki\\Precisceni_quandl_prodaja.csv",
-#          fileEncoding = "UTF-8",row.names=FALSE)
-#write.csv(podatki_quandl_earning,
-#          "C:\\Users\\PC\\Documents\\Sola\\2. letnik\\Obdelava podatkov R\\Projekt\\APPR-2020-21\\podatki\\Precisceni_quandl_dobicek.csv",
-#          fileEncoding = "UTF-8",row.names=FALSE)
-#write.csv(podatki_quandl_dividenda,
-#          "C:\\Users\\PC\\Documents\\Sola\\2. letnik\\Obdelava podatkov R\\Projekt\\APPR-2020-21\\podatki\\Precisceni_quandl_dividenda.csv",
-#          fileEncoding = "UTF-8",row.names=FALSE)
-#write.csv(podatki_quandl_bv,
-#          "C:\\Users\\PC\\Documents\\Sola\\2. letnik\\Obdelava podatkov R\\Projekt\\APPR-2020-21\\podatki\\Precisceni_quandl_bv.csv",
-#          fileEncoding = "UTF-8",row.names=FALSE)
-#write.csv(kontinenti,
-#         "C:\\Users\\PC\\Documents\\Sola\\2. letnik\\Obdelava podatkov R\\Projekt\\APPR-2020-21\\podatki\\Precisceni_kontinenti.csv",
-#         fileEncoding = "UTF-8",row.names=FALSE)
 
 
