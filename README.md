@@ -5,23 +5,65 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 * [![Shiny](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/ian-spiller/APPR-2020-21/master?urlpath=shiny/APPR-2020-21/projekt.Rmd) Shiny
 * [![RStudio](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/ian-spiller/APPR-2020-21/master?urlpath=rstudio) RStudio
 
-## Tematika
-Analiza podjetja Apple v primerjavi s SP500
+## Analiza podjetja Apple v primerjavi s S&P500
 
-Za projektno nalogo bom analiziral podatke podjetja Apple in jih primerjal s borznim indeksom SP500.
-Pogledal bom rast prodaje,neto dobička,knjigovodske vrednosti in dividend od SP500 in Appla v zadnjih 10tih letih,
+# Osnovna ideja
+
+Za projektno nalogo bom analiziral podatke podjetja Apple in jih primerjal s borznim indeksom S&P 500.
+Pogledal bom rast prodaje,neto dobička,knjigovodske vrednosti in dividend od S$P 500 in podjetja Appla v zadnjih 10tih letih,
 ter primerjal rasti med seboj.
-Nato bom primerjal še koeficenta P/E (cena/dobiček na delnico) in P/B (cena/knjigovodska vrednost na delnico)
-od Appla in SP500 za zadnjih 10let. Poleg tega bom pogledal koliko iStorov se nahaja v kateri državi.
+Nato bom primerjal še koeficenta P/E (cena/dobiček na delnico),P/B (cena/knjigovodska vrednost na delnico) in profitno maržo
+od podjetja Appla in S&P500 za zadnjih 10 let. Na zemljevidu sveta bom tudi prikazal prodajo podjetja Apple po svetu.
 
-Podatke od Appla bom dobil na naslednji povezavi:
-https://financials.morningstar.com/ratios/r.html?t=0P000000GY&culture=en&platform=sal
-Za cene Appla bom uporabil že vgrajeno knjižnico "quantmod" s pomočjo katere lahko dobimo
-cene delnice za zadnjih 10 let.
-Podatke za SP 500 bom ravno tako dobil preko vgrajene funkcije Quandl.
-Poadtke o Applovih trgovinah bom dobil na spletni strai:
-https://en.wikipedia.org/wiki/Apple_Store v HTML obliki.
 
+# Tabele
+
+1. [podatki_prodaja_svet](https://www.sec.gov/Archives/edgar/data/320193/000032019319000119/a10-k20199282019.htm#sDBCC0D7FC5D05F49A572F9AA0627E992)- podatki o prodaji in dobičku podjetja Apple po svetu
+* `Podatki` - spremenljivka: vrsta meritve (Prodaja, dobiček pred davkom)
+* `Regija` - spremenljivka: kontinet
+* `Leto` - spremenljivka: leto meritve (število:2017-2019)
+* `Vrednost` - meritev: vrednost prodaje in dobička pred davkom v miljonih USD (število)
+
+2. [morningstar](https://financials.morningstar.com/ratios/r.html?t=0P000000GY&culture=en&platform=sal)
+*`Leto` - spremenljivka: leto meritve (število:2011-2020)
+*`Prodaja` - meritev: prodaja v milijonih USD (število)
+*`Neto_dobicek` - meritev: Dobiček po davku v milijonih USD (število)
+*`Neto_dobiček na delnico` - meritev: Dobiček po davku na posamezno delnico v USD (število)
+*`Dividenda - meritev`: Dividenda v USD (število)
+*`Knjigovodska_vrednost`: Knjigovodska vrednost posamezne delnice v USD (število)
+
+3. [yahoo](https://finance.yahoo.com/quote/AAPL/history/) - za uvoz podatkov sem uporabil knjižnico quantmod 
+* `Najvišja_cena` - meritev: najvišja cena Applove delnice 1. decembra vsako leto v USD (število)
+* `Leto` - spremenljivka: leto meritve (število:2011-2020)
+
+4. [podatki_quandl_pe](https://www.quandl.com/data/MULTPL/SHILLER_PE_RATIO_MONTH-Shiller-PE-Ratio-by-Month) - za uvoz sem uporabil knjižnico Quandl
+* `Leto` - spremenljivka: leto meritve (število:2011-2020)
+* `P.E_SP500` - meritev: P/E koeficient indeksa S&P 500 (število)
+
+5. [podatki_quandl_pb](https://www.quandl.com/data/MULTPL/SP500_PBV_RATIO_YEAR-S-P-500-Price-to-Book-Value-by-Year) - za uvoz sem uporabil knjižnico Quandl
+* `Leto` - spremenljivka: leto meritve (število:2011-2020)
+* `P.B_SP500` - meritev: P/B koeficient indeksa S&P 500 (število)
+
+6. [podatki_quandl_prodaja](https://www.quandl.com/data/MULTPL/SP500_SALES_YEAR-S-P-500-Sales-by-Year) - za uvoz sem uporabil knjižnico Quandl
+* `Leto` - spremenljivka: leto meritve (število:2011-2020)
+* `Prodaja_SP500` - meritev: Prodaja vseh podjetji v S&P 500 v milijardah USD (število)
+
+7. [podatki_quandl_earning](https://www.quandl.com/data/MULTPL/SP500_EARNINGS_YEAR-S-P-500-Earnings-by-Year) - za uvoz sem uporabil knjižnico Quandl
+* `Leto` - spremenljivka: leto meritve (število:2011-2020)
+* `Earning_SP500` - meritev: Dobiček po davkih vseh podjetji v S&P 500 v milijardah USD (število)
+
+8. [podatki_quandl_bv](https://www.quandl.com/data/MULTPL/SP500_BVPS_YEAR-S-P-500-Book-Value-Per-Share-by-Year) - za uvoz sem uporabil knjižnico Quandl
+* `Leto` - spremenljivka: leto meritve (število:2011-2020)
+* `BV_SP500` - meritev: Knjigovodska vrednost "delnice" indeksa S&P 500 v USD (vsota vseh knjigovodskih vrednosti na delnico podjetji v S&P 500) (število) 
+
+9. [podatki_quandl_dividenda](https://www.quandl.com/data/MULTPL/SP500_DIV_YEAR-S-P-500-Dividend-by-Year) - za uvoz sem uporabil knjižnico Quandl
+* `Leto` - spremenljivka: leto meritve (število:2011-2020)
+* `Dividenda_SP500` - meritev: Vsota vseh dividend v S&P 500 (število)
+
+10. [kontinenti](https://datahub.io/JohnSnowLabs/country-and-continent-codes-list)
+* `Continent_Name` - spremenljivka: ime kontinenta (število)
+* `Country_Name` - spremenljivka: ime države (število)
+* `GU_A3` - spremenljivka: kratica države  (število)
 
 
 ## Program
