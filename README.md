@@ -15,6 +15,16 @@ ter primerjal rasti med seboj.
 Nato bom primerjal še koeficenta P/E (cena/dobiček na delnico),P/B (cena/knjigovodska vrednost na delnico) in profitno maržo
 od podjetja Appla in S&P500 za zadnjih 10 let. Na zemljevidu sveta bom tudi prikazal prodajo podjetja Apple po svetu.
 
+### Potek dela
+
+* Na podalgi dobljenih podatkov bom naredil analizo parametrov, ki sem jih navedel zgoraj.
+* V grafih bom prikazal rezultate analize.
+* Nato bom s vgrajeno metodo loess in s metodo linearne regresije poskušal napovedati prihodnje dobičke. 
+Poiskal bom povezavo med dobičkom in ceno delnice s pomočjo linearne regresije po metodi najmanjših kvadratov.
+Iz napovedanega dobička bom tako poskušal napovedati ceno delnice v prihodnje.
+* Nakoncu bom naredil še aplikacijo shiny, kjer bo lahko uporabnik sam določil za katero leto želi 
+napovedati dobičke ter po kakšni mtodi.
+
 
 ### Tabele
 
@@ -25,12 +35,12 @@ od podjetja Appla in S&P500 za zadnjih 10 let. Na zemljevidu sveta bom tudi prik
 * `Vrednost` - meritev: vrednost prodaje in dobička pred davkom v miljonih USD (število)
 
 2. [morningstar](https://financials.morningstar.com/ratios/r.html?t=0P000000GY&culture=en&platform=sal)
-*`Leto` - spremenljivka: leto meritve (število:2011-2020)
-*`Prodaja` - meritev: prodaja v milijonih USD (število)
-*`Neto_dobicek` - meritev: Dobiček po davku v milijonih USD (število)
-*`Neto_dobiček na delnico` - meritev: Dobiček po davku na posamezno delnico v USD (število)
-*`Dividenda - meritev`: Dividenda v USD (število)
-*`Knjigovodska_vrednost`: Knjigovodska vrednost posamezne delnice v USD (število)
+* `Leto` - spremenljivka: leto meritve (število:2011-2020)
+* `Prodaja` - meritev: prodaja v milijonih USD (število)
+* `Neto_dobicek` - meritev: Dobiček po davku v milijonih USD (število)
+* `Neto_dobiček na delnico` - meritev: Dobiček po davku na posamezno delnico v USD (število)
+* `Dividenda - meritev`: Dividenda v USD (število)
+* `Knjigovodska_vrednost`: Knjigovodska vrednost posamezne delnice v USD (število)
 
 3. [yahoo](https://finance.yahoo.com/quote/AAPL/history/) - za uvoz podatkov sem uporabil knjižnico quantmod 
 * `Najvišja_cena` - meritev: najvišja cena Applove delnice 1. decembra vsako leto v USD (število)
