@@ -1,4 +1,4 @@
-# Analiza podatkov s programom R, 2020/21
+# Analiza predstav igralcev v zadnjih treh sezonah angleške Premier lige, 2020/21
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
