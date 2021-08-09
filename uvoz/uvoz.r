@@ -3,7 +3,7 @@ library("tidyr")
 library("rlang")
 library("dplyr")
 
-
+#UVOZI STATTISTIKE IN INFORMACIJE O IGRALCIH ZA LETA 2017, 2018, 2019
 uvoz17 <- read_csv("podatki/merged_gw_17.csv",
                       TRUE, locale=locale(encoding="Windows-1252"),
                       col_types=cols("was_home"=col_logical()))
@@ -40,7 +40,7 @@ uvoz_igralci19 <- read_csv("podatki/players_raw_19.csv", TRUE,
 #kres18 <- filter(stat18, second_name=="Cresswell")
 #kres19 <- filter(stat19, second_name=="Cresswell")
 
-#združitev tabele z stattistikami z tabelo z informacijami
+#združitev tabele s statistikami s tabelo z informacijami
 skupna17 <- merge(stat17, uvoz_igralci17[c(15,19,24,41,46,56)]) #%>% select(-fixture, -team_code)
 skupna18 <- merge(stat18, uvoz_igralci18[c(15,19,24,42,47,57)]) #%>% select(-fixture, -team_code)
 skupna19 <- merge(stat19, uvoz_igralci19[c(15,19,24,42,47,57)]) #%>% select(-fixture, -team_code)
