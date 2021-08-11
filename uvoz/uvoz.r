@@ -1,7 +1,10 @@
-library("readr")
-library("tidyr")
-library("rlang")
-library("dplyr")
+#library("readr")
+#library("tidyr")
+#library("rlang")
+#library("dplyr")
+
+source("lib/libraries.r", encoding="UTF-8")
+
 
 #UVOZI STATTISTIKE IN INFORMACIJE O IGRALCIH ZA LETA 2017, 2018, 2019
 uvoz17 <- read_csv("podatki/merged_gw_17.csv",
@@ -47,13 +50,28 @@ skupna19 <- merge(stat19, uvoz_igralci19[c(15,19,24,42,47,57)]) #%>% select(-fix
 
 #komulativne tabele za igralce, odstranili smo stolpec, ki belezi nasprotnika v krogu, krog, domace igrisce 
 kom17 <- skupna17[c(-20,-27,-32)] %>%
-  group_by(first_name, second_name, element_type, id, team, web_name) %>% summarise_each(sum)
+  group_by(first_name, second_name, element_type, id, team, web_name) %>%
+  summarise(across(everything(), sum))
 
 kom18 <- skupna18[c(-20,-27,-32)] %>%
-  group_by(first_name, second_name, element_type, id, team, web_name) %>% summarise_each(sum)
+  group_by(first_name, second_name, element_type, id, team, web_name) %>%
+  summarise(across(everything(), sum))
 
 kom19 <- skupna19[c(-20,-27,-32)] %>%
-  group_by(first_name, second_name, element_type, id, team, web_name) %>% summarise_each(sum)
+  group_by(first_name, second_name, element_type, id, team, web_name) %>%
+  summarise(across(everything(), sum))
+
+#statistike glede na 90 odigranih minut, še prej smo izločili vse igralce, ki so odigrali
+#skupno v sezoni manj kot 90 minut
+p90_17 <- kom17 %>% filter(minutes >= 90) %>% group_by(first_name, second_name, element_type, id, team, web_name) %>% 
+  summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
+
+p90_18 <- kom18 %>% filter(minutes >= 90) %>% group_by(first_name, second_name, element_type, id, team, web_name) %>% 
+  summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
+
+p90_19 <- kom19 %>% filter(minutes >= 90) %>% group_by(first_name, second_name, element_type, id, team, web_name) %>% 
+  summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
+
 
 #UPORABNA KOMANDA
 #View(kom17[c("web_name", "minutes")])
