@@ -37,7 +37,7 @@ uvoz_igralci19 <- read_csv("podatki/players_raw_19.csv", TRUE,
 #vratarji <- filter(info19, element_type == 1)
 #imena %>% filter(leto == 2013, spol == "ženske", stevilo <= 5) %>%
   #select(ime, stevilo)
-
+#raz <- stat19 %>% filter(first_name == "Marcus", second_name == "Rashford") %>% select(first_name, round, goals_scored)
 #UPORABNA KOMANDA
 #kres17 <- filter(stat17, second_name=="Cresswell")
 #kres18 <- filter(stat18, second_name=="Cresswell")
