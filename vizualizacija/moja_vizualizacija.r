@@ -1,3 +1,6 @@
+#View(stat17[c("round", "goals_scored", "own_goals")] %>% group_by(round) %>% summarise(st_golov=sum(goals_scored + own_goals)))
+
+
 goli_po_krogih17 <- skupna17[c("round", "goals_scored", "own_goals")] %>% group_by(round) %>%
   summarise(st_zadetkov_17 = sum(goals_scored + own_goals))
 
