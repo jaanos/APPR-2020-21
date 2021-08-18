@@ -52,15 +52,15 @@ skupna19 <- stat19 %>% left_join(uvoz_igralci19[c(15,19,24,42,47,57)])
 #skupna19 <- merge(stat19, uvoz_igralci19[c(15,19,24,42,47,57)]) #%>% select(-fixture, -team_code)
 
 #komulativne tabele za igralce, odstranili smo stolpec, ki beleži nasprotnika v krogu, krog, domace igrisce 
-kom17 <- skupna17[c(-20,-27,-32)] %>%
+kom17 <- skupna17 %>% select(-opponent_team, -round, -was_home) %>%
   group_by(first_name, second_name, element_type, id, team, web_name) %>%
   summarise(across(everything(), sum))
 
-kom18 <- skupna18[c(-20,-27,-32)] %>%
+kom18 <- skupna18 %>% select(-opponent_team, -round, -was_home) %>%
   group_by(first_name, second_name, element_type, id, team, web_name) %>%
   summarise(across(everything(), sum))
 
-kom19 <- skupna19[c(-20,-27,-32)] %>%
+kom19 <- skupna19 %>% select(-opponent_team, -round, -was_home) %>%
   group_by(first_name, second_name, element_type, id, team, web_name) %>%
   summarise(across(everything(), sum))
 
