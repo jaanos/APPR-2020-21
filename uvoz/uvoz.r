@@ -33,39 +33,56 @@ uvoz_igralci18 <- read_csv("podatki/players_raw_18.csv", TRUE,
 uvoz_igralci19 <- read_csv("podatki/players_raw_19.csv", TRUE,
                       locale=locale(encoding="UTF-8"))
 
-#info19 <- uvoz_igralci19[c(15,19,24,42,47,57)]
-#vratarji <- filter(info19, element_type == 1)
-#imena %>% filter(leto == 2013, spol == "ženske", stevilo <= 5) %>%
-  #select(ime, stevilo)
-#raz <- stat19 %>% filter(first_name == "Marcus", second_name == "Rashford") %>% select(first_name, round, goals_scored)
-#UPORABNA KOMANDA
-#kres17 <- filter(stat17, second_name=="Cresswell")
-#kres18 <- filter(stat18, second_name=="Cresswell")
-#kres19 <- filter(stat19, second_name=="Cresswell")
+# UVOZ IMEN EKIP
+# 2016/17
+link1 <- "https://en.wikipedia.org/wiki/2016%E2%80%9317_Premier_League"
+stran1 <- html_session(link) %>% read_html()
+tabela1 <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
+  .[[1]] %>% html_table(dec=",")
+ekipe17 <- tabela1$Team
+
+# 2017/18
+link2 <- "https://en.wikipedia.org/wiki/2017%E2%80%9318_Premier_League"
+stran2 <- html_session(link2) %>% read_html()
+tabela2 <- stran2 %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
+  .[[1]] %>% html_table(dec=",") %>% slice(-21) #odstranili smo zadnjo cudno vrstico
+ekipe18 <- tabela2$Team
+
+# 2018/19
+link3 <- "https://en.wikipedia.org/wiki/2018%E2%80%9319_Premier_League"
+stran3 <- html_session(link3) %>% read_html()
+tabela3 <- stran3 %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
+  .[[1]] %>% html_table(dec=",") %>% slice(-17) #odstranili smo podvojni Totteham ki je igral na dveh razlicnih stadionih
+ekipe19 <- tabela3$Team
+
+
+#ZDRUŽEVANJE TABEL
 skupna17 <- stat17 %>% left_join(uvoz_igralci17[c(15,19,24,41,46,56)]) %>%
-  mutate(element_type = c("Vratar", "Branilec", "Vezist", "Napadalec")[element_type]) %>% mutate(element_type=parse_factor(element_type))
+  mutate(element_type = c("Vratar", "Branilec", "Vezist", "Napadalec")[element_type], team = ekipe17[team]) %>%
+  mutate(element_type=parse_factor(element_type), team = parse_factor(team)) %>% rename(Ime=first_name, Priimek=second_name, Pozicija = element_type,
+                                                                                        Ekipa=team, Igralec=web_name)
+
 skupna18 <- stat18 %>% left_join(uvoz_igralci18[c(15,19,24,42,47,57)]) %>%
-  mutate(element_type = c("Vratar", "Branilec", "Vezist", "Napadalec")[element_type]) %>% mutate(element_type=parse_factor(element_type))
+  mutate(element_type = c("Vratar", "Branilec", "Vezist", "Napadalec")[element_type], team = ekipe18[team]) %>%
+  mutate(element_type=parse_factor(element_type), team = parse_factor(team)) %>% rename(Ime=first_name, Priimek=second_name, Pozicija = element_type,
+                                                                                        Ekipa=team, Igralec=web_name)
+
 #dvakrat danny ward
 skupna19 <- stat19 %>% left_join(uvoz_igralci19[c(15,19,24,42,47,57)]) %>%
-  mutate(element_type = c("Vratar", "Branilec", "Vezist", "Napadalec")[element_type]) %>% mutate(element_type=parse_factor(element_type))
-#združitev tabele s statistikami s tabelo z informacijami
-#skupna17 <- merge(stat17, uvoz_igralci17[c(15,19,24,41,46,56)]) #%>% select(-fixture, -team_code)
-#skupna18 <- merge(stat18, uvoz_igralci18[c(15,19,24,42,47,57)]) #%>% select(-fixture, -team_code)
-#skupna19 <- merge(stat19, uvoz_igralci19[c(15,19,24,42,47,57)]) #%>% select(-fixture, -team_code)
+  mutate(element_type = c("Vratar", "Branilec", "Vezist", "Napadalec")[element_type], team = ekipe19[team]) %>%
+  mutate(element_type=parse_factor(element_type), team = parse_factor(team)) %>% rename(Ime=first_name, Priimek=second_name, Pozicija = element_type,
+                                                                                        Ekipa=team, Igralec=web_name)
+
 
 #komulativne tabele za igralce, odstranili smo stolpec, ki beleži nasprotnika v krogu, krog, domace igrisce 
 kom17 <- skupna17 %>% select(-opponent_team, -round, -was_home) %>%
-  group_by(first_name, second_name, element_type, id, team, web_name) %>%
-  summarise(across(everything(), sum))
+  group_by(Ime, Priimek, Pozicija, id, Ekipa, Igralec) %>% summarise(across(everything(), sum))
 
 kom18 <- skupna18 %>% select(-opponent_team, -round, -was_home) %>%
-  group_by(first_name, second_name, element_type, id, team, web_name) %>%
-  summarise(across(everything(), sum))
+  group_by(Ime, Priimek, Pozicija, id, Ekipa, Igralec) %>% summarise(across(everything(), sum))
 
 kom19 <- skupna19 %>% select(-opponent_team, -round, -was_home) %>%
-  group_by(first_name, second_name, element_type, id, team, web_name) %>%
-  summarise(across(everything(), sum))
+  group_by(Ime, Priimek, Pozicija, id, Ekipa, Igralec) %>% summarise(across(everything(), sum))
 
 #statistike glede na 90 odigranih minut, še prej smo izločili vse igralce, ki so odigrali
 #skupno v sezoni manj kot 90 minut
@@ -77,6 +94,7 @@ kom19 <- skupna19 %>% select(-opponent_team, -round, -was_home) %>%
 # 
 # p90_19 <- kom19 %>% filter(minutes >= 90) %>% group_by(first_name, second_name, element_type, id, team, web_name) %>% 
 #   summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
+
 
 
 #UPORABNA KOMANDA
