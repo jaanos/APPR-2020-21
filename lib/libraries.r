@@ -11,6 +11,7 @@ library("dplyr")
 library(ggplot2)
 library(plotly)
 
+
 options(gsubfn.engine="R")
 
 # Uvozimo funkcije za pobiranje in uvoz zemljevida.
