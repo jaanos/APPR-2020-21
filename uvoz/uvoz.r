@@ -42,10 +42,13 @@ uvoz_igralci19 <- read_csv("podatki/players_raw_19.csv", TRUE,
 #kres17 <- filter(stat17, second_name=="Cresswell")
 #kres18 <- filter(stat18, second_name=="Cresswell")
 #kres19 <- filter(stat19, second_name=="Cresswell")
-skupna17 <- stat17 %>% left_join(uvoz_igralci17[c(15,19,24,41,46,56)])
-skupna18 <- stat18 %>% left_join(uvoz_igralci18[c(15,19,24,42,47,57)])
+skupna17 <- stat17 %>% left_join(uvoz_igralci17[c(15,19,24,41,46,56)]) %>%
+  mutate(element_type = c("Vratar", "Branilec", "Vezist", "Napadalec")[element_type]) %>% mutate(element_type=parse_factor(element_type))
+skupna18 <- stat18 %>% left_join(uvoz_igralci18[c(15,19,24,42,47,57)]) %>%
+  mutate(element_type = c("Vratar", "Branilec", "Vezist", "Napadalec")[element_type]) %>% mutate(element_type=parse_factor(element_type))
 #dvakrat danny ward
-skupna19 <- stat19 %>% left_join(uvoz_igralci19[c(15,19,24,42,47,57)])
+skupna19 <- stat19 %>% left_join(uvoz_igralci19[c(15,19,24,42,47,57)]) %>%
+  mutate(element_type = c("Vratar", "Branilec", "Vezist", "Napadalec")[element_type]) %>% mutate(element_type=parse_factor(element_type))
 #združitev tabele s statistikami s tabelo z informacijami
 #skupna17 <- merge(stat17, uvoz_igralci17[c(15,19,24,41,46,56)]) #%>% select(-fixture, -team_code)
 #skupna18 <- merge(stat18, uvoz_igralci18[c(15,19,24,42,47,57)]) #%>% select(-fixture, -team_code)
@@ -66,14 +69,14 @@ kom19 <- skupna19 %>% select(-opponent_team, -round, -was_home) %>%
 
 #statistike glede na 90 odigranih minut, še prej smo izločili vse igralce, ki so odigrali
 #skupno v sezoni manj kot 90 minut
-p90_17 <- kom17 %>% filter(minutes >= 90) %>% group_by(first_name, second_name, element_type, id, team, web_name) %>% 
-  summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
-
-p90_18 <- kom18 %>% filter(minutes >= 90) %>% group_by(first_name, second_name, element_type, id, team, web_name) %>% 
-  summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
-
-p90_19 <- kom19 %>% filter(minutes >= 90) %>% group_by(first_name, second_name, element_type, id, team, web_name) %>% 
-  summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
+# p90_17 <- kom17 %>% filter(minutes >= 90) %>% group_by(first_name, second_name, element_type, id, team, web_name) %>% 
+#   summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
+# 
+# p90_18 <- kom18 %>% filter(minutes >= 90) %>% group_by(first_name, second_name, element_type, id, team, web_name) %>% 
+#   summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
+# 
+# p90_19 <- kom19 %>% filter(minutes >= 90) %>% group_by(first_name, second_name, element_type, id, team, web_name) %>% 
+#   summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
 
 
 #UPORABNA KOMANDA
