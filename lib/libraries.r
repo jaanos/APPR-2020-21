@@ -9,7 +9,7 @@ library("readr")
 library("rlang")
 library("dplyr")
 library(ggplot2)
-
+library(plotly)
 
 options(gsubfn.engine="R")
 
