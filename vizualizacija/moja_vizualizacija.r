@@ -126,10 +126,22 @@ graf_odvzete_zoge_favli <- ggplotly(ggplot(odvzete_zoge_favli) + aes(igralec = I
                                       geom_point() + ggtitle("Primerjava odvzetih žog in prekrškov") + ylab("Število odvzetih žog na 90 minut") +
                                   xlab("Število prekrškov na 90 minut"))
 
+vratarji <- kom19 %>% filter(minutes >= 90*3, Pozicija == "Vratar")
+
+obrambe_clean_sheeti <- vratarji %>% mutate(obrambe_90 = round(saves/minutes*90,2)) %>% select(Igralec, obrambe_90, clean_sheets, minutes, saves)
+
+graf_obrambe_clean_sheeti <- ggplotly(ggplot(obrambe_clean_sheeti) + aes(igralec = Igralec, ekipa = Ekipa, obrambe = saves,
+                                                                         tekma_brez_prejetega_zadetka = clean_sheets,
+                                                                       x = clean_sheets, minute = minutes, y = obrambe_90) +
+                                        geom_point() + ggtitle("Tekme brez prejetega zadetka in obrambe") + ylab("Število obranjenih strelov na 90 minut") +
+                                        xlab("Število tekem brez prejetega gola"))
+
+
 print(graf_podaje_asistence)
 print(graf_priloznosti_driblingi)
 print(graf_driblingi_odvzete_zoge)
 print(graf_blokade_napake)
 print(graf_odvzete_zoge_favli)
+print(graf_obrambe_clean_sheeti)
 #DODANO ŠE FILTRIRANJE PO ODSTOTKU NATANCNOSTI
 # & completed_passes/attempted_passes >= quantile(tabela_vezistov$completed_passes/tabela_vezistov$attempted_passes, 0.75, na.rm = TRUE))
