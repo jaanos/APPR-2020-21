@@ -58,13 +58,18 @@ ggplot(goli_pozicija) + aes(x=sezona, y=odstotek_zadetkov, fill=Pozicija) +
 
 
 # SEDAJ NAS ZANIMAJO LE VEZISTI IN NAPADALCI Z VEC KOT 900 ODIGRANIMI MINUTAMI (~10 celih tekem)
-napadalci_vezisti <- kom19 %>% filter(minutes >= 90*10, element_type==3 | element_type==4)
-branilci_vratarji <- kom19 %>% filter(minutes >= 90*10, element_type==1 | element_type==2)
+napadalci_vezisti <- kom19 %>% filter(minutes >= 90*10, element_type=="Vezist" | element_type=="Napadalec")
+branilci <- kom19 %>% filter(minutes >= 90*10, element_type=="Branilec")
 # asistenc na tekmo 0.3379515, uspesnih podaj na tekmo 50.36697 
-uspesnost_asistence <- napadalci_vezisti %>% filter(assists/minutes >= quantile(napadalci_vezisti$assists/napadalci_vezisti$minutes, 0.85, na.rm = TRUE) |
-                               completed_passes/minutes >= quantile(napadalci_vezisti$completed_passes/napadalci_vezisti$minutes, 0.85, na.rm=TRUE)) %>%
+uspesnost_asistence <- napadalci_vezisti %>% filter(assists/minutes >= quantile(napadalci_vezisti$assists/napadalci_vezisti$minutes, 2/3, na.rm = TRUE) |
+                               completed_passes/minutes >= quantile(napadalci_vezisti$completed_passes/napadalci_vezisti$minutes, 2/3, na.rm=TRUE)) %>%
   mutate(odstotek_uspesnih_podaj = round(completed_passes/attempted_passes * 100, 2), st_asistenc_90 = round(assists/minutes * 90, 2)) %>%
   select(web_name, st_asistenc_90, odstotek_uspesnih_podaj, attempted_passes, completed_passes, assists)
+
+ggplotly(ggplot(uspesnost_asistence) + aes(ime_igralca = web_name, ekipa = team, st_asistenc = assists,
+                                           x = st_asistenc_90, y = odstotek_uspesnih_podaj, color = element_type) + geom_point() + 
+           ggtitle("Primerjava najnatančnejših podajalcev za najboljšimi asistenti") + ylab("Odstotek uspešnih podaj") +
+           xlab("Povprečno število asistenc na tekmo"))
 
 
 priloznosti_driblingi <- napadalci_vezisti %>%  filter(dribbles/minutes >= quantile(napadalci_vezisti$dribbles/napadalci_vezisti$minutes, 0.85, na.rm = TRUE) |
@@ -78,8 +83,19 @@ driblingi_odvzete_zoge <- napadalci_vezisti %>% filter(dribbles/minutes >= quant
   mutate(odvzete_zoge_90 = round(tackled/minutes*90, 2), st_driblingov_90 = round(dribbles/minutes*90, 2)) %>%
   select(web_name, odvzete_zoge_90, st_driblingov_90, dribbles, tackled, minutes)
 
-#odvzete_zoge_favli
-#
+blokade_napake <- branilci %>% filter(errors_leading_to_goal_attempt/minutes >=
+                                            quantile(branilci$errors_leading_to_goal_attempt/branilci$minutes, 0.85, na.rm = TRUE) |
+                                            clearances_blocks_interceptions/minutes >= quantile(branilci$clearances_blocks_interceptions/
+                                                                                                  branilci$minutes, 0.85, na.rm = TRUE)) %>%
+  mutate(obrambne_akcije_90 = round(clearances_blocks_interceptions/minutes*90,2), napake_za_priloznost =
+           round(errors_leading_to_goal_attempt/minutes*90,2)) %>% select(web_name, napake_za_priloznost, obrambne_akcije_90, minutes,
+                                                                          errors_leading_to_goal_attempt, clearances_blocks_interceptions)
+
+odvzete_zoge_favli <- branilci %>% filter(tackles/minutes >= quantile(branilci$tackles/branilci$minutes, 0.85, na.rm = TRUE) |
+                               fouls/minutes >= quantile(branilci$fouls/branilci$minutes, 0.85, na.rm = TRUE)) %>%
+  mutate(odvzete_zoge_90 = round(tackles/minutes*90,2), prekrski_90 = round(fouls/minutes*90,2)) %>%
+  select(web_name, prekrski_90, odvzete_zoge_90, minutes, fouls, tackles)
+
 
 #DODANO ŠE FILTRIRANJE PO ODSTOTKU NATANCNOSTI
 # & completed_passes/attempted_passes >= quantile(tabela_vezistov$completed_passes/tabela_vezistov$attempted_passes, 0.75, na.rm = TRUE))
