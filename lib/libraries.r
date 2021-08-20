@@ -10,7 +10,8 @@ library("rlang")
 library("dplyr")
 library(ggplot2)
 library(plotly)
-
+library(GGally)
+library(mgcv)
 
 options(gsubfn.engine="R")
 
