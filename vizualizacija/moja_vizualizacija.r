@@ -59,8 +59,7 @@
 
 # SEDAJ NAS ZANIMAJO LE IGRALCI V POLJU Z VEC KOT SEDMIMI CELOTNIMI ODIGRANIMI TEKMAMI
 igralci <- kom19 %>% filter(minutes >= 90*7, Pozicija=="Vezist" | Pozicija=="Napadalec" | Pozicija=="Branilec")
-#branilci <- kom19 %>% filter(minutes >= 90*10, element_type=="Branilec")
-# asistenc na tekmo 0.3379515, uspesnih podaj na tekmo 50.36697 
+
 podaje_asistence <- igralci %>% filter(assists/minutes >= quantile(igralci$assists/igralci$minutes, 2/3, na.rm = TRUE) |
                                completed_passes/minutes >= quantile(igralci$completed_passes/igralci$minutes, 2/3, na.rm=TRUE)) %>%
   mutate(odstotek_uspesnih_podaj = round(completed_passes/attempted_passes * 100, 2), st_asistenc_90 = round(assists/minutes * 90, 2)) %>%
@@ -69,7 +68,7 @@ podaje_asistence <- igralci %>% filter(assists/minutes >= quantile(igralci$assis
 graf_podaje_asistence <- ggplotly(ggplot(podaje_asistence) + aes(igralec = Igralec, ekipa = Ekipa, st_asistenc = assists, minute = minutes,
                                            x = st_asistenc_90, y = odstotek_uspesnih_podaj, color = Pozicija) + geom_point() + 
            ggtitle("Primerjava najnatančnejših podajalcev za najboljšimi asistenti") + ylab("Odstotek uspešnih podaj") +
-           xlab("Povprečno število asistenc na 90 minut"))
+           xlab("Število asistenc na 90 minut"))
 
 
 priloznosti_driblingi <- igralci %>%  filter(dribbles/minutes >= quantile(igralci$dribbles/igralci$minutes, 2/3, na.rm = TRUE) |
@@ -137,11 +136,13 @@ graf_obrambe_clean_sheeti <- ggplotly(ggplot(obrambe_clean_sheeti) + aes(igralec
                                         xlab("Število tekem brez prejetega gola"))
 
 
-print(graf_podaje_asistence)
-print(graf_priloznosti_driblingi)
-print(graf_driblingi_odvzete_zoge)
-print(graf_blokade_napake)
-print(graf_odvzete_zoge_favli)
-print(graf_obrambe_clean_sheeti)
+# OGLED VSEH GRAFOV
+# print(graf_podaje_asistence)
+# print(graf_priloznosti_driblingi)
+# print(graf_driblingi_odvzete_zoge)
+# print(graf_blokade_napake)
+# print(graf_odvzete_zoge_favli)
+# print(graf_obrambe_clean_sheeti)
+
 #DODANO ŠE FILTRIRANJE PO ODSTOTKU NATANCNOSTI
 # & completed_passes/attempted_passes >= quantile(tabela_vezistov$completed_passes/tabela_vezistov$attempted_passes, 0.75, na.rm = TRUE))
