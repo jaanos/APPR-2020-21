@@ -36,8 +36,8 @@ uvoz_igralci19 <- read_csv("podatki/players_raw_19.csv", TRUE,
 # UVOZ IMEN EKIP
 # 2016/17
 link1 <- "https://en.wikipedia.org/wiki/2016%E2%80%9317_Premier_League"
-stran1 <- html_session(link) %>% read_html()
-tabela1 <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
+stran1 <- html_session(link1) %>% read_html()
+tabela1 <- stran1 %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
   .[[1]] %>% html_table(dec=",")
 ekipe17 <- tabela1$Team
 
@@ -92,7 +92,7 @@ kom19 <- skupna19 %>% select(-opponent_team, -round, -was_home) %>%
 # p90_18 <- kom18 %>% filter(minutes >= 90) %>% group_by(first_name, second_name, element_type, id, team, web_name) %>% 
 #   summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
 # 
-# p90_19 <- kom19 %>% filter(minutes >= 90) %>% group_by(first_name, second_name, element_type, id, team, web_name) %>% 
+# p90_19 <- kom19 %>% filter(minutes >= 90) %>% group_by(Ime, Priimek, Pozicija, id, Ekipa, Igralec) %>%
 #   summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
 
 
