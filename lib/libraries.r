@@ -12,6 +12,8 @@ library(ggplot2)
 library(plotly)
 library(GGally)
 library(mgcv)
+library(stringr)
+library(mgsub)
 
 options(gsubfn.engine="R")
 
