@@ -1,5 +1,5 @@
 # V p17 SO STATISTIKE NORMIRANE NA 90 ODIGRANIH MINUT, ODSTRANILI SMO IGRALCE, KI SO V SEZONI ODGIRALI MANJ KOT 90 MINUT
-p17 <- kom17 %>% filter(minutes >= 90) %>% group_by(Ime, Priimek, Pozicija, id, Ekipa, Igralec) %>%
+p17 <- kom17 %>% filter(minutes >= 90) %>% group_by(Ime, Priimek, Pozicija, id, Ekipa, Igralec, Uvrstitev) %>%
    summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
 
 
@@ -19,7 +19,7 @@ ustrezni_igralci <- ustrezni_napadalci %>% inner_join(ustrezni_napadalci_vezisti
 
 # za prileganje bomo uporabili tudi podatke ekip iz sezone, ki se nanašajo na to koliko malih in velikih priložnosti ustvarijo ekipe na
 # 90 odigranih minut
-p17_ekipa <- kom17 %>% ungroup() %>% select(-Ime, -Priimek, -Pozicija, -id, -Igralec) %>%
+p17_ekipa <- kom17 %>% ungroup() %>% select(-Ime, -Priimek, -Pozicija, -id, -Igralec, -Uvrstitev) %>%
   group_by(Ekipa) %>% summarise(across(everything(), sum)) %>% 
   mutate(priloznosti.ekipa90_lani = round(big_chances_created/minutes * 90, 2),
          podaje.strel.ekipa90_lani = round(key_passes/minutes*90, 2)) %>%
@@ -51,23 +51,23 @@ lin5 <- lm(data=tabela_za_prileganje %>% ungroup(), zadetki90_letos ~ minute_let
 
 
 #TESTIRANJE MODELA NA PODATKIH
-p18 <- kom18 %>% filter(minutes >= 90) %>% group_by(Ime, Priimek, Pozicija, id, Ekipa, Igralec) %>%
+p18 <- kom18 %>% filter(minutes >= 90) %>% group_by(Ime, Priimek, Pozicija, id, Ekipa, Igralec, Uvrstitev) %>%
   summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
 
-p19 <- kom19 %>% filter(minutes >= 90) %>% group_by(Ime, Priimek, Pozicija, id, Ekipa, Igralec) %>%
-  summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
+# p19 <- kom19 %>% filter(minutes >= 90) %>% group_by(Ime, Priimek, Pozicija, id, Ekipa, Igralec, Uvrstitev) %>%
+#   summarise(across(everything(),function(x) {round(x/minutes * 90, 2)})) %>% select(-minutes)
 
-p18_ekipa <- kom18 %>% ungroup() %>% select(-Ime, -Priimek, -Pozicija, -id, -Igralec) %>%
+p18_ekipa <- kom18 %>% ungroup() %>% select(-Ime, -Priimek, -Pozicija, -id, -Igralec, -Uvrstitev) %>%
   group_by(Ekipa) %>% summarise(across(everything(), sum)) %>% 
   mutate(priloznosti.ekipa90_lani = round(big_chances_created/minutes * 90, 2),
          podaje.strel.ekipa90_lani = round(key_passes/minutes*90, 2)) %>%
   select(Ekipa, priloznosti.ekipa90_lani, podaje.strel.ekipa90_lani)
 
-p19_ekipa <- kom19 %>% ungroup() %>% select(-Ime, -Priimek, -Pozicija, -id, -Igralec) %>%
-  group_by(Ekipa) %>% summarise(across(everything(), sum)) %>% 
-  mutate(priloznosti.ekipa90_lani = round(big_chances_created/minutes * 90, 2),
-         podaje.strel.ekipa90_lani = round(key_passes/minutes*90, 2)) %>%
-  select(Ekipa, priloznosti.ekipa90_lani, podaje.strel.ekipa90_lani)
+# p19_ekipa <- kom19 %>% ungroup() %>% select(-Ime, -Priimek, -Pozicija, -id, -Igralec, -Uvrstitev) %>%
+#   group_by(Ekipa) %>% summarise(across(everything(), sum)) %>% 
+#   mutate(priloznosti.ekipa90_lani = round(big_chances_created/minutes * 90, 2),
+#          podaje.strel.ekipa90_lani = round(key_passes/minutes*90, 2)) %>%
+#   select(Ekipa, priloznosti.ekipa90_lani, podaje.strel.ekipa90_lani)
 
 
 # TO JE TABELA S PODATKI POTREBNIMI ZA NAŠ TEST
@@ -120,7 +120,7 @@ tabela_napak <- data.frame(predikcija=c("1", "2", "3", "4", "5"),
 graf_predikcija1 <- ggplotly(ggplot(primerjava) + aes(x = dejansko_st_zadetkov, y = predikcija1) + 
                                geom_point(aes(Igralec = Igralec, Ekipa = Ekipa), colour = "blue") +
                                geom_smooth(aes(y = predikcija1), method="lm", col = "blue", se = FALSE) +
-                               labs(title = "Predikcija 1 števila zadetkov") + ylab("Predikcija 1 števila zadetkov") +
+                               labs(title = "Predikcija Števila zadetkov 1") + ylab("Predikcija 1 števila zadetkov") +
                                xlab("Dejansko število zadetkov") + xlim(0, 23) + ylim(0, 23) +
                                geom_abline(intercept = 0, slope = 1, col = "grey", linetype="dashed") + 
                                theme(plot.title = element_text(color = "blue", size = 18)))
@@ -128,7 +128,7 @@ graf_predikcija1 <- ggplotly(ggplot(primerjava) + aes(x = dejansko_st_zadetkov, 
 graf_predikcija2 <- ggplotly(ggplot(primerjava) + aes(x = dejansko_st_zadetkov, y = predikcija2) + 
                                geom_point(aes(Igralec = Igralec, Ekipa = Ekipa), colour = "burlywood") +
                                geom_smooth(aes(y = predikcija2), method="lm", col = "burlywood", se = FALSE) +
-                               labs(title = "Predikcija 2 števila zadetkov") + ylab("Predikcija 2 števila zadetkov") +
+                               labs(title = "Predikcija Števila zadetkov 2") + ylab("Predikcija 2 števila zadetkov") +
                                xlab("Dejansko število zadetkov") + xlim(0, 23) + ylim(0, 23) +
                                geom_abline(intercept = 0, slope = 1, col = "grey", linetype="dashed") + 
                                theme(plot.title = element_text(color = "burlywood", size = 18)))
@@ -137,7 +137,7 @@ graf_predikcija2 <- ggplotly(ggplot(primerjava) + aes(x = dejansko_st_zadetkov, 
 graf_predikcija3 <- ggplotly(ggplot(primerjava) + aes(x = dejansko_st_zadetkov, y = predikcija3) + 
                                geom_point(aes(Igralec = Igralec, Ekipa = Ekipa), colour = "darkorange3") +
                                geom_smooth(aes(y = predikcija3), method="lm", col = "darkorange3", se = FALSE) +
-                               labs(title = "Predikcija 3 števila zadetkov") + ylab("Predikcija 3 števila zadetkov") +
+                               labs(title = "Predikcija Števila zadetkov 3") + ylab("Predikcija 3 števila zadetkov") +
                                xlab("Dejansko število zadetkov") + xlim(0, 23) + ylim(0, 23) +
                                geom_abline(intercept = 0, slope = 1, col = "grey", linetype="dashed") + 
                                theme(plot.title = element_text(color = "darkorange3", size = 18)))
@@ -145,7 +145,7 @@ graf_predikcija3 <- ggplotly(ggplot(primerjava) + aes(x = dejansko_st_zadetkov, 
 graf_predikcija4 <- ggplotly(ggplot(primerjava) + aes(x = dejansko_st_zadetkov, y = predikcija4) + 
                                geom_point(aes(Igralec = Igralec, Ekipa = Ekipa), colour = "darkorchid2") +
                                geom_smooth(aes(y = predikcija4), method="lm", col = "darkorchid2", se = FALSE) +
-                               labs(title = "Predikcija 4 števila zadetkov") + ylab("Predikcija 4 števila zadetkov") +
+                               labs(title = "Predikcija Števila zadetkov 4") + ylab("Predikcija 4 števila zadetkov") +
                                xlab("Dejansko število zadetkov") + xlim(0, 23) + ylim(0, 23) +
                                geom_abline(intercept = 0, slope = 1, col = "grey", linetype="dashed") + 
                                theme(plot.title = element_text(color = "darkorchid2", size = 18)))
@@ -155,7 +155,7 @@ graf_predikcija4 <- ggplotly(ggplot(primerjava) + aes(x = dejansko_st_zadetkov, 
 graf_predikcija5 <- ggplotly(ggplot(primerjava) + aes(x = dejansko_st_zadetkov, y = predikcija5) + 
                                geom_point(aes(Igralec = Igralec, Ekipa = Ekipa), colour = "aquamarine3") +
                                geom_smooth(aes(y = predikcija5), method="lm", col = "aquamarine3", se = FALSE) +
-                               labs(title = "Predikcija 5 števila zadetkov") + ylab("Predikcija 5 števila zadetkov") +
+                               labs(title = "Predikcija Števila zadetkov 5") + ylab("Predikcija 5 števila zadetkov") +
                                xlab("Dejansko število zadetkov") + xlim(0, 23) + ylim(0, 23) +
                                geom_abline(intercept = 0, slope = 1, col = "grey", linetype="dashed") + 
                                theme(plot.title = element_text(color = "aquamarine3", size = 18)))
@@ -179,10 +179,10 @@ graf_vseh_zglajenih_predikcij1 <- ggplotly(ggplot(primerjava2) + aes(x=dejansko_
                                             theme(plot.title = element_text(color = "darkmagenta", size = 18)))
 
 # OGLED VSEH GRAFOV
-# print(graf_predikcija1)
-# print(graf_predikcija2)
-# print(graf_predikcija3)
-# print(graf_predikcija4)
-# print(graf_predikcija5)
-# print(graf_vseh_zglajenih_predikcij1)
+print(graf_predikcija1)
+print(graf_predikcija2)
+print(graf_predikcija3)
+print(graf_predikcija4)
+print(graf_predikcija5)
+print(graf_vseh_zglajenih_predikcij1)
 
