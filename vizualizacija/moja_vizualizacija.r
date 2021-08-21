@@ -63,11 +63,11 @@ igralci <- kom19 %>% filter(minutes >= 90*7, Pozicija=="Vezist" | Pozicija=="Nap
 podaje_asistence <- igralci %>% filter(assists/minutes >= quantile(igralci$assists/igralci$minutes, 2/3, na.rm = TRUE) |
                                completed_passes/minutes >= quantile(igralci$completed_passes/igralci$minutes, 2/3, na.rm=TRUE)) %>%
   mutate(odstotek_uspesnih_podaj = round(completed_passes/attempted_passes * 100, 2), st_asistenc_90 = round(assists/minutes * 90, 2)) %>%
-  select(Igralec, st_asistenc_90, odstotek_uspesnih_podaj, attempted_passes, completed_passes, assists, minutes)
+  select(Igralec, st_asistenc_90, odstotek_uspesnih_podaj, attempted_passes, completed_passes, assists, minutes, Uvrstitev)
 
 graf_podaje_asistence <- ggplotly(ggplot(podaje_asistence) + aes(igralec = Igralec, ekipa = Ekipa, st_asistenc = assists, minute = minutes,
-                                           x = st_asistenc_90, y = odstotek_uspesnih_podaj, color = Pozicija) + geom_point() + 
-           ggtitle("Primerjava najnatančnejših podajalcev za najboljšimi asistenti") + ylab("Odstotek uspešnih podaj") +
+                                           x = st_asistenc_90, y = odstotek_uspesnih_podaj, colour = Pozicija, shape = Uvrstitev) + geom_point() + 
+           ggtitle("Najnatančnejši podajalci in najboljši asistenti") + ylab("Odstotek uspešnih podaj") +
            xlab("Število asistenc na 90 minut"))
 
 
@@ -75,11 +75,11 @@ priloznosti_driblingi <- igralci %>%  filter(dribbles/minutes >= quantile(igralc
                                                        big_chances_created/minutes >= quantile(
                                                          igralci$big_chances_created/igralci$minutes, 2/3, na.rm = TRUE)) %>%
   mutate(st_driblingov_90 = round(dribbles/minutes*90, 2), st_velikih_priloznosti_90 = round(big_chances_created/minutes*90, 2)) %>%
-  select(Igralec, st_driblingov_90, st_velikih_priloznosti_90, dribbles, big_chances_created, minutes)
+  select(Igralec, st_driblingov_90, st_velikih_priloznosti_90, dribbles, big_chances_created, minutes, Uvrstitev)
 
 graf_priloznosti_driblingi <- ggplotly(ggplot(priloznosti_driblingi) + aes(igralec = Igralec, ekipa = Ekipa, st_driblingov = dribbles,
                                                                            priloznosti = big_chances_created, x = st_velikih_priloznosti_90, minute = minutes,
-                                                                           y = st_driblingov_90, color = Pozicija) +
+                                                                           y = st_driblingov_90, color = Pozicija, shape = Uvrstitev) +
                                          geom_point() + ggtitle("Primerjava driblerjev in kreativnih igralcev") +
                                          ylab("Število driblingov na 90 minut") + xlab("Število ustvarjenih velikih priložnosti na 90 minut"))
 
@@ -88,11 +88,11 @@ graf_priloznosti_driblingi <- ggplotly(ggplot(priloznosti_driblingi) + aes(igral
 driblingi_odvzete_zoge <- igralci %>% filter(dribbles/minutes >= quantile(igralci$dribbles/igralci$minutes, 2/3, na.rm = TRUE) |
                                                tackled/minutes >= quantile(igralci$tackled/igralci$minutes, 2/3, na.rm = TRUE)) %>%
   mutate(odvzete_zoge_90 = round(tackled/minutes*90, 2), st_driblingov_90 = round(dribbles/minutes*90, 2)) %>%
-  select(Igralec, odvzete_zoge_90, st_driblingov_90, dribbles, tackled, minutes)
+  select(Igralec, odvzete_zoge_90, st_driblingov_90, dribbles, tackled, minutes, Uvrstitev)
 
 graf_driblingi_odvzete_zoge <- ggplotly(ggplot(driblingi_odvzete_zoge) + aes(igralec = Igralec, ekipa = Ekipa, izguba_zoge = tackled,
                                                                            st_driblingov = dribbles, x = odvzete_zoge_90, minute = minutes,
-                                                                           y = st_driblingov_90, color = Pozicija) +
+                                                                           y = st_driblingov_90, color = Pozicija, shape = Uvrstitev) +
                                          geom_point() + ggtitle("Primerjava driblingov in izgubljenih žog") +
                                          ylab("Število driblingov na 90 minut") + xlab("Število izgubljenih žog na 90 minut"))
 
@@ -103,40 +103,42 @@ blokade_napake <- igralci %>% filter(errors_leading_to_goal_attempt/minutes >=
                                                                                                   igralci$minutes, 2/3, na.rm = TRUE)) %>%
   mutate(obrambne_akcije_90 = round(clearances_blocks_interceptions/minutes*90,2), napake_za_priloznost_90 =
            round(errors_leading_to_goal_attempt/minutes*90,2)) %>% select(Igralec, napake_za_priloznost_90, obrambne_akcije_90, minutes,
-                                                                          errors_leading_to_goal_attempt, clearances_blocks_interceptions)
+                                                                          errors_leading_to_goal_attempt, clearances_blocks_interceptions, Uvrstitev)
 
 graf_blokade_napake <- ggplotly(ggplot(blokade_napake) + aes(igralec = Igralec, ekipa = Ekipa,
                                                              izbijanja_blokiranja_prestrezanja = clearances_blocks_interceptions,
                                                              st_napak_za_priloznost = errors_leading_to_goal_attempt,
-                                                             x = napake_za_priloznost_90, minute = minutes, y = obrambne_akcije_90, color = Pozicija) +
-                                  geom_point() +
+                                                             x = napake_za_priloznost_90, minute = minutes, y = obrambne_akcije_90, color = Pozicija,
+                                                             shape = Uvrstitev) + geom_point() +
                                   ggtitle("Primerjava obrambnih akcij in napak") + ylab("Število obrambnih posredovanj na 90 minut") +
-                                  xlab("Število napak, ki vodijo do priložnosti za nasprotnika na 90 minut"))
+                                  xlab("Napake za nasprotnikove priložnosti na 90 minut"))
 
 
 
 odvzete_zoge_favli <- igralci %>% filter(tackles/minutes >= quantile(igralci$tackles/igralci$minutes, 2/3, na.rm = TRUE) |
                                fouls/minutes >= quantile(igralci$fouls/igralci$minutes, 2/3, na.rm = TRUE)) %>%
   mutate(odvzete_zoge_90 = round(tackles/minutes*90,2), prekrski_90 = round(fouls/minutes*90,2)) %>%
-  select(Igralec, prekrski_90, odvzete_zoge_90, minutes, fouls, tackles)
+  select(Igralec, prekrski_90, odvzete_zoge_90, minutes, fouls, tackles, Uvrstitev)
 
 graf_odvzete_zoge_favli <- ggplotly(ggplot(odvzete_zoge_favli) + aes(igralec = Igralec, ekipa = Ekipa, prekrski = fouls, odvzemanja_zoge = tackles,
-                                                                     x = prekrski_90, minute = minutes, y = odvzete_zoge_90, color = Pozicija) +
+                                                                     x = prekrski_90, minute = minutes, y = odvzete_zoge_90, color = Pozicija,
+                                                                     shape = Uvrstitev) +
                                       geom_point() + ggtitle("Primerjava odvzetih žog in prekrškov") + ylab("Število odvzetih žog na 90 minut") +
                                   xlab("Število prekrškov na 90 minut"))
 
 vratarji <- kom19 %>% filter(minutes >= 90*3, Pozicija == "Vratar")
 
-obrambe_clean_sheeti <- vratarji %>% mutate(obrambe_90 = round(saves/minutes*90,2)) %>% select(Igralec, obrambe_90, clean_sheets, minutes, saves)
+obrambe_clean_sheeti <- vratarji %>% mutate(obrambe_90 = round(saves/minutes*90,2)) %>% select(Igralec, obrambe_90, clean_sheets, minutes, saves,
+                                                                                               Uvrstitev)
 
 graf_obrambe_clean_sheeti <- ggplotly(ggplot(obrambe_clean_sheeti) + aes(igralec = Igralec, ekipa = Ekipa, obrambe = saves,
                                                                          tekma_brez_prejetega_zadetka = clean_sheets,
-                                                                       x = clean_sheets, minute = minutes, y = obrambe_90) +
+                                                                       x = clean_sheets, minute = minutes, y = obrambe_90, colour = Uvrstitev) +
                                         geom_point() + ggtitle("Tekme brez prejetega zadetka in obrambe") + ylab("Število obranjenih strelov na 90 minut") +
                                         xlab("Število tekem brez prejetega gola"))
 
 
-# OGLED VSEH GRAFOV
+# # OGLED VSEH GRAFOV
 # print(graf_podaje_asistence)
 # print(graf_priloznosti_driblingi)
 # print(graf_driblingi_odvzete_zoge)
