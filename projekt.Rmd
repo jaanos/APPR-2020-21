@@ -215,6 +215,9 @@ graf_vseh_zglajenih_predikcij1
 <!-- # ``` -->
 <br><br>  
 ***
+
+# Aplikacija v Shiny-ju
+
 nekaj o aplikaciji
 
 ```{r shiny, echo=FALSE}
