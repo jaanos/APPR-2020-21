@@ -1,6 +1,6 @@
 ---
 title: "Poročilo pri predmetu Analiza podatkov s programom R"
-author: "Študent FMF"
+author: "Jan Črne"
 output:
   html_document: default
   pdf_document:
@@ -23,10 +23,9 @@ source("lib/rstudio.r", encoding="UTF-8")
 ```
 
 # Izbira teme
+NASLOV
+Kratek povzetek moje teme
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
-
-![](slike/grb.png)
 
 ***
 
@@ -59,49 +58,165 @@ z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
 
 Spodnji graf prikazuje porazdelitev števila naselij v občinah.
 
-```{r histogram, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-ggplot(obcine, aes(x=naselja)) + geom_histogram() +
-  ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
-```
+<!-- ```{r histogram, fig.align='center', fig.cap='Histogram števila naselij v občinah'} -->
+<!-- ggplot(obcine, aes(x=naselja)) + geom_histogram() + -->
+<!--   ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin") -->
+<!-- ``` -->
 
+<!-- *** -->
 ***
-
 # Analiza in vizualizacija podatkov
 
 ```{r vizualizacija, results='hide'}
-source("vizualizacija/vizualizacija.r", encoding="UTF-8")
+source("vizualizacija/moja_vizualizacija.r", encoding="UTF-8")
 ```
 
 Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
 
-```{r zemljevid, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
-  tm_polygons("povprecje", title="Povprečje") +
-  tm_layout(title="Povprečno število otrok v družini")
+
+<br><br>  
+
+nekaj o 1 grafu
+
+
+```{r graf1, echo=FALSE, message=FALSE, fig.align='center'}
+graf_podaje_asistence
+```
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br>  
+nekaj o 2 grafu
+
+```{r graf2, echo=FALSE, message=FALSE, fig.align='center'}
+graf_priloznosti_driblingi
+```
+
+
+
+<br><br>  
+nekaj o 3 grafu
+
+
+```{r graf3, echo=FALSE, message=FALSE, fig.align='center'}
+graf_driblingi_odvzete_zoge
+```
+<br><br>
+nekaj o 4 grafu
+
+
+```{r graf4, echo=FALSE, message=FALSE, fig.align='center'}
+graf_blokade_napake
+```
+
+<br><br>  
+nekaj o 5 grafu
+
+
+```{r graf5, echo=FALSE, message=FALSE, fig.align='center'}
+graf_odvzete_zoge_favli
+```
+
+<br><br>  
+nekaj o 6 grafu
+
+
+```{r graf6, echo=FALSE, message=FALSE, fig.align='center'}
+graf_obrambe_clean_sheeti
 ```
 
 ***
-
 # Napredna analiza podatkov
 
 ```{r analiza}
-source("analiza/analiza.r", encoding="UTF-8")
+source("analiza/moja_analiza.r", encoding="UTF-8")
 ```
 
 Spodnji graf prikazuje povezavo med številom naselij in površino občine.
 
-```{r graf, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-ggplot(inner_join(obcine, data.frame(obcina=names(skupine),
-                                     skupina=factor(skupine)), by="obcina")
-, aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() +
-  ggtitle("Število naselij glede na površino občine") +
-  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-  guides(color=guide_legend(title="Skupina"),
-         size=guide_legend(title="Prebivalci (* 1000)"))
+```{r tabela1, echo=FALSE, message=FALSE, fig.align='center'}
+print(tabela_napak, row.names = FALSE)
+print(as.data.frame(tabela_predikcij), row.names = FALSE)
 ```
 
-***
 
-```{r shiny}
-shinyAppDir("shiny", options=list(width="100%", height=600))
+<br><br>  
+nekaj o 7 grafu
+
+```{r graf7, echo=FALSE, message=FALSE, fig.align='center'}
+graf_predikcija1
+```
+
+<br><br>  
+nekaj o 8 grafu
+
+
+```{r graf8, echo=FALSE, message=FALSE, fig.align='center'}
+graf_predikcija2
+```
+
+<br><br>  
+nekaj o 9 grafu
+
+
+```{r graf9, echo=FALSE, message=FALSE, fig.align='center'}
+graf_predikcija3
+```
+
+<br><br>  
+nekaj o 10 grafu
+
+
+```{r graf10, echo=FALSE, message=FALSE, fig.align='center'}
+graf_predikcija4
+```
+
+<br><br>  
+nekaj o 11 grafu
+
+
+```{r graf11, echo=FALSE, message=FALSE, fig.align='center'}
+graf_predikcija5
+```
+
+<br><br>  
+nekaj o 12 grafu
+
+
+```{r graf12, echo=FALSE, message=FALSE, fig.align='center'}
+graf_vseh_zglajenih_predikcij1
+```
+
+
+
+<!-- # ```{r graf, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'} -->
+<!-- #  ggplot(inner_join(obcine, data.frame(obcina=names(skupine), -->
+<!-- #                                       skupina=factor(skupine)), by="obcina") -->
+<!-- #  , aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() + -->
+<!-- #    ggtitle("Število naselij glede na površino občine") + -->
+<!-- #    xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") + -->
+<!-- #    guides(color=guide_legend(title="Skupina"), -->
+<!-- #           size=guide_legend(title="Prebivalci (* 1000)")) -->
+<!-- #  ``` -->
+<!-- #   -->
+<!-- #  *** -->
+<!-- #  -->
+<!-- # ```{r shiny} -->
+<!-- # shinyAppDir("shiny", options=list(width="100%", height=600)) -->
+<!-- # ``` -->
+<br><br>  
+***
+nekaj o aplikaciji
+
+```{r shiny, echo=FALSE}
+shinyAppDir("shiny", options=list(width="100%", height=900))
 ```
