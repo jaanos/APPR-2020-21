@@ -109,8 +109,8 @@ kvadraticna_napaka = function(x, y) {sum((x - y)^2)}
 # kvadraticna_napaka(primerjava$dejansko_st_zadetkov, primerjava$predikcija5)
 
 # TABELA Z ODSTOPANJI PREDIKCIJ OD DEJANSKIH VREDNOSTI
-tabela_napak <- data.frame(predikcija=c("1", "2", "3", "4", "5"),
-                          napaka = (c(kvadraticna_napaka(primerjava$dejansko_st_zadetkov,primerjava[4]), 
+tabela_napak <- data.frame(Predikcija=c("1", "2", "3", "4", "5"),
+                          "Kvadratična napaka" = (c(kvadraticna_napaka(primerjava$dejansko_st_zadetkov,primerjava[4]), 
                                       kvadraticna_napaka(primerjava$dejansko_st_zadetkov,primerjava[5]),
                                       kvadraticna_napaka(primerjava$dejansko_st_zadetkov,primerjava[6]),
                                       kvadraticna_napaka(primerjava$dejansko_st_zadetkov,primerjava[7]),
@@ -185,4 +185,11 @@ print(graf_predikcija3)
 print(graf_predikcija4)
 print(graf_predikcija5)
 print(graf_vseh_zglajenih_predikcij1)
+
+
+# Tabela za v Rmarkdown
+tabela_predikcij <- primerjava %>%  filter(dejansko_st_zadetkov >= 10) %>% rename("Zadetki" = dejansko_st_zadetkov,
+                                                                                 Predikcija1 = predikcija1, Predikcija2 = predikcija2,
+                                          Predikcija3 = predikcija3, Predikcija4 = predikcija4, Predikcija5 = predikcija5) %>%
+  select(-Ekipa)
 
