@@ -12,7 +12,5 @@
 #    "numDeriv",
 #    "rootSolve"
 #))
-# install.packages()
-# install.packages()
-# install.packages()
-# install.packages()
+
+install.packages("mgsub")
