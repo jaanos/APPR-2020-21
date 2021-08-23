@@ -58,7 +58,7 @@
 
 
 # SEDAJ NAS ZANIMAJO LE IGRALCI V POLJU Z VEC KOT SEDMIMI CELOTNIMI ODIGRANIMI TEKMAMI
-igralci <- kom19 %>% filter(minutes >= 90*7, Pozicija=="Vezist" | Pozicija=="Napadalec" | Pozicija=="Branilec")
+igralci <- kom19 %>% filter(minutes >= 20*20, Pozicija=="Vezist" | Pozicija=="Napadalec" | Pozicija=="Branilec")
 
 podaje_asistence <- igralci %>% filter(assists/minutes >= quantile(igralci$assists/igralci$minutes, 2/3, na.rm = TRUE) |
                                completed_passes/minutes >= quantile(igralci$completed_passes/igralci$minutes, 2/3, na.rm=TRUE)) %>%
