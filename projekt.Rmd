@@ -1,5 +1,6 @@
 ---
 title: "Poročilo pri predmetu Analiza podatkov s programom R"
+subtitle: "Analiza igralcev angleške Premier Lige v sezoni 2018/19"
 author: "Jan Črne"
 output:
   html_document: default
@@ -23,9 +24,9 @@ source("lib/rstudio.r", encoding="UTF-8")
 ```
 
 # Izbira teme
-NASLOV
-Kratek povzetek moje teme
+Analiza igralcev angleške Premier Lige v sezoni 2018/19
 
+V mojem poročilo bom predstavil izsledke analize vseh igralcev, ki so v sezoni 2018/19 odigral vsaj minuto tekme. Iz podatkov sem sestavil nekaj grafov, ki predstavljajo povezave med podatki, ki so mene osebno zanimali. Podatke imam tudi za dve sezone nazaj, torej 2016/17 in 2017/18 s pomočjo katerih sem s linearno regesijo naredil 5 enostavnih modelov za predvidevanje števila zadetkov. Modele sem nato uporabil na podatkih iz sezone 2018/19 in primerjal predikcije modelov z dejanskm številom zadetkov.
 
 ***
 
@@ -35,35 +36,44 @@ Kratek povzetek moje teme
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
+Uvozil sem CSV datoteke z informacijami o igralcih, datoteke z podatki o igralcih na vsaki tekmi, torej CSV datoteke, ki za vsakega igralca vsebuje podatke iz vsake tekme, ki jo je odigral v posamezni sezoni. Iz Wikipedie sem uvozil se tabele z ekipami, ki so v prej omenjenih treh sezonah igrale v prvi angleški nogometni ligi, in podatke o razvrstitvi teh ekip na koncu sezone, torej ali so te ekipe izpadle, se uvrstile v kakšno od evropskih tekmovanj in tako naprej.
 
-1. `druzine` - podatki o družinah za vsako občino
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `velikost.druzine` - spremenljivka: število otrok v družini (število: 1, 2, 3 ali 4, kjer zadnja vrednost pomeni 4 ali več),
-  - `stevilo.druzin` - meritev: število družin z ustreznim številom otrok v ustrezni občini (število).
+Imena ekip in njihove razvrstitve sem dobil v HTML obliki, v tabelah iz Wikipedie na povezavah https://en.wikipedia.org/wiki/2016%E2%80%9317_Premier_League, https://en.wikipedia.org/wiki/2017%E2%80%9318_Premier_League, https://en.wikipedia.org/wiki/2018%E2%80%9319_Premier_League. Informacije o igralcih in njihovih nastopih pa na Github repozitoriju z povezavo https://github.com/vaastav/Fantasy-Premier-League/tree/master/data.
 
-2. `obcine` - podatki o občinah
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `povrsina` - meritev: površina občine v km$^2$ (število),
-  - `prebivalci` - meritev: prebivalstvo občine (število),
-  - `gostota` - meritev: število prebivalcev na km$^2$ (število),
-  - `naselja` - meritev: število naselij v občini (število),
-  - `ustanovitev` - meritev: leto ustanovitve občine (število),
-  - `pokrajina` - meritev: pokrajina, ki ji občina pripada (neurejen faktor),
-  - `regija` - meritev: regija, ki ji občina pripada (neurejen faktor),
-  - `odcepitev` - meritev: podatki o občinah, od katerih se je občina odcepila (besedilo).
+Ker je različnih podatkov v tabelah res veliko, bom natančneje predstavil le tiste, ki sem jih za grafe, aplikacijo in modeliranje res uporabljal.
 
-**Opomba**: da bi razpredelnica `obcine` res bila v obliki *tidy data*, bi morali odstraniti stolpec `gostota` (saj je izpeljan iz stolpcev `povrsina` in `prebivalci`), podatke o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s stolpcem `odcepitev`.
+1. Tabele stat17, stat18, stat19 vsebujejo stolpce
+  - `first_name`, `second_name` - (besedilo),
+  - `id` -  (število),
+  - `assists` -  (število),
+  - `attempted_passes` -  (število),
+  - `big_chances_crated` -  (število),
+  - `clean_sheets` -  (število),
+  - `clearances_blocks_interceptions` - število, ki sešteje izbijanja žog, blokirane streli in prestrežene žoge igralca (število),
+  - `completed_passes` -  (število),
+  - `dribbles` -  (število),
+  - `errors_leading_to_goal_attempt` -  (število),
+  - `fouls` -  (število),
+  - `goals_scored` -  (število),
+  - `key_passes` -  število podaj, ki so vodile do strela, ne vsebuje podaj, ki so bile asistence (število),
+  - `minutes` -  (število),
+  - `round` -  (neurejen faktor),
+  - `saves` -  (število),
+  - `tackled` - izgubljene žoge direktno od nasprotnika, torej število ne vsebuje netočnih podaj (število)
+  - `tackles` -  število odvzetih žog naspotniku direktno, torej številka ne vsebuje prestreženih žog (število)
+  
+2. Tabele uvoz_igralci17, uvoz_igralci18, uvoz_igralci19 vsebujejo stolpce
+  - `element_type` - pozicija igralci: 1 za vratarje, 2 za branilce, 3 za veziste in 4 za napadalce (neurejen faktor),
+  - `first_name` - (besedilo),
+  - `id` - (število),
+  - `second_name` - (besedilo),
+  - `team` - ekipa za katero igralec igra, števila od 1 od 20, kjer je 1 ekipa, ki je v ligi po abecednem vrstnem redu na prvem mestu (neurejen faktor),
+  - `web_name` - skrajšano ime igralca, to je ime po katerem je igralec najbolj razpoznaven (besedilo).
+  
+3. Tabela tabela1, tabela2, tabela3, tabela4, tabela5, tabela6 so tabele s imeni ekip in njihovimi končnimi razvrstitvami, vsebujejo stolpce
+  - `Team` - imena ekip (besedilo)
+  - `Uvrstitev` - v katero tekmovanje se je ekipa uvrstila, mmožnosti so Liga Prvakov, Liga Evropa, Sredina lestvice, Izpad iz lige (besedilo)
 
-Spodnji graf prikazuje porazdelitev števila naselij v občinah.
-
-<!-- ```{r histogram, fig.align='center', fig.cap='Histogram števila naselij v občinah'} -->
-<!-- ggplot(obcine, aes(x=naselja)) + geom_histogram() + -->
-<!--   ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin") -->
-<!-- ``` -->
-
-<!-- *** -->
 ***
 # Analiza in vizualizacija podatkov
 
@@ -71,12 +81,19 @@ Spodnji graf prikazuje porazdelitev števila naselij v občinah.
 source("vizualizacija/moja_vizualizacija.r", encoding="UTF-8")
 ```
 
-Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
+V tej fazi sem iz podatkov narisal nekaj točkastih grafov. Podatki na grafih zaobjemajo le sezono 2018/19. Točke predstavljajo igralce. Na vsakem grafu so ime igralca, za katero ekipo igra, kam se je njegovo ekipa na koncu sezone uvrstila in na kateri poziciji je igralec igral. 
 
+Podatki, so naračunani iz tabel v kateri so zgornje tabele seštete po vrsticah, torej za vsakega igralca, sem seštel vse vrstice z podatki o njegovih statistikah na posameznih tekmah, tako sem dobil tabele, ki vsebujejo vse komulativne statistike igralca v sezoni.
+
+Grafi vsebujejo le podatke, za igralce, ki so v celotni sezoni odigrali vsaj 400 minut. Prav tako, so na grafu le igralci, ki so v zgornji tretjimi igralcev v prikazanih statistikah.
 
 <br><br>  
 
-nekaj o 1 grafu
+Prvi graf primerja igralce, ki so bili v sezoni 18/19 med igralci z največ narejenimi natančnimi podajami na tekmo z igralci, ki so v povrečju dosegli največ asistenc. Podatki so torej naračunani iz stolpcev `minutes`, `completed_passes` in `assists`. 
+
+Na grafu so po sortiranju predstavljeni podatki o številu asistenc na 90 minut in podatki o odstotku uspešnih podaj, ki se naračuna iz stolpcev `completed_passes` in `attempted_passes`.
+
+Zanimalo me je, ali so igralci, ki v povprečju skozi sezono dosežejo največ asistenc, recimo kreativnejši igralci, manj natančni pri podajah, kot igralci ki imajo na tekmo v povprečju največ odigranih podaj. Iz grafa je morda viden manjši takšen trend, pri vezistih pri katerih je ta primerjava najzanimivejša. Logično je da imajo napadalci nižji odstotek natančnih podaj in višje ševilo asistenc na 90 minut, saj so najbližje nasprotnikovim vratom, prav tako imajo pričakovano branilci dokaj visok odstotek natačnih podaj saj so pozicije, ki jih na igrišču okupirajo od njih zahtevajo dokaj netvegane odločitve kar se podajanja tiče.
 
 
 ```{r graf1, echo=FALSE, message=FALSE, fig.align='center'}
@@ -95,7 +112,9 @@ graf_podaje_asistence
 
 
 <br><br>  
-nekaj o 2 grafu
+Pri drugem grafu me je zanimalo, ali so igralci, ki imajo na tekmo večje število driblingov tudi med najbolj kreativnimi igralci, to so igralci, ki na tekmo ustvarijo največ lepih priložnosti, to so priložnosti, ki soigralce spravijo v pozicije, ki so za strel na gol izredno ugodne. Za sortiranje sem ponovno vzel igralce v zgornji tretjini v stolpcih `dribbles` in  `big_chances_created` deljenimi z vrednostmi v stolpcih `minutes`. 
+
+Rekel bi, da je moje pričakovanje glede na graf ovrženo, saj ni videti, da bi igralci z največ driblingi na 90 minut bili tudi igralci, ki ustvarijo največ priložnosti.
 
 ```{r graf2, echo=FALSE, message=FALSE, fig.align='center'}
 graf_priloznosti_driblingi
@@ -104,22 +123,29 @@ graf_priloznosti_driblingi
 
 
 <br><br>  
-nekaj o 3 grafu
+Na tretjem grafu me je zanimalo, ali so tisti igralci, ki na 90 minut največkrat preigrajo naspotnika tudi igralci ki žogo največkrat izgubijo. Za sortiranje in prikaz sem uporabil stolpce `dribbles`, `tackled` in `minutes`.
+
+Glede na graf bi dejal, da temu je tako, igralci z višjim število driblingov imajo tudi več izgubljenih žog. Izgubljena žoga je mišljena v smislu, da mu jo je nasprotni igralec odvzel, ko jo je imel igralec v posesti, izgube žog ob netočnih podajah niso vključene.
 
 
 ```{r graf3, echo=FALSE, message=FALSE, fig.align='center'}
 graf_driblingi_odvzete_zoge
 ```
 <br><br>
-nekaj o 4 grafu
+V četrtem grafu me je zanimalo ali so igralci z največ obrambnimi posredovanji tudi igralci z višjim številom napak, ki vodijo do priložnosti za nasprotnika. Logika za to primerjavo izhaja iz razmisleka, da so igralci, ki so v obrambnih statistikah najboljiši, igralci, ki v obrambi največ tevgajo in so za to bolj nagnjeni k napakam.
 
+Za izračune in sortiranje sem uporabil stolpce `minutes`, `errors_leading_to_goal_attempt` in `clearences_blocks_interceptions`. 
+
+Izkaže se povezave v smislu, ki sem jo iskal ni. Bolj izgleda obratno, torej da branilci z več posredovanji naredijo manj napak. Zanimivo ali pa pričakovano, je da so branilci, ki v statistiki obrambnih akcij prosperirajo načeloma iz ekip iz sredine lestvice, to so večinoma ekipe, ki uspešno igrajo bolj obrambno naravnan slog, nasportnik na njihova vrata pritiska intenzivneje, to da branilcem tudi več možnosti za posredovanja.
 
 ```{r graf4, echo=FALSE, message=FALSE, fig.align='center'}
 graf_blokade_napake
 ```
 
 <br><br>  
-nekaj o 5 grafu
+V grafu pet me je zanimalo, ali so igralci, ki odvzamejo največ žog tudi igralci ki storijo največ prekrškov. Logika za to primerjavo bi bila da so v odvzetih žogah uspešnejši, ker so agresivnejši. Za izračun sem uporabil stolpce `minutes`, `fouls`, `tackles`.
+
+Pokaže se, da je bila moja intuicija napačna. Neke povezave ni. Zanimiva ali pričakovano pa je da so igralci, ki naredijo največ prekrškov napadalci ali vezisti. Po svoje je to razumljivo saj so pozicije, ki jih na igrišču okupirajo za nevarne priložnosti iz prekinitev manj nevarne. Prav tako je "nagrada", če napadalec odvazame žogo branilcu višja, saj je pridobil žogo bližje nasprotnikovim vratom, zato se jim v te "dvoboje" splača iti bolj čvrsto. Po ogledu imen igralcev, so napadalci, ki naredijo največ prekrškov med napadalci močnejšega tipa, kar morda tudi vodi do tega da jim sodniški kriterji ni naklonjen.
 
 
 ```{r graf5, echo=FALSE, message=FALSE, fig.align='center'}
@@ -127,8 +153,9 @@ graf_odvzete_zoge_favli
 ```
 
 <br><br>  
-nekaj o 6 grafu
+Na šestem grafu je prikazano število tekem brez zadetka za vratarje in število obramb, ki jih vratarji v povprečju na tekmo naredijo. Za izračun sem uporabil stolpce `minutes`, `clean_sheets` in `saves`.
 
+Pričakovano je opaziti, da imajo vratarji z višjim številom obramb manj tekem brez prejetega zadetka, prav tako vidimo, da so to večinoma vratarji iz sredine lestvice ali cone izpada. Vratarji, ki igrajo za boljše ekipe imajo manj obramb in več tekem brez prejetega zadetka, pred seboj imajo namreč kvalitetnejše branilce in igrajo za ekipe, ki imajo žogo več v svoji posesti. Seveda obratna logika tudi drži.
 
 ```{r graf6, echo=FALSE, message=FALSE, fig.align='center'}
 graf_obrambe_clean_sheeti
@@ -141,7 +168,12 @@ graf_obrambe_clean_sheeti
 source("analiza/moja_analiza.r", encoding="UTF-8")
 ```
 
-Spodnji graf prikazuje povezavo med številom naselij in površino občine.
+Za napredno analizo sem imel idejo, da bi na podlagi podatkov iz sezone 16/17 in 17/18 naračunanl koeficiente za model linearne regresije, in jih nato stestiral na podatkih o številu zadetkov iz sezone 18/19.
+
+Za igralce, sem se omejil le na napadalce. Motiv je nekako bil, da bi lahko ekipa predvidela koliko bi nek igralec za njih dosegel zadetkov, če bi vedeli koliko minut bo igral v sledeči sezoni, poznali koliko zadetkov na 90 minut je dosegel v prejšnji seozni, morda koliko lepih priložnosti je zapravil na 90 minut v prejšnji sezoni, in koliko lepih priložnosti, je ustvarila ekipa za katero bi igral v sledeči sezoni, ustvarila v sezoni pred tem.
+
+V spodnjih dveh tabelah so najprej naračunani podatki o kvadratičnih odstopanjih mojih petih modelov in nato tabela s igralci, ki so v sezoni 18/19 zabili vsaj 10 zadetkov. Tabela vsebuje ime po katerem je igralec poznan, dejansko število zadetkov igralca v sezoni 18/19 in predikicije, ki jih je vrnil vsak model. 
+
 
 ```{r tabela1, echo=FALSE, message=FALSE, fig.align='center'}
 print(tabela_napak, row.names = FALSE)
@@ -150,14 +182,20 @@ print(as.data.frame(tabela_predikcij), row.names = FALSE)
 
 
 <br><br>  
-nekaj o 7 grafu
+Na nadaljnjih grafih so za vsako predikcijo točke, ki imajo za x kooordinato dejansko število zadetkov igralca v sezoni 18/19, za y koordinato pa število, ki ga je vrnila predikcija. Bližje kot je barvana premica ali točka sivi krivulji, boljša je torej bila ocena za število zadetkov. Premica, ki točke povzame je narisana po metodi najmanjših kvadrantov. V analizo so vključeni le igralci, ki so skupno v sezoni odigrali vsaj 90 minut.
+
+<br>
+
+Predikcija ena napoveduje število zadetkov na 90 minut na podlagi zadetkov na 90 doseženih minut iz prejšnje sezone. Število zadetkov nato naračunamo tako, da številko pomnožimo z dejanskim številom odigranih minut in delimo z 90.
+
+Vidimo, da ima metoda, kar nekaj težav, podceni število zadetkov igralcev, ki so jih v sezoni dosegli največ in preceni število zadetkov tistih z najmanj dejanskimi doseženimi zadetki. To je nekako pričakovano, saj so igralci, ki so lani igrali manj minut lahko zadeli kašen gol in je bil njihovo število zadetkov na 90 odigranih minut previsoko, glede na njihove dejanske zmožnosti.
 
 ```{r graf7, echo=FALSE, message=FALSE, fig.align='center'}
 graf_predikcija1
 ```
 
 <br><br>  
-nekaj o 8 grafu
+Druga predikcija naračuna dejansko število zadetkov, upošteva  pa število zadtekov na 90 minut v prejšnji sezoni in število odigranih minut v tej tekoči sezoni. Njena kvadratična napaka je najnižja izmed vseh metod, prav tako je dokaj enostavna, nekaj težav ima pri igralcih z največ doseženimi zadetki, a ker je takih igralcev manj je metoda v povprečju gledano kar dobra ali celo najboljša izmed vseh.
 
 
 ```{r graf8, echo=FALSE, message=FALSE, fig.align='center'}
@@ -165,60 +203,52 @@ graf_predikcija2
 ```
 
 <br><br>  
-nekaj o 9 grafu
+Tretja predikcija naračuna dejansko število zadtekov, na podlagi števila zadetkov igralca na 90 odigranih minut v prejšnji sezoni, števila odigranih minut igralca v tej sezoni, števila zapravljenih priložnosti igralca na 90 minut v prejšnji sezoni in števila ustvarjenih  velikih priložnosti ekipe, za katero ta igralec igra v tej sezoni, v lanski sezoni. 
 
+Predikcija je dokaj dobra, nekaj težav ima predvsem z igralci, ki so dosegli med 10 in 15 golov, boljša kot predikcija dva je za igralce z višjim številom zadetkov.
 
 ```{r graf9, echo=FALSE, message=FALSE, fig.align='center'}
 graf_predikcija3
 ```
 
 <br><br>  
-nekaj o 10 grafu
-
+Predikcija štiri računa število zadetkov na 90 odigranih minut v tej sezoni, te nato pomnožimo z dejanskim številom odigranih minut in delimo z 90. Število računa na podlagi istih podatkov kot Predikcija 3. Ker je predikciji tri zelo podobna ima prav tako težave pri igralcih, ki so dosegli med 10 in 15 zadetkov, je pa dosti boljša pri igralcih z višjim številom zadetkov.
 
 ```{r graf10, echo=FALSE, message=FALSE, fig.align='center'}
 graf_predikcija4
 ```
 
 <br><br>  
-nekaj o 11 grafu
+Peta predikcija računa število zadetkov na 90 odigranih minut, te nato pomnožimo z odigranimi minutami v sezoni in delimo z 90, da dobimo predikcijo za število zadetkov. Za izračun uporabi število odigranih minut v tej sezoni, število zapravljenih priložnosti igralca na 90 minut v prejšnji sezoni, število zadetkov igralca na 90 minut v prejšnji sezoni in število priložnosti za strel, ki ni končal kot zadetek, ekipe za katero igralec igra v tej sezoni, v prejšnji sezoni.
 
+Predikcija je boljša le od prve predikcije, težave ima pri večini igralcev, ki so dosegli več kot 5 zadetkov.
 
 ```{r graf11, echo=FALSE, message=FALSE, fig.align='center'}
 graf_predikcija5
 ```
 
 <br><br>  
-nekaj o 12 grafu
+Zadnji graf nekako površno primerja naše metode, iz tega grafa in izračunov kvadratičnih napak v zgornji tabeli bi nekako zaključil, da sta najboljši predikciji dva in štiri. Štiri je boljša za igralce, za katere pričakujemo, da bodo sezono zaključili med najboljšimi strelci, za ostale bi uporabil predikcijo dve.
 
 
 ```{r graf12, echo=FALSE, message=FALSE, fig.align='center'}
 graf_vseh_zglajenih_predikcij1
 ```
 
-
-
-<!-- # ```{r graf, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'} -->
-<!-- #  ggplot(inner_join(obcine, data.frame(obcina=names(skupine), -->
-<!-- #                                       skupina=factor(skupine)), by="obcina") -->
-<!-- #  , aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() + -->
-<!-- #    ggtitle("Število naselij glede na površino občine") + -->
-<!-- #    xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") + -->
-<!-- #    guides(color=guide_legend(title="Skupina"), -->
-<!-- #           size=guide_legend(title="Prebivalci (* 1000)")) -->
-<!-- #  ``` -->
-<!-- #   -->
-<!-- #  *** -->
-<!-- #  -->
-<!-- # ```{r shiny} -->
-<!-- # shinyAppDir("shiny", options=list(width="100%", height=600)) -->
-<!-- # ``` -->
 <br><br>  
 ***
 
 # Aplikacija v Shiny-ju
 
-nekaj o aplikaciji
+Za konec sem v Shiny-ju naredil še enostavno aplikacijo, ki nam za sezono 18/19 izrisuje točkoven graf za dve poljubni statistiki na 90 odigranih minut.
+
+Določimo lahko v kolikšnem zgornjem kvantilu želimo zajeti igralce. Če želimo najboljše v posameznih dveh statistikah bomo drsnik nastavili na 0.95 za obe taki statistiki. 
+
+Če bi radi podatke za le eno statistiko izberemo to statistiko v obeh poljih.
+
+Prav tako mu podamo, kolikšno je minimalno število celih tekem, ki jih naj prikazani igralci odigrajo, torej če je število tekem 5, bo program to pomnožil z 90 in tako bodo prikazani igralci, ki so odigrali vsaj 450 minut.
+
+Aplikacija ne vsebuje podatkov za igralce, ki so v celotni sezoni odigrali manj kot 90 minut.
 
 ```{r shiny, echo=FALSE}
 shinyAppDir("shiny", options=list(width="100%", height=900))
