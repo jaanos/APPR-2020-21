@@ -1,4 +1,4 @@
-# Analiza predstav igralcev v zadnjih treh sezonah angleške Premier lige, 2020/21
+# Analiza igralcev angleške Premier Lige v sezoni 2018/19
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
