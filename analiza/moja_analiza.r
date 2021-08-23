@@ -179,12 +179,12 @@ graf_vseh_zglajenih_predikcij1 <- ggplotly(ggplot(primerjava2) + aes(x=dejansko_
                                             theme(plot.title = element_text(color = "darkmagenta", size = 18)))
 
 # OGLED VSEH GRAFOV
-print(graf_predikcija1)
-print(graf_predikcija2)
-print(graf_predikcija3)
-print(graf_predikcija4)
-print(graf_predikcija5)
-print(graf_vseh_zglajenih_predikcij1)
+# print(graf_predikcija1)
+# print(graf_predikcija2)
+# print(graf_predikcija3)
+# print(graf_predikcija4)
+# print(graf_predikcija5)
+# print(graf_vseh_zglajenih_predikcij1)
 
 
 # Tabela za v Rmarkdown
