@@ -5,8 +5,7 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 * [![Shiny](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/jaanos/APPR-2020-21/master?urlpath=shiny/APPR-2020-21/projekt.Rmd) Shiny
 * [![RStudio](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/jaanos/APPR-2020-21/master?urlpath=rstudio) RStudio
 
-## Tematika
-
+## Tematika: Meddržavne selitve v Sloveniji 
 V svojem projektu bom analizirala meddržavne selitve v Slovenijo ter iz Slovenije. Nekatere pridobljene podatke bom primerjala tudi z evropskimi.
 
 Podatke bom pretežno pridobila iz spodnjih dveh strani:
