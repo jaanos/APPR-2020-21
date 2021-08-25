@@ -1,4 +1,5 @@
 library(knitr)
+library(readr)
 library(rvest)
 library(gsubfn)
 library(tidyr)
