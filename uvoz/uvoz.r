@@ -2,6 +2,8 @@
 library(readr)
 library(dplyr)
 library(stringr)
+library(tidyr)
+library(rvest)
 #__________________________TABELA 1________________
 imenastolpcev <- c("Leto", "Drzava", "Selitev", "Spol", "Priseljeni_iz_tujine")
 tabela1 <- read_csv2("podatki/priseljeni_drzava_spol.csv", na=c("..."), col_names = imenastolpcev, skip=3,
@@ -97,16 +99,44 @@ tabela6 <- subset(tabela6, Drzava!="- Druge evropske države")
 tabela6$Drzava <- gsub("\\.\\.\\.\\.","",tabela6$Drzava)
 
 #___________________ TABELA 7 ______________________________________________
+#Tabela o namenu priseljencev v Slovenijo
 
 imenastolpcev7 <- c("Leto", "Drzava", "Namen", "Stevilo")
 tabela7 <- read_csv2("podatki/priseljeninamen.csv", na=c("..."), col_names = imenastolpcev7, skip=2,
                      locale=locale(encoding = "Windows-1250"))
-tabela7$Drzava <- gsub("\\.\\.\\.\\.","", tabela7$Drzava)
-tabela7 <- tabela7 %>% filter(between(Leto,2011,2021))
-
+tabela7 <- tabela7 %>% filter(between(Leto,2011,2019))
 tabela7 <- subset(tabela7, Drzava!="Neznano")
 tabela7 <- subset(tabela7, Drzava!="Srbija in Črna gora")
 tabela7 <- subset(tabela7, Drzava!="Države EU")
 tabela7$Drzava[tabela7$Drzava == "... druge države članice EU"] <- "ostale države članice EU"
+tabela7$Drzava[tabela7$Drzava == "... Hrvaška"] <- "Hrvaškaa"
+novo <- tabela7 %>% filter(Drzava!="Hrvaška", Leto > 2013) 
+novo2 <- tabela7 %>% filter(Drzava!="Hrvaškaa",Leto<=2013) 
+tabela7zares <- bind_rows(novo,novo2)
+tabela7zares$Drzava[tabela7zares$Drzava == "Hrvaškaa"] <- "Hrvaška"
+#nujno ugotovi kako izbrisati ene in druge hrvaške glede na pogoj leta, kdaj je v eu in kdaj ne...
+
+#___________________ TABELA 8 ___________________________________________________
+# Priseljeni prebivalci po dejavnosti
+imenastolpcev8 <- c("Leto", "Drzavljanstvo", "Spol", "Dejavnost", "Stevilo")
+tabela8 <- read_csv2("podatki/priseljenipodejavnosti.csv", col_names = imenastolpcev8, skip=3,
+                     locale=locale(encoding = "Windows-1250"))
+  
+tabela8 <- subset(tabela8, select = c("Leto", "Dejavnost","Spol", "Stevilo")) 
+tabela8 <- arrange(tabela8,Leto, Dejavnost)
+  
+#______________ TABELA 9_____________________________________________________________
+#Odseljeni prebivalci po dejavnosti
+imenastolpcev9 <- c("Leto", "Drzavljanstvo", "Spol", "Dejavnost", "Stevilo")
+tabela9 <- read_csv2("podatki/odseljenipodejavnosti.csv", col_names = imenastolpcev9, skip=3,
+                     locale=locale(encoding = "Windows-1250"))
+tabela9 <- subset(tabela9, select = c("Leto", "Dejavnost","Spol", "Stevilo"))
+tabela9 <- arrange(tabela8,Leto, Dejavnost)
+
+#_______________________ TABELA 10 __________________________________________________
+#Spreminjanje GDP držav
+url <- "podatki/gdppercapita.html"
+stran <- read_html(url)
+stran %>% html_nodes(xpath="//table[@class='sortable wikitable']") 
 
 
