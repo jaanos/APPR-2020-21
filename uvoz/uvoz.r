@@ -4,6 +4,49 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(rvest)
+
+
+#slovar imen držav
+slovar <- c("Belgium" = "Belgija",
+            "Germany (until 1990 former territory of the FRG)" = "Nemčija",
+            "Bulgaria" = "Bolgarija",
+            "Czechia" = "Češka",
+            "Denmark" = "Danska",
+            "Germany" = "Nemčija",
+            "Estonia" = "Estonija",
+            "Kosovo (under United Nations Security Council Resolution 124" = "Kosovo",
+            "Ireland" = "Irska",
+            "Greece" = "Grčija",
+            "Spain" = "Španija",
+            "France" = "Francija",
+            "Croatia" = "Hrvaška",
+            "Italy" = "Italija",
+            "Cyprus" = "Ciper",
+            "Latvia" = "Latvija",
+            "Lithuania" = "Litva",
+            "Luxembourg" = "Luksemburg",
+            "Liechtenstein" = "Lihtenštajn",
+            "Hungary" = "Madžarska",
+            "Malta" = "Malta",
+            "Montenegro" ="Črna Gora",
+            "Netherlands" = "Nizozemska",
+            "Norway" = "Norveška",
+            "Austria" = "Avstrija",
+            "Poland" = "Poljska",
+            "Portugal" = "Portugalska",
+            "Romania" = "Romunija",
+            "Slovenia" = "Slovenija",
+            "Slovakia" = "Slovaška",
+            "Finland" = "Finska",
+            "Sweden" = "Švedska",
+            "Switzerland" = "Švica",
+            "United Kingdom" = "Združeno kraljestvo (Velika Britanija)",
+            "Iceland" = "Islandija",
+            "North Macedonia" = "Severna Makedonija",
+            "Serbia" = "Srbija",
+            "Turkey" = "Turčija")
+
+slovarspol <- c("Males" = "Moški", "Females" = "Ženske")
 #__________________________TABELA 1________________
 imenastolpcev <- c("Leto", "Drzava", "Selitev", "Spol", "Priseljeni_iz_tujine")
 tabela1 <- read_csv2("podatki/priseljeni_drzava_spol.csv", na=c("..."), col_names = imenastolpcev, skip=3,
@@ -131,12 +174,48 @@ imenastolpcev9 <- c("Leto", "Drzavljanstvo", "Spol", "Dejavnost", "Stevilo")
 tabela9 <- read_csv2("podatki/odseljenipodejavnosti.csv", col_names = imenastolpcev9, skip=3,
                      locale=locale(encoding = "Windows-1250"))
 tabela9 <- subset(tabela9, select = c("Leto", "Dejavnost","Spol", "Stevilo"))
-tabela9 <- arrange(tabela8,Leto, Dejavnost)
+tabela9 <- arrange(tabela9,Leto, Dejavnost)
 
 #_______________________ TABELA 10 __________________________________________________
 #Spreminjanje GDP držav
 url <- "podatki/gdppercapita.html"
 stran <- read_html(url)
-stran %>% html_nodes(xpath="//table[@class='sortable wikitable']") 
+tabela10 <- stran %>% html_nodes(xpath="//table[@class='sortable wikitable']") %>% .[[1]] %>% html_table()
+tabela10 <- subset(tabela10, select = c("Year", "Dejavnost","Spol", "Stevilo"))
+tabela10 <- pivot_longer(tabela10,cols=3:13,names_to = "Leto")
+tabela10 <- tabela10 %>% rename(
+    "Rang" = "Rank",
+  "Drzava" = "Country",
+  "GDP_per_capita_dolarji" = "value")
+tabela10 <- subset(tabela10, select = c("Leto", "Drzava", "GDP_per_capita"))
+tabela10 <- arrange(tabela10,Leto, Drzava)
+
+tabela10$GDP_per_capita <- gsub(" e$","",tabela10$GDP_per_capita_dolarji)
+tabela10$Leto <- as.numeric(as.character(tabela10$Leto))
+tabela10$GDP_per_capita <- as.numeric(as.character(tabela10$GDP_per_capita))
 
 
+#__________________TABELA 11__________________________________________________
+#priseljevanje po državi in spolu, letno
+imenastolpcev11 <- c("Leto", "Drzava", "Spol", "Starost", "Unit", "Neki", "Stevilo", "Neki2")
+tabela11 <- read_csv("podatki/priseljevanjeevropa.csv", col_names = imenastolpcev11,skip=2,na=c(":"),
+                     locale=locale(encoding = "Windows-1250"))
+tabela11 <- subset(tabela11, select = c("Leto", "Drzava", "Spol","Stevilo"))
+tabela11 <- tabela11 %>% filter(between(Leto,2011,2019))
+tabela11 <- tabela11 %>% mutate(Drzava=slovar[Drzava]) %>%
+  mutate(Spol=slovarspol[Spol])
+
+
+#_____________________ TABELA 12__________________________________________________
+#odseljevanje po državi in spolu, letno
+imenastolpcev12 <- c("Leto", "Drzava", "Spol", "Starost", "Unit", "Neki", "Stevilo", "Neki2")
+tabela12 <- read_csv("podatki/odseljevanjeevropa.csv", col_names = imenastolpcev12,na=c(":"),
+                     locale=locale(encoding = "Windows-1250"))
+tabela12 <- subset(tabela12, select = c("Leto", "Drzava", "Spol","Stevilo"))
+tabela12 <- tabela12 %>% filter(between(Leto,2011,2019))
+tabela12 <- tabela12 %>% mutate(Drzava=slovar[Drzava]) %>%
+  mutate(Spol=slovarspol[Spol])
+
+tabela12$Leto <- as.numeric(as.character(tabela12$Leto))
+tabela12$Stevilo <- as.numeric(as.character(tabela12$Stevilo))
+sapply(tabela12, class)
