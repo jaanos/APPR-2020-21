@@ -113,7 +113,18 @@ Podatke sem uvozila iz Statističnega urada Republike Slovenije, Eurostata (Evro
     - `Drzava` - spremenljivka: država
     - `Spol` - spremenljivka: moški ali ženske
     - `Stevilo` - meritev: število odseljenih ljudi iz države v določenem obdobju
-    
+
+13. `tabela13` - podatki o številu odseljenih ljudi iz različnih regij v tujino
+    - `Leto` - spremenljivka: leto meritve (2011-2020)
+    - `Regija` - spremenljivka: regije Slovenije
+    - `Spol` - spremenljivka: moški ali ženske
+    - `Stevilo_odseljenih_v_tujino` - meritev: število odseljenih ljudi iz različnih regij v tujino v določenem obdobju
+
+12. `tabela14` - podatki o številu priseljenih ljudi v različne regije Slovenije iz tujine
+    - `Leto` - spremenljivka: leto meritve (2011-2020)
+    - `Drzava` - spremenljivka: regije Slovenije
+    - `Spol` - spremenljivka: moški ali ženske
+    - `Stevilo` - meritev: število priseljenih ljudi v različne regije v določenem obdobju
   
 ***
 

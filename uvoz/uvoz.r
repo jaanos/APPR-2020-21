@@ -104,8 +104,6 @@ tabela4$Drzava[tabela4$Drzava == "JUŽNA AMERIKA"] <- "Južna Amerika"
 tabela4$Drzava[tabela4$Drzava == "AVSTRALIJA IN OCEANIJA"] <- "Avstralija in Oceanija"
 tabela4$Drzava[tabela4$Drzava == "SEVERNA IN SREDNJA AMERIKA"] <- "Severna in Srednja Amerika"
 
-#starostne skupine, so character, kaj narediti v tem primeru??
-
 
 #_______________________ Tabela 5 _______________________________________________
 #tabela o izobrazbi odseljenih ljudi
@@ -219,7 +217,7 @@ tabela11 <- tabela11 %>% mutate(Drzava=slovar[Drzava]) %>%
 #_____________________ TABELA 12__________________________________________________
 #odseljevanje po državi in spolu, letno
 imenastolpcev12 <- c("Leto", "Drzava", "Spol", "Starost", "Unit", "Neki", "Stevilo", "Neki2")
-tabela12 <- read_csv("podatki/odseljevanjeevropa.csv", col_names = imenastolpcev12,na=c(":"),
+tabela12 <- read_csv("podatki/odseljevanjeevropa.csv", col_names = imenastolpcev12,na=c(":"),skip=1,
                      locale=locale(encoding = "Windows-1250"))
 tabela12 <- subset(tabela12, select = c("Leto", "Drzava", "Spol","Stevilo"))
 tabela12 <- tabela12 %>% filter(between(Leto,2011,2019))
@@ -228,4 +226,34 @@ tabela12 <- tabela12 %>% mutate(Drzava=slovar[Drzava]) %>%
 
 tabela12$Leto <- as.numeric(as.character(tabela12$Leto))
 tabela12$Stevilo <- as.numeric(as.character(tabela12$Stevilo))
+
+
+#__________________ TABELA 13 _______________________________________________________
+#odseljeni v regije po letih
+imenastolpcev13 <- c("Leto", "Regija","Meritev","Stevilo_odseljenih_v_tujino")
+tabela13 <- read_csv2("podatki/odseljeniregije.csv", col_names = imenastolpcev13,skip=3,
+                     locale=locale(encoding = "Windows-1250"))
+
+tabela13$Meritev[tabela13$Meritev == "Odseljeni v tujino - Ženske"] <- "Ženske"
+tabela13$Meritev[tabela13$Meritev == "Odseljeni v tujino - Moški"] <- "Moški"
+
+# _____________________--tabela 14____________________________________________________
+#priseljeni v regije po letih
+imenastolpcev14 <- c("Leto", "Regija","Meritev","Stevilo_priseljenih_iz_tujine")
+tabela14 <- read_csv2("podatki/priseljeniregije.csv", col_names = imenastolpcev14,skip=3,
+                      locale=locale(encoding = "Windows-1250"))
+
+tabela14$Meritev[tabela14$Meritev == "Priseljeni iz tujine - Ženske"] <- "Ženske"
+tabela14$Meritev[tabela14$Meritev == "Priseljeni iz tujine - Moški"] <- "Moški"
+
+
+
+
+
+
+
+
+
+
+
 
