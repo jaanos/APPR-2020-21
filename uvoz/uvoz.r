@@ -48,6 +48,7 @@ slovar <- c("Belgium" = "Belgija",
 
 slovarspol <- c("Males" = "Moški", "Females" = "Ženske")
 #__________________________TABELA 1________________
+#število priseljenih iz držav, letno
 imenastolpcev <- c("Leto", "Drzava", "Selitev", "Spol", "Priseljeni_iz_tujine")
 tabela1 <- read_csv2("podatki/priseljeni_drzava_spol.csv", na=c("..."), col_names = imenastolpcev, skip=3,
                     locale=locale(encoding = "Windows-1250"))
@@ -62,6 +63,7 @@ tabela1$Drzava[tabela1$Drzava == "AZIJA"] <- "Azija"
 tabela1$Drzava[tabela1$Drzava == "JUŽNA AMERIKA"] <- "Južna Amerika"
 
 #__________________________TABELA 2__________________
+#število odseljenih, kam, letno
 imenastolpcev2 <- c("Leto", "Drzava_prihodnjega_bivalisca", "Selitev", "Spol", "Odseljeni_v_tujino")
 tabela2 <- read_csv2("podatki/odseljenidrzavaspol.csv", na=c("..."), col_names = imenastolpcev2, skip=3,
                      locale=locale(encoding = "Windows-1250"))
@@ -78,6 +80,7 @@ tabela2$Drzava_prihodnjega_bivalisca[tabela2$Drzava_prihodnjega_bivalisca == "JU
 tabela2$Drzava_prihodnjega_bivalisca[tabela2$Drzava_prihodnjega_bivalisca == "AVSTRALIJA IN OCEANIJA"] <- "Avstralija in Oceanija"
 
 #___________________________TABELA 3_______________________________________
+#starotna skupina odseljenih tabela
 imenastolpcev3 <- c("Leto", "Drzava", "Izobrazba", "Starost", "Spol", "Stevilo_odseljenih")
 tabela3 <- read_csv2("podatki/odseljenistarost.csv", na=c("..."), col_names = imenastolpcev3, skip=3,
                      locale=locale(encoding = "Windows-1250"))
@@ -85,6 +88,7 @@ tabela3$Drzava <- NULL
 tabela3$Izobrazba <- NULL
 
 #_______________________TABELA 4_________________________________________
+#tabela o stevilu priseljenih glede na starostno skupino
 imenastolpcev4 <- c("Leto", "Drzavljanstvo", "Drzava", "Starost", "Stevilo_priseljenih")
 tabela4 <- read_csv2("podatki/priseljeni_starost.csv", na=c("..."), col_names = imenastolpcev4, skip=3,
                      locale=locale(encoding = "Windows-1250"))
@@ -104,6 +108,7 @@ tabela4$Drzava[tabela4$Drzava == "SEVERNA IN SREDNJA AMERIKA"] <- "Severna in Sr
 
 
 #_______________________ Tabela 5 _______________________________________________
+#tabela o izobrazbi odseljenih ljudi
 imenastolpcev5 <- c("Leto", "Drzava_prihodnjega_bivalisca", "Drzavljanstvo", "Spol", "Izobrazba", "Stevilo_odseljenih")
 tabela5 <- read_csv2("podatki/odseljeni_izobrazba.csv", na=c("..."), col_names = imenastolpcev5, skip=3,
                      locale=locale(encoding = "Windows-1250"))
@@ -124,11 +129,13 @@ tabela5$Drzava_prihodnjega_bivalisca[tabela5$Drzava_prihodnjega_bivalisca == "AV
 tabela5$Drzava_prihodnjega_bivalisca[tabela5$Drzava_prihodnjega_bivalisca == "SEVERNA IN SREDNJA AMERIKA"] <- "Severna in Srednja Amerika"
 
 #________________________________ TABELA 6 ___________________________________________
+#tabela o številu priseljenih glede na izobrazbo
 imenastolpcev6 <- c("Leto", "Drzava", "Drzavljanstvo", "Spol", "Izobrazba", "Stevilo")
 tabela6 <- read_csv2("podatki/priseljeni_izobrazba.csv", na=c("..."), col_names = imenastolpcev6, skip=3,
                      locale=locale(encoding = "Windows-1250"))
 
 tabela6$Drzavljanstvo <- NULL
+tabela6 <- subset(tabela6, select = c("Leto", "Drzava","Izobrazba", "Spol", "Stevilo"))
 tabela6$Drzava[tabela6$Drzava == "AFRIKA"] <- "Afrika"
 tabela6$Drzava[tabela6$Drzava == "AZIJA"] <- "Azija"
 tabela6$Drzava[tabela6$Drzava == "JUŽNA AMERIKA"] <- "Južna Amerika"
@@ -145,19 +152,23 @@ tabela6$Drzava <- gsub("\\.\\.\\.\\.","",tabela6$Drzava)
 #Tabela o namenu priseljencev v Slovenijo
 
 imenastolpcev7 <- c("Leto", "Drzava", "Namen", "Stevilo")
-tabela7 <- read_csv2("podatki/priseljeninamen.csv", na=c("..."), col_names = imenastolpcev7, skip=2,
+tabela7 <- read_csv2("podatki/priseljeninamen.csv", na=c("...", "z"), col_names = imenastolpcev7, skip=3,
                      locale=locale(encoding = "Windows-1250"))
 tabela7 <- tabela7 %>% filter(between(Leto,2011,2019))
 tabela7 <- subset(tabela7, Drzava!="Neznano")
 tabela7 <- subset(tabela7, Drzava!="Srbija in Črna gora")
 tabela7 <- subset(tabela7, Drzava!="Države EU")
 tabela7$Drzava[tabela7$Drzava == "... druge države članice EU"] <- "ostale države članice EU"
-tabela7$Drzava[tabela7$Drzava == "... Hrvaška"] <- "Hrvaškaa"
-novo <- tabela7 %>% filter(Drzava!="Hrvaška", Leto > 2013) 
-novo2 <- tabela7 %>% filter(Drzava!="Hrvaškaa",Leto<=2013) 
-tabela7zares <- bind_rows(novo,novo2)
-tabela7zares$Drzava[tabela7zares$Drzava == "Hrvaškaa"] <- "Hrvaška"
-#nujno ugotovi kako izbrisati ene in druge hrvaške glede na pogoj leta, kdaj je v eu in kdaj ne...
+
+tabela7 <- tabela7[!(tabela7$Drzava=="Hrvaška" & tabela7$Leto>2013), ]
+tabela7 <- tabela7[!(tabela7$Drzava=="... Hrvaška" & tabela7$Leto<=2013), ]
+tabela7$Drzava <- gsub("... Hrvaška", "Hrvaška", tabela7$Drzava)
+
+#tabela7$Drzava[tabela7$Drzava == "... Hrvaška"] <- "Hrvaškaa"
+#novo <- tabela7 %>% filter(Drzava!="Hrvaška", Leto > 2013) 
+#novo2 <- tabela7 %>% filter(Drzava!="Hrvaškaa",Leto<=2013) 
+#tabela7zares <- bind_rows(novo,novo2)
+#tabela7zares$Drzava[tabela7zares$Drzava == "Hrvaškaa"] <- "Hrvaška"
 
 #___________________ TABELA 8 ___________________________________________________
 # Priseljeni prebivalci po dejavnosti
@@ -181,18 +192,17 @@ tabela9 <- arrange(tabela9,Leto, Dejavnost)
 url <- "podatki/gdppercapita.html"
 stran <- read_html(url)
 tabela10 <- stran %>% html_nodes(xpath="//table[@class='sortable wikitable']") %>% .[[1]] %>% html_table()
-tabela10 <- subset(tabela10, select = c("Year", "Dejavnost","Spol", "Stevilo"))
+#tabela10 <- subset(tabela10, select = c("Year", "Dejavnost","Spol", "Stevilo"))
 tabela10 <- pivot_longer(tabela10,cols=3:13,names_to = "Leto")
 tabela10 <- tabela10 %>% rename(
     "Rang" = "Rank",
   "Drzava" = "Country",
   "GDP_per_capita_dolarji" = "value")
-tabela10 <- subset(tabela10, select = c("Leto", "Drzava", "GDP_per_capita"))
+tabela10 <- subset(tabela10, select = c("Leto", "Drzava", "GDP_per_capita_dolarji"))
 tabela10 <- arrange(tabela10,Leto, Drzava)
-
-tabela10$GDP_per_capita <- gsub(" e$","",tabela10$GDP_per_capita_dolarji)
+tabela10$GDP_per_capita_dolarji <- gsub(" e$","",tabela10$GDP_per_capita_dolarji)
 tabela10$Leto <- as.numeric(as.character(tabela10$Leto))
-tabela10$GDP_per_capita <- as.numeric(as.character(tabela10$GDP_per_capita))
+tabela10$GDP_per_capita_dolarji <- as.numeric(as.character(tabela10$GDP_per_capita_dolarji))
 
 
 #__________________TABELA 11__________________________________________________
@@ -218,4 +228,4 @@ tabela12 <- tabela12 %>% mutate(Drzava=slovar[Drzava]) %>%
 
 tabela12$Leto <- as.numeric(as.character(tabela12$Leto))
 tabela12$Stevilo <- as.numeric(as.character(tabela12$Stevilo))
-sapply(tabela12, class)
+

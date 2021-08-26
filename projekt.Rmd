@@ -1,6 +1,6 @@
 ---
-title: "Poročilo pri predmetu Analiza podatkov s programom R"
-author: "Študent FMF"
+title: "Meddržavne selitve v Sloveniji"
+author: "Klara Širca"
 output:
   html_document: default
   pdf_document:
@@ -23,10 +23,9 @@ source("lib/rstudio.r", encoding="UTF-8")
 ```
 
 # Izbira teme
+Za temo sem si izbrala analizo meddržavnih selitev v Sloveniji: priseljevanja v Slovenijo ter izseljevanja iz Slovenije. Analizirala bom, kako so se selitve gibale skozi čas ter kakšni ljudje so se k nam priseljevali ter od nas odseljevali. Za konec bom priseljevanje primerjala še z drugimi evropskimi državami.
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
-
-![](slike/grb.png)
+![](slike/migracija.jpg)
 
 ***
 
@@ -36,34 +35,86 @@ Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
+Podatke sem uvozila iz Statističnega urada Republike Slovenije, Eurostata (Evropska statistika) ter Wikipedije. Imam 11 tabel v obliki csv in 1 v obliki html.
 
-1. `druzine` - podatki o družinah za vsako občino
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `velikost.druzine` - spremenljivka: število otrok v družini (število: 1, 2, 3 ali 4, kjer zadnja vrednost pomeni 4 ali več),
-  - `stevilo.druzin` - meritev: število družin z ustreznim številom otrok v ustrezni občini (število).
+1. `tabela1` - podatki o številu priseljenih ljudi v Slovenijo, letno
+    - `Leto` - spremenljivka: leto meritve (2011-2020)
+    - `Drzava` - spremenljivka: država iz katere prihajajo priseljenci
+    - `Spol` - spremenljivka: moški ali ženske
+    - `Priseljeni_iz_tujine` - meritev: število priseljenih ljudi iz določene države v Slovenijo
+    
+2. `tabela2` - podatki o številu odseljenih ljudi iz Slovenije, letno
+    - `Leto` - spremenljivka: leto meritve (2011-2020)
+    - `Drzava_prihodnjega_bivalisca` - spremenljivka: država v katero odhajajo  izseljenci
+    - `Spol` - spremenljivka: moški ali ženske
+    - `Odseljeni_v_tujino` - meritev: število izseljenih ljudi v določeno država iz Slovenije
 
-2. `obcine` - podatki o občinah
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `povrsina` - meritev: površina občine v km$^2$ (število),
-  - `prebivalci` - meritev: prebivalstvo občine (število),
-  - `gostota` - meritev: število prebivalcev na km$^2$ (število),
-  - `naselja` - meritev: število naselij v občini (število),
-  - `ustanovitev` - meritev: leto ustanovitve občine (število),
-  - `pokrajina` - meritev: pokrajina, ki ji občina pripada (neurejen faktor),
-  - `regija` - meritev: regija, ki ji občina pripada (neurejen faktor),
-  - `odcepitev` - meritev: podatki o občinah, od katerih se je občina odcepila (besedilo).
+3. `tabela3` - podatki o številu izseljenih ljudi iz Slovenije glede na starostno skupino
+    - `Leto` - spremenljivka: leto meritve (2011-2019)
+    - `Starost` - spremenljivka: starostna skupina odseljenih prebivalcev Slovenije
+    - `Spol` - spremenljivka: moški ali ženske
+    - `Stevilo_odseljenih` - meritev: število odseljenih ljudi določene starostne skupine v določenem obdobju
+    
+    
+4. `tabela4` - podatki o številu priseljenih ljudi iz Slovenije glede na starostno skupino
+    - `Leto` - spremenljivka: leto meritve (2011-2020)
+    - `Drazva` - spremenljivka: drzava, iz katere prihajajo priseljenci
+    - `Starost` - spremenljivka: starostna skupina priseljenih prebivalcev Slovenije
+    - `Stevilo_priseljenih` - meritev: število priseljenih ljudi določene starostne skupine v določenem obdobju   
+    
+5. `tabela5` - podatki o stevilu odseljenih ljudi glede na izobrazbo
+    - `Leto` - spremenljivka: leto meritve (2011-2019)
+    - `Drazva_prihodnjega_bivalisca` - spremenljivka: drzava, v katero odhajajo izseljenci
+    - `Izobrazba` - spremenljivka: izobrazba odseljenih ljudi (osnovnošolska ali manj, srednješolska, višješolska)
+    - `Spol` - spremenljivka: moški ali ženske
+    - `Stevilo` - meritev: število odseljenih ljudi določene izobrazbe v določenem obdobju    
+    
 
-**Opomba**: da bi razpredelnica `obcine` res bila v obliki *tidy data*, bi morali odstraniti stolpec `gostota` (saj je izpeljan iz stolpcev `povrsina` in `prebivalci`), podatke o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s stolpcem `odcepitev`.
+6. `tabela6` - podatki o stevilu priseljenih ljudi glede na izobrazbo
+    - `Leto` - spremenljivka: leto meritve (2011-2019)
+    - `Drazva` - spremenljivka: drzava, iz katere prihajajo priseljenci
+    - `Izobrazba` - spremenljivka: izobrazba priseljenih ljudi (osnovnošolska ali manj, srednješolska, višješolska)
+    - `Spol` - spremenljivka: moški ali ženske
+    - `Stevilo` - meritev: število priseljenih ljudi določene izobrazbe v določenem obdobju   
 
-Spodnji graf prikazuje porazdelitev števila naselij v občinah.
+7. `tabela7` - podatki o stevilu priseljenih ljudi glede na namen selitve
+    - `Leto` - spremenljivka: leto meritve (2011-2019)
+    - `Drazva` - spremenljivka: drzava, iz katere prihajajo priseljenci
+    - `Namen` - spremenljivka: namen selitve v Slovenijo
+    - `Stevilo` - meritev: število priseljenih ljudi glede na določen namen v določenem obdobju
+    
 
-```{r histogram, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-ggplot(obcine, aes(x=naselja)) + geom_histogram() +
-  ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
-```
+8. `tabela8` - podatki o stevilu priseljenih zaposlenih ljudi glede na dejavnost, s katero se ukvarjajo
+    - `Leto` - spremenljivka: leto meritve (2011-2019)
+    - `Dejavnost` - spremenljivka: dejavnost, s katero se ukvarjajo priseljenci
+    - `Spol` - spremenljivka: moški ali ženske
+    - `Stevilo` - meritev: število zaposlenih priseljencev glede na dejavnost, s katero se ukvarjajo, v določenem obdobju
+    
+9. `tabela9` - podatki o stevilu odseljenih zaposlenih ljudi glede na dejavnost, s katero se ukvarjajo
+    - `Leto` - spremenljivka: leto meritve (2011-2019)
+    - `Dejavnost` - spremenljivka: dejavnost, s katero se ukvarjajo odseljeni iz Slovenije
+    - `Spol` - spremenljivka: moški ali ženske
+    - `Stevilo` - meritev: število zaposlenih odseljenih ljudi glede na dejavnost, s katero se ukvarjajo, v določenem obdobju  
+    
 
+10. `tabela10` - podatki o BDP na prebivalca za različne evropske države
+    - `Leto` - spremenljivka: leto meritve in napovedi (2016-2026)
+    - `Drzava` - spremenljivka: drzava
+    - `GDP_per_capita_dolarji` - meritev: BDP na prebivaca v določenem obdobju, za leta 2022-2026 tudi napovedi
+    
+11. `tabela11` - podatki o številu priseljenih ljudi v določeno državo, letno
+    - `Leto` - spremenljivka: leto meritve (2011-2019)
+    - `Drzava` - spremenljivka: država
+    - `Spol` - spremenljivka: moški ali ženske
+    - `Stevilo` - meritev: število priseljenih ljudi v državo v določenem obdobju
+    
+12. `tabela12` - podatki o številu odseljenih ljudi iz določene države, letno
+    - `Leto` - spremenljivka: leto meritve (2011-2019)
+    - `Drzava` - spremenljivka: država
+    - `Spol` - spremenljivka: moški ali ženske
+    - `Stevilo` - meritev: število odseljenih ljudi iz države v določenem obdobju
+    
+  
 ***
 
 # Analiza in vizualizacija podatkov
