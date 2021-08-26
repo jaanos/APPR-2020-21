@@ -230,21 +230,20 @@ tabela12$Stevilo <- as.numeric(as.character(tabela12$Stevilo))
 
 #__________________ TABELA 13 _______________________________________________________
 #odseljeni v regije po letih
-imenastolpcev13 <- c("Leto", "Regija","Meritev","Stevilo_odseljenih_v_tujino")
+imenastolpcev13 <- c("Leto", "Regija","Spol","Stevilo_odseljenih_v_tujino")
 tabela13 <- read_csv2("podatki/odseljeniregije.csv", col_names = imenastolpcev13,skip=3,
                      locale=locale(encoding = "Windows-1250"))
 
-tabela13$Meritev[tabela13$Meritev == "Odseljeni v tujino - Ženske"] <- "Ženske"
-tabela13$Meritev[tabela13$Meritev == "Odseljeni v tujino - Moški"] <- "Moški"
+tabela13$Spol[tabela13$Spol == "Odseljeni v tujino - Ženske"] <- "Ženske"
+tabela13$Spol[tabela13$Spol == "Odseljeni v tujino - Moški"] <- "Moški"
 
-# _____________________--tabela 14____________________________________________________
+# _______________________tabela 14____________________________________________________
 #priseljeni v regije po letih
-imenastolpcev14 <- c("Leto", "Regija","Meritev","Stevilo_priseljenih_iz_tujine")
+imenastolpcev14 <- c("Leto", "Regija","Spol","Stevilo_priseljenih_iz_tujine")
 tabela14 <- read_csv2("podatki/priseljeniregije.csv", col_names = imenastolpcev14,skip=3,
                       locale=locale(encoding = "Windows-1250"))
-
-tabela14$Meritev[tabela14$Meritev == "Priseljeni iz tujine - Ženske"] <- "Ženske"
-tabela14$Meritev[tabela14$Meritev == "Priseljeni iz tujine - Moški"] <- "Moški"
+tabela14$Spol[tabela14$Spol == "Priseljeni iz tujine - Ženske"] <- "Ženske"
+tabela14$Spol[tabela14$Spol == "Priseljeni iz tujine - Moški"] <- "Moški"
 
 
 

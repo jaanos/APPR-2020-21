@@ -35,7 +35,7 @@ Za temo sem si izbrala analizo meddržavnih selitev v Sloveniji: priseljevanja v
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Podatke sem uvozila iz Statističnega urada Republike Slovenije, Eurostata (Evropska statistika) ter Wikipedije. Imam 11 tabel v obliki csv in 1 v obliki html.
+Podatke sem uvozila iz Statističnega urada Republike Slovenije, Eurostata (Evropska statistika) ter Wikipedije. Imam 13 tabel v obliki csv in 1 v obliki html.
 
 1. `tabela1` - podatki o številu priseljenih ljudi v Slovenijo, letno
     - `Leto` - spremenljivka: leto meritve (2011-2020)
@@ -120,7 +120,7 @@ Podatke sem uvozila iz Statističnega urada Republike Slovenije, Eurostata (Evro
     - `Spol` - spremenljivka: moški ali ženske
     - `Stevilo_odseljenih_v_tujino` - meritev: število odseljenih ljudi iz različnih regij v tujino v določenem obdobju
 
-12. `tabela14` - podatki o številu priseljenih ljudi v različne regije Slovenije iz tujine
+14. `tabela14` - podatki o številu priseljenih ljudi v različne regije Slovenije iz tujine
     - `Leto` - spremenljivka: leto meritve (2011-2020)
     - `Drzava` - spremenljivka: regije Slovenije
     - `Spol` - spremenljivka: moški ali ženske
@@ -134,13 +134,6 @@ Podatke sem uvozila iz Statističnega urada Republike Slovenije, Eurostata (Evro
 source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 ```
 
-Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
-
-```{r zemljevid, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
-  tm_polygons("povprecje", title="Povprečje") +
-  tm_layout(title="Povprečno število otrok v družini")
-```
 
 ***
 
@@ -150,17 +143,6 @@ tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
 source("analiza/analiza.r", encoding="UTF-8")
 ```
 
-Spodnji graf prikazuje povezavo med številom naselij in površino občine.
-
-```{r graf, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-ggplot(inner_join(obcine, data.frame(obcina=names(skupine),
-                                     skupina=factor(skupine)), by="obcina")
-, aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() +
-  ggtitle("Število naselij glede na površino občine") +
-  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-  guides(color=guide_legend(title="Skupina"),
-         size=guide_legend(title="Prebivalci (* 1000)"))
-```
 
 ***
 
