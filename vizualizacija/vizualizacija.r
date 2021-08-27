@@ -143,6 +143,7 @@ skupno_drzave <- tabela1 %>% group_by(Drzava) %>% summarise(Vsotadrzave=sum(Pris
 drzave_priseljevanje <- skupno_drzave %>% ggplot(aes(x=reorder(Drzava,-Povprečje), y=Povprečje,fill=Povprečje)) + 
   geom_bar(position="dodge", stat="identity") + 
   ylab('Povrečje') + 
+  xlab("Država")
   ggtitle('Povprečno število priseljencev letno glede na državo iz katere prihajajo za leta 2011-19') +
   theme(text = element_text(size=5), axis.text.x=element_text(vjust=0.5, hjust=0.5, angle=90))
 
@@ -153,6 +154,7 @@ skupno_drzave_izseljevanje <- tabela2 %>% group_by(Drzava) %>% summarise(Vsotadr
 drzave_izseljevanje <- skupno_drzave_izseljevanje %>% ggplot(aes(x=reorder(Drzava,-Povprečje), y=Povprečje,fill=Povprečje)) + 
   geom_bar(position="dodge", stat="identity") + 
   ylab('Povrečje') + 
+  xlab("Država") +
   ggtitle('Povprečno število izseljencev letno glede na državo v katero odhajajo za leta 2011-19') +
   theme(text = element_text(size=5), axis.text.x=element_text(vjust=0.5, hjust=0.5, angle=90))
 
@@ -198,7 +200,7 @@ primerjava2 <- izbraneskupno2 %>% ggplot(aes(x=Leto, y=Stevilo, col=Vrsta)) +  g
 
 #ZEMLJEVIDI---------------------------------------------------------------------------
 
-#skupne priselitve v državi za leta 2011-19 na 100k
+#povprečne priselitve v državi za leta 2011-19 na 100k - ZEMLJEVID
 
 evropa_priseljevanje_leta <- tabela11 %>% group_by(Leto, Drzava) %>% summarise(Priseljeni=sum(Stevilo))
 prebpriseljevanje <- inner_join(evropa_priseljevanje_leta,tabela15)
@@ -213,7 +215,21 @@ zemljevid1 <- tm_shape(merge(zemljevid,
   tm_layout(main.title = "Povprečje števila priseljenih ljudi v državo 2011-19 na 100k prebivalcev", main.title.size = 1, legend.title.size = 2) 
 #kako spremeniti legendo, da bo bolj natančna???
 
-#povprečne izselitve v državi v letih 2011-19 na 100k
+
+#________________________________________________________________________
+# histogram povprečnega priseljevanja na 100.000 prebivalcev
+
+povprecjepravapris <- povprecje2 %>% mutate(Drzava=slovar[Drzava]) %>% subset(Drzava!="Bolgarija")
+eu_priseljevanje <- povprecjepravapris %>% ggplot(aes(x=reorder(Drzava,-Povprečje), y=Povprečje,fill=Povprečje)) + 
+  geom_bar(position="dodge", stat="identity") + 
+  xlab("Država")+
+  ylab('Povrečje') + 
+  ggtitle('Povprečno število priseljencev na 100.000 prebivalcev 2011-19') +
+  theme(text = element_text(size=5), axis.text.x=element_text(vjust=0.5, hjust=0.5, angle=90))
+
+
+
+#povprečne izselitve v državi v letih 2011-19 na 100k - ZEMLJEVID
 evropa_izseljevanje_leta <- tabela12 %>% group_by(Leto, Drzava) %>% summarise(Izseljeni=sum(Stevilo)) %>% filter(between(Leto,2011,2018))
 prebizseljevanje <- inner_join(evropa_izseljevanje_leta,tabela15)
 novo2 <- prebizseljevanje %>% mutate(Sprem=(100000/Prebivalstvo)) %>% mutate(Stevilo_izs_na100k = round(Sprem * Izseljeni,0))  
@@ -226,8 +242,21 @@ zemljevid2 <- tm_shape(merge(zemljevid,
   tm_layout(bg.color = "skyblue") + 
   tm_layout(main.title = "Povprečno število izseljenih ljudi v državo 2011-19 na 100k", main.title.size = 1, legend.title.size = 1) 
 
-# naredi se en graf za obe tabeli da bo razvidno...
 
+
+#________________________________________________________________________
+# histogram povprečnega izseljevanja na 100.000 prebivalcev
+
+povprecjeprava <- povprecje3 %>% mutate(Drzava=slovar[Drzava]) %>% subset(Drzava!="Bolgarija")
+eu_izseljevanje <- povprecjeprava %>% ggplot(aes(x=reorder(Drzava,-Povprečje), y=Povprečje,fill=Povprečje)) + 
+  geom_bar(position="dodge", stat="identity") + 
+  xlab("Država")+
+  ylab('Povrečje') + 
+  ggtitle('Povprečno število izseljencev na 100.000 prebivalcev 2011-19') +
+  theme(text = element_text(size=5), axis.text.x=element_text(vjust=0.5, hjust=0.5, angle=90))
+
+
+#___________________________________________________________________________________
 #zemljevid izseljevanja iz slovenskih regij
 slovenija_izseljevanje_leta <- tabela13 %>% group_by(Leto, Regija) %>% summarise(Izseljeni=sum(Stevilo_odseljenih_v_tujino)) 
 regijeizseljevanje <- inner_join(slovenija_izseljevanje_leta,tabela16)
@@ -266,19 +295,8 @@ zemljevid_slo2 <- tm_shape(merge(Slovenija, povprecje_slop, by.x="NAME_1", by.y=
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-#Kaj moram še narediti?
+#________________________________________________________________________
+#Opcijsko:
 #5. Zemljevid iz kje se največ preseljujejo v Slovenijo - glede na tabeli 1/2 (2 zemljevida...)
 
 
