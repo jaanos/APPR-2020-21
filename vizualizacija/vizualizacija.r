@@ -136,10 +136,78 @@ dejavnost2 <- skupno_dejavnost2 %>% ggplot(aes(x=Dejavnost, y=Povprecje,fill=Pov
   theme(text = element_text(size=5), axis.text.x=element_text(vjust=0.5, hjust=0.5, angle=90))
 
 
+#priseljevanje po državah - povprečno število priseljenih letno v letih 2011-19
+skupno_drzave <- tabela1 %>% group_by(Drzava) %>% summarise(Vsotadrzave=sum(Priseljeni_iz_tujine)) %>%
+  mutate(Povprečje=round(Vsotadrzave/9,1))
+
+drzave_priseljevanje <- skupno_drzave %>% ggplot(aes(x=reorder(Drzava,-Povprečje), y=Povprečje,fill=Povprečje)) + 
+  geom_bar(position="dodge", stat="identity") + 
+  ylab('Povrečje') + 
+  ggtitle('Povprečno število priseljencev letno glede na državo iz katere prihajajo za leta 2011-19') +
+  theme(text = element_text(size=5), axis.text.x=element_text(vjust=0.5, hjust=0.5, angle=90))
+
+#izseljevanje po državah - povprečno število izseljenih letno v letih 2011-19
+skupno_drzave_izseljevanje <- tabela2 %>% group_by(Drzava) %>% summarise(Vsotadrzave2=sum(Odseljeni_v_tujino)) %>%
+  mutate(Povprečje=round(Vsotadrzave2/9,1))
+
+drzave_izseljevanje <- skupno_drzave_izseljevanje %>% ggplot(aes(x=reorder(Drzava,-Povprečje), y=Povprečje,fill=Povprečje)) + 
+  geom_bar(position="dodge", stat="identity") + 
+  ylab('Povrečje') + 
+  ggtitle('Povprečno število izseljencev letno glede na državo v katero odhajajo za leta 2011-19') +
+  theme(text = element_text(size=5), axis.text.x=element_text(vjust=0.5, hjust=0.5, angle=90))
+
+
+
+#primerjava BDP in kamor se Slovenci največ izseljujejo
+#zares je vizualizacija neuporabna...
+
+izbrane <- c("Avstrija", "Nemčija", "Italija", "Švica", "Hrvaška")
+BDPizbrane <- tabela10 %>%
+  filter(Drzava %in% izbrane) %>% filter(between(Leto,2016,2019))
+izseljevanjeizbrane <- tabela2 %>% group_by(Leto, Drzava) %>%
+  summarise(Odseljeni_v_tujino=sum(Odseljeni_v_tujino)) %>%
+  filter(Drzava %in% izbrane) %>% filter(between(Leto,2016,2019))
+izbraneskupno <- inner_join(BDPizbrane, izseljevanjeizbrane) %>% pivot_longer(3:4, names_to="Vrsta", values_to="Stevilo") 
+
+primerjava <- izbraneskupno %>% ggplot(aes(x=Leto, y=Stevilo, col=Vrsta)) +  geom_line() +
+  ylab('Stevilo') + 
+  xlab('Leto') + 
+  facet_wrap(.~Drzava,ncol=3)+
+  labs(col = "Vrsta")+
+  ggtitle('Primerjava') +
+ theme(axis.text.x=element_text(angle=90))
+
+#za priseljevanje podobno
+#isto neuporabno...
+izbrane2 <- c("Bosna in Hercegovina", "Srbija", "Kosovo", "Severna Makedonija", "Hrvaška")
+BDPizbrane2 <- tabela10 %>%
+  filter(Drzava %in% izbrane2) %>% filter(between(Leto,2016,2019))
+priseljevanjeizbrane <- tabela1 %>% group_by(Leto, Drzava) %>%
+  summarise(Priseljeni_iz_tujine=sum(Priseljeni_iz_tujine)) %>%
+  filter(Drzava %in% izbrane2) %>% filter(between(Leto,2016,2019))
+izbraneskupno2 <- inner_join(BDPizbrane2, priseljevanjeizbrane) %>% pivot_longer(3:4, names_to="Vrsta", values_to="Stevilo") 
+
+primerjava2 <- izbraneskupno2 %>% ggplot(aes(x=Leto, y=Stevilo, col=Vrsta)) +  geom_line() +
+  ylab('Stevilo') + 
+  xlab('Leto') + 
+  facet_wrap(.~Drzava,ncol=3)+
+  labs(col = "Vrsta")+
+  ggtitle('Primerjava') +
+  theme(axis.text.x=element_text(angle=90))
+
+
+#ZEMLJEVIDI---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 #Kaj moram še narediti?
-# tabela: group by država (priseljevanje in izseljevanje za Slo) in nek graf, ki kaže koliko se je agregatno preselilo ljudi iz katerih držav/kam smo mi šli
-# Primerjava BDP in države kamor se Slovenci največ preseljujejo
-# Primerjava BDP in država od koder se priseljujejo v Slovenijo
 #1. Zemljevid priseljevanja v Evropi - povprečje
 #2. Zemljevid izseljevanja v Evropi - povprečje
 #3. Zemljevid izseljevanja v regijah - Slovenija - povprečje
