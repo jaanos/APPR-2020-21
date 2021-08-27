@@ -198,6 +198,77 @@ primerjava2 <- izbraneskupno2 %>% ggplot(aes(x=Leto, y=Stevilo, col=Vrsta)) +  g
 
 #ZEMLJEVIDI---------------------------------------------------------------------------
 
+#skupne priselitve v državi za leta 2011-19 na 100k
+
+evropa_priseljevanje_leta <- tabela11 %>% group_by(Leto, Drzava) %>% summarise(Priseljeni=sum(Stevilo))
+prebpriseljevanje <- inner_join(evropa_priseljevanje_leta,tabela15)
+novo <- prebpriseljevanje %>% mutate(Sprem=(100000/Prebivalstvo)) %>% mutate(Stevilo_pris_na100k = round(Sprem * Priseljeni,0))  
+povprecje2 <- novo %>% group_by(Drzava) %>% summarise(Povprečje=mean(Stevilo_pris_na100k)) %>% mutate(Povprečje=round(Povprečje,0))
+
+zemljevid1 <- tm_shape(merge(zemljevid,
+                            povprecje2,duplicateGeoms = TRUE,
+                             by.x="SOVEREIGNT", by.y="Drzava"), xlim=c(-25,32), ylim=c(32,72)) +
+  tm_polygons("Povprečje", title = "Število priseljenih ljudi na 100k") + 
+  tm_layout(bg.color = "skyblue") + 
+  tm_layout(main.title = "Povprečje števila priseljenih ljudi v državo 2011-19 na 100k prebivalcev", main.title.size = 1, legend.title.size = 2) 
+#kako spremeniti legendo, da bo bolj natančna???
+
+#povprečne izselitve v državi v letih 2011-19 na 100k
+evropa_izseljevanje_leta <- tabela12 %>% group_by(Leto, Drzava) %>% summarise(Izseljeni=sum(Stevilo)) %>% filter(between(Leto,2011,2018))
+prebizseljevanje <- inner_join(evropa_izseljevanje_leta,tabela15)
+novo2 <- prebizseljevanje %>% mutate(Sprem=(100000/Prebivalstvo)) %>% mutate(Stevilo_izs_na100k = round(Sprem * Izseljeni,0))  
+povprecje3 <- novo2 %>% group_by(Drzava) %>% summarise(Povprečje=mean(Stevilo_izs_na100k)) %>% mutate(Povprečje=round(Povprečje,0))
+
+zemljevid2 <- tm_shape(merge(zemljevid,
+                             povprecje3,duplicateGeoms = TRUE,
+                             by.x="SOVEREIGNT", by.y="Drzava"), xlim=c(-25,32), ylim=c(32,72)) +
+  tm_polygons("Povprečje", title = "Število izseljenih ljudi") + 
+  tm_layout(bg.color = "skyblue") + 
+  tm_layout(main.title = "Povprečno število izseljenih ljudi v državo 2011-19 na 100k", main.title.size = 1, legend.title.size = 1) 
+
+# naredi se en graf za obe tabeli da bo razvidno...
+
+#zemljevid izseljevanja iz slovenskih regij
+slovenija_izseljevanje_leta <- tabela13 %>% group_by(Leto, Regija) %>% summarise(Izseljeni=sum(Stevilo_odseljenih_v_tujino)) 
+regijeizseljevanje <- inner_join(slovenija_izseljevanje_leta,tabela16)
+zdruzeno <- regijeizseljevanje %>% mutate(Sprem=(10000/Prebivalstvo)) %>% mutate(Stevilo_izs_na10000 = round(Sprem * Izseljeni,0))  
+povprecje_sloi <- zdruzeno %>% group_by(Regija) %>% summarise(Povprečje=mean(Stevilo_izs_na10000)) %>% mutate(Povprečje=round(Povprečje,0))
+
+
+Slovenija <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/SVN_adm_shp.zip",
+                             "SVN_adm1", encoding = "UTF-8")  
+
+Slovenija$NAME_1[Slovenija$NAME_1 == "GoriĹˇka"] <- "Goriška"
+Slovenija$NAME_1[Slovenija$NAME_1 == "KoroĹˇka"] <- "Koroška"
+Slovenija$NAME_1[Slovenija$NAME_1 == "Notranjsko-kraĹˇka"] <- "Notranjsko-kraška"
+Slovenija$NAME_1[Slovenija$NAME_1 == "Obalno-kraĹˇka"] <- "Obalno-kraška"
+
+Slovenija$NAME_1 <- Slovenija$NAME_1 %>%
+  str_replace("Spodnjeposavska", "Posavska") %>%
+  str_replace("Notranjsko-kraška", "Primorsko-notranjska")
+
+zemljevid_slo1 <- tm_shape(merge(Slovenija, povprecje_sloi, by.x="NAME_1", by.y="Regija")) + 
+  tm_polygons("Povprečje",title="Povprečno število izseljenih na 10.000",palette="Purples")+ 
+  tm_style("grey") +
+  tm_layout(main.title="Povprečno število izseljenih po regijah na 10.000 prebivalcev", legend.position = c(0.75,0.1)) + tm_text(text='NAME_1', size=0.6)
+
+
+#zemljevid povprečnega priseljevanja v slovenske regije na 10.000 prebivalcev
+slovenija_priseljevanje_leta <- tabela14 %>% group_by(Leto, Regija) %>% summarise(Priseljeni=sum(Stevilo_priseljenih_iz_tujine)) 
+regijepriseljevanje <- inner_join(slovenija_priseljevanje_leta,tabela16)
+zdruzeno2 <- regijepriseljevanje %>% mutate(Sprem=(10000/Prebivalstvo)) %>% mutate(Stevilo_pris_na10000 = round(Sprem * Priseljeni,0))  
+povprecje_slop <- zdruzeno2 %>% group_by(Regija) %>% summarise(Povprečje=mean(Stevilo_pris_na10000)) %>% mutate(Povprečje=round(Povprečje,0))
+
+zemljevid_slo2 <- tm_shape(merge(Slovenija, povprecje_slop, by.x="NAME_1", by.y="Regija")) + 
+  tm_polygons("Povprečje",title="Povprečno število priseljenih",palette="Greens")+ 
+  tm_style("grey") +
+  tm_layout(main.title="Povprečno število priseljenih po regijah na 10.000 prebivalcev", legend.position = c(0.75,0.1)) + tm_text(text='NAME_1', size=0.6)
+
+
+
+
+
+
 
 
 
@@ -208,10 +279,6 @@ primerjava2 <- izbraneskupno2 %>% ggplot(aes(x=Leto, y=Stevilo, col=Vrsta)) +  g
 
 
 #Kaj moram še narediti?
-#1. Zemljevid priseljevanja v Evropi - povprečje
-#2. Zemljevid izseljevanja v Evropi - povprečje
-#3. Zemljevid izseljevanja v regijah - Slovenija - povprečje
-#4. Zemljevid priseljevanja v regijah - Slovenija - povprečje
 #5. Zemljevid iz kje se največ preseljujejo v Slovenijo - glede na tabeli 1/2 (2 zemljevida...)
 
 

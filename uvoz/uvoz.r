@@ -11,6 +11,7 @@ slovar <- c("Belgium" = "Belgija",
             "Germany (until 1990 former territory of the FRG)" = "Nemčija",
             "Bulgaria" = "Bolgarija",
             "Czechia" = "Češka",
+            "Czech Republic"="Češka",
             "Denmark" = "Danska",
             "Germany" = "Nemčija",
             "Estonia" = "Estonija",
@@ -28,21 +29,29 @@ slovar <- c("Belgium" = "Belgija",
             "Liechtenstein" = "Lihtenštajn",
             "Hungary" = "Madžarska",
             "Malta" = "Malta",
+            "Moldova"="Moldavija",
             "Montenegro" ="Črna Gora",
             "Netherlands" = "Nizozemska",
             "Norway" = "Norveška",
             "Austria" = "Avstrija",
+            "Albania"="Albanija",
+            "Belarus"="Belorusija",
+            "Bosnia and Herzegovina"="Bosna in Hercegovina",
             "Poland" = "Poljska",
             "Portugal" = "Portugalska",
             "Romania" = "Romunija",
             "Slovenia" = "Slovenija",
             "Slovakia" = "Slovaška",
+            "Russia" = "Rusija",
+            "Ukraine" = "Ukrajina",
             "Finland" = "Finska",
             "Sweden" = "Švedska",
             "Switzerland" = "Švica",
             "United Kingdom" = "Združeno kraljestvo (Velika Britanija)",
             "Iceland" = "Islandija",
             "North Macedonia" = "Severna Makedonija",
+            "Kosovo" = "Kosovo",
+            "San Marino" = "San Marino",
             "Serbia" = "Srbija",
             "Turkey" = "Turčija")
 
@@ -57,6 +66,7 @@ tabela1$Selitev <- NULL
 
 tabela1$Drzava[tabela1$Drzava == "AVSTRALIJA IN OCEANIJA"] <- "Avstralija in Oceanija"
 tabela1 <- subset(tabela1, Drzava!="EVROPA")
+tabela1 <- subset(tabela1, Drzava!="Slovenija")
 tabela1 <- subset(tabela1, Drzava!="SEVERNA IN SREDNJA AMERIKA")
 tabela1$Drzava[tabela1$Drzava == "AFRIKA"] <- "Afrika"
 tabela1$Drzava[tabela1$Drzava == "AZIJA"] <- "Azija"
@@ -71,6 +81,7 @@ tabela2 <- read_csv2("podatki/odseljenidrzavaspol.csv", na=c("..."), col_names =
 tabela2$Selitev <- NULL
 tabela2 <- subset(tabela2, Spol!="Državljani Republike Slovenije - SKUPAJ")
 tabela2 <- subset(tabela2, Drzava_prihodnjega_bivalisca!="EVROPA")
+tabela2 <- subset(tabela2, Drzava_prihodnjega_bivalisca!="Slovenija")
 tabela2$Spol[tabela2$Spol == "Državljani Republike Slovenije - moški"] <- "Moški"
 tabela2$Spol[tabela2$Spol == "Državljani Republike Slovenije - ženske"] <- "Ženske"
 tabela2 <- subset(tabela2, Drzava_prihodnjega_bivalisca!="SEVERNA IN SREDNJA AMERIKA")
@@ -198,9 +209,11 @@ tabela10 <- tabela10 %>% rename(
   "GDP_per_capita_dolarji" = "value")
 tabela10 <- subset(tabela10, select = c("Leto", "Drzava", "GDP_per_capita_dolarji"))
 tabela10 <- arrange(tabela10,Leto, Drzava)
-tabela10$GDP_per_capita_dolarji <- gsub(" e$","",tabela10$GDP_per_capita_dolarji)
+tabela10$GDP_per_capita_dolarji <- gsub("e","",tabela10$GDP_per_capita_dolarji)
+tabela10$GDP_per_capita_dolarji <- gsub(",","",tabela10$GDP_per_capita_dolarji)
+tabela10 <- tabela10 %>% mutate(Drzava=slovar[Drzava])
 tabela10$Leto <- as.numeric(as.character(tabela10$Leto))
-tabela10$GDP_per_capita_dolarji <- as.numeric(as.character(tabela10$GDP_per_capita_dolarji))
+tabela10$GDP_per_capita_dolarji <- as.numeric(tabela10$GDP_per_capita_dolarji)
 
 
 #__________________TABELA 11__________________________________________________
@@ -210,8 +223,9 @@ tabela11 <- read_csv("podatki/priseljevanjeevropa.csv", col_names = imenastolpce
                      locale=locale(encoding = "Windows-1250"))
 tabela11 <- subset(tabela11, select = c("Leto", "Drzava", "Spol","Stevilo"))
 tabela11 <- tabela11 %>% filter(between(Leto,2011,2019))
-tabela11 <- tabela11 %>% mutate(Drzava=slovar[Drzava]) %>%
+#tabela11 <- tabela11 %>% mutate(Drzava=slovar[Drzava]) %>%
   mutate(Spol=slovarspol[Spol])
+tabela11$Drzava[tabela11$Drzava == "Germany (until 1990 former territory of the FRG)"] <- "Germany"
 
 
 #_____________________ TABELA 12__________________________________________________
@@ -221,11 +235,13 @@ tabela12 <- read_csv("podatki/odseljevanjeevropa.csv", col_names = imenastolpcev
                      locale=locale(encoding = "Windows-1250"))
 tabela12 <- subset(tabela12, select = c("Leto", "Drzava", "Spol","Stevilo"))
 tabela12 <- tabela12 %>% filter(between(Leto,2011,2019))
-tabela12 <- tabela12 %>% mutate(Drzava=slovar[Drzava]) %>%
+tabela12 <- tabela12 %>% #mutate(Drzava=slovar[Drzava]) %>%
   mutate(Spol=slovarspol[Spol])
 
 tabela12$Leto <- as.numeric(as.character(tabela12$Leto))
 tabela12$Stevilo <- as.numeric(as.character(tabela12$Stevilo))
+tabela12$Drzava[tabela12$Drzava == "Germany (until 1990 former territory of the FRG)"] <- "Germany"
+
 
 
 #__________________ TABELA 13 _______________________________________________________
@@ -246,13 +262,29 @@ tabela14$Spol[tabela14$Spol == "Priseljeni iz tujine - Ženske"] <- "Ženske"
 tabela14$Spol[tabela14$Spol == "Priseljeni iz tujine - Moški"] <- "Moški"
 
 
+#________________________tabela 15____________________________________________________
+#prebivalstvo
+imenastolpcev15 <- c("Leto", "Drzava", "Neki1", "Neki2", "Meritev", "Prebivalstvo")
+tabela15 <- read_csv("podatki/demoeu.csv", col_names = imenastolpcev15,na=c(":"),skip=1,
+                     locale=locale(encoding = "Windows-1250"))
+tabela15$Drzava[tabela15$Drzava == "Germany including former GDR"] <- "Germany"
+tabela15$Neki1 <- NULL
+tabela15$Neki2 <- NULL
+tabela15$Meritev <- NULL
+drop_na(tabela15, Prebivalstvo)
+tabela15$Prebivalstvo <- gsub(" ","",tabela15$Prebivalstvo)
+tabela15$Prebivalstvo <- as.numeric(as.character(tabela15$Prebivalstvo))
 
 
-
-
-
-
-
+#__________________ tabela 16 ____________________________________________
+#prebivalstvo po regijah, letno
+imenastolpcev16 <- c("Leto","Regija", "Neki1", "Neki2", "Prebivalstvo")
+tabela16 <- read_csv2("podatki/regije_prebivalci.csv", col_names = imenastolpcev16,na=c(":"),skip=3,
+                     locale=locale(encoding = "Windows-1250"))
+tabela16$Neki1 <- NULL
+tabela16$Neki2 <- NULL
+tabela16$Leto <- gsub("H1","",tabela16$Leto)
+tabela16$Leto <- as.numeric(as.character(tabela16$Leto))
 
 
 
