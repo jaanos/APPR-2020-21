@@ -1,11 +1,47 @@
 # 3. faza: Vizualizacija podatkov
 library(jcolors)
 library(dplyr)
+library(ggrepel)
 #uvozimo zemljevid Evrope
 
 zemljevid <- uvozi.zemljevid(
   "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_countries.zip", "ne_50m_admin_0_countries", encoding="UTF-8")
 zemljevid <- zemljevid[zemljevid$CONTINENT == "Europe",]
+
+
+cols1 <- c("#006488",
+           "#f5000f",
+           "#00d655",
+           "#f051ff",
+           "#86d500",
+           "#6d009b",
+           "#cfff91",
+           "#006bf8",
+           "#eaaa00",
+           "#060050",
+           "#a0ffc9",
+           "#f9009f",
+           "#007703",
+           "#bf0096",
+           "#02e9cc",
+           "#91002e",
+           "#01bdc8",
+           "#9c3300",
+           "#029cf3",
+           "#747e00",
+           "#a793ff",
+           "#434f00",
+           "#014fa9",
+           "#ffd19b",
+           "#2c0025",
+           "#d9feff",
+           "#00314a",
+           "#ffb5aa",
+           "#003b27",
+           "#ff9fcd",
+           "#007f5f",
+           "#d3c3ff",
+           "#7addff")
 
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -37,13 +73,25 @@ graf2 <- skupno_leta_mz %>%  ggplot(aes(x=Leto, y=Vsota_mz, col=Spol, palette="P
 
 # graf 3: število priseljenih po državi:
 
-graf3 <- skupnopriseljevanje %>%  ggplot(aes(x=Leto, y=Priseljeni_iz_tujine, col=Drzava, palette = "default")) + 
+graf3 <- skupnopriseljevanje %>%  ggplot(aes(x=Leto, y=Priseljeni_iz_tujine,col=Drzava, palette = "default")) + 
   geom_point() +
   ylab('Število priseljenih') + 
   xlab('Leto') + 
   ggtitle('Število priseljenih ljudi v Slovenijo') +
   scale_x_continuous(breaks = 1*2011:2020) +
   theme(axis.text.x=element_text(vjust=0.5, hjust=0.5))
+graf3 <- graf3 + scale_color_manual(values=cols1)
+
+
+
+#še en graf števila priseljenih po državi, skupno leta
+pris_kolac <- ggplot(tabela1, aes(x = factor(1), y = Priseljeni_iz_tujine, fill = Drzava)) +
+  xlab("") + ylab("") +
+  geom_bar(width = 1, stat = "identity") + ggtitle("Države iz katerih prihajajo priseljenci (2011-19)") + theme(legend.title=element_blank())
+
+pris_kolac <- pris_kolac + coord_polar("y", start=0)
+pris_kolac <- pris_kolac + scale_fill_manual(values=cols1)
+
 
 #_____________________________________________________________________
 #naredila graf skupaj s podatki z izseljenimi in priseljenimi, število, letno
@@ -74,13 +122,21 @@ graf5 <- skupno_leta_mz2 %>%  ggplot(aes(x=Leto, y=Vsota_mz2, col=Spol, palette=
   theme(axis.text.x=element_text(vjust=0.5, hjust=0.5))
 
 #graf 6: število izseljenih po državi
-graf6 <- tabela2 %>%  ggplot(aes(x=Leto, y=Odseljeni_v_tujino, col=Drzava, palette = "default")) + 
+graf6 <- tabela2 %>%  ggplot(aes(x=Leto, y=Odseljeni_v_tujino, col=Drzava_prihodnjega_bivalisca, palette = "default")) + 
   geom_point() +
   ylab('Število izseljenih') + 
   xlab('Leto') + 
   ggtitle('Izseljevanje iz Slovenije') +
   scale_x_continuous(breaks = 1*2011:2020) +
   theme(axis.text.x=element_text(vjust=0.5, hjust=0.5))
+
+
+#še en graf števila izseljenih po državi, skupno leta
+drzava_izs_kolac <- ggplot(tabela2, aes(x = factor(1), y = Odseljeni_v_tujino, fill = Drzava_prihodnjega_bivalisca)) +
+  xlab("") + ylab("") +
+  geom_bar(width = 1, stat = "identity") + ggtitle("Države, kamor odhajajo Slovenci (2011-19)") + theme(legend.title=element_blank())
+drzava_izs_kolac <- drzava_izs_kolac + coord_polar("y", start=0)
+drzava_izs_kolac <- drzava_izs_kolac + scale_fill_manual(values=cols1)
 
 # STAROST
 #Starost izseljencev
@@ -209,11 +265,12 @@ povprecje2 <- novo %>% group_by(Drzava) %>% summarise(Povprečje=mean(Stevilo_pr
 
 zemljevid1 <- tm_shape(merge(zemljevid,
                             povprecje2,duplicateGeoms = TRUE,
-                             by.x="SOVEREIGNT", by.y="Drzava"), xlim=c(-25,32), ylim=c(32,72)) +
-  tm_polygons("Povprečje", title = "Število priseljenih ljudi na 100k") + 
+                             by.x="SOVEREIGNT", by.y="Drzava"), xlim=c(-20,32), ylim=c(32,72)) +
+  tm_polygons("Povprečje", title = "Število priseljenih ljudi na 100k", breaks=c(0,500,800,1000,1500,2000,3000,4000,5000)) + 
   tm_layout(bg.color = "skyblue") + 
   tm_layout(main.title = "Povprečje števila priseljenih ljudi v državo 2011-19 na 100k prebivalcev", main.title.size = 1, legend.title.size = 2) 
-#kako spremeniti legendo, da bo bolj natančna???
+
+#kako spremeniti legendo, da bo bolj natančna?
 
 
 #________________________________________________________________________
@@ -293,10 +350,9 @@ zemljevid_slo2 <- tm_shape(merge(Slovenija, povprecje_slop, by.x="NAME_1", by.y=
   tm_style("grey") +
   tm_layout(main.title="Povprečno število priseljenih po regijah na 10.000 prebivalcev", legend.position = c(0.75,0.1)) + tm_text(text='NAME_1', size=0.6)
 
+#________________________________________
 
-
-#________________________________________________________________________
 #Opcijsko:
 #5. Zemljevid iz kje se največ preseljujejo v Slovenijo - glede na tabeli 1/2 (2 zemljevida...)
 
-
+#62. video glej geom text, kako dodati text na graf za nek graf
