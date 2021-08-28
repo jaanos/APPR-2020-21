@@ -187,6 +187,7 @@ tabela8 <- read_csv2("podatki/priseljenipodejavnosti.csv", col_names = imenastol
   
 tabela8 <- subset(tabela8, select = c("Leto", "Dejavnost","Spol", "Stevilo")) 
 tabela8 <- arrange(tabela8,Leto, Dejavnost)
+tabela8 <- subset(tabela8, Dejavnost!="Dejavnost eksteritorialnih organizacij in teles")
   
 #______________ TABELA 9_____________________________________________________________
 #Odseljeni prebivalci po dejavnosti
@@ -195,6 +196,7 @@ tabela9 <- read_csv2("podatki/odseljenipodejavnosti.csv", col_names = imenastolp
                      locale=locale(encoding = "Windows-1250"))
 tabela9 <- subset(tabela9, select = c("Leto", "Dejavnost","Spol", "Stevilo"))
 tabela9 <- arrange(tabela9,Leto, Dejavnost)
+tabela9 <- subset(tabela9, Dejavnost!="Dejavnost eksteritorialnih organizacij in teles")
 
 #_______________________ TABELA 10 __________________________________________________
 #Spreminjanje GDP držav
@@ -211,7 +213,7 @@ tabela10 <- subset(tabela10, select = c("Leto", "Drzava", "GDP_per_capita_dolarj
 tabela10 <- arrange(tabela10,Leto, Drzava)
 tabela10$GDP_per_capita_dolarji <- gsub("e","",tabela10$GDP_per_capita_dolarji)
 tabela10$GDP_per_capita_dolarji <- gsub(",","",tabela10$GDP_per_capita_dolarji)
-tabela10 <- tabela10 %>% mutate(Drzava=slovar[Drzava])
+#tabela10 <- tabela10 %>% mutate(Drzava=slovar[Drzava])
 tabela10$Leto <- as.numeric(as.character(tabela10$Leto))
 tabela10$GDP_per_capita_dolarji <- as.numeric(tabela10$GDP_per_capita_dolarji)
 
@@ -224,7 +226,7 @@ tabela11 <- read_csv("podatki/priseljevanjeevropa.csv", col_names = imenastolpce
 tabela11 <- subset(tabela11, select = c("Leto", "Drzava", "Spol","Stevilo"))
 tabela11 <- tabela11 %>% filter(between(Leto,2011,2019))
 #tabela11 <- tabela11 %>% mutate(Drzava=slovar[Drzava]) %>%
-  mutate(Spol=slovarspol[Spol])
+  #mutate(Spol=slovarspol[Spol])
 tabela11$Drzava[tabela11$Drzava == "Germany (until 1990 former territory of the FRG)"] <- "Germany"
 
 
@@ -235,8 +237,8 @@ tabela12 <- read_csv("podatki/odseljevanjeevropa.csv", col_names = imenastolpcev
                      locale=locale(encoding = "Windows-1250"))
 tabela12 <- subset(tabela12, select = c("Leto", "Drzava", "Spol","Stevilo"))
 tabela12 <- tabela12 %>% filter(between(Leto,2011,2019))
-tabela12 <- tabela12 %>% #mutate(Drzava=slovar[Drzava]) %>%
-  mutate(Spol=slovarspol[Spol])
+tabela12 <- tabela12  #mutate(Drzava=slovar[Drzava]) %>%
+  #mutate(Spol=slovarspol[Spol])
 
 tabela12$Leto <- as.numeric(as.character(tabela12$Leto))
 tabela12$Stevilo <- as.numeric(as.character(tabela12$Stevilo))
@@ -263,7 +265,7 @@ tabela14$Spol[tabela14$Spol == "Priseljeni iz tujine - Moški"] <- "Moški"
 
 
 #________________________tabela 15____________________________________________________
-#prebivalstvo
+#prebivalstvo evrope
 imenastolpcev15 <- c("Leto", "Drzava", "Neki1", "Neki2", "Meritev", "Prebivalstvo")
 tabela15 <- read_csv("podatki/demoeu.csv", col_names = imenastolpcev15,na=c(":"),skip=1,
                      locale=locale(encoding = "Windows-1250"))
@@ -286,5 +288,33 @@ tabela16$Neki2 <- NULL
 tabela16$Leto <- gsub("H1","",tabela16$Leto)
 tabela16$Leto <- as.numeric(as.character(tabela16$Leto))
 
+#_______________ tabela 17_______________________________________________
+#bdp na prebivalca, regije Slovenije
+imenastolpcev17 <- c("Leto", "Regija", "BDP_na_prebivalca")
+tabela17 <- read_csv2("podatki/bdp_regije.csv", col_names = imenastolpcev17,na=c(":"),skip=3,
+                      locale=locale(encoding = "Windows-1250"))
 
+#______________tabela 18___________________________________________________
+#izobrazba, regije Slovenije
+imenastolpcev18 <- c("Leto", "Spol","Starost","Regija", "Izobrazba", "Stevilo_izobrazba")
+tabela18 <- read_csv2("podatki/izobrazba_regije.csv", col_names = imenastolpcev18,na=c(":"),skip=3,
+                      locale=locale(encoding = "Windows-1250"))
+tabela18$Starost <- NULL
+tabela18$Spol <- NULL
+vsi <- tabela18 %>% group_by(Regija, Leto) %>% summarise(vsi=sum(Stevilo_izobrazba))
+visjes <- subset(tabela18, Izobrazba=="Višješolska, visokošolska - Skupaj") %>% rename("St_VS"="Stevilo_izobrazba")
+ss <- subset(tabela18, Izobrazba=="Srednješolska - Skupaj") %>% rename("St_ss"="Stevilo_izobrazba")
+visjes$Izobrazba <- NULL
+ss$Izobrazba <- NULL
+vsivis <- inner_join(vsi,visjes)
+vse <- inner_join(vsivis,ss) %>% mutate(razSS=St_ss/vsi) %>% mutate(razVS=St_VS/vsi) 
+vsezares <- subset(vse, select = c("Regija", "Leto","razSS","razVS"))
 
+#________________________
+#Za Shiny:
+shiny_tab1 <- tabela6 %>% group_by(Leto,Izobrazba) %>% summarise(Stevilo=sum(Stevilo))
+shiny_tab2 <- tabela1 %>% group_by(Leto,Drzava) %>% summarise(Stevilo=sum(Priseljeni_iz_tujine))
+shiny_tab3 <- tabela8 %>% group_by(Leto,Dejavnost) %>% summarise(Stevilo=sum(Stevilo)) %>% drop_na(Stevilo)
+shiny_tab4 <- tabela5 %>% group_by(Leto,Izobrazba) %>% summarise(Stevilo=sum(Stevilo_odseljenih))
+shiny_tab5 <- tabela9 %>% group_by(Leto,Dejavnost) %>% summarise(Stevilo=sum(Stevilo)) %>% drop_na(Stevilo)
+#________________________________________________________________________
