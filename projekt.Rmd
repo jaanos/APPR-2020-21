@@ -23,7 +23,7 @@ source("lib/rstudio.r", encoding="UTF-8")
 ```
 
 # Izbira teme
-Za temo sem si izbrala analizo meddržavnih selitev v Sloveniji: priseljevanja v Slovenijo ter izseljevanja iz Slovenije. Analizirala bom, kako so se selitve gibale skozi čas ter kakšni ljudje so se k nam priseljevali ter od nas odseljevali. Za konec bom priseljevanje primerjala še z drugimi evropskimi državami.
+Za temo sem si izbrala analizo meddržavnih selitev v Sloveniji: priseljevanja v Slovenijo ter izseljevanja iz Slovenije. Analizirala bom, kako so se selitve gibale skozi čas ter kakšni ljudje so se k nam priseljevali ter od nas odseljevali. Za konec bom priseljevanje primerjala še z drugimi evropskimi državami. Vse podatke bom analizirala za obdobje od 2011 do 2019. 
 
 ![](slike/migracija.jpg)
 
@@ -125,15 +125,162 @@ Podatke sem uvozila iz Statističnega urada Republike Slovenije, Eurostata (Evro
     - `Drzava` - spremenljivka: regije Slovenije
     - `Spol` - spremenljivka: moški ali ženske
     - `Stevilo` - meritev: število priseljenih ljudi v različne regije v določenem obdobju
+    
+15. `tabela15` - podatki o številu prebivalcev v državah Evrope
+    - `Leto` - spremenljivka: leto meritve (2011-2021)
+    - `Drzava` - spremenljivka: države Evrope
+    - `Prebivalstvo` - meritev: število prebivalcev v določenem obdobju
+    
+16. `tabela16` - podatki o številu prebivalcev v regijah Slovenije
+    - `Leto` - spremenljivka: leto meritve (2011-2019)
+    - `Regija` - spremenljivka: regije Slovenije
+    - `Prebivalstvo` - meritev: število prebivalcev regije v določenem obdobju
+    
+17. `tabela17` - podatki o BDP na prebivalca v regijah Slovenije
+    - `Leto` - spremenljivka: leto meritve (2011-2019)
+    - `Regija` - spremenljivka: regije Slovenije
+    - `BDP_na_prebivalca` - meritev: BDP na prebivalca v regiji v določenem obdobju
+    
+    
+18. `tabela18` - podatki o izobrazbi v regijah Slovenije
+    - `Leto` - spremenljivka: leto meritve (2011-2020)
+    - `Regija` - spremenljivka: regije Slovenije
+    - `Izobrazba` - spremenljivka: stopnja izobrazbe
+    - `Stevilo_izobrazba` - meritev: število prebivalcev z določeno izobrazbo v določenem obdobju
+  
   
 ***
-
-# Analiza in vizualizacija podatkov
+# Analiza podatkov in vizualizacija
+Z analizo uvoženih podatkov ter vizualizacijo sem prišla do zanimivih ugotovitev glede priseljevanja in izseljevanja ljudi v Sloveniji. Te bom predstavila spodaj.
 
 ```{r vizualizacija, results='hide'}
 source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 ```
+## Analiza priseljevanja in izseljevanja v Sloveniji
 
+Spodnja krivulja prikazuje skupno število priseljenih ter izseljenih ljudi v Slovenijo ter iz Slovenije v letih od 2011 do 2020. Na grafu pa je prav tako prikazan selitveni prirast, ki prikazuje razliko med priseljenimi in izseljenimi ljudmi v Sloveniji.
+
+```{r graf4, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+print(graf4)
+```
+
+Kot je razvidno iz grafa, se je število priseljenih ljudi do leta 2014 počasi povečevalo, nato pa do leta 2019 strmo naraslo. Verjetno so vzroki, da je priseljevanje do leta 2014 bolj počasi naraščalo še posledice finančne krize 2008, nato pa je v času gospodarske rasti število priseljencev naraščalo. Verjeten razlog za upadec priseljenih leta 2020 pa je epidemija COVID-19, ki je močno vplivala na selitvene tokove po svetu. Kot vidimo pa je izseljevanje do leta 2017 čisto naraščalo, po tem pa začelo upadati. Razlog za tem je verjetno gospodarska rast in relativno dobre razmere za življenje v Sloveniji. Ko opazujemo selitveni prirast opazimo, da je od leta 2014 do 2019 strmo naraščal, lani pa malo upadel, predvsem zaradi padca števila priseljenih v Slovenijo. Vendar pa je celostno gledano situacija v Sloveniji glede priseljevanja in izseljevanja kar dobra, saj ne želimo, da bi se ljudje izseljevali, razmeroma nadzorovano priseljevanje pa je zaželjeno.
+
+Spodaj na dveh grafih si lahko ogledamo priseljevanje in izseljevanje glede na moški in ženski spol. Krivulje prikazujejo število moških ali žensk, ki so se izselili ali priselili v Slovenijo v letih od 2011 do 2020.
+
+```{r spol_graf, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+print(spol_graf)
+```
+
+Opazimo lahko, da se je izseljevanje moških in žensk gibalo zelo podobno, le da je število žensk, ki se izseljuje za malenkost manjše od števila moških.Zanimivo je, da je v času epidemije COVID-19 izseljevanje moških in žensk doseglo skoraj enako raven, to pa na račun moških, ki so se izseljevali malo manj kot prejšnje leto. Zanimivo pa je, kako se razlikuje priseljevanje žensk in moških. Opazimo lahko, da je priseljevanje moških v Slovenijo znatno večje od žensk, to pa je posledica tega, da se večinoma k nam na začetku priseljujejo moški iz držav bivše Jugoslavije zaradi dela. Zanimivo je tudi, da je število priseljenih moških v letu 2020 zelo upadlo, število priseljenih žensk pa je celo naraslo. To je posledica manj prostih delovnih mest v Sloveniji v letu 2020 zaradi posledic epidemije COVID-19. Razlog za porast priseljenih žensk v letu 2020 pa je verjetno to, da so se ženske v tem letu preselile zaradi združitve s svojo družino.
+
+
+### Stopnja izobrazbe priseljenih in izseljenih ljudi
+Spodnja histograma prikazujeta stopnjo izobrazbe izseljenih in priseljenih ljudi skozi leta 2011-19. Stopnja izobrazbe je razdeljena v tri kategorije in sicer: Osnovnošolska ali manj, Srednješolska ter Višješolska, visokošolska.
+
+```{r vrsta_izobrazbe, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+print(izobrazba_graf)
+```
+
+Iz prvega histograma je razvidno, da se iz Slovenije glavno izseljujejo ljudje s srednješolsko izobrazbo, nato ti z visokošolsko, zadnji po številu izseljenih pa so te z osnovnošolsko izobrazbo ali manj. Razlogi za najmanjše izseljevanje teh z osnovnošolsko izobrazbo ali manj so verjetno ti, da ljudje s to stopnjo izobrazbe niti v tujini ne bi dosegali boljšega življenjskega standarda kot v Sloveniji, medtem ko so ljudje s strokovnimi znanji v tujini iskani in marsikje tudi dobro plačani. Iz drugega histograma pa lahko opazimo, da se k nam priseljuje največ ljudi s srednješolsko izobrazbo, v zadnjih letih pa se jih k nam priseljuje tudi veliko z osnovnošolsko izobrazbo. Razlogi za tem so verjetno ti, da naš trg dela zelo potrebuje delovno silo in ljudi, ki bi bili pripravljeni delati tudi fizična in naporna dela, saj smo imeli v zadnjih letih v Sloveniji na tem področju kadrovski primanjkljaj. Ko primerjamo oba histograma skupaj opazimo, da je selitveni prirast v dveh kategorijah pozitiven, v kategoriji višješolska, visokošolska stopnja izobrazbe pa se giblje blizu ničle. To ima za Slovenijo lahko negativne posledice, saj na ta račun izgubljamo visoko izobražen kader in nas to tako dela manj konkurenčne na področju razvoja in tehnologije.
+
+Sedaj pa si oglejmo še podrobnejšo analizo priseljevanja v Slovenijo.
+
+## Bolj podrobno o priseljevanju v Slovenijo
+Število priseljencev sem obravnavala tudi po posameznih statističnih regijah Slovenije. Spodaj na zemljevidu je prikazano povprečno število priseljenih ljudi letno v Slovenijo na 10.000 prebivalcev za leta 2011 do 2019.
+
+```{r zemljevid_slo2, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+print(zemljevid_slo2)
+```
+
+Opazimo lahko, da se je največ ljudi preselilo v Obalno-kraško regijo. Razlog za tem je verjetno to, da je se ta regija izrazito ukvarja s turizmom in prometom, v teh dveh dejavnostih pa je veliko delavcev tujcev. Druga po povprečnem številu priseljenih na 10.000 prebivalcev pa je Osrednjeslovenska regija, kar je seveda razumljivo, saj je ta regija gospodarsko najmočnejša in ponuja največ delovnih mest. Na repu po številu priseljenih sta pomurska in zasavska regija, kar ni nič čudnega, saj sta ti regiji tudi po gospodarski razvitosti na repu med statističnimi regijami.
+
+### Struktura priseljencev po državah
+Spodnji tortni diagram prikazuje strukturo priseljencev, ki so se v Slovenijo priselili od leta 2011 do 2019 po državah, iz katere prihajajo. 
+```{r pris_kolac, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+print(pris_kolac)
+```
+
+Iz tortnega diagrama je razvidno, da se k nam priseljuje največ ljudi iz Bosne in Hercegovine, Srbije, Kosova, Severne Makedonije, Hrvaške, Italije in Ruske federacije. Dejstvo, da se k nam večinsko priseljujejo ljudje iz držav bivše Jugoslavije, ni nič presenetljivo.
+
+### Starostna struktura 
+Spodnji diagram prikazuje starostno strukturo priseljencev v letih 2011-20.
+
+```{r starost_graf2, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+print(starost_graf2)
+```
+
+Na diagramu vidimo, da je se največ ljudi priseljuje k nam v starostnih skupinah 20-24 ter 25-29 in 30-34. To je seveda dobro, saj si želimo, da bi v državo prihajalo delovno aktivno prebivalstvo. Zanimivo je dejstvo, da se k nam priseli tudi veliko otrok starih do 15 let, kar je verjetno posledica tega, da se k nam priseljujejo celotne družine. V starostnih skupinah od 55 let naprej pa se k nam priseli malo ljudi.
+
+# Namen prihoda priseljencev v Slovenijo
+Spodnji tortni diagram prikazuje, kaj so priseljenci navedli, da je njihov namen prihoda v Slovenijo ob priselitvi. Diagram je generiran za obdobje od leta 2011 do leta 2019.
+
+```{r namen_priselitve, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+print(namen_priselitve)
+```
+
+Vidimo, da je glavni razlo priseljencev za prihod v Slovenijo zaposlitev, takoj za tem pa nastopi združitev z družino. Študentje predstavljajo nekoliko manjši delež priseljencev.
+
+### Dejavnosti, s katerimi se ukvarjajo priseljenci
+Na spodnjem histogramu si oglejmo še povprečno letno število priseljencev glede na dejavnost, s katero se ukvarjajo. Povprečje je izračunano za obdobje 2011-19. Zaradi bolj pregledne predstavitve so na diagramu predstavljene le najbolj zastopane dejavnosti.
+
+```{r dejavnost, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+print(dejavnost)
+```
+
+Opazimo, da se največ priseljencev ukvarja z gradbeništvom, predelovalnimi dejavnostmi ter prometom in skladiščenjem. Za tovrstne dejavnosti ni potrebna visoka izobrazba, zato tudi tak kader zelo potrebujemo. Veliko priseljencev se ukvarja tudi z gostinstvom, manjši, a še vedno pomemben delež pa se ukvarja z dejavnostmi, za katere je potrebna višješolska izobrazba.
+
+Sedaj pa si oglejmo še podrobnejšo analizo izseljevanja iz Slovenije.
+
+## Bolj podrobno še o izseljevanju iz Slovenije
+
+Tudi izseljevanje sem obravnavala glede na statistične regije. Spodnji zemljevid prikazuje povprečno število izseljenih ljudi letno na 10.000 prebivalcev. Povprečje je izračunano na podlagi obdobja let 2011-19.
+
+```{r zemljevid_slo1, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+print(zemljevid_slo1)
+```
+
+Opazimo, da se največ ljudi izseljuje iz Obalno-kraške regije, prav tako pa takoj zatem sleti Osrednjeslovenska regija. Ta podatek je zanimiv, saj sta to regiji, ki sta gospodarsko kar močni. Zanimivo pa je, da se iz Zasavske in Koroške regije ne izseljuje veliko ljudi.
+
+### Kam se izseljujejo Slovenci
+Spodnji točkovni diagram prikazuje države, po letih, kamor so se priselili slovenski državljani, ko so se izselili iz Slovenije.
+
+```{r graf6, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+print(graf6)
+```
+
+Izseljenci se večinsko izseljujejo v Avstrijo, Nemčijo, druge države Evrope in Švico. (Žal uvožene datoteke niso bile preveč specifične, katere države so to.) Priljubljene pa so tudi Združene države Amerike ter Italija.
+
+### Starostna skupina izseljencev
+Sedaj pa si tudi za izseljence poglejmo, kakšna je  njihova starostna struktura. Spodnji diagram prikazuje starostne strukture izseljencev po letih za leta 2011-19.
+
+```{r starost_graf1, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+print(starost_graf1)
+```
+
+Izseljenci, ki se izseljujejo iz Slovenije so večinsko mladi; v letu 2019 jih je bilo največ v starostnih skupinah od 25-29 in 30-34. Opazujemo pa lahko, da se je v zadnjih letih število mladih, ki se izseljujejo zmanjšalo, kar je precej dober znak.
+Število teh, ki se izselijo, ko so stari 65+ pa tudi ni malo in je skozi leta nekako stabilno.
+
+### Dejavnosti, s katerimi se ukvarjajo izseljenci
+Za konec analize izseljevanja v Sloveniji pa si oglejmo še analizo dejavnosti, s katerimi se ukvarjajo zaposleni izseljenci. Diagram prikazuje letno povrpečje izračunano na podlagi let 2011-19. Zavoljo lepšte predstavitve pa so na diagramu predstavljene le izstopajoče dejavnosti.
+
+```{r dejavnost2, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+print(dejavnost2)
+```
+
+Največ izseljencev se ukvarja s predelovalnimi dejavnostmi, trgovino, vzdrževanjem in popravilo motornih vozil ter gradbeništvom. Veliko se jih ukvarja tudi s strokovnimi, znanstevnimi in tehničnimi dejavnostmi, veliko pa jih je zaposlenih v zdravstvu in izobraževanju. Ta podatek je zaskrbljujoč, saj nam tega kadra v Sloveniji primanjkuje, v Slovenijo pa se ne priseli dovolj ljudi iz teh strok, da bi bil selitveni prirast pozitiven. V kolikor bomo želeli to spremeniti, bo Slovenija morala spremeniti delovne pogoje na teh področjih, da bodo delovne razmere boljše in da bodo Slovenci želeli ostati doma.
+
+
+## Priseljevanje in izseljevanje v Evropi
+Sedaj pa si za občutek in primerjavo poglejmo še, kakšno je priseljevanje in izseljevanje ljudi drugod po Evropi. Spodaj vidimo dva zemljevida. Levi prikazuje povprečno letno število priseljenih ljudi na 100.000 prebivalcev v državah Evrope (povprečje je izračunano za leta 2011-19). Desni zemljevid pa prikazuje povprečno število izseljenih ljudi na 100.000 prebivalcev v državah Evrope za isto obdobje.
+
+```{r zemljevid12, fig.align='center'}
+tmap_arrange(zemljevid1, zemljevid2)
+```
+
+Na levem zemljevidu lahko opazimo, da se v Luksemburg priseljuje največ ljudi na 100.000 prebivalcev. Luksemburg je gospodarsko zelo razvita država, njihova prednost pa je predvsem finančni sektor, ki je verjetno zelo privlačna za priseljence. Veliko priseljencev na 100.000 prebivalcev pa imajo tudi Islandija, za njo pa Švica in Irska. Veliko jih imajo tudi Nemčija, Avstrija, Belgija in Skandinavske države. Vsem tem državam je skupno močno gospodarstvo in močna demokracija. Manj priseljencev pa imajo Hrvaška, Portugalska, Slovaška in Češka.
+
+Na desnem zemljevidu pa lahko opazimo, da ima Luksemburg največ izseljencev na 100.000 prebivalcev. Veliko jih imajo tudi Islandija, Švica ter Irska. Razlogi v tem so verjetno to, da je v statistiko izseljencev zajetih tudi veliko tujcev, ki so se prvotno v tisto državo priselili in tam niso dolgo ostali. Veliko pa imajo izseljencev na 100.000 prebivalcev tudi Latvija in Litva ter Španija, Grčija ter Romunija.
 
 ***
 
@@ -143,9 +290,40 @@ source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 source("analiza/analiza.r", encoding="UTF-8")
 ```
 
+V nadaljnjem razdelku sem preizkusila še dve metodi modeliranja in napredne analize priseljevanja_: z linearnim modelom  in razvrščanjem - **clustering**.
 
+
+Spodnji graf prikazuje meritve in napoved števila priseljenih skozi leta. Meritve so izvedene za leta 2011-20, napoved pa za leta 2021-25.
+
+```{r graf_napoved, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+print(graf_napoved)
+```
+
+Vemo že, da je število priseljenih ljudi v Slovenijo skozi leta naraščalo. Napovedi kažejo, da bo tako tudi v naslednjih letih ter da se bo število priseljencev v Slovenijo še kar naprej povečevalo, kar pa ni presenetljivo.
+
+Nadaljnje sem na zemljevidu Slovenije preizkusila še k-means clustering, in poskušala statistične regije razvrstiti v 4 skupine glede na povprečno število izseljenih in priseljenih ljudi na prebivalce. Seveda je ta metoda še boljša na večjih skupinah, pa vendar so me zanimali rezultati
+.
+```{r zemljevid_reg_skup_emiimi, fig.align='center'}
+tmap_arrange(zemljevid_reg_skup_emi,zemljevid_reg_skup_imi)
+```
+
+Zanimivo je, da Obalno-kraška regija izstopa v svoji skupini tako pri izseljevanju kot priseljevanju. Nekoliko drugače so razporejene ostale regije. Prav tako je zanimivo, da pri izseljevanju izstopa tudi Osrednjeslovenska regija, ostale pa so razvrščene v 1 in 2 skupino.
+
+
+Za konec sem metodo clustering poskusila izvesti še za države Evrope. Države so tu prav tako razdeljene glede na povprečno priseljevanje in izseljevanje.
+
+```{r zemljevidskupineemiimi, fig.align='center'}
+tmap_arrange(zemljevidskupineemi,zemljevidskupineimi)
+```
+Opazimo, da pri emigraciji izstopajo predvsem skupina 1, ki ima največ držav in najnižjo stopnjo izseljevanja. Pri zemljevidu imigracije pa opazimo, da sta skupini 1 in 2 nekako uravnoteženi. Dejstvo, da je v skupini 4 za oba zemljevida le Luksemburg je posledica tega, da so podatki o izseljevanju in priseljevanju zelo visoki. Najverjetneje je ta podatek res resničen, saj naj bi v Luksemburgu živelo približno 47,4 % tujcev.
 ***
+Za konec si še oglejmo nekaj zanimivih grafov, narejenih s pomočjo aplikacije Shiny. Zanimivo je dejstvo, da je od leta 2017 število izseljenih zdravstvenih delavcev upadalo, število priseljenih zdravstvenih delavcev pa naraščalo. 
 
 ```{r shiny}
 shinyAppDir("shiny", options=list(width="100%", height=600))
 ```
+
+# Zaključek
+
+
+V sklopu analize priseljevanja in izseljevanja ljudi v Sloveniji sem se naučila veliko. Predvsem pa, da situacija v naši državi sploh ni tako slaba in da je naš selitveni prirast pozitiven. Sem pa mnenja, da bomo morali kot država naše napore usmeriti v izobražene mlade in jim ponuditi dobre pogoje za delo, da bomo lahko kot država tehnološko in znanstveno konkurirali ostalim. 

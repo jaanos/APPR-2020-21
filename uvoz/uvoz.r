@@ -89,7 +89,7 @@ tabela2$Drzava_prihodnjega_bivalisca[tabela2$Drzava_prihodnjega_bivalisca == "AF
 tabela2$Drzava_prihodnjega_bivalisca[tabela2$Drzava_prihodnjega_bivalisca == "AZIJA"] <- "Azija"
 tabela2$Drzava_prihodnjega_bivalisca[tabela2$Drzava_prihodnjega_bivalisca == "JUŽNA AMERIKA"] <- "Južna Amerika"
 tabela2$Drzava_prihodnjega_bivalisca[tabela2$Drzava_prihodnjega_bivalisca == "AVSTRALIJA IN OCEANIJA"] <- "Avstralija in Oceanija"
-
+tabela2 <- tabela2 %>% rename("Drzava"="Drzava_prihodnjega_bivalisca") 
 #___________________________TABELA 3_______________________________________
 #starotna skupina odseljenih tabela
 imenastolpcev3 <- c("Leto", "Drzava", "Izobrazba", "Starost", "Spol", "Stevilo_odseljenih")
@@ -136,6 +136,7 @@ tabela5$Drzava_prihodnjega_bivalisca[tabela5$Drzava_prihodnjega_bivalisca == "AZ
 tabela5$Drzava_prihodnjega_bivalisca[tabela5$Drzava_prihodnjega_bivalisca == "JUŽNA AMERIKA"] <- "Južna Amerika"
 tabela5$Drzava_prihodnjega_bivalisca[tabela5$Drzava_prihodnjega_bivalisca == "AVSTRALIJA IN OCEANIJA"] <- "Avstralija in Oceanija"
 tabela5$Drzava_prihodnjega_bivalisca[tabela5$Drzava_prihodnjega_bivalisca == "SEVERNA IN SREDNJA AMERIKA"] <- "Severna in Srednja Amerika"
+
 
 #________________________________ TABELA 6 ___________________________________________
 #tabela o številu priseljenih glede na izobrazbo
@@ -301,6 +302,7 @@ tabela18 <- read_csv2("podatki/izobrazba_regije.csv", col_names = imenastolpcev1
                       locale=locale(encoding = "Windows-1250"))
 tabela18$Starost <- NULL
 tabela18$Spol <- NULL
+
 vsi <- tabela18 %>% group_by(Regija, Leto) %>% summarise(vsi=sum(Stevilo_izobrazba))
 visjes <- subset(tabela18, Izobrazba=="Višješolska, visokošolska - Skupaj") %>% rename("St_VS"="Stevilo_izobrazba")
 ss <- subset(tabela18, Izobrazba=="Srednješolska - Skupaj") %>% rename("St_ss"="Stevilo_izobrazba")

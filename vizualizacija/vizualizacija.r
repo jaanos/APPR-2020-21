@@ -9,39 +9,39 @@ zemljevid <- uvozi.zemljevid(
 zemljevid <- zemljevid[zemljevid$CONTINENT == "Europe",]
 
 
-cols1 <- c("#006488",
-           "#f5000f",
-           "#00d655",
-           "#f051ff",
-           "#86d500",
-           "#6d009b",
-           "#cfff91",
-           "#006bf8",
-           "#eaaa00",
-           "#060050",
-           "#a0ffc9",
-           "#f9009f",
-           "#007703",
-           "#bf0096",
-           "#02e9cc",
-           "#91002e",
-           "#01bdc8",
-           "#9c3300",
-           "#029cf3",
-           "#747e00",
-           "#a793ff",
-           "#434f00",
-           "#014fa9",
-           "#ffd19b",
-           "#2c0025",
-           "#d9feff",
-           "#00314a",
-           "#ffb5aa",
-           "#003b27",
-           "#ff9fcd",
-           "#007f5f",
-           "#d3c3ff",
-           "#7addff")
+cols1 <- c("#9fffe7",
+           "#78e343",
+           "#64bc8b",
+           "#b7c172",
+           "#c390b6",
+           "#c9416d",
+           "#cb4bab",
+           "#de0004",
+           "#02b0dd",
+           "#67d564",
+           "#025ecc",
+           "#e7ff68",
+           "#070043",
+           "#ffdf41",
+           "#f379ff",
+           "#81a500",
+           "#8e92ff",
+           "#6d388a",
+           "#32282f",
+           "#c74d35",
+           "#4c3560",
+           "#086000",
+           "#b9a192",
+           "#ffaa44",
+           "#004c4f",
+           "#5d6994",
+           "#53653b",
+           "#ecffe2",
+           "#4b0029",
+           "#d0e0ff",
+           "#7d4336",
+           "#ff9096",
+           "#b68247")
 
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ cols1 <- c("#006488",
 
 skupnopriseljevanje <- tabela1 
 skupno_leta <- skupnopriseljevanje %>% group_by(Leto) %>% summarise(Vsota=sum(Priseljeni_iz_tujine))
-skupno_leta_mz <- skupnopriseljevanje %>% group_by(Leto,Spol) %>% summarise(Vsota_mz=sum(Priseljeni_iz_tujine))
+skupno_leta_mz <- skupnopriseljevanje %>% group_by(Leto,Spol) %>% summarise(Stevilo_priseljenih=sum(Priseljeni_iz_tujine))
 
 graf1 <- ggplot(data=skupno_leta, aes(x=Leto, y=Vsota)) + 
   geom_point(color=rgb(0.8,0.4,0.1,0.7))+
@@ -62,7 +62,7 @@ graf1 <- ggplot(data=skupno_leta, aes(x=Leto, y=Vsota)) +
 
 # graf 2: število priseljenih po spolu__________________________-
 
-graf2 <- skupno_leta_mz %>%  ggplot(aes(x=Leto, y=Vsota_mz, col=Spol, palette="Pastel1")) + 
+graf2 <- skupno_leta_mz %>%  ggplot(aes(x=Leto, y=Stevilo_priseljenih, col=Spol, palette="Pastel1")) + 
   geom_line() +
   ylab('Število priseljenih') + 
   xlab('Leto') + 
@@ -87,7 +87,8 @@ graf3 <- graf3 + scale_color_manual(values=cols1)
 #še en graf števila priseljenih po državi, skupno leta
 pris_kolac <- ggplot(tabela1, aes(x = factor(1), y = Priseljeni_iz_tujine, fill = Drzava)) +
   xlab("") + ylab("") +
-  geom_bar(width = 1, stat = "identity") + ggtitle("Države iz katerih prihajajo priseljenci (2011-19)") + theme(legend.title=element_blank())
+  geom_bar(width = 1, stat = "identity") + ggtitle("Države, iz katerih \n prihajajo priseljenci") + theme(legend.title=element_blank(), text = element_text(size=10))
+
 
 pris_kolac <- pris_kolac + coord_polar("y", start=0)
 pris_kolac <- pris_kolac + scale_fill_manual(values=cols1)
@@ -95,10 +96,13 @@ pris_kolac <- pris_kolac + scale_fill_manual(values=cols1)
 
 #_____________________________________________________________________
 #naredila graf skupaj s podatki z izseljenimi in priseljenimi, število, letno
-tabela2 <- tabela2 %>% rename("Drzava"="Drzava_prihodnjega_bivalisca") 
+
 priseljeniinizseljeni <- inner_join(tabela1, tabela2, by=NULL) %>% mutate(Selitveni_prirast=Priseljeni_iz_tujine-Odseljeni_v_tujino) 
 skupnopi_leta <- priseljeniinizseljeni %>% group_by(Leto) %>% summarise(Priseljeni_iz_tujine=sum(Priseljeni_iz_tujine), Odseljeni_v_tujino=sum(Odseljeni_v_tujino), Selitveni_prirast=sum(Selitveni_prirast))   
 skupnopi_leta <- pivot_longer(skupnopi_leta,2:4, names_to="Vrsta", values_to="Stevilo") 
+skupnopi_leta$Vrsta[skupnopi_leta$Vrsta == "Odseljeni_v_tujino"] <- "Izseljeni"
+skupnopi_leta$Vrsta[skupnopi_leta$Vrsta == "Priseljeni_iz_tujine"] <- "Priseljeni"
+skupnopi_leta$Vrsta[skupnopi_leta$Vrsta == "Selitveni_prirast"] <- "Selitveni prirast"
 
 graf4 <- skupnopi_leta %>%  ggplot(aes(x=Leto, y=Stevilo, col=Vrsta, palette="Pastel1")) + 
   geom_line() +
@@ -106,13 +110,13 @@ graf4 <- skupnopi_leta %>%  ggplot(aes(x=Leto, y=Stevilo, col=Vrsta, palette="Pa
   ylab('Število ljudi') + 
   xlab('Leto') + 
   labs(col = "Legenda:")+
-  ggtitle('Število priseljenih ali izseljenih ljudi v Sloveniji') +
+  ggtitle('Število priseljenih in izseljenih ljudi v Sloveniji') +
   scale_x_continuous(breaks = 1*2011:2020) +
   theme(axis.text.x=element_text(vjust=0.5, hjust=0.5))
 
 # graf 5: število izseljenih po spolu
-skupno_leta_mz2 <- tabela2 %>% group_by(Leto,Spol) %>% summarise(Vsota_mz2=sum(Odseljeni_v_tujino))
-graf5 <- skupno_leta_mz2 %>%  ggplot(aes(x=Leto, y=Vsota_mz2, col=Spol, palette="Pastel1")) + 
+skupno_leta_mz2 <- tabela2 %>% group_by(Leto,Spol) %>% summarise(Stevilo_izseljenih=sum(Odseljeni_v_tujino))
+graf5 <- skupno_leta_mz2 %>%  ggplot(aes(x=Leto, y=Stevilo_izseljenih, col=Spol, palette="Pastel1")) + 
   geom_line() +
   ylab('Število ljudi') + 
   xlab('Leto') + 
@@ -121,18 +125,40 @@ graf5 <- skupno_leta_mz2 %>%  ggplot(aes(x=Leto, y=Vsota_mz2, col=Spol, palette=
   scale_x_continuous(breaks = 1*2011:2020) +
   theme(axis.text.x=element_text(vjust=0.5, hjust=0.5))
 
+#_______________________________________________________
+#združiti priseljevanje in izseljevanje po spolu - facet grid
+skupno_leta_mz_oboje <- inner_join(skupno_leta_mz,skupno_leta_mz2) %>% pivot_longer(3:4,names_to="Vrsta",values_to="Stevilo")
+skupno_leta_mz_oboje$Vrsta[skupno_leta_mz_oboje$Vrsta == "Stevilo_priseljenih"] <- "Priseljeni"
+skupno_leta_mz_oboje$Vrsta[skupno_leta_mz_oboje$Vrsta == "Stevilo_izseljenih"] <- "Izseljeni"
+spol_graf <- ggplot(data=skupno_leta_mz_oboje, aes(x=Leto, y=Stevilo, col=Spol)) +
+  geom_line() +
+  ylab('Število ljudi') + 
+  xlab('Leto') + 
+  labs(col = "Spol")+
+  facet_wrap(.~Vrsta) +
+  ggtitle('Število priseljenih in izseljenih ljudi glede na spol') +
+  scale_x_continuous(breaks = 1*2011:2020) +
+  theme(axis.text.x=element_text(vjust=0.5, hjust=0.5, angle=90))
+
+
+
+#____________________________________________________
+
 #graf 6: število izseljenih po državi
-graf6 <- tabela2 %>%  ggplot(aes(x=Leto, y=Odseljeni_v_tujino, col=Drzava_prihodnjega_bivalisca, palette = "default")) + 
+tabelanova2 <- tabela2 %>% group_by(Leto, Drzava) %>% summarise(Odseljeni_v_tujino=sum(Odseljeni_v_tujino))
+tabelanova2 <- tabelanova2 %>% rename("Država"="Drzava")
+graf6 <- tabelanova2 %>%  ggplot(aes(x=Leto, y=Odseljeni_v_tujino, col=Država, palette = "default")) + 
   geom_point() +
   ylab('Število izseljenih') + 
   xlab('Leto') + 
   ggtitle('Izseljevanje iz Slovenije') +
   scale_x_continuous(breaks = 1*2011:2020) +
-  theme(axis.text.x=element_text(vjust=0.5, hjust=0.5))
+  theme(axis.text.x=element_text(vjust=0.5, hjust=0.5, angle=90))
+graf6 <- graf6 + scale_color_manual(values=cols1)
 
 
 #še en graf števila izseljenih po državi, skupno leta
-drzava_izs_kolac <- ggplot(tabela2, aes(x = factor(1), y = Odseljeni_v_tujino, fill = Drzava_prihodnjega_bivalisca)) +
+drzava_izs_kolac <- ggplot(tabela2, aes(x = factor(1), y = Odseljeni_v_tujino, fill = Drzava)) +
   xlab("") + ylab("") +
   geom_bar(width = 1, stat = "identity") + ggtitle("Države, kamor odhajajo Slovenci (2011-19)") + theme(legend.title=element_blank())
 drzava_izs_kolac <- drzava_izs_kolac + coord_polar("y", start=0)
@@ -156,11 +182,13 @@ tabela5 <- tabela5 %>% rename("Drzava"="Drzava_prihodnjega_bivalisca")
 tabela6 <- tabela6 %>% rename("Stevilo_priseljenih"="Stevilo") 
 tabela_izobrazba <- inner_join(tabela5, tabela6, by=NULL) %>% 
   pivot_longer(5:6, names_to="Vrsta", values_to="Stevilo") 
+tabela_izobrazba$Vrsta[tabela_izobrazba$Vrsta == "Stevilo_priseljenih"] <- "Priseljeni"
+tabela_izobrazba$Vrsta[tabela_izobrazba$Vrsta == "Stevilo_odseljenih"] <- "Izseljeni"
 
-vrsta_izobrazbe <- c("Osnovnošolska ali manj",	"Srednješolska","Višješolska, visokošolska")
-izobrazba_graf <- ggplot(data=tabela_izobrazba, aes(x=Leto, y=Stevilo, fill=factor(Izobrazba, vrsta_izobrazbe))) +
-  geom_bar(stat="identity") + facet_wrap(.~Vrsta) + scale_x_continuous(breaks = 1*2011:2020) + ggtitle("Izobrazba ljudi, ki so se preselili ali izselili") +
-  xlab("Leto") + ylab("Število") + labs(fill='vrsta_izobrazbe') + theme(axis.text.x=element_text(angle=90))
+Stopnja <- c("Osnovnošolska ali manj",	"Srednješolska","Višješolska, visokošolska")
+izobrazba_graf <- ggplot(data=tabela_izobrazba, aes(x=Leto, y=Stevilo, fill=factor(Izobrazba, Stopnja))) +
+  geom_bar(stat="identity") + facet_wrap(.~Vrsta) + scale_x_continuous(breaks = 1*2011:2020) + ggtitle("Izobrazba ljudi, ki so se preselili in izselili") +
+  xlab("Leto") + ylab("Število") + labs(fill='Stopnja izobrazbe') + theme(axis.text.x=element_text(angle=90))
 
 
 #NAMEN PRISELITVE
@@ -174,22 +202,28 @@ namen_priselitve <- namen_priselitve + coord_polar("y", start=0)
 #DEJAVNOST
 
 #Priseljeni prebivalci po dejavnosti
-skupno_dejavnost <- tabela8 %>% group_by(Dejavnost) %>% summarise(Vsota=sum(Stevilo)) %>% mutate(Povprecje=round(Vsota/9,1))
-
-dejavnost <- skupno_dejavnost %>% ggplot(aes(x=Dejavnost, y=Povprecje,fill=Povprecje)) + 
+skupno_dejavnost <- tabela8 %>% group_by(Dejavnost) %>% summarise(Vsota=sum(Stevilo)) %>% mutate(Povprečje=round(Vsota/9,1))
+skupno_dejavnost <- skupno_dejavnost %>% filter(Dejavnost %in% c("Gradbeništvo","Predelovalne dejavnosti","Promet in skladiščenje","Druge raznovrstne poslovne dejavnosti", "Trgovina, vzdrževanje in popravila motornih vozil", "Gostinstvo", "Strokovne, znanstvene in tehnične dejavnosti", "Informacijske in komunikacijske dejavnosti", "Izobraževanje", "Zdravstvo in socialno varstvo"))
+dejavnost <- skupno_dejavnost %>% ggplot(aes(x=reorder(Dejavnost,-Povprečje), y=Povprečje,fill=Povprečje)) + 
   geom_bar(position="dodge", stat="identity") + 
   ylab('Povrečje') + 
+  xlab("Dejavnost")+
   ggtitle('Povprečno število priseljencev glede na dejavnost v letih 2011-19') +
-  theme(text = element_text(size=5), axis.text.x=element_text(vjust=0.5, hjust=0.5, angle=90))
+  theme(text = element_text(size=8), axis.text.x=element_text(vjust=0.5, hjust=0.5, angle=90))
+
+
+
 
 #Izseljeni prebivalci po dejavnosti
-skupno_dejavnost2 <- tabela9 %>% group_by(Dejavnost) %>% summarise(Vsota=sum(Stevilo)) %>% mutate(Povprecje=round(Vsota/9,1))
-
-dejavnost2 <- skupno_dejavnost2 %>% ggplot(aes(x=Dejavnost, y=Povprecje,fill=Povprecje)) + 
+skupno_dejavnost2 <- tabela9 %>% group_by(Dejavnost) %>% summarise(Vsota=sum(Stevilo)) %>% mutate(Povprečje=round(Vsota/9,1))
+skupno_dejavnost2 <- skupno_dejavnost2 %>% filter(Dejavnost %in% c("Gradbeništvo","Predelovalne dejavnosti","Promet in skladiščenje","Druge raznovrstne poslovne dejavnosti", "Trgovina, vzdrževanje in popravila motornih vozil", "Gostinstvo", "Strokovne, znanstvene in tehnične dejavnosti", "Informacijske in komunikacijske dejavnosti", "Izobraževanje", "Zdravstvo in socialno varstvo", 
+                                                                   "Dejavnosti javne uprave in obrambe, dejavnost obvezne socialne varnosti","Kmetijstvo in lov, gozdarstvo, ribištvo"))
+dejavnost2 <- skupno_dejavnost2 %>% ggplot(aes(x=reorder(Dejavnost,-Povprečje), y=Povprečje,fill=Povprečje)) + 
   geom_bar(position="dodge", stat="identity") + 
-  ylab('Povprečje') + 
-  ggtitle('Povprečno število priseljencev glede na dejavnost v letih 2011-19') +
-  theme(text = element_text(size=5), axis.text.x=element_text(vjust=0.5, hjust=0.5, angle=90))
+  ylab('Povprečje') +
+  xlab("Dejavnost")+
+  ggtitle('Povprečno število izseljencev glede na dejavnost v letih 2011-19') +
+  theme(text = element_text(size=8), axis.text.x=element_text(vjust=0.5, hjust=0.5, angle=90))
 
 
 #priseljevanje po državah - povprečno število priseljenih letno v letih 2011-19
@@ -266,11 +300,11 @@ povprecje2 <- novo %>% group_by(Drzava) %>% summarise(Povprečje=mean(Stevilo_pr
 zemljevid1 <- tm_shape(merge(zemljevid,
                             povprecje2,duplicateGeoms = TRUE,
                              by.x="SOVEREIGNT", by.y="Drzava"), xlim=c(-20,32), ylim=c(32,72)) +
-  tm_polygons("Povprečje", title = "Število priseljenih ljudi na 100k", breaks=c(0,500,800,1000,1500,2000,3000,4000,5000)) + 
+  tm_polygons("Povprečje", title = "Povp št. priseljenih ljudi na 100k", breaks=c(0,500,800,1000,1500,2000,3000,4000,5000)) + 
   tm_layout(bg.color = "skyblue") + 
-  tm_layout(main.title = "Povprečje števila priseljenih ljudi v državo 2011-19 na 100k prebivalcev", main.title.size = 1, legend.title.size = 2) 
+  tm_layout(main.title = "Povprečno št. priseljenih ljudi \n v državo 2011-19 na 100k", main.title.size = 1, legend.title.size = 1) 
 
-#kako spremeniti legendo, da bo bolj natančna?
+
 
 
 #________________________________________________________________________
@@ -295,9 +329,9 @@ povprecje3 <- novo2 %>% group_by(Drzava) %>% summarise(Povprečje=mean(Stevilo_i
 zemljevid2 <- tm_shape(merge(zemljevid,
                              povprecje3,duplicateGeoms = TRUE,
                              by.x="SOVEREIGNT", by.y="Drzava"), xlim=c(-25,32), ylim=c(32,72)) +
-  tm_polygons("Povprečje", title = "Število izseljenih ljudi") + 
+  tm_polygons("Povprečje", title = "Povpr. št. izseljenih na 100k", breaks=c(0,250,500,750,1000,1500,2000,2500)) + 
   tm_layout(bg.color = "skyblue") + 
-  tm_layout(main.title = "Povprečno število izseljenih ljudi v državo 2011-19 na 100k", main.title.size = 1, legend.title.size = 1) 
+  tm_layout(main.title = "Povprečno števolo izseljenih \n ljudi v državo 2011-19 na 100k", main.title.size = 1, legend.title.size = 1) 
 
 
 
@@ -334,9 +368,9 @@ Slovenija$NAME_1 <- Slovenija$NAME_1 %>%
   str_replace("Notranjsko-kraška", "Primorsko-notranjska")
 
 zemljevid_slo1 <- tm_shape(merge(Slovenija, povprecje_sloi, by.x="NAME_1", by.y="Regija")) + 
-  tm_polygons("Povprečje",title="Povprečno število izseljenih na 10.000",palette="Purples")+ 
+  tm_polygons("Povprečje",palette="Purples")+ 
   tm_style("grey") +
-  tm_layout(main.title="Povprečno število izseljenih po regijah na 10.000 prebivalcev", legend.position = c(0.75,0.1)) + tm_text(text='NAME_1', size=0.6)
+  tm_layout(main.title="Povprečno število izseljenih ljudi na \n 10.000 prebivalcev", legend.position = c(0.75,0.1)) + tm_text(text='NAME_1', size=0.6)
 
 
 #zemljevid povprečnega priseljevanja v slovenske regije na 10.000 prebivalcev
@@ -346,9 +380,9 @@ zdruzeno2 <- regijepriseljevanje %>% mutate(Sprem=(10000/Prebivalstvo)) %>% muta
 povprecje_slop <- zdruzeno2 %>% group_by(Regija) %>% summarise(Povprečje=mean(Stevilo_pris_na10000)) %>% mutate(Povprečje=round(Povprečje,0))
 
 zemljevid_slo2 <- tm_shape(merge(Slovenija, povprecje_slop, by.x="NAME_1", by.y="Regija")) + 
-  tm_polygons("Povprečje",title="Povprečno število priseljenih",palette="Greens")+ 
+  tm_polygons("Povprečje",palette="Greens")+ 
   tm_style("grey") +
-  tm_layout(main.title="Povprečno število priseljenih po regijah na 10.000 prebivalcev", legend.position = c(0.75,0.1)) + tm_text(text='NAME_1', size=0.6)
+  tm_layout(main.title="Povprečno število priseljenih ljudi \n na 10.000 prebivalcev", legend.position = c(0.75,0.1)) + tm_text(text='NAME_1', size=0.6)
 
 #________________________________________
 

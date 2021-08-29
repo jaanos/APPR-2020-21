@@ -5,15 +5,15 @@
 skupno_leta <- tabela1 %>% group_by(Leto) %>% summarise(Stevilo_priseljenih_iz_tujine=sum(Priseljeni_iz_tujine))
 skupno_leta$Vrsta <- "Meritev"
 model <- lm(Stevilo_priseljenih_iz_tujine~Leto, data=skupno_leta)
-pr <- predict(model, data.frame(Leto=seq.int(2020, 2025, 1)))
-napoved_preseljevanja <- data.frame(Leto = c(2020, 2021, 2022, 2023, 2024, 2025), Stevilo_priseljenih_iz_tujine = c(pr[1], pr[2], pr[3], pr[4], pr[5], pr[6]))
+pr <- predict(model, data.frame(Leto=seq.int(2021, 2025, 1)))
+napoved_preseljevanja <- data.frame(Leto = c(2021, 2022, 2023, 2024, 2025), Stevilo_priseljenih_iz_tujine = c(pr[1], pr[2], pr[3], pr[4], pr[5]))
 napoved_preseljevanja$Vrsta <- "Napoved"
 skupna_tabela <- rbind(skupno_leta, napoved_preseljevanja)
 
 graf_napoved <- ggplot(skupna_tabela, aes(x=Leto, y=Stevilo_priseljenih_iz_tujine, shape=Vrsta)) +
-  geom_smooth(method=lm, se=TRUE, fullrange = TRUE) +
-  geom_point(data=skupno_leta, aes(x=Leto, y=Stevilo_priseljenih_iz_tujine), color="yellow", size=1) +
-  labs(title="Napoved števila priseljenih v Slovenijo", y="Število priseljenih", x="Leto") + geom_point(color="yellow")
+  geom_smooth(method=lm, se=TRUE, fullrange = TRUE, color="#ff6d44") +
+  geom_point(data=skupno_leta, aes(x=Leto, y=Stevilo_priseljenih_iz_tujine), color="blue", size=1) +
+  labs(title="Napoved števila priseljenih ljudi v Slovenijo", y="Število priseljenih", x="Leto") + geom_point(color="blue")
   
 #napoved št. izseljencev iz Slovenije
 
@@ -26,8 +26,8 @@ napoved_izseljevanja$Vrsta <- "Napoved"
 skupna_tabela2 <- rbind(skupno_leta_iz, napoved_izseljevanja)
 
 graf_napoved2 <- ggplot(skupna_tabela2, aes(x=Leto, y=Stevilo_odseljenih_v_tujino, shape=Vrsta)) +
-  geom_smooth(method=lm, se=TRUE, fullrange = TRUE) +
-  geom_point(data=skupno_leta_iz, aes(x=Leto, y=Stevilo_odseljenih_v_tujino), color="yellow", size=1) +
+  geom_smooth(method=lm, se=TRUE, fullrange = TRUE, color="#01c659") +
+  geom_point(data=skupno_leta_iz, aes(x=Leto, y=Stevilo_odseljenih_v_tujino), color="orange", size=1) +
   labs(title="Napoved števila odseljenih iz Slovenije", y="Število odseljenih", x="Leto") + geom_point(color="yellow")
 
 
@@ -49,7 +49,7 @@ povprecjeevropa <- evropa_master %>% group_by(Drzava) %>%
 
 
 #clustering emigracija (izseljeni)
-skupineEmigracija <- kmeans(povprecjeevropa$emigracija, 6, nstart = 1500)
+skupineEmigracija <- kmeans(povprecjeevropa$emigracija, 4, nstart = 1500)
 centersEmi <- sort(skupineEmigracija$centers)
 skupineEmigracija <- kmeans(povprecjeevropa$emigracija, centers = centersEmi, nstart = 1500)
 
@@ -57,13 +57,13 @@ skupineEmigracija <- kmeans(povprecjeevropa$emigracija, centers = centersEmi, ns
 zemljevidskupineemi <- tm_shape(merge(zemljevid, data.frame(Drzava = povprecjeevropa$Drzava, 
                                                 skupina = factor(skupineEmigracija$cluster)), 
                                by.x = "SOVEREIGNT", by.y = "Drzava"), xlim=c(-20,32), ylim=c(32,80)) + 
-  tmap_options(max.categories = 6) + 
+  tmap_options(max.categories = 4) + 
   tm_polygons("skupina", title = "Skupina") + 
-  tm_layout(main.title = "Države razdeljene glede na povprečno emigracijo", main.title.size = 1, legend.title.size = 1) +
+  tm_layout(main.title = "Države razdeljene glede na \n povprečno emigracijo", main.title.size = 1, legend.title.size = 1) +
   tm_legend(position = c("left", "bottom"))
 
 #clustering imigracija (priseljeni)
-skupineImigracija <- kmeans(povprecjeevropa$imigracija, 6, nstart = 1500)
+skupineImigracija <- kmeans(povprecjeevropa$imigracija, 4, nstart = 1500)
 centersImi <- sort(skupineImigracija$centers)
 skupineImigracija <- kmeans(povprecjeevropa$imigracija, centers = centersImi, nstart = 1500) 
 
@@ -71,9 +71,9 @@ skupineImigracija <- kmeans(povprecjeevropa$imigracija, centers = centersImi, ns
 zemljevidskupineimi <- tm_shape(merge(zemljevid, data.frame(Drzava = povprecjeevropa$Drzava, 
                                                             skupina = factor(skupineImigracija$cluster)), 
                                       by.x = "SOVEREIGNT", by.y = "Drzava"), xlim=c(-20,32), ylim=c(32,80)) + 
-  tmap_options(max.categories = 6) + 
+  tmap_options(max.categories = 4) + 
   tm_polygons("skupina", title = "Skupina") + 
-  tm_layout(main.title = "Države razdeljene glede na povprečno imigracijo", main.title.size = 1, legend.title.size = 1) +
+  tm_layout(main.title = "Države razdeljene glede na \n povprečno imigracijo", main.title.size = 1, legend.title.size = 1) +
   tm_legend(position = c("left", "bottom"))
 
 
