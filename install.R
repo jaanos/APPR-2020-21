@@ -12,3 +12,5 @@
 #    "numDeriv",
 #    "rootSolve"
 #))
+
+install.packages("jcolors")
