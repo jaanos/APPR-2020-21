@@ -1,63 +1,5 @@
 # 2. faza: Uvoz podatkov
 
-sl <- locale("sl", decimal_mark=",", grouping_mark=".")
-
-# Funkcija, ki uvozi občine iz Wikipedije
-uvozi.obcine <- function() {
-  link <- "http://sl.wikipedia.org/wiki/Seznam_ob%C4%8Din_v_Sloveniji"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-    .[[1]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  colnames(tabela) <- c("obcina", "povrsina", "prebivalci", "gostota", "naselja",
-                        "ustanovitev", "pokrajina", "regija", "odcepitev")
-  tabela$obcina <- gsub("Slovenskih", "Slov.", tabela$obcina)
-  tabela$obcina[tabela$obcina == "Kanal ob Soči"] <- "Kanal"
-  tabela$obcina[tabela$obcina == "Loški potok"] <- "Loški Potok"
-  for (col in c("povrsina", "prebivalci", "gostota", "naselja", "ustanovitev")) {
-    if (is.character(tabela[[col]])) {
-      tabela[[col]] <- parse_number(tabela[[col]], na="-", locale=sl)
-    }
-  }
-  for (col in c("obcina", "pokrajina", "regija")) {
-    tabela[[col]] <- factor(tabela[[col]])
-  }
-  return(tabela)
-}
-
-# Funkcija, ki uvozi podatke iz datoteke druzine.csv
-uvozi.druzine <- function(obcine) {
-  data <- read_csv2("podatki/druzine.csv", col_names=c("obcina", 1:4),
-                    locale=locale(encoding="Windows-1250"))
-  data$obcina <- data$obcina %>% strapplyc("^([^/]*)") %>% unlist() %>%
-    strapplyc("([^ ]+)") %>% sapply(paste, collapse=" ") %>% unlist()
-  data$obcina[data$obcina == "Sveti Jurij"] <- iconv("Sveti Jurij ob Ščavnici", to="UTF-8")
-  data <- data %>% pivot_longer(`1`:`4`, names_to="velikost.druzine", values_to="stevilo.druzin")
-  data$velikost.druzine <- parse_number(data$velikost.druzine)
-  data$obcina <- parse_factor(data$obcina, levels=obcine)
-  return(data)
-}
-
-# Zapišimo podatke v razpredelnico obcine
-obcine <- uvozi.obcine()
-
-# Zapišimo podatke v razpredelnico druzine.
-druzine <- uvozi.druzine(levels(obcine$obcina))
-
-# Če bi imeli več funkcij za uvoz in nekaterih npr. še ne bi
-# potrebovali v 3. fazi, bi bilo smiselno funkcije dati v svojo
-# datoteko, tukaj pa bi klicali tiste, ki jih potrebujemo v
-# 2. fazi. Seveda bi morali ustrezno datoteko uvoziti v prihodnjih
-# fazah.
-
-
-################################################################################
-################################################################################
-
 library(XML)
 library(rvest)
 library(stringr)
@@ -79,17 +21,18 @@ podatki_jugoslavija <- nastopi_jugoslavija %>%
   html_nodes(xpath = "//table") %>%
   html_table(fill = TRUE) %>%
   as.data.frame() %>%
-  separate(X4, c("TOČKE", "UVRSTITEV"), sep = "\n{1,3}")
+  separate(X4, c("TOCKE", "UVRSTITEV"), sep = " points") %>%
+  separate(X1, c("KRAJ", "LETO"), sep = " ")
 podatki_jugoslavija %>% View
-colnames(podatki_jugoslavija) <- c("PRIZORIŠČE", "NASTOPAJOČI", "NASLOV PESMI", "TOČKE", "UVRSTITEV")
+colnames(podatki_jugoslavija) <- c("KRAJ", "LETO", "NASTOPAJOCI", "NASLOV_PESMI", "TOCKE", "UVRSTITEV")
 
 # enkrat je uvrstitev pri točkah:
-podatki_jugoslavija$UVRSTITEV[4] <- podatki_jugoslavija$TOČKE[4]
-podatki_jugoslavija$TOČKE[4] <- "/"
+podatki_jugoslavija$UVRSTITEV[4] <- podatki_jugoslavija$TOCKE[4]
+podatki_jugoslavija$TOCKE[4] <- ""
 
 # popravki
-podatki_jugoslavija[podatki_jugoslavija == "Eva Sren"] <- "Eva Sršen"
-
+podatki_jugoslavija[podatki_jugoslavija == "Eva Sren"] <- "Eva Srsen"
+podatki_jugoslavija$UVRSTITEV <- gsub("\\D", "", podatki_jugoslavija$UVRSTITEV)
 
 
 # tabela podaki_slovenija (prizorišče - nastopajoči - pesem - točke - mesto)
@@ -97,44 +40,47 @@ podatki_slovenija <- nastopi_slovenija %>%
   html_nodes(xpath = "//table") %>%
   html_table(fill = TRUE) %>%
   as.data.frame() %>%
-  separate(X4, c("TOČKE", "UVRSTITEV"), sep = "\n{1,3}")
+  separate(X4, c("TOCKE", "UVRSTITEV"), sep = " points") %>%
+  separate(X1, c("KRAJ", "LETO"), sep = " ")
+
 podatki_slovenija %>% View
-colnames(podatki_slovenija) <- c("PRIZORIŠČE", "NASTOPAJOČI", "NASLOV PESMI", "TOČKE", "UVRSTITEV")
-
-
+colnames(podatki_slovenija) <- c("KRAJ", "LETO", "NASTOPAJOCI", "NASLOV_PESMI", "TOCKE", "UVRSTITEV")
+podatki_slovenija$UVRSTITEV <- gsub("\\D", "", podatki_slovenija$UVRSTITEV)
 
 
 # kjer je vrstica Semi-Final, First Semi-Final, Second Semi-Final al pa Grand Final,
 # se rezultat iz 4. stolpca vpiše v vrstico, kjer ni semi/final
 # vse, ki so semifinal... spremenimo prve tri vrednosti enake kot zgoraj
 # najprej prenesemo rezultat iz semi-final gor
-v1 <- which(podatki_slovenija$PRIZORIŠČE == "Semi-Final", arr.ind=TRUE)
-v2 <- which(podatki_slovenija$PRIZORIŠČE == "First Semi-Final", arr.ind=TRUE)
-v3 <- which(podatki_slovenija$PRIZORIŠČE == "Second Semi-Final", arr.ind=TRUE)
+v1 <- which(podatki_slovenija$NASTOPAJOCI == "Semi-Final", arr.ind=TRUE)
+v2 <- which(podatki_slovenija$NASTOPAJOCI == "First Semi-Final", arr.ind=TRUE)
+v3 <- which(podatki_slovenija$NASTOPAJOCI == "Second Semi-Final", arr.ind=TRUE)
 v <- sort(c(v1,v2,v3))
 
 for (i in 1:length(v)) {
-  podatki_slovenija$TOČKE[v[i]-1] <- podatki_slovenija$TOČKE[v[i]]
+  podatki_slovenija$TOCKE[v[i]-1] <- podatki_slovenija$TOCKE[v[i]]
   podatki_slovenija$UVRSTITEV[v[i]-1] <- podatki_slovenija$UVRSTITEV[v[i]]
 }
 
 podatki_slovenija <- podatki_slovenija[-v,]
 
-u <- which(podatki_slovenija$PRIZORIŠČE == "Grand Final", arr.ind=TRUE)
+u <- which(podatki_slovenija$NASTOPAJOCI == "Grand Final", arr.ind=TRUE)
 
 for (i in 1:length(u)) {
-  podatki_slovenija$TOČKE[u[i]-1] <- podatki_slovenija$TOČKE[u[i]]
+  podatki_slovenija$TOCKE[u[i]-1] <- podatki_slovenija$TOCKE[u[i]]
   podatki_slovenija$UVRSTITEV[u[i]-1] <- podatki_slovenija$UVRSTITEV[u[i]]
 } 
 
-podatki_slovenija <- podatki_slovenija[-c(u,32,33),] # zraven stran še tekmovanji rotterdam, ki jih ni bilo (še)
+podatki_slovenija <- podatki_slovenija[-c(u,32,33),] # zraven stran še tekmovanji rotterdam
 rownames(podatki_slovenija) <- NULL
 
 
 # popravki
-podatki_slovenija[podatki_slovenija == "Anej Dean"] <- "Anžej Dežan"
-podatki_slovenija[podatki_slovenija == "Naj Bogovi Sliijo"] <- "Naj bogovi slišijo"
-
+podatki_slovenija[podatki_slovenija == "Anej Dean"] <- "Anzej Dezan"
+podatki_slovenija[podatki_slovenija == "Naj Bogovi Sliijo"] <- "Naj bogovi slisijo"
+podatki_slovenija$NASLOV_PESMI <- gsub("YouTube", "", podatki_slovenija$NASLOV_PESMI)
+podatki_slovenija$KRAJ <- gsub("Tel", "Tel Aviv", podatki_slovenija$KRAJ)
+podatki_slovenija$LETO <- gsub("Aviv", 2019, podatki_slovenija$LETO)
 
 
 
@@ -303,7 +249,10 @@ slovenija_2 <- slovenija_vmes12 %>%
 
 # vektor vseh prireditev
 
-prireditve <- c(podatki_jugoslavija$PRIZORIŠČE, podatki_slovenija$PRIZORIŠČE)
+
+kraj <- c(podatki_jugoslavija$KRAJ, podatki_slovenija$KRAJ)
+leto <- c(podatki_jugoslavija$LETO, podatki_slovenija$LETO)
+prireditve <- paste(kraj, leto, sep = " ")
 
 # dodamo države, ki so kadarkoli sodelovale
 link_drzave <- read_html("https://eurovision.tv/countries")
@@ -420,7 +369,7 @@ prvic_drzave <-lapply(povezave_drzave, function(x) {read_html(x) %>%
     lapply(function(x) {regmatches(x, regexpr("\\d{4}", x))})
 }) %>% unlist() %>% as.numeric()
 
-tabela_nastopi <- data.frame("Država" = slo_drzave, "Število nastopov" = nastopi_drzave, "Prvi nastop" = prvic_drzave)
+tabela_nastopi <- data.frame("Drzava" = slo_drzave, "Stevilo_nastopov" = nastopi_drzave, "Prvi_nastop" = prvic_drzave)
 
 
 ################################################################################
@@ -430,13 +379,51 @@ tabela_nastopi <- data.frame("Država" = slo_drzave, "Število nastopov" = nasto
 # za jugoslavijo: če je prvi nastop po letu 1992, gre država ven, maroko je nastopil samo 1980, takrat jugoslavija NI
 # za slovenijo: andora, belorusija, monako (ven), maroko (ven), san marino, slovaška, slovenija (ven), jugoslavija (ven)
 
-tabela_nastopi$Država[as.integer(tabela_nastopi$'Prvi.nastop') > 1992]
+tabela_nastopi$Drzava[as.integer(tabela_nastopi$'Prvi_nastop') > 1992]
 
 for (i in 1:length(tabela_jugoslavija)) {
   if (names(tabela_jugoslavija[i]) %in% tabela_nastopi$vektor_drzave[as.integer(tabela_nastopi$prvic_drzave) > 1992]) {
     tabela_jugoslavija[,-i]
   }
 }
+
+#tabela_jugoslavija <- tabela_jugoslavija %>% pivot_longer(1:52, names_to = "Drzava", values_to = "Tocke")
+
+
+
+d <- tabela_jugoslavija
+names <- rownames(d)
+rownames(d) <- NULL
+data <- cbind(names,d)
+
+
+data <- data %>% pivot_longer(2:53, names_to = "Drzava", values_to = "Tocke")
+# Tabele:
+# 1
+tabela1 <- podatki_jugoslavija
+
+# 2
+tabela2 <- podatki_slovenija
+
+# 3
+rownames(tabela_jugoslavija) <- NULL
+tabela_jugoslavija <- cbind("Kraj" = kraj[1:27], "Leto" = leto[1:27], tabela_jugoslavija[c(1:27),])
+tabela_jugoslavija <- tabela_jugoslavija %>%
+  pivot_longer(3:54, names_to = "Drzava", values_to = "Tocke")
+
+tabela3 <- tabela_jugoslavija
+
+# 4
+rownames(tabela_slovenija) <- NULL
+tabela_slovenija <- cbind("Kraj" = kraj[28:52], "Leto" = leto[28:52], tabela_slovenija[c(1:25),])
+tabela_slovenija <- tabela_slovenija %>%
+  pivot_longer(3:54, names_to = "Drzava", values_to = "Tocke")
+
+tabela4 <- tabela_slovenija
+
+# 5
+tabela5 <- tabela_nastopi
+tabela_nastopi_1 <- tabela_nastopi %>% pivot_longer(2:3)
 
 
 
