@@ -1,6 +1,7 @@
 ---
 title: "Poročilo pri predmetu Analiza podatkov s programom R"
-author: "Študent FMF"
+subtitle: "Analiza vod in odpada v Sloveniji"
+author: "David Rozman"
 output:
   html_document: default
   pdf_document:
@@ -22,11 +23,20 @@ source("lib/libraries.r", encoding="UTF-8")
 source("lib/rstudio.r", encoding="UTF-8")
 ```
 
-# Izbira teme
+# Tema
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
+Analiziral bom podatke, povezane s količino vode in odpada v Sloveniji v zadnjih letih.
 
-![](slike/grb.png)
+Analiziral bom:
+* Razmerje med načrpanimi površinskimi in podzemnimi vodami
+* Količino načrpane vode
+* Količino dobavljene vode
+* Porazdelitev dobavljene vode po regijah
+* Primerjavo količine odpada po regijah
+* Primejavo količine odpada po občinah
+* Napoved načrpane vode za prihodnja leta
+
+
 
 ***
 
@@ -36,33 +46,28 @@ Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
+Podatke sem uvozil v obliki CSV s spletne strani Statističnega urada Republike
+Slovenije. Nato sem jih prečistil, odstranil nepotrebne stolpce, dodal nove (npr.
+za izračun povprečji). Sledijo tabele z vsemi spremenljivkami.
 
-1. `druzine` - podatki o družinah za vsako občino
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `velikost.druzine` - spremenljivka: število otrok v družini (število: 1, 2, 3 ali 4, kjer zadnja vrednost pomeni 4 ali več),
-  - `stevilo.druzin` - meritev: število družin z ustreznim številom otrok v ustrezni občini (število).
+Tabela o načrpani vodi:
+* Leto
+* Skupaj načrpana voda (deljeno z 10^5 za manjše številke)
+* Načrpana podzemna voda
+* Načrpana površinska voda
 
-2. `obcine` - podatki o občinah
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `povrsina` - meritev: površina občine v km$^2$ (število),
-  - `prebivalci` - meritev: prebivalstvo občine (število),
-  - `gostota` - meritev: število prebivalcev na km$^2$ (število),
-  - `naselja` - meritev: število naselij v občini (število),
-  - `ustanovitev` - meritev: leto ustanovitve občine (število),
-  - `pokrajina` - meritev: pokrajina, ki ji občina pripada (neurejen faktor),
-  - `regija` - meritev: regija, ki ji občina pripada (neurejen faktor),
-  - `odcepitev` - meritev: podatki o občinah, od katerih se je občina odcepila (besedilo).
 
-**Opomba**: da bi razpredelnica `obcine` res bila v obliki *tidy data*, bi morali odstraniti stolpec `gostota` (saj je izpeljan iz stolpcev `povrsina` in `prebivalci`), podatke o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s stolpcem `odcepitev`.
+Tabela o dobavljeni vodi v m^3 na prebivalca:
+* Leto
+* Slovenija
+* + vse slovenske regije
 
-Spodnji graf prikazuje porazdelitev števila naselij v občinah.
+Tabela o odpadu:
+* Leta 2002 - 2019
+* Vse slovenske regije
 
-```{r histogram, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-ggplot(obcine, aes(x=naselja)) + geom_histogram() +
-  ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
-```
+
+
 
 ***
 
@@ -72,15 +77,80 @@ ggplot(obcine, aes(x=naselja)) + geom_histogram() +
 source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 ```
 
-Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
+Prvi graf prikazuje količino načrpane vode v Sloveniji v letih 2014-2019
 
-```{r zemljevid, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
-  tm_polygons("povprecje", title="Povprečje") +
-  tm_layout(title="Povprečno število otrok v družini")
+```{r graf1, echo=FALSE, message=FALSE, fig.align='center'}
+ggplot(tabela6, aes(x=LETO, y=NACRPANO.SKUPAJ, group=1)) + 
+          geom_point(color="red", size=1) +
+          geom_line() +
+          ylab("Načrpana voda skupaj v 100.000 * m^3")
+```
+
+Na drugem grafu vidimo količino načrpane podzemne in površinske vode v letih
+2013-2019
+
+```{r dvojni stoplci, echo=FALSE, fig.align='center'}
+  ggplot(zadvojnigraf, aes(fill=VRSTA.VODE, x=LETO, y=NACRPANO)) +
+                geom_bar(position="dodge", stat="identity")
+
+```
+
+Tu vidimo povprečno razmerje med načrpano podmezno in površinsko vodo v letih 2013-2019
+
+```{r graf2, echo=FALSE, fig.align='center'}
+  graf2 <- ggplot(zapito, aes(x="", y=delez, fill=imeni2)) +
+        geom_bar(width=1, stat="identity", color="white") +
+        coord_polar("y", start=0) + 
+        geom_text(aes(y=lab.ypos, label=delez), color="white") +
+        theme_void() +
+        labs(fill="Vrsta vode")
+
+```
+
+Naslednji graf prikazuje količino dobavljene vode na prebivalca v Sloveniji v letih
+2003-2019
+
+```{r graf3, echo=FALSE, fig.align='center'}
+  ggplot(tabela2, aes(x=LETO, y=SLOVENIJA), group=1, asp=2) +
+        geom_point(color="red") +
+        geom_line(group=1) +
+        xlab("Dobavljena voda v m^3 na prebivalca")
+```
+
+
+Sledeči tortni diagram prikazuje razmerje količin dobavljene vode v letu 2019
+po slovenskih regijah
+
+```{r graf4, echo=FALSE, fig.align='center'}
+   ggplot(zapito2, aes(x="", y=delezi, fill=imena4)) +
+        geom_bar(width=1, stat="identity", color="white") +
+        coord_polar("y", start=0) + 
+        geom_text(aes(y=lab.ypos, label=paste0(round(delezi, 2), "%"), x=1.3)) +
+        theme_void() +
+        labs(title="Porazdelitev dostavljene vode po regijah", fill="Regija")
+```
+
+Na naslednjem grafu vidimo koliko odpada letno je ustvaril povprečen prebivalec posamezne regije
+v obdobju 2002-2019
+
+```{r graf5, echo=FALSE, fig.align='center'}
+  ggplot(odpadkiletnonaprebivalca, aes(x=povprecje, y=REGIJA)) + 
+          geom_col(color="Brown", fill="Brown") +
+          xlab("Povprečen letni odpad na prebivalca v kg") +
+        ylab("Regija") + 
+        labs("Povprečen letni odpad na prebivalca")
+```
+
+Sledi še zemljevid, ki prikazuje količino ustvarjenega odpada na enega prebivalca
+občine v letu 2019.
+
+```{r zemljevid1, echo=FALSE, fig.align='center'}
+ tm_shape(merge(obcine, tabelazakartoobcine, by.x="OB_UIME", by.y="obcina")) +
+                tm_polygons("odpadki19kgnaprebivalca")
 ```
 
 ***
+
 
 # Napredna analiza podatkov
 
@@ -88,16 +158,12 @@ tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
 source("analiza/analiza.r", encoding="UTF-8")
 ```
 
-Spodnji graf prikazuje povezavo med številom naselij in površino občine.
+Spodnji graf napoveduje gibanje količine dobavljene vode v letih 2020-2025
 
-```{r graf, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-ggplot(inner_join(obcine, data.frame(obcina=names(skupine),
-                                     skupina=factor(skupine)), by="obcina")
-, aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() +
-  ggtitle("Število naselij glede na površino občine") +
-  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-  guides(color=guide_legend(title="Skupina"),
-         size=guide_legend(title="Prebivalci (* 1000)"))
+```{r izrisnapovedi, echo=FALSE, fig.align='center'}
+ggplot(napoved1, aes(x=LETO, y=SLOVENIJA)) +
+  geom_point(shape=1) +
+  geom_smooth(method=lm, formula=y~x) 
 ```
 
 ***
