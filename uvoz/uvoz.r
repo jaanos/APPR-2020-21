@@ -33,6 +33,9 @@ podatki_jugoslavija$TOCKE[4] <- ""
 # popravki
 podatki_jugoslavija[podatki_jugoslavija == "Eva Sren"] <- "Eva Srsen"
 podatki_jugoslavija$UVRSTITEV <- gsub("\\D", "", podatki_jugoslavija$UVRSTITEV)
+podatki_jugoslavija$KRAJ <- gsub("The", "The Hague", podatki_jugoslavija$KRAJ)
+podatki_jugoslavija$LETO <- gsub("Hague", 1976, podatki_jugoslavija$LETO)
+
 
 
 # tabela podaki_slovenija (prizorišče - nastopajoči - pesem - točke - mesto)
@@ -272,7 +275,7 @@ slo_drzave <- prevod(vektor_drzave)
 # združimo države in prireditve v data frame
 
 tabela <- data.frame(matrix(,length(prireditve),length(slo_drzave)))
-names(tabela) <- slo_drzave
+names(tabela) <- vektor_drzave
 rownames(tabela) <- prireditve
 
 tabela[is.na(tabela)] <- 0
@@ -295,21 +298,21 @@ tabela[is.na(tabela)] <- 0
 # izpolnjejujemo za Jugoslavijo
 for (j in 1:27) {
   for (k in 1:length(jugoslavija[[j]][[1]])) {
-    tabela[prireditve[j], prevod(jugoslavija[[j]][[2]][k])] <- jugoslavija[[j]][[1]][k]
+    tabela[prireditve[j], (jugoslavija[[j]][[2]][k])] <- jugoslavija[[j]][[1]][k]
   }
 }
 
 # izpolnjujemo za slovenijo_1
 for (j in 1:9) {
   for (k in 1:length(slovenija_1[[j]][[1]])) {
-    tabela[prireditve[j+27], prevod(slovenija_1[[j]][[2]][k])] <- slovenija_1[[j]][[1]][k]
+    tabela[prireditve[j+27], (slovenija_1[[j]][[2]][k])] <- slovenija_1[[j]][[1]][k]
   }
 }
 
 # izpolnjujemo za slovenijo_2
 for (j in 1:16) {
   for (k in 1:length(slovenija_2[[j]][[1]])) {
-    tabela[prireditve[j+27+9], prevod(slovenija_2[[j]][[2]][k])] <- slovenija_2[[j]][[1]][k]
+    tabela[prireditve[j+27+9], (slovenija_2[[j]][[2]][k])] <- slovenija_2[[j]][[1]][k]
   }
 }
 
@@ -317,9 +320,9 @@ View(tabela)
 
 # vsote danih točk vsaki državi
 Vsota <- rep(0, nrow(tabela))
-for (i in 1:nrow(tabela)) {
-  Vsota[i] <- sum(tabela[i])
-}
+# for (i in 1:nrow(tabela)) {
+#   Vsota[i] <- sum(tabela[i])
+# }
 
 # v bistvu je smiselno to gledat za jugoslavijo in slovenijo posebej
 tabela_jugoslavija <- tabela[c(1:27),]
@@ -327,18 +330,18 @@ tabela_slovenija <- tabela[c(28:52),]
 
 
 Vsota_ju <- rep(0, ncol(tabela_jugoslavija))
-for (i in 1:ncol(tabela_jugoslavija)) {
-  Vsota_ju[i] <- sum(tabela_jugoslavija[i])
-}
+# for (i in 1:ncol(tabela_jugoslavija)) {
+#   Vsota_ju[i] <- sum(tabela_jugoslavija[i])
+# }
 
-tabela_jugoslavija <- rbind(tabela_jugoslavija, Vsota_ju)
+# tabela_jugoslavija <- rbind(tabela_jugoslavija, Vsota_ju)
 
 Vsota_si <- rep(0, ncol(tabela_slovenija))
-for (i in 1:ncol(tabela_slovenija)) {
-  Vsota_si[i] <- sum(tabela_slovenija[i])
-}
-
-tabela_slovenija <- rbind(tabela_slovenija, Vsota_si)
+# for (i in 1:ncol(tabela_slovenija)) {
+#   Vsota_si[i] <- sum(tabela_slovenija[i])
+# }
+# 
+# tabela_slovenija <- rbind(tabela_slovenija, Vsota_si)
 
 # treba bo odstraniti države, ki niso nikoli nastopile v letih jugoslavije/slovenije
 
@@ -362,14 +365,16 @@ nastopi_drzave <-lapply(povezave_drzave, function(x) {read_html(x) %>%
 # to je število nastopov vseh držav
 
 # prvi nastop vseh držav
-prvic_drzave <-lapply(povezave_drzave, function(x) {read_html(x) %>%
-    html_nodes(xpath = "//div[@class='space-y-4']//dd[@class='text-sm font-bold']") %>%
-    html_text () %>%
-    .[[4]] %>%
-    lapply(function(x) {regmatches(x, regexpr("\\d{4}", x))})
-}) %>% unlist() %>% as.numeric()
 
-tabela_nastopi <- data.frame("Drzava" = slo_drzave, "Stevilo_nastopov" = nastopi_drzave, "Prvi_nastop" = prvic_drzave)
+# ODKOMENTIRAJ
+# prvic_drzave <-lapply(povezave_drzave, function(x) {read_html(x) %>%
+#     html_nodes(xpath = "//div[@class='space-y-4']//dd[@class='text-sm font-bold']") %>%
+#     html_text () %>%
+#     .[[4]] %>%
+#     lapply(function(x) {regmatches(x, regexpr("\\d{4}", x))})
+# }) %>% unlist() %>% as.numeric()
+
+tabela_nastopi <- data.frame("Drzava" = drzave, "Stevilo_nastopov" = nastopi_drzave, "Prvi_nastop" = prvic_drzave)
 
 
 ################################################################################
@@ -381,23 +386,23 @@ tabela_nastopi <- data.frame("Drzava" = slo_drzave, "Stevilo_nastopov" = nastopi
 
 tabela_nastopi$Drzava[as.integer(tabela_nastopi$'Prvi_nastop') > 1992]
 
-for (i in 1:length(tabela_jugoslavija)) {
-  if (names(tabela_jugoslavija[i]) %in% tabela_nastopi$vektor_drzave[as.integer(tabela_nastopi$prvic_drzave) > 1992]) {
-    tabela_jugoslavija[,-i]
-  }
-}
 
-#tabela_jugoslavija <- tabela_jugoslavija %>% pivot_longer(1:52, names_to = "Drzava", values_to = "Tocke")
+################################################################################
+#### 5. del: vsi zmagovalci
+###############################################################################
+url_zmagovalci <-  read_html("http://www.escstats.com/winners.htm")
+
+pod_zmagovalci <- url_zmagovalci %>%
+  html_nodes(xpath = "//table") %>%
+  .[[1]] %>%
+  html_table(fill = TRUE) %>%
+  as.data.frame() %>%
+  select(-2) %>%
+  rename("LETO" = YEAR, "DRZAVA" = COUNTRY, "NASTOPAJOCI" = "PERFORMER(S)",
+         "NASLOV" = TITLE, "TOCKE" = POINTS)
 
 
 
-d <- tabela_jugoslavija
-names <- rownames(d)
-rownames(d) <- NULL
-data <- cbind(names,d)
-
-
-data <- data %>% pivot_longer(2:53, names_to = "Drzava", values_to = "Tocke")
 # Tabele:
 # 1
 tabela1 <- podatki_jugoslavija
@@ -425,7 +430,8 @@ tabela4 <- tabela_slovenija
 tabela5 <- tabela_nastopi
 tabela_nastopi_1 <- tabela_nastopi %>% pivot_longer(2:3)
 
-
+# 6
+pod_zmagovalci
 
 
 
