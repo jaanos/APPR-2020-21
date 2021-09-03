@@ -8,7 +8,6 @@ output:
     includes:
       in_header: lib/styles.sty
     latex_engine: xelatex
-runtime: shiny
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
@@ -28,6 +27,7 @@ source("lib/rstudio.r", encoding="UTF-8")
 Analiziral bom podatke, povezane s količino vode in odpada v Sloveniji v zadnjih letih.
 
 Analiziral bom:
+
 * Razmerje med načrpanimi površinskimi in podzemnimi vodami
 * Količino načrpane vode
 * Količino dobavljene vode
@@ -50,19 +50,25 @@ Podatke sem uvozil v obliki CSV s spletne strani Statističnega urada Republike
 Slovenije. Nato sem jih prečistil, odstranil nepotrebne stolpce, dodal nove (npr.
 za izračun povprečji). Sledijo tabele z vsemi spremenljivkami.
 
+
 Tabela o načrpani vodi:
+
 * Leto
 * Skupaj načrpana voda (deljeno z 10^5 za manjše številke)
 * Načrpana podzemna voda
 * Načrpana površinska voda
 
 
+
 Tabela o dobavljeni vodi v m^3 na prebivalca:
+
 * Leto
 * Slovenija
 * + vse slovenske regije
 
+
 Tabela o odpadu:
+
 * Leta 2002 - 2019
 * Vse slovenske regije
 
@@ -77,76 +83,62 @@ Tabela o odpadu:
 source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 ```
 
-Prvi graf prikazuje količino načrpane vode v Sloveniji v letih 2014-2019
+Prvi graf prikazuje količino načrpane vode v Sloveniji v letih 2014-2019. Vidimo, da se številke v zadnjih letih niso pretirano razlikovale
 
 ```{r graf1, echo=FALSE, message=FALSE, fig.align='center'}
-ggplot(tabela6, aes(x=LETO, y=NACRPANO.SKUPAJ, group=1)) + 
-          geom_point(color="red", size=1) +
-          geom_line() +
-          ylab("Načrpana voda skupaj v 100.000 * m^3")
+
+graf1
+
 ```
 
 Na drugem grafu vidimo količino načrpane podzemne in površinske vode v letih
-2013-2019
+2013-2019. Pri podzemnih vodah je bila količina skozi leta praktično nespremenjena,
+pri površinskih vodah pa je razlika med najmanjšo in največjo količino načrpane vode
+100.000 m^3. To razliko bi morda lahko pripisali vremenskim razmeram, saj so nekatera leta bolj sušna in ne morejo načrpati enake količine vode kot ostala leta.
 
 ```{r dvojni stoplci, echo=FALSE, fig.align='center'}
-  ggplot(zadvojnigraf, aes(fill=VRSTA.VODE, x=LETO, y=NACRPANO)) +
-                geom_bar(position="dodge", stat="identity")
-
+ dvojnistolpci
 ```
 
-Tu vidimo povprečno razmerje med načrpano podmezno in površinsko vodo v letih 2013-2019
+Tu vidimo, da je bila povprečna količina načrpane površinske vode v zadnjih letih približno štirikrat večja od podzemeljske. Podatek ni presenetljiv, saj se na površju
+nahaja več vode in jo je tudi lažje črpati.
 
 ```{r graf2, echo=FALSE, fig.align='center'}
-  graf2 <- ggplot(zapito, aes(x="", y=delez, fill=imeni2)) +
-        geom_bar(width=1, stat="identity", color="white") +
-        coord_polar("y", start=0) + 
-        geom_text(aes(y=lab.ypos, label=delez), color="white") +
-        theme_void() +
-        labs(fill="Vrsta vode")
+ graf2
 
 ```
 
 Naslednji graf prikazuje količino dobavljene vode na prebivalca v Sloveniji v letih
-2003-2019
+2003-2019. Opazimo zanimivost, da se je količina v letih 2003-2013 precej zmanjšala,
+od leta 2014 pa stagnira.
 
 ```{r graf3, echo=FALSE, fig.align='center'}
-  ggplot(tabela2, aes(x=LETO, y=SLOVENIJA), group=1, asp=2) +
-        geom_point(color="red") +
-        geom_line(group=1) +
-        xlab("Dobavljena voda v m^3 na prebivalca")
+ graf3
 ```
 
 
 Sledeči tortni diagram prikazuje razmerje količin dobavljene vode v letu 2019
-po slovenskih regijah
+po slovenskih regijah. Največ so je dostavili na Gorenjsko, najmanj pa na Koroško.
+To ni nepričakovano, saj med naštetimi regijami spada Gorenjska med največje, Koroška pa zavzame precej manjši del Slovenije.
 
 ```{r graf4, echo=FALSE, fig.align='center'}
-   ggplot(zapito2, aes(x="", y=delezi, fill=imena4)) +
-        geom_bar(width=1, stat="identity", color="white") +
-        coord_polar("y", start=0) + 
-        geom_text(aes(y=lab.ypos, label=paste0(round(delezi, 2), "%"), x=1.3)) +
-        theme_void() +
-        labs(title="Porazdelitev dostavljene vode po regijah", fill="Regija")
+   graf4
 ```
 
-Na naslednjem grafu vidimo koliko odpada letno je ustvaril povprečen prebivalec posamezne regije
-v obdobju 2002-2019
+Na naslednjem grafu vidimo koliko odpada letno je ustvaril povprečen prebivalec posamezne regije v obdobju 2002-2019. Vidimo, da so med vodilnimi regijami Osrednjeslovenska, Gorenjska in Obalno-kraška. Ker so te regije najbolj turistične v Sloveniji, ni presenetljivo, da se ustvari več odpada. To razmišljanje morda potrdi to, da sta na dnu Koroška in Jugovzhodna Slovenija, kjer ni toliko destinacij za tujce.
 
 ```{r graf5, echo=FALSE, fig.align='center'}
-  ggplot(odpadkiletnonaprebivalca, aes(x=povprecje, y=REGIJA)) + 
-          geom_col(color="Brown", fill="Brown") +
-          xlab("Povprečen letni odpad na prebivalca v kg") +
-        ylab("Regija") + 
-        labs("Povprečen letni odpad na prebivalca")
+ graf5
 ```
 
 Sledi še zemljevid, ki prikazuje količino ustvarjenega odpada na enega prebivalca
-občine v letu 2019.
+občine v letu 2019. Trdno na prvem je občina Trzin, saj gre za sicer majhno občino, 
+a imajo veliko industrije, ki posledično ustvari veliko odpada. Tik pod vrhom so tudi
+zelo turistične občine, kot so Kranjska Gora, Piran in Bled. Na dnu so pretežno vaške
+občine brez industrije in turizma. Veliko jih je na severovzhodu Slovenije.
 
 ```{r zemljevid1, echo=FALSE, fig.align='center'}
- tm_shape(merge(obcine, tabelazakartoobcine, by.x="OB_UIME", by.y="obcina")) +
-                tm_polygons("odpadki19kgnaprebivalca")
+zemljevid1
 ```
 
 ***
@@ -158,16 +150,12 @@ občine v letu 2019.
 source("analiza/analiza.r", encoding="UTF-8")
 ```
 
-Spodnji graf napoveduje gibanje količine dobavljene vode v letih 2020-2025
+Spodnji graf napoveduje gibanje količine dobavljene vode v letih 2020-2025. Vidimo,
+da naj bi se trend padanja še naprej nadaljeval, če seveda upoštevamo podatke od
+2003 naprej.
 
 ```{r izrisnapovedi, echo=FALSE, fig.align='center'}
-ggplot(napoved1, aes(x=LETO, y=SLOVENIJA)) +
-  geom_point(shape=1) +
-  geom_smooth(method=lm, formula=y~x) 
+izrisnapovedi
 ```
 
 ***
-
-```{r shiny}
-shinyAppDir("shiny", options=list(width="100%", height=600))
-```

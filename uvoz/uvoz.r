@@ -1,53 +1,29 @@
-require(readr)
-require(dplyr)
-require(tidyr)
 
 stolpci1 <- c("", "2002",	"2003",	"2004",	"2005",	"2006",	"2007",	"2008",	"2009",	
               "2010",	"2011",	"2012",	"2013",	"2014",	"2015",	"2016",	"2017",	"2018",	"2019")
+
 stolpciregije <- c("Regija", "2002",	"2003",	"2004",	"2005",	"2006",	"2007",	"2008",	"2009",	
               "2010",	"2011",	"2012",	"2013",	"2014",	"2015",	"2016",	"2017",	"2018",	"2019", "povprecje")
+
 odpadkiletnonaprebivalca <- read_csv2("podatki/2700010S_20210819-091107.csv", 
                      locale=locale(encoding="cp1250"),
                      skip=2)
 odpadkiletnonaprebivalca <- odpadkiletnonaprebivalca[, colSums(is.na(odpadkiletnonaprebivalca)) != nrow(odpadkiletnonaprebivalca)]
-#odpadletno <- odpadkiletnonaprebivalca
-#odpadletno <- as.data.frame(t(odpadletno))
-#regije <- c(odpadletno[2:15,1])
-#povprecja <- data.frame(regije, Means=rowMeans(odpadletno[-1,-1]))
-#colnames(odpadletno) <- stolpciregije
 odpadkiletnonaprebivalca <- odpadkiletnonaprebivalca[-1,]
 odpadkiletnonaprebivalca[ , 2:19] <- apply(odpadkiletnonaprebivalca[ , 2:19], 2,           
                                            function(x) as.numeric(as.character(x)))
 odpadkiletnonaprebivalca$povprecje <- rowMeans(odpadkiletnonaprebivalca[,2:19])
-odpadkiletnonaprebivalca <- odpadkiletnonaprebivalca %>% rename("REGIJA"="KOHEZIJSKA/STATISTIČNA REGIJA")
-
+colnames(odpadkiletnonaprebivalca) <- stolpciregije
+odpadkiletnonaprebivalca <- odpadkiletnonaprebivalca %>% 
+  pivot_longer(-Regija, names_to="leto", values_to="odpad na prebivalca")
 
 tabela2 <- read_csv2("podatki/2700011S_20210819-090219.csv", 
-                     locale=locale(encoding="cp1250"),
+                     locale=locale(decimal_mark=".", encoding="cp1250"),
                      col_names=stolpci1,
-                     skip=2)
-tabela2 <- tabela2[-1,]
-tabela2 <- as.data.frame(t(tabela2))
-#podatkigraf3 <- tabela2[,c(2:16)]
-names(tabela2) <- lapply(tabela2[1,], as.character)
-#podatkigraf3 <- podatkigraf3[-2,] 
-#tabela2 <- tabela2 %>% rename("SLOVENIJA"="DOBAVLJENA.VODA.GOSPODINJSTVOM")
-stolpci2 <- c("2002",	"2003",	"2004",	"2005",	"2006",	"2007",	"2008",	"2009",	
-             "2010",	"2011",	"2012",	"2013",	"2014",	"2015",	"2016",	"2017",	"2018",	"2019")
-tabela2 <- tabela2[-1,]
-tabela2 <- tabela2 %>% mutate("LETO"=stolpci2)
-tabela2 <- tabela2[,c(16,1:15)]
-tabela2 <- tabela2[-1,]
-
-tabela3 <- read_csv2("podatki/2700020S_20210819-090742.csv", 
-                     locale=locale(encoding="cp1250"),
-                     skip=2)
-
-
-stolpci4 <- c("", "2002",	"2003",	"2004",	"2005",	"2006",	"2007",	"2008",	"2009",	
-              "2010",	"2011",	"2012",	"2013",	"2014",	"2015",	"2016",	"2017",	"2018",	"2019")
-
-
+                     skip=3,
+                     na="...") %>% rename("regija"=1) %>%
+  pivot_longer(-regija, names_to="leto", values_to="vrednost",
+               names_transform=list("leto"=parse_number))
 
 
 
@@ -67,17 +43,19 @@ tabela6$NACRPANO.SKUPAJ <- as.numeric(as.character(tabela6$NACRPANO.SKUPAJ)) / 1
 tabela6$`PODZEMNE.VODE` <- as.numeric(as.character(tabela6$`PODZEMNE.VODE`)) / 10^5
 tabela6$`POVRSINSKE.VODE` <- as.numeric(as.character(tabela6$`POVRSINSKE.VODE`)) / 10^5
 
-zadvojnigraf <- tabela6
-zadvojnigraf <- zadvojnigraf[,-2]
-zadvojnigraf <- zadvojnigraf %>% pivot_longer(c(-"LETO"), 
+
+zadvojnigraf <- tabela6[,-2] %>% pivot_longer(c(-"LETO"), 
                                               names_to="VRSTA.VODE", 
                                               values_to="NACRPANO") 
 
+tabela3 <- read_csv2("podatki/2700020S_20210819-090742.csv", 
+                     locale=locale(encoding="cp1250"),
+                     skip=2)
 
 obcina <- tabela3$OBČINE
 odpadki19kgnaprebivalca <- tabela3$`2019 Nastali komunalni odpadki (kg/prebivalca)`
 
 tabelazakarto <- data.frame(obcina, odpadki19kgnaprebivalca)
-tabelazakartoobcine <- tabelazakarto[-c(1),]
-tabelazakartoobcine <- tabelazakartoobcine %>% mutate(obcina=obcina %>% 
+tabelazakarto<- tabelazakarto[-1,]
+tabelazakarto<- tabelazakarto%>% mutate(obcina=obcina %>% 
                                                         str_replace("Slov[.]", "Slovenskih"))
