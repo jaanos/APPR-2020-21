@@ -31,7 +31,7 @@ podatki_jugoslavija$UVRSTITEV[4] <- podatki_jugoslavija$TOCKE[4]
 podatki_jugoslavija$TOCKE[4] <- ""
 
 # popravki
-podatki_jugoslavija[podatki_jugoslavija == "Eva Sren"] <- "Eva Srsen"
+podatki_jugoslavija$NASTOPAJOCI <- gsub("\\.", "s", podatki_jugoslavija$NASTOPAJOCI)
 podatki_jugoslavija$UVRSTITEV <- gsub("\\D", "", podatki_jugoslavija$UVRSTITEV)
 podatki_jugoslavija$KRAJ <- gsub("The", "The Hague", podatki_jugoslavija$KRAJ)
 podatki_jugoslavija$LETO <- gsub("Hague", 1976, podatki_jugoslavija$LETO)
@@ -79,8 +79,8 @@ rownames(podatki_slovenija) <- NULL
 
 
 # popravki
-podatki_slovenija[podatki_slovenija == "Anej Dean"] <- "Anzej Dezan"
-podatki_slovenija[podatki_slovenija == "Naj Bogovi Sliijo"] <- "Naj bogovi slisijo"
+podatki_slovenija$NASTOPAJOCI <- gsub("An\\.ej De\\.an", "Anzej Dezan", podatki_slovenija$NASTOPAJOCI)
+podatki_slovenija$NASLOV_PESMI <- gsub("Sli\\.ijo", "Slisijo", podatki_slovenija$NASLOV_PESMI)
 podatki_slovenija$NASLOV_PESMI <- gsub("YouTube", "", podatki_slovenija$NASLOV_PESMI)
 podatki_slovenija$KRAJ <- gsub("Tel", "Tel Aviv", podatki_slovenija$KRAJ)
 podatki_slovenija$LETO <- gsub("Aviv", 2019, podatki_slovenija$LETO)
@@ -118,14 +118,6 @@ povezave_si_1 <- rev(paste(e[c(17:19,21:25,27)], dodatek_povezave_si_1, sep = ''
 povezave_si_2 <- rev(paste(e[1:16], dodatek_povezave_si_2, sep = ''))
 
 
-# for (i in c(1:28)) {
-#   rezultat <- read_html(povezave_yu[i]) %>%
-#     html_nodes(xpath = "//table") %>%
-#     .[2] %>%
-#     html_table(fill = TRUE)}
-
-
-
 # podatki, kako je glasovala Jugoslavija
 jugoslavija <- lapply(povezave_yu, function(x) {read_html(x) %>%
     html_nodes(xpath = "//table") %>%
@@ -148,12 +140,6 @@ slovenija_1 <- lapply(povezave_si_1, function(x) {read_html(x) %>%
 # države, ki jim daš točke slovenija_1[[1]][2]
 
 
-## za vsak slučaj obdržim ## slovenija_2 <- lapply(povezave_si_2, function(x) {read_html(x) %>%
-## za vsak slučaj obdržim ##     html_nodes(xpath = "//table") %>%
-## za vsak slučaj obdržim ##     .[[1]] %>%
-## za vsak slučaj obdržim ##     html_table(fill = TRUE)})
-
-
 # vsi podatki za given and received, jury in televoters SLO 2003-2019
 slovenija_2_celo_tockovanje <- lapply(povezave_si_2, function(x) {read_html(x) %>%
     html_nodes(xpath = "//table[@class='w-full']") %>%
@@ -161,30 +147,6 @@ slovenija_2_celo_tockovanje <- lapply(povezave_si_2, function(x) {read_html(x) %
 
 # slovenija_2 je celo_tockovanje
 # tail(slovenija_2_celo_tockovanje[[16]], 2) ... tabela points given by televoters in given by the jury
-
-
-# # # poskus_TV <- as.data.frame(tail(slovenija_2_celo_tockovanje[[16]], 2)[1]) %>%
-# # #   rename("Points given" ="Points.given.by.televoters", "Country" = "Points.given.by.televoters.1")
-# # # 
-# # # poskus_jury <- as.data.frame(tail(slovenija_2_celo_tockovanje[[16]], 2)[2]) %>%
-# # #   rename("Points given" ="Points.given.by.the.jury", "Country" = "Points.given.by.the.jury.1")
-# # # 
-# # # poskus_16 <- rbind(poskus_jury,poskus_TV)
-# # # 
-# # # # katere države se pojavijo 2x in na katerem mestu so po abecedi
-# # # # which(summary(as.factor((poskus_16$Country)))>1)
-# # # 
-# # # # vsota točk za vsako državo
-# # # sum(poskus_16$`Points given`[poskus_16$Country == sort(unique(poskus_16$Country))[4]])
-# # # 
-# # # y <- sort(unique(poskus_16$Country))
-# # # x <- rep(0,length(y))
-# # # 
-# # # for (i in 1:length(y)) {
-# # #   x[i] <- sum(poskus_16$`Points given`[poskus_16$Country == sort(unique(poskus_16$Country))[i]])
-# # # }
-# # # 
-# # # poskus_16 <- data.frame(x,y) %>% rename("Points given" = x, "Country" = y)
 
 
 # tukaj so tabele z GIVEN točkami od 13 do 16, ki jih rabim
@@ -213,16 +175,12 @@ for (i in 1:4){
 # katere države se pojavijo 2x in na katerem mestu so po abecedi
 # which(summary(as.factor((poskus_16$Country)))>1)
 
-# vsota točk za vsako državo
-sum(poskus_16$`Points given`[poskus_16$Country == sort(unique(poskus_16$Country))[4]])
-
 # to so samo točke po vrtsi od vseh držav zadnja 4 leta
 for (j in 1:4){
   for (i in 1:length(unique(slovenija_zadnje4_2[[j]]$Country))){
     print(sum(slovenija_zadnje4_2[[j]]$`Points given`[slovenija_zadnje4_2[[j]]$Country == sort(unique(slovenija_zadnje4_2[[j]]$Country))[i]]))
   }
 }
-
 
 
 z <- vector(mode = "list", length = 4)
@@ -318,78 +276,45 @@ for (j in 1:16) {
 
 View(tabela)
 
-# vsote danih točk vsaki državi
-Vsota <- rep(0, nrow(tabela))
-# for (i in 1:nrow(tabela)) {
-#   Vsota[i] <- sum(tabela[i])
-# }
 
 # v bistvu je smiselno to gledat za jugoslavijo in slovenijo posebej
 tabela_jugoslavija <- tabela[c(1:27),]
 tabela_slovenija <- tabela[c(28:52),]
 
-
-Vsota_ju <- rep(0, ncol(tabela_jugoslavija))
-# for (i in 1:ncol(tabela_jugoslavija)) {
-#   Vsota_ju[i] <- sum(tabela_jugoslavija[i])
-# }
-
-# tabela_jugoslavija <- rbind(tabela_jugoslavija, Vsota_ju)
-
-Vsota_si <- rep(0, ncol(tabela_slovenija))
-# for (i in 1:ncol(tabela_slovenija)) {
-#   Vsota_si[i] <- sum(tabela_slovenija[i])
-# }
-# 
-# tabela_slovenija <- rbind(tabela_slovenija, Vsota_si)
-
 # treba bo odstraniti države, ki niso nikoli nastopile v letih jugoslavije/slovenije
-
-
 
 
 ################################################################################
 #### 4. del: tabela za vse države - prvi nastop in število nastopov
 ################################################################################
 
-
-povezave_drzave <- paste("https://eurovision.tv/country/", tolower(gsub("\\W+", "-", vektor_drzave)), sep = '')
-
-nastopi_drzave <-lapply(povezave_drzave, function(x) {read_html(x) %>%
-    html_nodes(xpath = "//div[@class='space-y-4']//dd[@class='text-sm font-bold']") %>%
-    html_text () %>%
-    .[[3]] %>%
-    lapply(function(x) {gsub("\n", "", x)})
-}) %>% unlist() %>% as.numeric()
-
-# to je število nastopov vseh držav
-
-# prvi nastop vseh držav
-
-# ODKOMENTIRAJ
+# povezave_drzave <- paste("https://eurovision.tv/country/", tolower(gsub("\\W+", "-", vektor_drzave)), sep = '')
+# 
+# 
+# nastopi_drzave <-lapply(povezave_drzave, function(x) {read_html(x) %>%
+#     html_nodes(xpath = "//div[@class='space-y-4']//dd[@class='text-sm font-bold']") %>%
+#     html_text () %>%
+#     .[[3]] %>%
+#     lapply(function(x) {gsub("\n", "", x)})
+# }) %>% unlist() %>% as.numeric()
+# 
+# # to je število nastopov vseh držav
+# 
+# # prvi nastop vseh držav
+# 
 # prvic_drzave <-lapply(povezave_drzave, function(x) {read_html(x) %>%
 #     html_nodes(xpath = "//div[@class='space-y-4']//dd[@class='text-sm font-bold']") %>%
 #     html_text () %>%
 #     .[[4]] %>%
 #     lapply(function(x) {regmatches(x, regexpr("\\d{4}", x))})
 # }) %>% unlist() %>% as.numeric()
-
-tabela_nastopi <- data.frame("Drzava" = drzave, "Stevilo_nastopov" = nastopi_drzave, "Prvi_nastop" = prvic_drzave)
-
-
-################################################################################
-# sedaj je treba iz tabela_jugoslavija in slovenija odstraniti države,
-# ki niso sodelovale na nobenem tekmovanju (npr jugoslavija pri sloveniji)
-
-# za jugoslavijo: če je prvi nastop po letu 1992, gre država ven, maroko je nastopil samo 1980, takrat jugoslavija NI
-# za slovenijo: andora, belorusija, monako (ven), maroko (ven), san marino, slovaška, slovenija (ven), jugoslavija (ven)
-
-tabela_nastopi$Drzava[as.integer(tabela_nastopi$'Prvi_nastop') > 1992]
+# 
+# tabela_nastopi <- data.frame("Drzava" = drzave, "Stevilo_nastopov" = nastopi_drzave, "Prvi_nastop" = prvic_drzave)
 
 
 ################################################################################
 #### 5. del: vsi zmagovalci
-###############################################################################
+################################################################################
 url_zmagovalci <-  read_html("http://www.escstats.com/winners.htm")
 
 pod_zmagovalci <- url_zmagovalci %>%
@@ -427,8 +352,8 @@ tabela_slovenija <- tabela_slovenija %>%
 tabela4 <- tabela_slovenija
 
 # 5
-tabela5 <- tabela_nastopi
-tabela_nastopi_1 <- tabela_nastopi %>% pivot_longer(2:3)
+# tabela5 <- tabela_nastopi
+# tabela_nastopi_1 <- tabela_nastopi %>% pivot_longer(2:3)
 
 # 6
 pod_zmagovalci
