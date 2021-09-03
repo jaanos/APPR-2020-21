@@ -2,16 +2,23 @@ library(shiny)
 
 shinyUI(fluidPage(
   
-  titlePanel("Slovenske občine"),
+  titlePanel("Analiza glasovanja na tekmovanju za Pesem Evrovizije"),
   
   tabsetPanel(
-      tabPanel("Velikost družine",
-               DT::dataTableOutput("druzine")),
-      
-      tabPanel("Število naselij",
-               sidebarPanel(
-                  uiOutput("pokrajine")
-                ),
-               mainPanel(plotOutput("naselja")))
-    )
-))
+    tabPanel("Prva tabela",
+             DT::dataTableOutput("tabela")),
+    
+    
+    tabPanel("Rezultati za Jugoslavijo",
+             sidebarPanel(
+               
+               selectInput("drzava", label = "Izberite državo:",
+                           choices=(sort(unique(tabela3$Drzava))))),
+             
+             mainPanel(plotOutput("tocke"))),
+    
+    uiOutput("izborTabPanel")))
+  
+  
+  
+)
