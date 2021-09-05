@@ -23,7 +23,7 @@ podatki_jugoslavija <- nastopi_jugoslavija %>%
   as.data.frame() %>%
   separate(X4, c("TOCKE", "UVRSTITEV"), sep = " points") %>%
   separate(X1, c("KRAJ", "LETO"), sep = " ")
-podatki_jugoslavija %>% View
+#podatki_jugoslavija %>% View
 colnames(podatki_jugoslavija) <- c("KRAJ", "LETO", "NASTOPAJOCI", "NASLOV_PESMI", "TOCKE", "UVRSTITEV")
 
 # enkrat je uvrstitev pri točkah:
@@ -46,7 +46,7 @@ podatki_slovenija <- nastopi_slovenija %>%
   separate(X4, c("TOCKE", "UVRSTITEV"), sep = " points") %>%
   separate(X1, c("KRAJ", "LETO"), sep = " ")
 
-podatki_slovenija %>% View
+#podatki_slovenija %>% View
 colnames(podatki_slovenija) <- c("KRAJ", "LETO", "NASTOPAJOCI", "NASLOV_PESMI", "TOCKE", "UVRSTITEV")
 podatki_slovenija$UVRSTITEV <- gsub("\\D", "", podatki_slovenija$UVRSTITEV)
 
@@ -193,7 +193,8 @@ for (j in 1:4) {
 }
 
 for (i in 1:4){
-  slovenija_zadnje4_2[[i]] <- data.frame(w[[i]], z[[i]]) %>% rename("Points given" = w..i.., "Country" = z..i..)
+  slovenija_zadnje4_2[[i]] <- data.frame(w[[i]], z[[i]], stringsAsFactors=FALSE) %>%
+    rename("Points given" = w..i.., "Country" = z..i..)
 }
 
 
@@ -226,7 +227,7 @@ prevod <- function(x) {
 drzave <- link_drzave %>%
   html_nodes(xpath = "//div[@class='flex flex-wrap']//h4[@class='font-bold text-xl leading-tight group-hover:text-blue-600']") %>%
   html_text()
-drzave %>% View
+#drzave %>% View
 vektor_drzave <- gsub("\n", "", drzave)
 slo_drzave <- prevod(vektor_drzave)
 
@@ -274,7 +275,7 @@ for (j in 1:16) {
   }
 }
 
-View(tabela)
+#View(tabela)
 
 
 # v bistvu je smiselno to gledat za jugoslavijo in slovenijo posebej
