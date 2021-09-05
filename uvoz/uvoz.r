@@ -217,18 +217,13 @@ leto <- c(podatki_jugoslavija$LETO, podatki_slovenija$LETO)
 prireditve <- paste(kraj, leto, sep = " ")
 
 # dodamo države, ki so kadarkoli sodelovale
-link_drzave <- read_html("https://eurovision.tv/countries")
+source("uvoz/drzave.r", encoding="UTF-8")
 
 prevod <- function(x) {
   countrycode(x, origin = 'country.name', destination = 'cldr.name.sl',
               custom_match = c("Serbia & Montenegro" = "Srbija in Črna Gora", "Yugoslavia" = "Jugoslavija"))
 }
 
-drzave <- link_drzave %>%
-  html_nodes(xpath = "//div[@class='flex flex-wrap']//h4[@class='font-bold text-xl leading-tight group-hover:text-blue-600']") %>%
-  html_text()
-#drzave %>% View
-vektor_drzave <- gsub("\n", "", drzave)
 slo_drzave <- prevod(vektor_drzave)
 
 # združimo države in prireditve v data frame
@@ -289,29 +284,7 @@ tabela_slovenija <- tabela[c(28:52),]
 #### 4. del: tabela za vse države - prvi nastop in število nastopov
 ################################################################################
 
-# povezave_drzave <- paste("https://eurovision.tv/country/", tolower(gsub("\\W+", "-", vektor_drzave)), sep = '')
-# 
-# 
-# nastopi_drzave <-lapply(povezave_drzave, function(x) {read_html(x) %>%
-#     html_nodes(xpath = "//div[@class='space-y-4']//dd[@class='text-sm font-bold']") %>%
-#     html_text () %>%
-#     .[[3]] %>%
-#     lapply(function(x) {gsub("\n", "", x)})
-# }) %>% unlist() %>% as.numeric()
-# 
-# # to je število nastopov vseh držav
-# 
-# # prvi nastop vseh držav
-# 
-# prvic_drzave <-lapply(povezave_drzave, function(x) {read_html(x) %>%
-#     html_nodes(xpath = "//div[@class='space-y-4']//dd[@class='text-sm font-bold']") %>%
-#     html_text () %>%
-#     .[[4]] %>%
-#     lapply(function(x) {regmatches(x, regexpr("\\d{4}", x))})
-# }) %>% unlist() %>% as.numeric()
-# 
-# tabela_nastopi <- data.frame("Drzava" = drzave, "Stevilo_nastopov" = nastopi_drzave, "Prvi_nastop" = prvic_drzave)
-
+tabela_nastopi <- read_csv("podatki/tabela_nastopi.csv")
 
 ################################################################################
 #### 5. del: vsi zmagovalci
